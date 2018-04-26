@@ -1,0 +1,157 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Kvina;
+@using Wow.Tv.Middle.Model.Db89.wowbill;
+
+@model ListModel<TblMemberDIDenialList>
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+
+
+    int TotalDataCountNum = ViewBag.TotalDataCount;
+}
+
+
+
+<script type="text/javascript" src="http://admin.wowtv.co.kr/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script>
+
+    var KvinaIndex = {
+        GetList: function (currentIndex) {
+            $("#currentIndex").val(currentIndex);
+            $("#frmSearch").attr("method", "POST");
+            $("#frmSearch").attr("action", "/IntMemManage/MemIdx/MemberDIDenialList?menuSeq=" + $('#CurrentMenuSeq').val());
+            $("#frmSearch").submit();
+
+            return false;
+        }
+
+    }
+
+</script>
+
+<script>
+    function goSearch() {
+
+        document.frmSearch.submit();
+
+    }
+    function goEdit(seq) {
+        //alert(seq);
+
+        location.href = "/IntMemManage/MemIdx/MemberDIDenialView?menuSeq=@Request["menuSeq"]&seq=" + seq;
+    }
+
+    function goWrite() {
+
+
+        location.href = "/IntMemManage/MemIdx/MemberDIDenialWrite?menuSeq=@Request["menuSeq"]";
+    }
+
+    function goDelete(seq) {
+       // alert(seq);
+        if (confirm("삭제하시면 복구할수 없습니다.\n삭제하시겠습니까?")) {
+
+
+            $.ajax({
+                type: "GET",
+                data: "menuSeq=@Request["menuSeq"]&seq=" + seq,
+                url: "/IntMemManage/MemIdx/MemberDIDenialDelete",
+                success: function (resultText) {
+                    //alert(resultText);
+                    alert("삭제됐습니다.");
+                    location.href = "/IntMemManage/MemIdx/MemberDIDenialList?menuSeq=@Request["menuSeq"]";
+                },
+                error: function (xhr, status, error) {
+                    alert(status);
+                }
+            });
+
+
+        }
+
+    }
+</script>
+
+
+
+<!-- 공지사항 리스트 -->
+<div class="wrap">
+
+
+    <!-- Table Top -->
+    <div class="box-top-table">
+        <div class="inner-right">
+            <p>
+                총 <span class="text-color1">@ViewBag.TotalDataCount</span>개의 게시물이 등록되어 있습니다.
+            </p>
+        </div>
+    </div>
+    <!-- //Table Top -->
+    <!-- BBS List -->
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>관리</th>
+                    <th>SEQ</th>
+                    <th>DI</th>
+                    <th>JS 경고문구</th>
+                    <th>요청자/요청일자</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (ViewBag.TotalDataCount == 0)
+                {
+
+                    <tr>
+                        <td colspan="5" style="height:400px">게시물이 없습니다.</td>
+                    </tr>}
+                else
+                {
+
+                    foreach (var item in Model.ListData)
+                    {
+                        <tr>
+                            <td><a href="#" onclick="JavaScript: goDelete(@item.seq);">삭제</a></td>
+                            <td>@item.seq</td>
+                            <td><a href="#" onclick="JavaScript: goEdit(@item.seq);">@item.DupInfo</a></td>
+                            <td>@item.AlertText</td>
+                            <td>@item.RequestMailMember<br />@item.RequestMailDate</td>
+
+
+                        </tr>
+}
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- //BBS List -->
+    @if (ViewBag.TotalDataCount > 0)
+    {
+    <!-- Pagenate -->
+        <div class="box-paginate">
+            <div id="divPaging"></div>
+        </div>
+    <!-- //Pagenate -->
+    }
+
+    <!-- Bottom Buttons -->
+    <div class="box-button">
+        <div class="inner-right">
+            <button onclick="JavaScript: goWrite();">등록</button>
+        </div>
+    </div>
+    <!-- //Bottom Buttons -->
+
+</div>

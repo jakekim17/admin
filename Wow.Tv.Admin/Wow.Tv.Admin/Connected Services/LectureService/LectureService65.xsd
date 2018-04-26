@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="TAB_LECTURES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ADMIN_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CONTENTS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EXPENSE" type="xs:int" />
+      <xs:element minOccurs="0" name="GUBUN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="L_SEQ" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MAIN_CTGR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MANAGER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="METHOD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PHONE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="SUMMARY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="THUMNAIL_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TYPE_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VIEW_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VIEW_SITE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WG_IMAGE_FILE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TAB_LECTURES" nillable="true" type="tns:TAB_LECTURES" />
+  <xs:complexType name="TAB_ACADEMY_APPL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AGREE_AD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AGREE_PI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AL_SEQ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ATTEN_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BIRTHDAY" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CENTER_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EA_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EDU_E" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EDU_S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMAIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LIVEAREA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LS_SEQ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="L_SEQ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MAINSTOCK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOBILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REGDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SSNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USERID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TAB_ACADEMY_APPL" nillable="true" type="tns:TAB_ACADEMY_APPL" />
+</xs:schema>

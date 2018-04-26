@@ -1,0 +1,28 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model List<NTB_PROGRAM_ADMIN>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+
+
+@foreach (var item in Model)
+{
+    <li>
+        @item.ADMIN_NAME<button class="btn btn-default btn-xs" onclick="return NewsProgramManageEdit.DeleteAdmin(this);">×</button>
+        <input type="hidden" name="adminSeq" value="@item.SEQ" />
+    </li>
+}
+
+
+

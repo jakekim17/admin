@@ -1,0 +1,361 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD_CONTENT
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    bool isReply = Model.IsReply;
+
+}
+
+@section scripts{
+    <script>
+            var commonCode = "@Model.COMMON_CODE";
+            var isReply = "@isReply";
+    </script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IntegratedBoard/Inquiry/Edit.js"></script>
+    <script src="@wowTvScript/IntegratedBoard/FileCommon.js"></script>
+}
+
+<form id="frmSearch">
+    <input type="hidden" id="REPLY_YN" name="REPLY_YN" value="@ViewBag.Condition.REPLY_YN" />
+    <input type="hidden" id="SearchType" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+</form>
+
+
+
+@if (ViewBag.BoardInfo.ATTACH_FILE_YN.Equals("Y"))
+{
+    <form id="fileDownload">
+        <input type="hidden" id="path" name="path" value="" />
+        <input type="hidden" id="downloadFilename" name="downloadFilename" value="" />
+    </form>
+}
+<!--TODO : 게시판 성격에 따라 답변 여부 표시 비표시  -->
+
+@using (Html.BeginForm("Save", "Inquiry", FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.Hidden("seq", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("DEL_YN", Model.DEL_YN)
+    <div class="wrap">
+
+        <!-- BBS View -->
+        <div class="col-md-12">
+            <!-- Start body content -->
+            @if (ViewBag.ReportYn.Equals("N"))
+            {
+                <div class="box-title" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                    <h3>고객문의 원본글</h3>
+                </div>
+            }
+            <div class="app-ui-section group mt-10">
+                <!-- 전체100% -->
+                <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                    </colgroup>
+                    <tbody>
+                        <tr class="noback">
+                            @if (ViewBag.ReportYn.Equals("Y"))
+                            {
+                                <th>구분</th>
+                            }
+                            else
+                            {
+                                <th>질문유형</th>
+                            }
+
+                            @{
+                                string tdAttr = "";
+                            }
+
+                            @if (!isReply || ViewBag.ReportYn.Equals("N"))
+                            {
+                                tdAttr = "colspan=3";
+                            }
+
+                            <td @tdAttr>
+                                <div class="form-inline">
+                                    @*<select class="form-control" id="cboUP_COMMON_CODE" name="UP_COMMON_CODE">
+                                        @foreach (var code in ViewBag.CommonCodes)
+                                        {
+                                            <option value="@code.COMMON_CODE" @(code.COMMON_CODE == Model.UP_COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                        }
+                                    </select>
+                                    <select class="form-control" id="cboCOMMON_CODE" name="COMMON_CODE"></select>*@
+
+                                    <input type="hidden" id="cboUpCommonCode" name="UP_COMMON_CODE" value="@Model.UP_COMMON_CODE" />
+                                    <input type="hidden" id="cboCommonCode" name="COMMON_CODE" value="@Model.COMMON_CODE" />
+                                    <select class="form-control" id="cboCommonCode1" >
+                                        @foreach (var code in ViewBag.CommonCodes)
+                                        {
+                                            <option value="@code.COMMON_CODE" @(code.COMMON_CODE == Model.UP_COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                        }
+                                    </select>
+                                    <select class="form-control" id="cboCommonCode2" style="display:none;"></select>
+                                    @*<select class="form-control" id="cboCommonCode3" name="COMMON_CODE_3" style="display:none;"></select>*@
+
+                                    <input type="hidden" id="hidCommonCode2" value="@Model.COMMON_CODE" />
+                                    @*<input type="hidden" id="hidCommonCode3" value="@Model.COMMON_CODE_3" />*@
+                                </div>
+                            </td>
+
+                            @if (Model.IsReply)
+                            {
+                                <th>답변상태</th>
+                                <td>
+                                    @if (Model.ReplyList.Count > 0)
+                                    {
+                                        @:완료
+                                    }
+                                    else
+                                    {
+                                        @:대기
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                if (ViewBag.ReportYn.Equals("N"))
+                                {
+
+                                    <th>조회</th>
+                                    <td>@Model.READ_CNT</td>
+                                }
+                            }
+
+                        </tr>
+                        <tr class="noback">
+                            <th>제목</th>
+                            <td colspan="3" @(isReply ? "" : "name=TITLE")>@Model.TITLE</td>
+                        </tr>
+                        <tr class="noback">
+
+                            @if (ViewBag.ReportYn.Equals("Y"))
+                            {
+                                <th>제보자</th>
+                            }
+                            else
+                            {
+                                <th>작성자</th>
+                            }
+
+                            @if (string.IsNullOrWhiteSpace(Model.USER_ID))
+                            {
+                                <td>@Model.USER_NAME (비회원)</td>
+                            }
+                            else
+                            {
+                                <td>@Model.USER_NAME (@Model.USER_ID)</td>
+                            }
+                            <th>작성일</th>
+                            <td>@Model.REG_DATE</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>이메일</th>
+                            <td>@Model.EMAIL</td>
+                            <th>연락처</th>
+                            <td>@Model.USER_PHONE</td>
+                        </tr>
+                        @if (ViewBag.Board_type_code == "Inquiry" && ViewBag.Board_name == "문의하기KVINA")
+                        {
+                            <tr class="noback">
+                                <th>소속</th>
+                                <td>@Model.KEYWORD</td>
+                                <th>직함</th>
+                                <td>@Model.PAGE_LINK</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            if (!ViewBag.Condition.IRInquiryYN.Equals("Y"))
+                            {
+                                <tr class="noback">
+                                    @if (ViewBag.ReportYn.Equals("Y"))
+                                    {
+                                        <th>관련기사 URL</th>
+                            }
+                                    else
+                                    {
+                                        <th>페이지링크</th>
+                            }
+                                    <td colspan="3">
+                                        @if (!string.IsNullOrWhiteSpace(Model.PAGE_LINK))
+                                        {
+                                            <a href="@Model.PAGE_LINK" target="_blank">@Model.PAGE_LINK</a>
+                            }
+                                    </td>
+                                </tr>
+                            }
+
+
+                        }
+
+
+
+                       
+
+                        @if (ViewBag.ReportYn.Equals("Y"))
+                        {
+                            <tr class="noback">
+                                <th>제보자 IP</th>
+                                <td colspan="3">@Model.REG_IP</td>
+                            </tr>
+                        }
+
+                        @if (ViewBag.BoardInfo.ATTACH_FILE_YN.Equals("Y"))
+                        {
+                            for (int i = 0; i < ViewBag.BoardInfo.FILE_COUNT; i++)
+                            {
+                                <tr>
+                                    <th>첨부파일</th>
+                                    <td colspan="3">
+                                        @if (Model.AttachFileList.Count > 0)
+                                        {
+                                            <a href="/File/Download?realFilePath=@Model.AttachFileList[i].REAL_FILE_PATH&downloadFilename=@Model.AttachFileList[i].USER_UPLOAD_FILE_NAME"><span class="file type2"></span>@Model.AttachFileList[i].USER_UPLOAD_FILE_NAME</a>
+                                            <br/>  
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr class="noback">
+                            <td colspan="4" @(isReply ? "" : "name=CONTENT")>@Html.Raw(Model.CONTENT.Replace("<br>", "\r\n"))</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model.IsReply)
+            {
+                <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.Condition.BOARD_SEQ" />
+                @Html.Hidden("DEPTH", "1")
+
+                <div class="box-title" style="width: 98%; margin: 0 auto; margin-top: 20px;">
+                    <h3>답변</h3>
+                </div>
+                <div class="app-ui-section group mt-10">
+                    <!-- 전체100% -->
+                    @if (Model.ReplyList.Count > 0)
+                    {
+                        @Html.Hidden("replyListCount", Model.ReplyList.Count.ToString())
+                        foreach (var item in Model.ReplyList)
+                        {
+                            @Html.Hidden("UP_BOARD_CONTENT_SEQ", item.UP_BOARD_CONTENT_SEQ)
+                            @Html.Hidden("REPLY_BOARD_CONTENT_SEQ", item.BOARD_CONTENT_SEQ)
+
+
+                            <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="35%">
+                                    <col width="15%">
+                                    <col width="35%">
+                                </colgroup>
+                                <tbody>
+                                    <tr class="noback">
+                                        <th><span class="nec">*</span>답변 제목</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control" id="TITLE" name="TITLE" value="@item.TITLE">
+                                        </td>
+                                    <tr class="noback">
+                                        <th>답변자</th>
+                                        <td>@item.USER_NAME</td>
+                                        <th>답변일</th>
+                                        <td>
+                                            @if (item.MOD_DATE != null)
+                                            {
+                                                <span class="text-color1">@Html.DisplayFor(modelItem => item.MOD_DATE)</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="padding: 0; height: 400px;">
+                                            <textarea id="hidContent" style="display: none;" name="CONTENT">@item.CONTENT</textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    }
+                    else
+                    {
+                        @Html.Hidden("UP_BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+                        <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="35%">
+                                <col width="15%">
+                                <col width="35%">
+                            </colgroup>
+                            <tbody>
+                                <tr class="noback">
+                                    <th><span class="nec">*</span>답변 제목</th>
+                                    <td colspan="3">
+                                        <input type="text" class="form-control" id="TITLE" name="TITLE" value="@($"[답변] 소중한 고객님 의견에 답변드립니다.")">
+                                        
+                                    </td>
+                                <tr class="noback">
+                                    <th>답변자</th>
+                                    <td>@LoginHandler.CurrentLoginUser.UserName</td>
+                                    <th>답변일</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="padding: 0; height: 400px;">
+                                        <textarea id="hidContent" style="display: none;" maxlength="10000" name="CONTENT">
+                                            고객님께서 문의 하신 건이 처리되었습니다. 감사합니다.
+                                        </textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="form-footer">
+            <div class="pull-right" style="margin: 20px 10px 0 10px !important;">
+
+                @if (ViewBag.ReportYn.Equals("N"))
+                {
+                    if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                    {
+                        <button type="button" class="btn btn-success" id="btnSave" data-toggle="modal" data-target="#myModal-url">저장하기</button>
+                    }
+                }
+                <button class="btn btn-default mr-5" type="button" id="btnList">목록으로</button>
+
+                @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                {
+                    if (Model != null)
+                    {
+                        if (Model.IsReply && Model.ReplyList.Count > 0)
+                        {
+                            <button class="btn btn-default mr-5" id="btnReplyDelete">답변삭제</button>
+                        }
+                    }
+                }
+                @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                {
+                    if (Model != null)
+                    {
+                        <button class="btn btn-default mr-5" id="btnDelete">삭제하기</button>
+                    }
+                }
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //문의하기 등록/수정/상세 -->
+                                }

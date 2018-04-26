@@ -1,0 +1,43 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model List<T_RUNDOWN>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+
+<script src="@wowTvScript/BroadCast/ScheduleManage/SearchList.js?date=20170727163009"></script>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>방송시간(시작)</th>
+            <th>방송시간(종료)</th>
+            <th>프로그램 원제</th>
+            <th>MC1</th>
+            <th>MC2</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.RUN_START</td>
+            <td>@(item.RUN_END == "00:00" ? "24:00" : item.RUN_END)</td>
+            <td>@item.PRG_NM</td>
+            <td><input type="text" class="form-control" style="display:none;" name="ANC1_NM" value="@item.ANC1_NM"><span>@item.ANC1_NM</span></td>
+            <td><input type="text" class="form-control" style="display:none;" name="ANC2_NM" value="@item.ANC2_NM"><span>@item.ANC2_NM</span></td>
+        </tr>
+        }
+    </tbody>
+</table>
+

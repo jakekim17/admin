@@ -1,0 +1,188 @@
+﻿
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.Article.HubBusiness
+
+@model HubBusinessModel<NTB_HUB_BUSINESS>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string uploadWebPath = AppState["UploadWebPath"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsAdManage/HubBusiness.js"></script>
+    <script>
+        var menuSeq = @Request["menuSeq"];
+    </script>
+}
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <div> &nbsp; @(ViewBag.viewCodeCount > 0 ? "* \"뷰 페이지 하단\"은 1개만 등록할 수 있습니다. 리스트에 등록되어 있는지 확인하세요." : "")</div>
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="180px">CODE</th>
+                            <th width="250px">타이틀</th>
+                            <th>이미지</th>
+                            <th width="400px">URL</th>
+                            <th width="100px">등록</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control" id="code">
+                                @if (ViewBag.viewCodeCount == 0)
+                                {
+                                    <option value="VIEW">뷰 페이지 하단</option>
+                                }
+                                    <option value="PLAYER">플레이어 하단</option>
+                                </select>
+                            </td>
+                            <td><input type="text" class="form-control" id="hubTitle" maxlength="100" ></td>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">찾아보기</span><span class="fileinput-exists">다시선택</span><input type="file" id="hubImage"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                            </td>
+                            <td><input type="text" class="form-control" id="hubUrl" maxlength="255"></td>
+                            <td>
+                                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                                {
+                                    <button class="btn btn-success" id="save">등록</button>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-top-table">
+                <div class="inner-left">
+                    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                    {
+                        <button class="btn btn-success" id="delete">삭제</button>
+                    }
+                </div>
+            </div>
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="total"></th>
+                            <th>CODE</th>                         
+                            <th>이미지</th>
+                            <th>노출여부</th>
+                            <th>최근 수정일</th>
+                            <th>수정</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            var code = "";
+                            foreach (var item in Model.ListData)
+                            {
+                                if (item.CODE == "VIEW")
+                                {
+                                    code = "뷰 페이지 하단";
+                                }
+                                else if (item.CODE == "PLAYER")
+                                {
+                                    code = "플레이어 하단";
+                                }
+                                char[] splitChar = { '\\' };
+
+                                var strPhoto = item.HUB_IMAGE;
+                                strPhoto = strPhoto.Replace("\\\\", "/");
+                                strPhoto = strPhoto.Replace("\\", "/");
+                                string[] ImageName = strPhoto.Split('/');
+
+                                <tr>
+                                    <td id="seq"><input type="checkbox" name="hubSeq" value="@item.SEQ"></td>
+                                    <td>@code</td>                                   
+                                    <td class="text-left">
+                                        <img src="http://img.wowtv.co.kr@(strPhoto)" alt="" style="width:300px;">
+                                        <div class="row mt-10">
+                                            <span class="col-md-1">타이틀</span>
+                                            <span class="col-md-8">
+                                                <input type="text" class="form-control editTitle" value="@item.HUB_TITLE" maxlength="100" style="width:400px">
+                                            </span>
+                                        </div>  
+                                        <div class="row mt-10">
+                                            <span class="col-md-1">IMG</span>
+                                            <div class="col-md-6 fileinput fileinput-new input-group" data-provides="fileinput">
+                                                <div class="form-control" data-trigger="fileinput" style="width:400px;"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename">@ImageName[ImageName.Length - 1]</span></div>
+                                                <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" id="editImage_@item.SEQ" class="editImage"></span>
+                                                <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                @if (item.CODE == "PLAYER")
+                                                {
+                                                    <span class="input-group-addon intext">(752*92 px)</span>
+                                                }                                                
+                                            </div>
+                                        </div>
+                                        <div class="row mt-10">
+                                            <span class="col-md-1">URL</span>
+                                            <span class="col-md-8">
+                                                <input type="text" class="form-control editUrl" value="@item.HUB_URL" maxlength="255">
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if (item.OPEN_YN == "Y")
+                                        {
+                                            <span class="pad-r10 mar-r20"><input type="radio" name="editOpen_@item.SEQ" value="Y" checked="checked">노출</span>
+                                            <span class="pad-r10 mar-r20"><input type="radio" name="editOpen_@item.SEQ" value="N">비노출</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="pad-r10 mar-r20"><input type="radio" name="editOpen_@item.SEQ" value="Y">노출</span>
+                                            <span class="pad-r10 mar-r20"><input type="radio" name="editOpen_@item.SEQ" value="N" checked="checked">비노출</span>
+                                        }
+                                    </td>
+                                    @if (String.IsNullOrEmpty(item.MOD_DATE.ToString()))
+                                    {
+                                        <td>@item.REG_DATE</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.MOD_DATE</td>
+                                    }
+                                    
+                                    <td>
+                                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                                        {
+                                            <button class="btn btn-success editHub">저장</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">등록된 사업이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<form id="frmInsert">
+    <input type="hidden" name="SEQ" value="" />
+    <input type="hidden" name="CODE" value="" />
+    <input type="hidden" name="HUB_TITLE" value="" />
+    <input type="hidden" name="HUB_URL" value="" />
+    <input type="hidden" name="OPEN_YN" value="N" />
+</form>
+

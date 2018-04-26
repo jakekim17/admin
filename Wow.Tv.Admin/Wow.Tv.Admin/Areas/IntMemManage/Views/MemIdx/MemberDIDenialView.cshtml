@@ -1,0 +1,107 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Kvina;
+@using Wow.Tv.Middle.Model.Db89.wowbill;
+
+@model TblMemberDIDenialList
+
+
+
+
+<script>
+
+    function goWriteEdit() {
+
+        $.ajax({
+            type: "GET",
+            data: "menuSeq=@Request["menuSeq"]&seq=@Model.seq",
+            url: "/IntMemManage/MemIdx/MemberDIDenialWriteProc",
+            success: function (resultText) {
+                //alert(resultText);
+                alert("처리됐습니다.");
+                location.href = "/IntMemManage/MemIdx/MemberDIDenialView?menuSeq=@Request["menuSeq"]&seq=@Model.seq";
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+
+
+        //document.f.submit();
+    }
+
+    function goDelete() {
+        if (confirm("삭제하시면 복구할수 없습니다.\n삭제하시겠습니까?")) {
+
+
+            $.ajax({
+                type: "GET",
+                data: "menuSeq=@Request["menuSeq"]&seq=@Model.seq",
+                url: "/IntMemManage/MemIdx/MemberDIDenialDelete",
+                success: function (resultText) {
+                    //alert(resultText);
+                    alert("삭제됐습니다.");
+                    location.href = "/IntMemManage/MemIdx/MemberDIDenialList?menuSeq=@Request["menuSeq"]";
+                },
+                error: function (xhr, status, error) {
+                    alert(status);
+                }
+            });
+
+
+        }
+
+    }
+</script>
+
+<form name="f" method="get" action="/IntMemManage/MemIdx/MemberDIDenialWriteProc">
+    <input type="hidden" name="menuSeq" value="@Request["menuSeq"]" />
+    <input type="hidden" name="seq" value="@Model.seq" />
+    <input type="hidden" name="DupInfo" value="@Model.DupInfo" />
+
+    <div class="wrap">
+
+        <!-- BBS Write -->
+        <div class="bbs-write1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>DI</th>
+                    <td>
+                        @Model.DupInfo
+                    </td>
+                </tr>
+                <tr>
+                    <th>JS 경고문구</th>
+                    <td style="padding: 0; height: 400px;">
+                        <!-- 에디터 영역 -->
+                        <textarea id="" style="display: block;" maxlength="10000" cols="10" rows="20" name="AlertText">@Model.AlertText</textarea>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>요청자</th>
+                    <td><input type="text" class="form-control" name="RequestMailMember" id="RequestMailMember" value="@Model.RequestMailMember" /></td>
+                </tr>
+                <tr>
+                    <th>요청일자</th>
+                    <td><input type="text" class="form-control" name="RequestMailDate" id="RequestMailDate" value="@Model.RequestMailDate" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS Write -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            <button class="btn btn-success" onclick="JavaScript: goWriteEdit();">글쓰기(수정하기)</button>
+            <a href="JavaScript:location.href='/IntMemManage/MemIdx/MemberDIDenialList?menuSeq=@Request["menuSeq"]'" class="btn btn-success">목록</a>
+            <a href="Javascript: goDelete();" class="btn btn-default">삭제하기</a>
+        </div>
+        <!-- //Bottom Buttons -->
+
+    </div>
+</form>
+<!-- //공지사항 등록/수정/상세 -->

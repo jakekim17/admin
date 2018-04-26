@@ -1,0 +1,96 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+@model TAB_NOTICE
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/ServiceCenter/Notice/Edit.js"></script>
+}
+
+
+@{
+
+    var flagListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem {Text = "Y", Value = "Y"},
+            new SelectListItem {Text = "N", Value = "N"}
+        }, "Value", "Text");
+
+    string selectViewFlag = string.IsNullOrWhiteSpace(ViewBag.Condition.ViewFlag) ? "ALL" : ViewBag.Condition.ViewFlag;
+    string selectTopFlag = string.IsNullOrWhiteSpace(ViewBag.Condition.TopFlag) ? "ALL" : ViewBag.Condition.TopFlag;
+    var viewList = new SelectList(flagListItem, "Value", "Text", selectViewFlag);
+    var topList = new SelectList(flagListItem, "Value", "Text", selectTopFlag);
+}
+
+<form id="frmSearch">
+    <input type="hidden" id="seq" name="seq" value="@Model.SEQ" />
+    <input type="hidden" id="ViewFlag" name="ViewFlag" value="@ViewBag.Condition.ViewFlag" />
+    <input type="hidden" id="TopFlag" name="TopFlag" value="@ViewBag.Condition.TopFlag" />
+    <input type="hidden" id="SearchFlag" name="SearchFlag" value="@ViewBag.Condition.SearchFlag" />
+    <input type="hidden" id="SearchName" name="SearchName" value="@ViewBag.Condition.SearchName" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+</form>
+
+
+    @using (Html.BeginForm("Save", "Notice", FormMethod.Post, new { id = "frmSave" }))
+    {
+
+        @Html.Hidden("seq", Model.SEQ)
+        //@Html.Hidden("DEL_YN", Model.DEL_YN)
+        <div class="col-md-12">
+
+            <!-- Start body content -->
+            <div class="app-ui-section group mt-10">
+                <!-- 전체100% -->
+
+                <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                    <tbody>
+                        <tr class="noback">
+                            <th>제목</th>
+                            <td colspan="3"><input type="text" class="form-control" name="TITLE" id="TITLE" value="@Model.TITLE"></td>
+                        </tr>
+                        <tr class="noback">
+                            <th>작성자</th>
+                            <td colspan="3">@Model.USER_NAME</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>게시여부</th>
+                            <td>
+                                @Html.DropDownList("VIEW_FLAG", viewList, new { @class = "form-control", name = "VIEW_FLAG" })
+                            </td>
+                            <th>상단공지</th>
+                            <td>
+                                @Html.DropDownList("TOP_FLAG", topList, new { @class = "form-control", name = "TOP_FLAG" })
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>작성일</th>
+                            <td>@Model.REG_DATE</td>
+                            <th>조회수</th>
+                            <td>@Model.READ_CNT</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>내용</th>
+                            <td colspan="3">
+                                <textarea class="form-control" name="CONTENT" id="CONTENT" rows="5">@Model.CONTENT</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="form-footer">
+            <div class="pull-right" style="margin: 20px 10px 0 10px !important;">
+                <button class="btn btn-default mr-5" id="btnList">목록</button>
+                <button class="btn btn-default mr-5" id="btnDelete">삭제</button>
+                <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#myModal-url" id="btnSave">저장</button>
+            </div>
+            <div class="clearfix"></div>
+        </div><!-- /.form-footer -->
+    }

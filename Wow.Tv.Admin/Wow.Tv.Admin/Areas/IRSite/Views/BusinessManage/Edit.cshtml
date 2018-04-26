@@ -1,0 +1,180 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db51.contents
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+@section scripts{
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IRSite/BusinessManage/Edit.js"></script>
+    <script>
+            var email = "@Model.EMAIL_YN";
+    </script>
+}
+
+
+@section modalDiv{
+    <div id="contentView" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">컨텐츠 미리보기</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Content Preview -->
+                    <div class="preview-contain">
+
+                    </div>
+                    <!-- //Content Preview -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="body-content animated fadeIn">
+
+    <form id="frmSearch">
+        <input type="hidden" id="displayYn" name="displayYn" value="@ViewBag.Condition.displayYn"/>
+        <input type="hidden" id="searchType" name="searchType=" @ViewBag.Condition.searchType"/>
+        <input type="hidden" id="searchText" name="searchText" value="@ViewBag.Condition.searchText"/>
+        <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+        <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex"/>
+        <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+    </form>
+
+    @{
+        string str = Model.MENU_NAME_DEPTH_1;
+        if (Model.MENU_NAME_DEPTH_2 != null)
+        {
+            str += ">" + Model.MENU_NAME_DEPTH_2;
+            if (Model.MENU_NAME_DEPTH_3 != null)
+            {
+                str += ">" + Model.MENU_NAME_DEPTH_3;
+            }
+        }
+    }
+    <form id="frmSave">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <p class="notice-table-top">* 표시는 필수사항입니다.</p>
+                <table class="table bbs-write">
+                    <colgroup>
+                        <col width="20%">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th>컨텐츠 아이디</th>
+                        <td id="contentId">@Model.CONTENT_ID</td>
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>컨텐츠명</th>
+                        <td><input type="text" class="form-control" name="TITLE" value="@Model.TITLE"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:0;height:400px;">
+                            <textarea id="editor" name="CONTENT" style="display:none;">@Model.CONTENT</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>문의 이메일</th>
+                        <td>
+                            @if (Model.EMAIL_YN == "Y")
+                            {
+                                <input class="radio radio-inline" type="radio" name="EMAIL_YN" value="Y" checked /> @: Y
+                                <input class="radio radio-inline" type="radio" name="EMAIL_YN" value="N" />@:N
+                            }
+                            else
+                            {
+                                <input class="radio radio-inline" type="radio" name="EMAIL_YN" value="Y" /> @: Y
+                                <input class="radio radio-inline" type="radio" name="EMAIL_YN" value="N" checked /> @:N
+                            }
+                        </td>
+                    </tr>
+                    <tr id="emailtr">
+                        <th><i class="nec">*</i>메일주소</th>
+                        <td><input type="text" class="form-control" name="EMAIL"></td>
+                    </tr>
+                    <tr>
+                        <th>활성</th>
+                        <td>
+                            @if (Model.VIEW_YN == "Y")
+                            {
+                                <input class="radio radio-inline" type="radio" name="VIEW_YN" value="Y" checked /> @: Y
+                                <input class="radio radio-inline" type="radio" name="VIEW_YN" value="N" />@:N
+                            }
+                            else
+                            {
+                                <input class="radio radio-inline" type="radio" name="VIEW_YN" value="Y" /> @: Y
+                                <input class="radio radio-inline" type="radio" name="VIEW_YN" value="N" checked /> @:N
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>작성자</th>
+                        <td>
+                            @if (Model.REG_ID != null)
+                            {
+                                @Model.REG_ID
+
+                            }
+                            else
+                            {
+                                if (LoginHandler.CurrentLoginUser != null)
+                                {
+                                    @LoginHandler.CurrentLoginUser.UserName
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>작성일(수정일)</th>
+                        <td>
+                            @if (Model.BOARD_CONTENT_SEQ > 0)
+                            {
+                                @Model.REG_DATE.ToString("yyyy-MM-dd")
+                                <span style="color: cadetblue">@Model.MOD_DATE</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>조회수</th>
+                        <td>@Model.READ_CNT</td>
+                    </tr>
+                    <tr>
+                        <th>연결메뉴</th>
+                        <td> @str </td>
+                    </tr>
+                </table>
+
+                <div class="box-button">
+                    @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                    {
+                        <button class="btn btn-success" type="button" id="btnSave">등록(수정)</button>
+                    }
+                    @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                    {
+                        if (Model.BOARD_CONTENT_SEQ > 0)
+                        {
+                            <button type="button" class="btn btn-default" id="btnDelete">삭제</button>
+                        }
+                    }
+                    <button type="button" class="btn btn-default" id="btnGoIndex">목록</button>
+                    <button type="button" class="btn btn-default" id="btnModal">미리보기</button>
+                </div>
+
+            </div>
+        </div>
+        <input type="hidden" name="BOARD_CONTENT_SEQ" value="@Model.BOARD_CONTENT_SEQ" />
+        <input type="hidden" name="CONTENT_ID" />
+    </form>
+</div>

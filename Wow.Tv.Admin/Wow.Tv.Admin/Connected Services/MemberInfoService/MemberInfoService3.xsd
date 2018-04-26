@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Member" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Member" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/Member/MemberInfoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+  <xs:import schemaLocation="http://localhost:8088/Member/MemberInfoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="MemberInfoResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CouponCount" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="MemberInfo" nillable="true" type="q1:NUP_MEMBER_INFO_SELECT_Result" />
+      <xs:element minOccurs="0" name="UsedPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UserClass" type="xs:int" />
+      <xs:element minOccurs="0" name="WowCash" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberInfoResult" nillable="true" type="tns:MemberInfoResult" />
+  <xs:complexType name="MemberInfoGeneralResult">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Gugun" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="InfoAcquirement" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Interest" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPeriod" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPreferenceObject" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPropensity" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentScale" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Job" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="MemberInfo" nillable="true" type="q3:NUP_MEMBER_INFO_SELECT_GENERAL_Result" />
+      <xs:element minOccurs="0" name="RegistRoute" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Salary" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Sido" nillable="true" type="q4:ArrayOfstring" />
+      <xs:element minOccurs="0" name="StockCompany" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberInfoGeneralResult" nillable="true" type="tns:MemberInfoGeneralResult" />
+  <xs:complexType name="ArrayOfMemberInfoCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MemberInfoCode" nillable="true" type="tns:MemberInfoCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMemberInfoCode" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+  <xs:complexType name="MemberInfoCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberInfoCode" nillable="true" type="tns:MemberInfoCode" />
+  <xs:complexType name="MemberInfoCompanyResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="InfoAcquirement" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Interest" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPeriod" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPreferenceObject" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentPropensity" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="InvestmentScale" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Job" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="MemberInfo" nillable="true" type="q5:NUP_MEMBER_INFO_SELECT_COMPANY_Result" />
+      <xs:element minOccurs="0" name="RegistRoute" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="Salary" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+      <xs:element minOccurs="0" name="StockCompany" nillable="true" type="tns:ArrayOfMemberInfoCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberInfoCompanyResult" nillable="true" type="tns:MemberInfoCompanyResult" />
+  <xs:complexType name="SaveUserRequestGeneral">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacebookEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacebookId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="FacebookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gugun" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InfoAcquirementId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InterestArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InvestmentPeriodId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentPreferenceObjectId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentPropensityId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentScaleId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmailAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSms" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSmsAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JobId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KakaoEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KakaoId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="KakaoNickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NaverEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NaverId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="NaverkName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordConfirm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordOriginal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistRouteId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SalaryId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Sido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockCompany" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Tel1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SaveUserRequestGeneral" nillable="true" type="tns:SaveUserRequestGeneral" />
+  <xs:complexType name="SaveUserResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmailChanged" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ModifiedItemList" nillable="true" type="q6:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReturnNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SaveUserResult" nillable="true" type="tns:SaveUserResult" />
+  <xs:complexType name="SaveUserRequestCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BusinessCategory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BusinessCondition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Businessitem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompanyNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstablishmentAnniversary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacebookEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacebookId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="FacebookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InfoAcquirementId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InterestArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InvestmentPeriodId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentPreferenceObjectId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentPropensityId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InvestmentScaleId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmailAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSms" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSmsAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JobId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KakaoEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KakaoId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="KakaoNickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Listed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mobile1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NaverEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NaverId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="NaverkName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordConfirm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordOriginal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistRouteId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SalaryId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StockCompany" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Tel1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SaveUserRequestCompany" nillable="true" type="tns:SaveUserRequestCompany" />
+  <xs:complexType name="NameChangeResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangedUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SmsCheckResult" nillable="true" type="tns:SmsCheckResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NameChangeResult" nillable="true" type="tns:NameChangeResult" />
+  <xs:complexType name="SmsCheckResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CipherTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileCompany" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NationalInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestSeq" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResponseSeq" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsCheckResult" nillable="true" type="tns:SmsCheckResult" />
+  <xs:complexType name="PasswordChangeResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RETURN_MESSAGE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PasswordChangeResult" nillable="true" type="tns:PasswordChangeResult" />
+  <xs:complexType name="AgreementOption2ChangeResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AgreementOption2ChangeResult" nillable="true" type="tns:AgreementOption2ChangeResult" />
+  <xs:complexType name="MemberSecessionCheckResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BonusCash" type="xs:double" />
+      <xs:element minOccurs="0" name="CashLimitDay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CashLimitMonth" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CashLimitYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HasAnalItem" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasCash" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasCashAttr" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasEventCash" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PossibleSecession" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RealCash" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberSecessionCheckResult" nillable="true" type="tns:MemberSecessionCheckResult" />
+  <xs:complexType name="MemberSecessionResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberSecessionResult" nillable="true" type="tns:MemberSecessionResult" />
+</xs:schema>

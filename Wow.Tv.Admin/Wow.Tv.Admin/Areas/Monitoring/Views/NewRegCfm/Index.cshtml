@@ -1,0 +1,87 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv.MemberManage
+@model ListModel<NewRegCfmResult>
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+@section scripts{
+    <script type="text/javascript" src="@wowTvScript/Monitoring/NewRegCfm/Index.js"></script>
+    <script type="text/javascript">
+        var totalDataCount = @Model.TotalDataCount;
+    </script>
+}
+<div class="contain-search-global">
+    <form id="frmSearch">
+        <table>
+            <colgroup>
+                <col width="120px">
+                <col>
+            </colgroup>
+            <tr>
+                <th>가입일</th>
+                <td>
+                    <div class="form-group form-inline">
+                        <button class="btn btn-default" id="RegistDateSearch1">오늘</button>
+                        <button class="btn btn-default" id="RegistDateSearch2">어제</button>
+                        <button class="btn btn-default" id="RegistDateSearch3">3일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch4">7일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch5">10일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch6">30일간</button>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="RegistDateFrom" name="RegistDateFrom" value="@(ViewBag.ShowRegistDateFrom?.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div> ~
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="RegistDateTo" name="RegistDateTo" value="@(ViewBag.ShowRegistDateTo?.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="PageSize" name="PageSize" value="@ViewBag.Condition.PageSize" />
+        <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+        <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@Request["menuSeq"]" />
+    </form>
+</div>
+<div class="wrap">
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>구분</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>관리자 구분</th>
+                    <th>비밀번호 변경일시</th>
+                    <th>최종접속일시</th>
+                    <th>등록일</th>
+                    <th>상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (NewRegCfmResult item in Model.ListData)
+                {
+                    <tr>
+                        <td>@item.Seq</td>
+                        <td>신규등록</td>
+                        <td>@item.AdminId</td>
+                        <td>@item.AdminName</td>
+                        <td>@item.GroupName</td>
+                        <td>@(item.PasswordChangedDate.HasValue == true ? item.PasswordChangedDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</td>
+                        <td>@(item.LatestConnectedDate.HasValue == true ? item.LatestConnectedDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</td>
+                        <td>@(item.RegisteredDate.HasValue == true ? item.RegisteredDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-paginate">
+        <div id="divPaging"></div>
+    </div>
+</div>

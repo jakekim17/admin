@@ -1,0 +1,91 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model  ListModel<NUP_REPORTER_MANAGE_SELECT_Result>
+
+@{ Layout = null; }
+
+@{
+    List<NTB_COMMON_CODE> reporterCode = ViewBag.reporterCode;
+
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+<!-- #region 뉴스 메인 리스트 -->
+@if (Model.TotalDataCount > 0)
+{
+    foreach (var item in Model.ListData)
+    {
+        <tr>
+            <td>
+                @(item.ROWCNT - item.ROWNUM + 1)
+                <input type="hidden" name="SEQ"        value="@item.SEQ" />
+                <input type="hidden" name="reporterID" value="@item.REPORTER_ID" />
+            </td>
+            <td name="reporterName">@item.USER_NM</td>
+            <td>@item.DEPT_NM</td>
+            <td>@item.ArticleCount.Value.ToString("#,##0")</td>
+            <td>@item.RecommendCount.Value.ToString("#,##0")</td>
+            <td>@item.SubscriptionCount.Value.ToString("#,##0")</td>
+            <td>@item.ClickCount.Value.ToString("#,##0")</td>
+            <td>@item.REPORTER_ID</td>
+            <td>
+                <input type="text" class="form-control" name="userID" value="@item.USER_ID" size="10">
+            </td>
+            <td>
+                <div class="form-inline">
+                    <select class="form-control" name="reporterGubun">
+                        <option value="">선택</option>
+
+                        @foreach (var subItem in reporterCode)
+                        {
+                            <option value="@subItem.CODE_VALUE1" @(item.REPORTER_GUBUN.Equals(subItem.CODE_VALUE1) ? "selected" : "") >@subItem.CODE_NAME</option>
+                        }
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-inline">
+                    <select class="form-control" name="wordYn">
+                        <option value="Y" @(item.WORD_YN.Equals("Y") ? "selected" : "")>Y</option>
+                        <option value="N" @(item.WORD_YN.Equals("N") ? "selected" : "")>N</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-inline">
+                    <select class="form-control" name="pageYn">
+                        <option value="Y" @(item.PAGE_YN.Equals("Y") ? "selected" : "")>Y</option>
+                        <option value="N" @(item.PAGE_YN.Equals("N") ? "selected" : "")>N</option>
+                    </select>
+                </div>
+            </td>            
+            <td>
+                <input type="text" class="form-control" name="bylineDept" value="@item.BYLINE_DEPT" size="9">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="bylineName" value="@item.BYLINE_NAME" size="7">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="bylinePosition" value="@item.BYLINE_POSITION" size="7">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="bylineGroupId" value="@item.BYLINE_GROUP_ID" size="5">
+            </td>
+            <td><button class="btn btn-success" name="btnSave">@(string.IsNullOrEmpty(item.REPORTER_GUBUN) ? "등록" : "수정")</button></td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="13">조건에 맞는 검색된 데이터가 없습니다.</td>
+    </tr>
+}
+    <script>
+        $("#totalDataCount").val("@Model.TotalDataCount");
+        $("#totalCount").html("@Model.TotalDataCount");
+        $("#ingCount").html("@Model.AddInfoInt1");
+    </script>
+    <script src="@wowTvScript/NewsCenter/ReporterManage/LIst.js"></script>

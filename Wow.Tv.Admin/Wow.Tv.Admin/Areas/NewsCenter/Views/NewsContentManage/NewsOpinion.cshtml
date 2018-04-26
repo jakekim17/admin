@@ -1,0 +1,152 @@
+﻿
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.Article.NewsCenter
+
+@model NTB_ARTICLE_SHOW_CONFIG
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsCenterCondition condition = ViewBag.condition;
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsContentManage/NewsOpinion.js"></script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Contain Tab -->
+            <div class="contain-tab">
+                <ul class="nav nav-tabs" role="tablist"> 
+                    <li role="presentation" @(Request["gubunCode"] != null && Request["gubunCode"].Equals("S") ? "class=active" : "") ><a href="#tabOpinion1" aria-controls="tabOpinion1" role="tab" data-toggle="tab" id="btnS">연재칼럼</a></li>
+                    <li role="presentation" @(Request["gubunCode"] != null && Request["gubunCode"].Equals("P") ? "class=active" : "") ><a href="#tabOpinion2" aria-controls="tabOpinion2" role="tab" data-toggle="tab" id="btnP">기획취재</a></li>
+                    @*<li role="presentation" @(Request["gubunCode"] != null && Request["gubunCode"].Equals("F") ? "class=active" : "") ><a href="#tabOpinion3" aria-controls="tabOpinion3" role="tab" data-toggle="tab" id="btnF">외부기고</a></li>*@
+                </ul>
+            </div>
+            <!-- //Contain Tab -->
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-notice1">현재 진행중인 <span id="spanIngTitle">@ViewBag.opinionTitle</span> <span class="text-color1" id="spanIngCount">0</span>건 입니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch" name="frmSearch" method="post">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col width="120px">
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>노출여부</th>
+                            <td class="form-inline">
+                                <select class="form-control" id="SearchViewYN" name="SearchViewYN">
+                                    <option value="">전체</option>
+                                    <option value="Y" @( condition.SearchViewYN != null && condition.SearchViewYN.Equals("Y") ? "selected" : "")>Y</option>
+                                    <option value="N" @( condition.SearchViewYN != null && condition.SearchViewYN.Equals("N") ? "selected" : "")>N</option>
+                                </select>
+                            </td>
+                            <th>진행여부</th>
+                            <td class="form-inline">
+                                <select class="form-control" id="SearchOnOff" name="SearchOnOff">
+                                    <option value="">전체</option>
+                                    <option value="ON"  @(condition.SearchOnOff != null && condition.SearchOnOff.Equals("ON")  ? "selected" : "")>진행중</option>
+                                    <option value="OFF" @(condition.SearchOnOff != null && condition.SearchOnOff.Equals("OFF") ? "selected" : "")>종료</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">검색</th>
+                            <td colspan="3">
+                                <div class="form-group form-inline">
+                                    <button class="btn btn-default" id="OneWeekTerm">1주일</button>
+                                    <button class="btn btn-default" id="TwoWeekTerm">2주일</button>
+                                    <button class="btn btn-default" id="OneMonthTerm">1개월</button>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="SearchStartDate" name="StartDate" maxlength="10" value="@condition.StartDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="SearchEndDate" name="EndDate" maxlength="10"  value="@condition.EndDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" id="SearchText" name="SearchText" maxlength="100" value="@condition.SearchText">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+
+                                        <input type="hidden" name="Page"           id="Page"           value="1" />
+                                        <input type="hidden" name="PageSize"       id="PageSize"       value="30" />
+                                        <input type="hidden" name="currentIndex"   id="currentIndex"   value="@(condition.CurrentIndex == 0 ? 0 : condition.CurrentIndex)" />
+                                        <input type="hidden" name="totalDataCount" id="totalDataCount" value="0" />
+                                        <input type="hidden" name="SearchGubun"    id="SearchGubun"    value="@ViewBag.gubunCode" />
+                                        <input type="hidden" name="SEQ"            id="SEQ"            value="" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-right">
+                @if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, false, true) == true)
+                {
+                    <button class="btn btn-default" id="btnDelete">삭제</button>
+                }
+                @if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+                {
+                    <button class="btn btn-success" id="btnReg">신규등록</button>
+                }
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <div class="bbs-list1">
+                <table class="table">
+                    <colgroup>
+                        <col width="60px">
+                        <col width="60px">
+                        <col>
+                        <col width="180px">
+                        <col width="180px">
+                        <col width="180px">
+                        <col width="80px">
+                        <col width="80px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="allCheck"></th>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>추출 텍스트</th>
+                            <th>게재기간</th>
+                            <th>시작일(업데이트일)</th>
+                            <th>노출여부</th>
+                            <th>진행여부</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyList">
+                        <tr>
+                            <td colspan="7">조건에 맞는 검색된 데이터가 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagenate -->
+            <div class="box-paginate" id="divPaging"></div>
+            <!-- //Pagenate -->
+        </div>
+    </div>
+</div>

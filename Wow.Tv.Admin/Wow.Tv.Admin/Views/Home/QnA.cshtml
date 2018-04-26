@@ -1,0 +1,52 @@
+﻿@using Wow.Tv.Middle.Model.Common
+
+@model List<MainStatsModel>
+
+@{
+    Layout = null;
+
+    int totalCount = 0;
+}
+
+
+<div class="box-title">
+    <h3>1:1문의(Q&amp;A)</h3>
+    <div class="box-link">
+        <a href="/IntegratedBoard/Inquiry/Index?menuSeq=@ViewBag.MenuSeq" class="btn btn-default">더보기</a>
+    </div>
+</div>
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            <col width="200px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>문의 분류</th>
+                <th>총 문의 건수</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <th>@item.GroupName</th>
+                <td><span class="text-color2">@item.GroupCount.ToString("N0")건</span></td>
+            </tr>
+
+                totalCount = totalCount + item.GroupCount;
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>총 합계</th>
+                <td><span class="text-color2">@totalCount.ToString("N0")건</span></td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+

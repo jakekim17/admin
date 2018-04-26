@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewsCenterService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.NewsCenter" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.broadcast.NewsCenter" />
+      <xsd:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.broadcast" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="INewsCenterService_GetNewsReadInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsReadInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsReadInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsReadInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsReadRelationList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsReadRelationList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsReadRelationList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsReadRelationListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleLikeit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleLikeit" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleLikeit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleLikeitResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetArticleLikeit_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetArticleLikeit" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetArticleLikeit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetArticleLikeitResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsPrevNext_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsPrevNext" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsPrevNext_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsPrevNextResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsThisManySee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsThisManySee" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsThisManySee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsThisManySeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsSectionManySee_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsSectionManySee" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsSectionManySee_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsSectionManySeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleStockList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleStockList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleStockList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleStockListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetStockInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetStockInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReporterInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporterInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReporterInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporterInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReportPartnerInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportPartnerInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReportPartnerInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportPartnerInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsSectionList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsSectionList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsSectionList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsSectionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleCount" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleCountDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleCountDate" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArticleCountDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArticleCountDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandUpdateTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandUpdateTime" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandUpdateTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandUpdateTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsStandUpdateTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsStandUpdateTime" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsStandUpdateTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsStandUpdateTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsMainListUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsMainListUpdate" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsMainListUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsMainListUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandLastUpdateInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandLastUpdateInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsStandLastUpdateInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsStandLastUpdateInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsStandTmpTitleUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsStandTmpTitleUpdate" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsStandTmpTitleUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsStandTmpTitleUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsMainMageList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsMainMageList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsMainMageList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsMainMageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetArticleHtmlConvert_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetArticleHtmlConvert" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetArticleHtmlConvert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetArticleHtmlConvertResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArtcleInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtcleInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArtcleInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtcleInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetRelationImageInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationImageInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetRelationImageInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationImageInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetRelationImageSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetRelationImageSave" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetRelationImageSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetRelationImageSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetRelationImageDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetRelationImageDelete" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetRelationImageDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetRelationImageDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArtcleCreationInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtcleCreationInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetArtcleCreationInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArtcleCreationInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsCardVodList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsCardVodList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsCardVodList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsCardVodListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsLandEntSpoList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsLandEntSpoList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsLandEntSpoList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsLandEntSpoListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsRelationConfigList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsRelationConfigList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsRelationConfigList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsRelationConfigListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsRelationConfigSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsRelationConfigSave" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsRelationConfigSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsRelationConfigSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsRelationConfigUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsRelationConfigUpdate" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsRelationConfigUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsRelationConfigUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsShowConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsShowConfig" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsShowConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsShowConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowConfig" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowActiveConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowActiveConfig" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowActiveConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowActiveConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowNumSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowNumSave" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsShowNumSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsShowNumSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetOpinionList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpinionList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetOpinionList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpinionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetOpinionInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpinionInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetOpinionInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpinionInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetOpinionInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetOpinionInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetOpinionInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetOpinionInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetOpinionDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetOpinionDelete" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetOpinionDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetOpinionDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsViewPageManageList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsViewPageManageList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetNewsViewPageManageList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsViewPageManageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsViewPageManage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsViewPageManage" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetNewsViewPageManage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetNewsViewPageManageResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_IsReporterManageUserIdDuplicated_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsReporterManageUserIdDuplicated" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_IsReporterManageUserIdDuplicated_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsReporterManageUserIdDuplicatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReporterMageList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporterMageList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetReporterMageList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporterMageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetReporterManage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetReporterManage" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_SetReporterManage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetReporterManageResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetHanatourArticleList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHanatourArticleList" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetHanatourArticleList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHanatourArticleListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetHanatourArticleInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHanatourArticleInfo" />
+  </wsdl:message>
+  <wsdl:message name="INewsCenterService_GetHanatourArticleInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHanatourArticleInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="INewsCenterService">
+    <wsdl:operation name="GetNewsReadInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsReadInfo" message="tns:INewsCenterService_GetNewsReadInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsReadInfoResponse" message="tns:INewsCenterService_GetNewsReadInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsReadRelationList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsReadRelationList" message="tns:INewsCenterService_GetNewsReadRelationList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsReadRelationListResponse" message="tns:INewsCenterService_GetNewsReadRelationList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleLikeit">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleLikeit" message="tns:INewsCenterService_GetArticleLikeit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleLikeitResponse" message="tns:INewsCenterService_GetArticleLikeit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetArticleLikeit">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetArticleLikeit" message="tns:INewsCenterService_SetArticleLikeit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetArticleLikeitResponse" message="tns:INewsCenterService_SetArticleLikeit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsPrevNext">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsPrevNext" message="tns:INewsCenterService_GetNewsPrevNext_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsPrevNextResponse" message="tns:INewsCenterService_GetNewsPrevNext_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsThisManySee">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsThisManySee" message="tns:INewsCenterService_GetNewsThisManySee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsThisManySeeResponse" message="tns:INewsCenterService_GetNewsThisManySee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsSectionManySee">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsSectionManySee" message="tns:INewsCenterService_GetNewsSectionManySee_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsSectionManySeeResponse" message="tns:INewsCenterService_GetNewsSectionManySee_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleStockList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleStockList" message="tns:INewsCenterService_GetArticleStockList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleStockListResponse" message="tns:INewsCenterService_GetArticleStockList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetStockInfo" message="tns:INewsCenterService_GetStockInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetStockInfoResponse" message="tns:INewsCenterService_GetStockInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporterInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetReporterInfo" message="tns:INewsCenterService_GetReporterInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetReporterInfoResponse" message="tns:INewsCenterService_GetReporterInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportPartnerInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetReportPartnerInfo" message="tns:INewsCenterService_GetReportPartnerInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetReportPartnerInfoResponse" message="tns:INewsCenterService_GetReportPartnerInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsSectionList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsSectionList" message="tns:INewsCenterService_GetNewsSectionList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsSectionListResponse" message="tns:INewsCenterService_GetNewsSectionList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleCount" message="tns:INewsCenterService_GetArticleCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleCountResponse" message="tns:INewsCenterService_GetArticleCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleCountDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleCountDate" message="tns:INewsCenterService_GetArticleCountDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArticleCountDateResponse" message="tns:INewsCenterService_GetArticleCountDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandUpdateTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandUpdateTime" message="tns:INewsCenterService_GetNewsStandUpdateTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandUpdateTimeResponse" message="tns:INewsCenterService_GetNewsStandUpdateTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsStandUpdateTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsStandUpdateTime" message="tns:INewsCenterService_SetNewsStandUpdateTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsStandUpdateTimeResponse" message="tns:INewsCenterService_SetNewsStandUpdateTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandList" message="tns:INewsCenterService_GetNewsStandList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandListResponse" message="tns:INewsCenterService_GetNewsStandList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsMainListUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsMainListUpdate" message="tns:INewsCenterService_SetNewsMainListUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsMainListUpdateResponse" message="tns:INewsCenterService_SetNewsMainListUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandLastUpdateInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandLastUpdateInfo" message="tns:INewsCenterService_GetNewsStandLastUpdateInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsStandLastUpdateInfoResponse" message="tns:INewsCenterService_GetNewsStandLastUpdateInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsStandTmpTitleUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsStandTmpTitleUpdate" message="tns:INewsCenterService_SetNewsStandTmpTitleUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsStandTmpTitleUpdateResponse" message="tns:INewsCenterService_SetNewsStandTmpTitleUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsMainMageList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsMainMageList" message="tns:INewsCenterService_GetNewsMainMageList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsMainMageListResponse" message="tns:INewsCenterService_GetNewsMainMageList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetArticleHtmlConvert">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetArticleHtmlConvert" message="tns:INewsCenterService_SetArticleHtmlConvert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetArticleHtmlConvertResponse" message="tns:INewsCenterService_SetArticleHtmlConvert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArtcleInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArtcleInfo" message="tns:INewsCenterService_GetArtcleInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArtcleInfoResponse" message="tns:INewsCenterService_GetArtcleInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationImageInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetRelationImageInfo" message="tns:INewsCenterService_GetRelationImageInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetRelationImageInfoResponse" message="tns:INewsCenterService_GetRelationImageInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetRelationImageSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetRelationImageSave" message="tns:INewsCenterService_SetRelationImageSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetRelationImageSaveResponse" message="tns:INewsCenterService_SetRelationImageSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetRelationImageDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetRelationImageDelete" message="tns:INewsCenterService_SetRelationImageDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetRelationImageDeleteResponse" message="tns:INewsCenterService_SetRelationImageDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArtcleCreationInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetArtcleCreationInfo" message="tns:INewsCenterService_GetArtcleCreationInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetArtcleCreationInfoResponse" message="tns:INewsCenterService_GetArtcleCreationInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsCardVodList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsCardVodList" message="tns:INewsCenterService_GetNewsCardVodList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsCardVodListResponse" message="tns:INewsCenterService_GetNewsCardVodList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsLandEntSpoList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsLandEntSpoList" message="tns:INewsCenterService_GetNewsLandEntSpoList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsLandEntSpoListResponse" message="tns:INewsCenterService_GetNewsLandEntSpoList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsRelationConfigList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsRelationConfigList" message="tns:INewsCenterService_GetNewsRelationConfigList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsRelationConfigListResponse" message="tns:INewsCenterService_GetNewsRelationConfigList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsRelationConfigSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsRelationConfigSave" message="tns:INewsCenterService_SetNewsRelationConfigSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsRelationConfigSaveResponse" message="tns:INewsCenterService_SetNewsRelationConfigSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsRelationConfigUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsRelationConfigUpdate" message="tns:INewsCenterService_SetNewsRelationConfigUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsRelationConfigUpdateResponse" message="tns:INewsCenterService_SetNewsRelationConfigUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsShowConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsShowConfig" message="tns:INewsCenterService_GetNewsShowConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsShowConfigResponse" message="tns:INewsCenterService_GetNewsShowConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowConfig" message="tns:INewsCenterService_SetNewsShowConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowConfigResponse" message="tns:INewsCenterService_SetNewsShowConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowActiveConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowActiveConfig" message="tns:INewsCenterService_SetNewsShowActiveConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowActiveConfigResponse" message="tns:INewsCenterService_SetNewsShowActiveConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowNumSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowNumSave" message="tns:INewsCenterService_SetNewsShowNumSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsShowNumSaveResponse" message="tns:INewsCenterService_SetNewsShowNumSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpinionList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetOpinionList" message="tns:INewsCenterService_GetOpinionList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetOpinionListResponse" message="tns:INewsCenterService_GetOpinionList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpinionInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetOpinionInfo" message="tns:INewsCenterService_GetOpinionInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetOpinionInfoResponse" message="tns:INewsCenterService_GetOpinionInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOpinionInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetOpinionInfo" message="tns:INewsCenterService_SetOpinionInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetOpinionInfoResponse" message="tns:INewsCenterService_SetOpinionInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOpinionDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetOpinionDelete" message="tns:INewsCenterService_SetOpinionDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetOpinionDeleteResponse" message="tns:INewsCenterService_SetOpinionDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsViewPageManageList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsViewPageManageList" message="tns:INewsCenterService_GetNewsViewPageManageList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetNewsViewPageManageListResponse" message="tns:INewsCenterService_GetNewsViewPageManageList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsViewPageManage">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsViewPageManage" message="tns:INewsCenterService_SetNewsViewPageManage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetNewsViewPageManageResponse" message="tns:INewsCenterService_SetNewsViewPageManage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsReporterManageUserIdDuplicated">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/IsReporterManageUserIdDuplicated" message="tns:INewsCenterService_IsReporterManageUserIdDuplicated_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/IsReporterManageUserIdDuplicatedResponse" message="tns:INewsCenterService_IsReporterManageUserIdDuplicated_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporterMageList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetReporterMageList" message="tns:INewsCenterService_GetReporterMageList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetReporterMageListResponse" message="tns:INewsCenterService_GetReporterMageList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetReporterManage">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/SetReporterManage" message="tns:INewsCenterService_SetReporterManage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/SetReporterManageResponse" message="tns:INewsCenterService_SetReporterManage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHanatourArticleList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetHanatourArticleList" message="tns:INewsCenterService_GetHanatourArticleList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetHanatourArticleListResponse" message="tns:INewsCenterService_GetHanatourArticleList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHanatourArticleInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INewsCenterService/GetHanatourArticleInfo" message="tns:INewsCenterService_GetHanatourArticleInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INewsCenterService/GetHanatourArticleInfoResponse" message="tns:INewsCenterService_GetHanatourArticleInfo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_INewsCenterService" type="tns:INewsCenterService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetNewsReadInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsReadInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsReadRelationList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsReadRelationList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleLikeit">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArticleLikeit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetArticleLikeit">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetArticleLikeit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsPrevNext">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsPrevNext" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsThisManySee">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsThisManySee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsSectionManySee">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsSectionManySee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleStockList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArticleStockList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetStockInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporterInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetReporterInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportPartnerInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetReportPartnerInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsSectionList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsSectionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleCount">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArticleCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArticleCountDate">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArticleCountDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandUpdateTime">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsStandUpdateTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsStandUpdateTime">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsStandUpdateTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsStandList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsMainListUpdate">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsMainListUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsStandLastUpdateInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsStandLastUpdateInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsStandTmpTitleUpdate">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsStandTmpTitleUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsMainMageList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsMainMageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetArticleHtmlConvert">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetArticleHtmlConvert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtcleInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArtcleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationImageInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetRelationImageInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetRelationImageSave">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetRelationImageSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetRelationImageDelete">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetRelationImageDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtcleCreationInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetArtcleCreationInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsCardVodList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsCardVodList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsLandEntSpoList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsLandEntSpoList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsRelationConfigList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsRelationConfigList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsRelationConfigSave">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsRelationConfigSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsRelationConfigUpdate">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsRelationConfigUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsShowConfig">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsShowConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowConfig">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsShowConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowActiveConfig">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsShowActiveConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsShowNumSave">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsShowNumSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOpinionList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetOpinionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOpinionInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetOpinionInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOpinionInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetOpinionInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOpinionDelete">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetOpinionDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsViewPageManageList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetNewsViewPageManageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNewsViewPageManage">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetNewsViewPageManage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsReporterManageUserIdDuplicated">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/IsReporterManageUserIdDuplicated" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporterMageList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetReporterMageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetReporterManage">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/SetReporterManage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHanatourArticleList">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetHanatourArticleList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHanatourArticleInfo">
+      <soap:operation soapAction="http://tempuri.org/INewsCenterService/GetHanatourArticleInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NewsCenterService">
+    <wsdl:port name="BasicHttpBinding_INewsCenterService" binding="tns:BasicHttpBinding_INewsCenterService">
+      <soap:address location="http://localhost:8088/NewsCenter/NewsCenterService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

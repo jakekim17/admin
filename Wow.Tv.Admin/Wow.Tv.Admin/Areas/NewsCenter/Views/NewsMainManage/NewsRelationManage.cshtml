@@ -1,0 +1,123 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@model List<NTB_ARTICLE_RELATION_CONFIG>
+
+@{ Layout = null; }
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+<script src="@wowTvScript/NewsCenter/NewsMainManage/NewsRelationManage.js"></script>
+
+<div class="modal-dialog rankview-news">
+    <span class="fl-r s-text pad-r10"></span>
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">관련기사 노출순위 보기</h4>
+        </div>
+        <div class="modal-body">
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-right">
+                    <p class="text-color1">
+                    @(ViewBag.lastUpdateTime != null && ViewBag.lastUpdateTime != "" ? string.Format("최근 수정 : {0}", ViewBag.lastUpdateTime) : "")
+                    </p>
+                </div>
+            </div>
+            <div class="bbs-list1">
+                <table class="table group-row2">
+                    <colgroup>
+                        <col width="90">
+                        <col width="110">
+                        <col width="200">
+                        <col>
+                        <col width="150">
+                        <col width="50">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>노출순위</th>
+                            <th>자동노출 조건</th>
+                            <th>제공사 선택</th>
+                            <th>제목</th>
+                            <th colspan="2">작성일(수정일)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model.Count > 0)
+                    {
+                        int i = 0;
+                        foreach (var item in Model.OrderBy(p => p.SHOW_NUM))
+                        {
+                            if (@item.SHOW_NUM.Equals(6))
+                            {
+                                <thead>
+                                <tr>
+                                    <th>노출순위</th>
+                                    <th>제공사 선택</th>
+                                    <th>지동노출 조건</th>
+                                    <th>DAUM 관련기사</th>
+                                    <th colspan="2">작성일(수정일)</th>
+                                </tr>
+                                </thead>
+                            }
+                            <tr>
+                                <td>
+                                    <b>@item.SHOW_NUM</b>
+                                    <input type="hidden" name="showNum" id="showNum_@item.SHOW_NUM" value="@item.SHOW_NUM" />
+                                    <input type="hidden" name="articleID" id="articleID_@item.SHOW_NUM" value="@item.ARTICLE_ID" />
+                                </td>
+                                <td rowspan="2">
+                                    <select class="form-control" name="showCondition" id="showCondition_@item.SHOW_NUM" @(item.AUTO_MANUAL != null && item.AUTO_MANUAL.Equals("MANUAL") ? "disabled" : "")>
+                                        <option value="">선택</option>
+                                        <option value="NEWEST" @(item.SHOW_CONDITION != null && item.SHOW_CONDITION.Equals("NEWEST") ? "selected" : "")>최신순</option>
+                                        <option value="SECTION" @(item.SHOW_CONDITION != null && item.SHOW_CONDITION.Equals("SECTION") ? "selected" : "")>섹션별</option>
+                                    </select>
+                                </td>
+                                <td rowspan="2">
+                                    <select class="form-control" name="deptCode" id="deptCode_@item.SHOW_NUM" @(item.AUTO_MANUAL != null && ( item.AUTO_MANUAL.Equals("MANUAL") || !item.SHOW_CONDITION.Equals("SECTION") ) ? "disabled" : "")>
+                                        <option value="">선택</option>
+                                        @foreach (var deptItem in ViewBag.deptCode)
+                                        {
+                                            <option value="@deptItem.CODE_VALUE1" @(deptItem.CODE_VALUE1 != null && deptItem.CODE_VALUE1.Equals(item.DEPT_CODE) ? "selected" : "")>@deptItem.CODE_NAME</option>
+                                        }
+                                        <option value="THIS_DEPT" @(item.DEPT_CODE != null && item.DEPT_CODE.Equals("THIS_DEPT") ? "selected" : "")>본문 제공사</option>
+                                    </select>
+                                </td>
+                                <td class="text-left" name="oriTitle" id="oriTitle_@item.SHOW_NUM">원본기사명</td>
+                                <td rowspan="2">@item.REG_DATE.ToString("yyyy-MM-dd HH:mm:ss")<br> <span class="text-color1">(@item.MOD_DATE.ToString("yyyy-MM-dd HH:mm:ss"))</span></td>
+                                <td rowspan="2">
+                                                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                                                {
+                                                <button class="btn btn-success" name="btnSave" id="btnSave_@item.SHOW_NUM">저장</button>
+                                                }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select class="form-control" name="autoManual" id="autoManual_@item.SHOW_NUM">
+                                        <option value="AUTO" @(item.AUTO_MANUAL != null && item.AUTO_MANUAL.Equals("AUTO") ? "selected" : "")>자동</option>
+                                        <option value="MANUAL" @(item.AUTO_MANUAL != null && item.AUTO_MANUAL.Equals("MANUAL") ? "selected" : "")>수동</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" name="articleTitle" id="articleTitle_@item.SHOW_NUM" value="@item.ARTICLE_TITLE" @(item.AUTO_MANUAL != null && item.AUTO_MANUAL.Equals("AUTO") ? "disabled" : "")></td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">등록된 내용이 없습니다.</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnRelationClose">Close</button>
+        </div>
+    </div>

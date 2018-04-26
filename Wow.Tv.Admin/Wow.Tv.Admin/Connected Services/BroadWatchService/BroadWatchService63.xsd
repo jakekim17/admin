@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/MyProgram/BroadWatchService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="tv_program">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClickNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Contents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DayOfWeekString" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Dep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ext" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileSize" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileorText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flag_Copy1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Flag_Copy2" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Link" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MailAddr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifyDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Num" type="xs:int" />
+      <xs:element minOccurs="0" name="Price" type="xs:int" />
+      <xs:element minOccurs="0" name="ProgInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Program_Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PublishYn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Re_Level" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RecomNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RectangleImageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ref" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SendDaum" type="xs:boolean" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubImageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ThumImageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UploadTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WriterID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="broadStart" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="broad_date" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tStep" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tv_program" nillable="true" type="tns:tv_program" />
+  <xs:complexType name="ArrayOftv_program">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tv_program" nillable="true" type="tns:tv_program" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftv_program" nillable="true" type="tns:ArrayOftv_program" />
+</xs:schema>

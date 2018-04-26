@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="60938b79-8c7f-4053-9f16-16215f60d573" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/Admin/IntegratedBoardService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="IntegratedBoardService5.xsd" MetadataType="Schema" ID="e8f05cc5-39c7-4336-ac9f-f83739e8ebea" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd2" />
+    <MetadataFile FileName="IntegratedBoardService2.xsd" MetadataType="Schema" ID="6c3d7fef-5674-4c93-99b0-3a054d49039b" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd7" />
+    <MetadataFile FileName="IntegratedBoardService1.disco" MetadataType="Disco" ID="944ece65-77e6-4513-b993-65e3dda30b08" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?disco" />
+    <MetadataFile FileName="IntegratedBoardService1.xsd" MetadataType="Schema" ID="95595817-6a4a-426c-bfac-e1c9c2ed92f7" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd6" />
+    <MetadataFile FileName="IntegratedBoardService1.wsdl" MetadataType="Wsdl" ID="e1440682-7665-44dd-bf12-0595e860a85e" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?wsdl" />
+    <MetadataFile FileName="IntegratedBoardService52.xsd" MetadataType="Schema" ID="03ba13d7-154e-4489-bbda-9efda35d7d3f" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd4" />
+    <MetadataFile FileName="IntegratedBoardService51.xsd" MetadataType="Schema" ID="72b60b98-b442-4b92-a4e4-9a2ef68dae94" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd1" />
+    <MetadataFile FileName="IntegratedBoardService.xsd" MetadataType="Schema" ID="00a74b10-8b59-4577-af5c-04138257160b" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd5" />
+    <MetadataFile FileName="IntegratedBoardService53.xsd" MetadataType="Schema" ID="eed228bc-8309-41d4-aa2b-c953f074341d" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd3" />
+    <MetadataFile FileName="IntegratedBoardService54.xsd" MetadataType="Schema" ID="6c682d83-3d26-46fe-b229-0c1d80e7bdcf" SourceId="1" SourceUrl="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

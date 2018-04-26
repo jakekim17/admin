@@ -1,0 +1,419 @@
+﻿@using Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage
+@model MemberManageInfoResult
+@{
+    if (Model.MemberInfo == null)
+    {
+        Response.End();
+        return;
+    }
+
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    string[] telSplit = Model.MemberInfo.TEL_NO.Split('-');
+    string tel1 = telSplit.Length > 0 ? telSplit[0] : "";
+    string tel2 = telSplit.Length > 1 ? telSplit[1] : "";
+    string tel3 = telSplit.Length > 2 ? telSplit[2] : "";
+
+    string[] mobileSplit = Model.MemberInfo.MOBILE_NO.Split('-');
+    string mobile1 = mobileSplit.Length > 0 ? mobileSplit[0] : "";
+    string mobile2 = mobileSplit.Length > 1 ? mobileSplit[1] : "";
+    string mobile3 = mobileSplit.Length > 2 ? mobileSplit[2] : "";
+
+    //string fax1 = "";
+    //string fax2 = "";
+    //string fax3 = "";
+}
+
+@section scripts{
+    <script src="@wowTvScript/IntMemManage/MemIdx/Edit.js"></script>
+
+}
+@section modalDiv
+{
+    <div id="divAddressSearch" class="modal fade" role="dialog"></div>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="wrap">
+        <form id="frmEdit" >
+            <div class="bbs-write1">
+                <table class="table">
+                    <colgroup>
+                        <col width="180px">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th>아이디</th>
+                        <td>@Model.MemberInfo.USERID</td>
+                        <th>회원구분</th>
+                        @if (Model.MemberInfo.USER_SECTION_CODE == "GENERAL")
+                        {
+                            if (Model.MemberInfo.APPROVED == true)
+                            {
+                                <td>@Model.MemberInfo.USER_SECTION</td>
+                            }
+                            else
+                            {
+                                <td>탈퇴회원</td>
+                            }
+
+                        }
+                        else if (Model.MemberInfo.USER_SECTION_CODE == "COMPANY")
+                        {
+                            if (Model.MemberInfo.APPROVED == true)
+                            {
+                                <td>@(Model.MemberInfo.USER_SECTION)(승인됨)</td>
+                            }
+                            else
+                            {
+                                string approvalStatus = string.IsNullOrEmpty(Model.LatestApprovalLog) == true ? "" : "(반려됨)<br />사유: " + Model.LatestApprovalLog;
+                                <td>
+                                    <p>@Model.MemberInfo.USER_SECTION @Html.Raw(approvalStatus)</p>
+                                    <a href="#" id="btnApprove">승인</a>
+                                    <strong>·</strong>
+                                    <a href="#" id="btnReject" data-toggle="modal" data-target="#pop2">반려</a>
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>**********</td>
+                        }
+                    </tr>
+                    <tr id="trCompanyItem1" style="@(Model.MemberInfo.USER_SECTION_CODE !="COMPANY" ? "display:none;" : "" )">
+                        <th>회사명.</th>
+                        <td colspan="3"><input type="text" class="form-control" name="CompanyName" value="@Model.MemberInfo.COMPANY_NAME"></td>
+                    </tr>
+                    <tr id="trCompanyItem2" style="@(Model.MemberInfo.USER_SECTION_CODE !="COMPANY" ? "display:none;" : "" )">
+                        <th>업태</th>
+                        <td><input type="text" class="form-control" name="BusinessCondition" value="@Model.MemberInfo.BUSINESS_CONDITION"></td>
+                        <th>종목</th>
+                        <td><input type="text" class="form-control" name="BusinessItem" vallue="@Model.MemberInfo.BUSINESS_ITEM"></td>
+                    </tr>
+                    <tr id="trCompanyItem3" style="@(Model.MemberInfo.USER_SECTION_CODE !="COMPANY" ? "display:none;" : "" )">
+                        <th>사업자번호</th>
+                        <td><input type="text" class="form-control" name="BusinessNumber" value="@Model.MemberInfo.BUSINESS_NO"></td>
+                        <th>대표자</th>
+                        <td>@Model.MemberInfo.CEO_NAME</td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <td>
+                            <div class="form-inline">
+                                <input type="password" class="form-control" value="********" />
+                                <button id="btnPasswordInitialize" class="btn btn-default">초기화</button>
+                            </div>
+                        </td>
+                        <th>휴면회원</th>
+                        @if (Model.MemberInfo.INACTIVE == true)
+                        {
+                            if (string.IsNullOrEmpty(Model.DormancyMobileNo) == true)
+                            {
+                                <td>휴면회원 (휴대폰번호 없음으로 해지불가)</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    휴면회원 (@Model.DormancyMobileNo)<br />
+                                    <button class="btn btn-default" id="btnRestoreDormancyMobileAuth">인증번호전송</button>
+                                    <input type="text" id="txtRestoreDormancyMobileAuthNo" style="width: 120px; display: none;" />
+                                    <button class="btn btn-default" id="btnRestoreDormancyMobileAuthConfirm" style="display: none;">인증번호확인</button>
+                                    <button class="btn btn-default" id="btnRestoreDormancy" style="display: none;">해지</button>
+                                    <input type="hidden" id="hidRestoreDormancyMobileNo" value="@Model.DormancyMobileNo" />
+                                    <input type="hidden" id="hidRestoreDormancyMobileAuthNo" />
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>&nbsp;</td>
+                        }
+                    </tr>
+                    <tr>
+                        <th>비밀번호 질문</th>
+                        <td>@Model.MemberInfo.PASSWORD_CONFIRM</td>
+                        <th>비밀번호 답변</th>
+                        <td>@Model.MemberInfo.PASSWORD_ANSWER</td>
+                    </tr>
+                    <tr>
+                        <th>성명</th>
+                        <td>@Model.MemberInfo.USERNAME</td>
+                        <th>필명</th>
+                        <td>@Model.MemberInfo.NICKNAME</td>
+                    </tr>
+                    <tr>
+                        <th>생년월일</th>
+                        <td>@Model.MemberInfo.BIRTHDATE</td>
+                        <th>양력/음력</th>
+                        <td>@(Model.MemberInfo.IS_SOLAR == true ? "양력" : "음력")</td>
+                    </tr>
+                    <tr>
+                        <th>회원등급</th>
+                        <td>@Model.USER_CLASS_TEXT</td>
+                        <th>회원타입</th>
+                        <td>@Model.MemberInfo.USER_TYPE</td>
+                    </tr>
+                    <tr>
+                        <th>이메일 수신동의</th>
+                        <td>
+                            정보성&nbsp;
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_EMAIL == true ? " checked=\"checked\"" : "") name="IsSendEmail" value="Y"> 수신</label>
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_EMAIL == false ? " checked=\"checked\"" : "") name="IsSendEmail" value="N"> 거부</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;광고성&nbsp;
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_EMAIL_AD == "1" ? " checked=\"checked\"" : "") name="IsSendEmailAd" value="Y"> 수신</label>
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_EMAIL_AD == "0" ? " checked=\"checked\"" : "") name="IsSendEmailAd" value="N"> 거부</label>
+                        </td>
+                        <th>SMS 수신여부</th>
+                        <td>
+                            정보성&nbsp;
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_SMS == "1" ? " checked=\"checked\"" : "") name="IsSendSms" value="Y"> 수신</label>
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_SMS == "0" ? " checked=\"checked\"" : "") name="IsSendSms" value="N"> 거부</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;광고성&nbsp;
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_SMS_AD == "1" ? " checked=\"checked\"" : "") name="IsSendSmsAd" value="Y"> 수신</label>
+                            <label class="radio-inline"><input type="radio" @(Model.MemberInfo.IS_SEND_SMS_AD == "0" ? " checked=\"checked\"" : "") name="IsSendSmsAd" value="N"> 거부</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>전화번호</th>
+                        <td>
+                            <div class="form-inline">
+                                <select class="form-control" name="TelNo1">
+                                    <option value="">선택</option>
+                                    <option value="02" @(tel1 == "02" ? " selected=\"selected\"" : "")>02</option>
+                                    <option value="031" @(tel1 == "031" ? " selected=\"selected\"" : "")>031</option>
+                                    <option value="032" @(tel1 == "032" ? " selected=\"selected\"" : "")>032</option>
+                                    <option value="033" @(tel1 == "033" ? " selected=\"selected\"" : "")>033</option>
+                                    <option value="041" @(tel1 == "041" ? " selected=\"selected\"" : "")>041</option>
+                                    <option value="042" @(tel1 == "042" ? " selected=\"selected\"" : "")>042</option>
+                                    <option value="043" @(tel1 == "043" ? " selected=\"selected\"" : "")>043</option>
+                                    <option value="044" @(tel1 == "044" ? " selected=\"selected\"" : "")>044</option>
+                                    <option value="051" @(tel1 == "051" ? " selected=\"selected\"" : "")>051</option>
+                                    <option value="052" @(tel1 == "052" ? " selected=\"selected\"" : "")>052</option>
+                                    <option value="053" @(tel1 == "053" ? " selected=\"selected\"" : "")>053</option>
+                                    <option value="054" @(tel1 == "054" ? " selected=\"selected\"" : "")>054</option>
+                                    <option value="055" @(tel1 == "055" ? " selected=\"selected\"" : "")>055</option>
+                                    <option value="061" @(tel1 == "061" ? " selected=\"selected\"" : "")>061</option>
+                                    <option value="062" @(tel1 == "062" ? " selected=\"selected\"" : "")>062</option>
+                                    <option value="063" @(tel1 == "063" ? " selected=\"selected\"" : "")>063</option>
+                                    <option value="064" @(tel1 == "064" ? " selected=\"selected\"" : "")>064</option>
+                                    <option value="070" @(tel1 == "070" ? " selected=\"selected\"" : "")>070</option>
+                                </select> - <input type="text" class="form-control" style="width:60px" name="TelNo2" value="@tel2"> - <input type="text" class="form-control" style="width:60px" name="TelNo3" value="@tel3">
+                            </div>
+                        </td>
+                        <th>팩스번호</th>
+                        <td>
+                            사용되지 않는 기능
+                            @*<div class="form-inline">
+                                <select class="form-control" name="FaxNo1">
+                                    <option value="">선택</option>
+                                    <option value="02" @(fax1 == "02" ? " selected=\"selected\"" : "")>02</option>
+                                    <option value="031" @(fax1 == "031" ? " selected=\"selected\"" : "")>031</option>
+                                    <option value="032" @(fax1 == "032" ? " selected=\"selected\"" : "")>032</option>
+                                    <option value="033" @(fax1 == "033" ? " selected=\"selected\"" : "")>033</option>
+                                    <option value="041" @(fax1 == "041" ? " selected=\"selected\"" : "")>041</option>
+                                    <option value="042" @(fax1 == "042" ? " selected=\"selected\"" : "")>042</option>
+                                    <option value="043" @(fax1 == "043" ? " selected=\"selected\"" : "")>043</option>
+                                    <option value="044" @(fax1 == "044" ? " selected=\"selected\"" : "")>044</option>
+                                    <option value="051" @(fax1 == "051" ? " selected=\"selected\"" : "")>051</option>
+                                    <option value="052" @(fax1 == "052" ? " selected=\"selected\"" : "")>052</option>
+                                    <option value="053" @(fax1 == "053" ? " selected=\"selected\"" : "")>053</option>
+                                    <option value="054" @(fax1 == "054" ? " selected=\"selected\"" : "")>054</option>
+                                    <option value="055" @(fax1 == "055" ? " selected=\"selected\"" : "")>055</option>
+                                    <option value="061" @(fax1 == "061" ? " selected=\"selected\"" : "")>061</option>
+                                    <option value="062" @(fax1 == "062" ? " selected=\"selected\"" : "")>062</option>
+                                    <option value="063" @(fax1 == "063" ? " selected=\"selected\"" : "")>063</option>
+                                    <option value="064" @(fax1 == "064" ? " selected=\"selected\"" : "")>064</option>
+                                    <option value="070" @(fax1 == "070" ? " selected=\"selected\"" : "")>070</option>
+                                </select> - <input type="text" class="form-control" style="width:60px" name="FaxNo2" value="@fax2"> - <input type="text" class="form-control" style="width:60px" name="FaxNo3" value="@fax3">
+                            </div>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>휴대폰번호</th>
+                        <td>
+                            <div class="form-inline">
+                                <select class="form-control" name="MobileNo1">
+                                    <option value="">선택</option>
+                                    <option value="010" @(mobile1 == "010" ? " selected=\"selected\"" : "")>010</option>
+                                    <option value="011" @(mobile1 == "011" ? " selected=\"selected\"" : "")>011</option>
+                                    <option value="016" @(mobile1 == "016" ? " selected=\"selected\"" : "")>016</option>
+                                    <option value="017" @(mobile1 == "017" ? " selected=\"selected\"" : "")>017</option>
+                                    <option value="018" @(mobile1 == "018" ? " selected=\"selected\"" : "")>018</option>
+                                    <option value="019" @(mobile1 == "019" ? " selected=\"selected\"" : "")>019</option>
+                                </select> - <input type="text" class="form-control" style="width:60px" name="MobileNo2" value="@mobile2"> - <input type="text" class="form-control" style="width:60px" name="MobileNo3" value="@mobile3">
+                                <input type="hidden" name="hdMobileNo1" id="hdMobileNo1" value="@mobile1">
+                                <input type="hidden" name="hdMobileNo2" id="hdMobileNo2" value="@mobile2">
+                                <input type="hidden" name="hdMobileNo3" id="hdMobileNo3" value="@mobile3">
+                            </div>
+                        </td>
+                        <th>가입일자</th>
+                        <td>@Model.MemberInfo.REGIST_DATE.ToString("yyyy.MM.dd")</td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td colspan="3">
+                            <div class="form-group form-inline">
+                                <button class="btn btn-default" data-toggle="modal" id="btnAddressSearch">우편번호 찾기</button>
+                                @*<button class="btn btn-default" data-toggle="modal" data-target="#searchZipCode">우편번호 찾기</button>*@
+                                <input type="text" class="form-control" name="ZipCode" id="ZipCode" value="@Model.MemberInfo.ZIPCODE">
+                            </div>
+                            <input type="text" class="form-control" name="Address" id="Address" value="@Model.MemberInfo.ADDRESS">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>연간수입</th>
+                        <td>
+                            <select class="form-control" name="Salary">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.Salary)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.SALARY_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                        <th>투자선호대상</th>
+                        <td>
+                            <select class="form-control" name="InvestmentPreferenceObject">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.InvestmentPreferenceObject)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.INVESTMENT_PREFERENCE_OBJECT_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기존정보 습득처</th>
+                        <td>
+                            <select class="form-control" name="InfoAcquirement">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.InfoAcquirement)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.INFO_ACQUIREMENT_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                        <th>투자기간</th>
+                        <td>
+                            <select class="form-control" name="InvestmentPeriod">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.InvestmentPeriod)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.INVESTMENT_PERIOD_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>투자성향</th>
+                        <td>
+                            <select class="form-control" name="InvestmentPropensity">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.InvestmentPropensity)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.INVESTMENT_PROPENSITY_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                        <th>주요증권거래처</th>
+                        <td>
+                            <select class="form-control" name="StockCompany">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.StockCompany)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.STOCK_COMPANY_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>투자규모</th>
+                        <td>
+                            <select class="form-control" name="InvestmentScale">
+                                <option value="">선택</option>
+                                @foreach (MemberManageCode item in Model.InvestmentScale)
+                                {
+                                    <option value="@item.Id" @(Model.MemberInfo.INVESTMENT_SCALE_ID == item.Id ? " selected=\"selected\"" : "")>@item.Descript</option>
+                                }
+                            </select>
+                        </td>
+                        <th>관심분야</th>
+                        <td>
+                            @foreach (MemberManageCode item in Model.Interest)
+                            {
+                                <input type="checkbox" name="Interest" value="@item.Id" @(Model.MemberInterestList.Contains(item.Id.ToString()) == true ? " checked=\"checked\"" : "") />@item.Descript
+                            }
+                            <input type="hidden" id="InterestList" name="InterestList" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>WOW Cash</th>
+                        <td>@string.Format("{0:#,#}", Model.WOW_CASH)</td>
+                        <th>쿠폰</th>
+                        <td>@(Model.COUPON_COUNT)장</td>
+                    </tr>
+                    <tr>
+                        <th>변경 및 삭제이력</th>
+                        <td colspan="3">
+                            <ul class="list-type1">
+                                @for (int i = 0; i < ViewBag.HistoryDescription.Count; i++)
+                                {
+                                    if (ViewBag.HistoryDescription[i].OperationType == "삭제")
+                                    {
+                                        <!--<li>@(ViewBag.HistoryDescription[i].ChangedDate.ToString("yyyy-MM-dd HH:mm:ss"))에 @(ViewBag.HistoryDescription[i].AdminId)님께서 @(ViewBag.HistoryDescription[i].OperationType)를(을) 하셨습니다.</li>-->
+                                        <li>@(ViewBag.HistoryDescription[i].ChangedDate.ToString("yyyy-MM-dd HH:mm:ss"))에 @(ViewBag.HistoryDescription[i].AdminId)님께서 수정을(를) 하셨습니다.</li>
+}
+                                    else
+                                    {
+                                        <li>@(ViewBag.HistoryDescription[i].ChangedDate.ToString("yyyy-MM-dd HH:mm:ss"))에 @(ViewBag.HistoryDescription[i].AdminId)님께서 @(ViewBag.HistoryDescription[i].Descript)를(을) 수정하셨습니다.</li>
+                                    }
+                                }
+                                
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <input type="hidden" name="UserNumber" id="UserNumber" value="@ViewBag.Condition.UserNumber" />
+        </form>
+        <div class="box-button">
+            <a href="#" class="btn btn-success" id="btnGoList">목록</a>
+            <button class="btn btn-success" id="btnSave">수정</button>
+            <button class="btn btn-default" id="btnDelete">탈퇴</button>
+        </div>
+    </div>
+</div>
+<div id="pop2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">반려사유 입력</h4>
+            </div>
+            <div class="modal-body">
+                <strong>·</strong> 반려사유를 입력하세요
+                <textarea id="RejectReason" style="resize:none; width:100%; height:160px; margin-bottom:20px;"></textarea>
+                <div class="box-button">
+                    <button class="btn btn-success" id="btnRejectProcess">확인</button>
+                    <button class="btn btn-default" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="UserId" value="@Model.MemberInfo.USERID" />
+<form id="frmSearch">
+    <input type="hidden" id="PageSize" name="PageSize" value="20" />
+    <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@Request["menuSeq"]" />
+    <input type="hidden" id="RegistDateFrom" name="RegistDateFrom" value="@Request["RegistDateFrom"]" />
+    <input type="hidden" id="RegistDateTo" name="RegistDateTo" value="@Request["RegistDateTo"]" />
+    <input type="hidden" id="LatestConnectDateFrom" name="LatestConnectDateFrom" value="@Request["LatestConnectDateFrom"]" />
+    <input type="hidden" id="LatestConnectDateTo" name="LatestConnectDateTo" value="@Request["LatestConnectDateTo"]" />
+    <input type="hidden" id="SearchType" name="SearchType" value="@Request["SearchType"]" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@Request["SearchText"]" />
+</form>
+@*@Html.Partial("~/Areas/IntMemManage/Views/MemIdx/AddressSearch.cshtml", "MemIdxEdit.AddressSearchResult")*@

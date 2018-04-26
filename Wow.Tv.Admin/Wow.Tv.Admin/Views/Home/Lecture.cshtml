@@ -1,0 +1,57 @@
+﻿@using Wow.Tv.Middle.Model.Common;
+@using Wow.Tv.Middle.Model.Db49.wownet.Lecture
+
+@model ListModel<JOIN_LECTURES__CODE>
+
+@{
+    Layout = null;
+}
+
+<!-- //BBS List -->
+<div class="box-title">
+    <h3>강연회 현황</h3>
+    <div class="box-link">
+        <a href="/ProductManage/Lecture/Index?menuSeq=@ViewBag.MenuSeq" class="btn btn-default">더보기</a>
+    </div>
+</div>
+
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            <col width="200px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>사이트 구분</th>
+                <th>강연회명</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListData)
+            {
+                <tr>
+                    <td>
+                        @if (item.VIEW_SITE == "T")
+                        {
+                            @: 한국경제TV 
+                        }
+                        else if (item.VIEW_SITE == "N")
+                        {
+                            @: 와우넷 
+                        }
+                        else if (item.VIEW_SITE == "F")
+                        {
+                            @: 와우파
+                        }
+                        else if (item.VIEW_SITE == "S")
+                        {
+                            @: 와우스타
+                        }
+                    </td>
+                    <td class="text-left"><a href="/ProductManage/Lecture/Edit?seq=@item.SEQ&menuSeq=@ViewBag.MenuSeq">@item.TITLE</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

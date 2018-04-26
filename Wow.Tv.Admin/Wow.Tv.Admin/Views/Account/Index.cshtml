@@ -1,0 +1,106 @@
+﻿@model bool
+
+@{
+    string assetsUrl = AppState["AssetsUrl"].ToString();
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    Layout = "/Views/Shared/_LayoutNone.cshtml";
+}
+
+
+@section scripts{
+    <script src="@wowTvScript/Account/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divRegist" class="modal fade" role="dialog"></div>
+}
+
+
+
+        <!-- Brand -->
+        <div class="brand">
+            <img src="@assetsUrl/admin/images/admin-logo.png" alt="brand logo" />
+        </div>
+        <!--/ Brand -->
+        <!-- Login form -->
+        <form class="sign-in form-horizontal shadow rounded no-overflow" id="frmLogin">
+    <input type="hidden" name="returnUrl" value="@Request["returnUrl"]" />
+
+            <div class="sign-header">
+                <div class="form-group">
+                    <div class="sign-text">
+                        <span>로그인</span>
+                    </div>
+                </div><!-- /.form-group -->
+            </div><!-- /.sign-header -->
+            <div class="sign-body">
+                <div class="form-group">
+                    <div class="input-group input-group-lg rounded no-overflow">
+                        <input type="text" class="form-control input-sm" placeholder="사용자 아이디 " name="adminId" id="txtUserId" value="@ViewBag.adminId">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <div class="input-group input-group-lg rounded no-overflow">
+                        <input type="password" class="form-control input-sm" placeholder="비밀번호" name="pwd" id="pwdPassword" value="@ViewBag.adminPwd">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div><!-- /.form-group -->
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg rounded w-100">
+                        <div class="row">
+                            <div class="col-xs-7" style="width:62% !important;">
+                                <input type="text" class="form-control input-sm h-45" placeholder="휴대폰 인증하기" name="mobileAuthNumber" id="txtMobileAuthNumber" value="@ViewBag.mobileAuthNumber">
+                            </div>
+                            <div class="col-xs-5 col-xs-5-1 al-r fl-r">
+                                <button type="button" class="btn btn-theme btn-lg btn-block no-margin rounded pdd-tb10-lr2 h-45 font-size13 " id="btnMobileAuthNumber">인증번호발송</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.form-group -->
+
+            @if (Model == true)
+            {
+                <div class="form-group">
+                    <div class="input-group input-group-lg rounded w-100">
+                        <div class="row">
+                            <div class="col-xs-7" style="width:62% !important;">
+                                <input type="text" class="form-control input-sm h-45" placeholder="보안문자 입력" name="capChaText" id="txtCapcha">
+                            </div>
+                            <div class="col-xs-5 col-xs-5-1 al-r fl-r">
+                                <button type="button" class="btn btn-theme btn-lg btn-block no-margin rounded pdd-tb10-lr2 h-45 font-size13 " id="btnCapchaReload">새로고침</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.form-group -->
+
+                <div class="form-group w-100">
+                    <div class="input-group input-group-lg rounded no-overflow w-100" style="border:1px solid #888888; height: 38px;  ">
+                        <img src="/Account/CaptChaImage" id="imgCaptCha" style="width:320px; height:38px;" />
+                    </div>
+                </div><!-- /.form-group -->
+            }
+            </div><!-- /.sign-body -->
+            <div class="sign-footer">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button type="submit" class="btn btn-theme btn-lg btn-block no-margin rounded" id="btnLogin">로그인</button>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button type="button" class="btn btn-default btn-lg btn-block no-margin rounded" id="btnRegist">운영자등록</button>
+                        </div>
+                    </div>
+                </div><!-- /.form-group -->
+                <div class="form-group">
+
+                </div><!-- /.form-group -->
+            </div><!-- /.sign-footer -->
+        </form><!-- /.form-horizontal -->
+        <!--/ Login form -->
+        <!-- Content text -->
+        <p class="text-muted text-center font-size11">COPYRIGHT (C)한국경제TV. ALL RIGHTS RESERVED.</p>
+        <!--/ Content text -->
+

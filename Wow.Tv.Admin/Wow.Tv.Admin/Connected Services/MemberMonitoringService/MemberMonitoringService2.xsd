@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv.MemberManage" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv.MemberManage" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/MemberManage/MemberMonitoringService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="TotalListCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TotalListCondition" nillable="true" type="tns:TotalListCondition" />
+  <xs:complexType name="ArrayOfTotalListResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TotalListResult" nillable="true" type="tns:TotalListResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTotalListResult" nillable="true" type="tns:ArrayOfTotalListResult" />
+  <xs:complexType name="TotalListResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ActionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="ActionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActionLog" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="TableKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TotalListResult" nillable="true" type="tns:TotalListResult" />
+  <xs:complexType name="NewRegCfmCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q2:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NewRegCfmCondition" nillable="true" type="tns:NewRegCfmCondition" />
+  <xs:complexType name="ArrayOfNewRegCfmResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NewRegCfmResult" nillable="true" type="tns:NewRegCfmResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNewRegCfmResult" nillable="true" type="tns:ArrayOfNewRegCfmResult" />
+  <xs:complexType name="NewRegCfmResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AdminName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LatestConnectedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PasswordChangedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RegisteredDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Seq" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NewRegCfmResult" nillable="true" type="tns:NewRegCfmResult" />
+  <xs:complexType name="AccAuthCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q3:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AccAuthCondition" nillable="true" type="tns:AccAuthCondition" />
+  <xs:complexType name="ArrayOfAccAuthResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccAuthResult" nillable="true" type="tns:AccAuthResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccAuthResult" nillable="true" type="tns:ArrayOfAccAuthResult" />
+  <xs:complexType name="AccAuthResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ActionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="ActionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TableKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccAuthResult" nillable="true" type="tns:AccAuthResult" />
+  <xs:complexType name="AccLogCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q4:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AccLogCondition" nillable="true" type="tns:AccLogCondition" />
+  <xs:complexType name="ArrayOfAccLogResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccLogResult" nillable="true" type="tns:AccLogResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccLogResult" nillable="true" type="tns:ArrayOfAccLogResult" />
+  <xs:complexType name="AccLogResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ActionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="ActionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="TableKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccLogResult" nillable="true" type="tns:AccLogResult" />
+  <xs:complexType name="WorkOutLogHistCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q5:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkOutLogHistCondition" nillable="true" type="tns:WorkOutLogHistCondition" />
+  <xs:complexType name="ArrayOfWorkOutLogHistResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkOutLogHistResult" nillable="true" type="tns:WorkOutLogHistResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkOutLogHistResult" nillable="true" type="tns:ArrayOfWorkOutLogHistResult" />
+  <xs:complexType name="WorkOutLogHistResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ActionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActionSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="ActionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="TableKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkOutLogHistResult" nillable="true" type="tns:WorkOutLogHistResult" />
+  <xs:complexType name="MemInfoOpenChkCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q6:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RegistDateFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RegistDateTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MemInfoOpenChkCondition" nillable="true" type="tns:MemInfoOpenChkCondition" />
+  <xs:complexType name="ArrayOfMemInfoOpenChkResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MemInfoOpenChkResult" nillable="true" type="tns:MemInfoOpenChkResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMemInfoOpenChkResult" nillable="true" type="tns:ArrayOfMemInfoOpenChkResult" />
+  <xs:complexType name="MemInfoOpenChkResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LatestActionLogSeq" type="xs:int" />
+      <xs:element minOccurs="0" name="LatestOpenDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OpenCount" type="xs:int" />
+      <xs:element minOccurs="0" name="OpenDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seq" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemInfoOpenChkResult" nillable="true" type="tns:MemInfoOpenChkResult" />
+</xs:schema>

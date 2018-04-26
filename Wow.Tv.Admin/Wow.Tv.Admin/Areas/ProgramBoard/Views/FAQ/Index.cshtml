@@ -1,0 +1,200 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model IntegratedBoard<NTB_BOARD_CONTENT>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/ProgramBoard/FAQ/Index.js"></script>
+
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var viewYN = "@ViewBag.Condition.VIEW_YN";
+        var searchType = "@ViewBag.Condition.SearchType";
+    </script>
+}
+
+@{
+
+    var flagListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "Y", Value = "Y"},
+            new SelectListItem { Text = "N", Value = "N"}
+        }, "Value", "Text");
+
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "내용", Value = "CONTENT"}
+        }, "Value", "Text");
+
+
+    string selectVIEW_YN = string.IsNullOrWhiteSpace(ViewBag.Condition.VIEW_YN) ? "ALL" : ViewBag.Condition.VIEW_YN;
+    string selectSearchType = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchType) ? "ALL" : ViewBag.Condition.SearchType;
+
+    var viewList = new SelectList(flagListItem, "Value", "Text", selectVIEW_YN);
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchType);
+}
+
+
+
+
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+<!-- FAQ 리스트 -->
+<div class="wrap">
+
+    <!-- Global Search -->
+    <div class="contain-search-global">
+        
+        
+        <form id="frmSearch">
+            <table>
+                <colgroup>
+                    <col width="120px">
+                    <col >
+                    <col width="120px">
+                    <col >
+                </colgroup>
+                <tr>
+                    <th>질문유형</th>
+                    <td>
+                        <div class="form-inline">
+                            <select class="form-control" id ="COMMON_CODE" name="COMMON_CODE">
+                                @foreach (var code in Model.CommonCodes)
+                                {
+                                    <option value="@code.COMMON_CODE" @(code.COMMON_CODE == ViewBag.Condition.COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                    <th>게시여부</th>
+                    <td>
+                        <div class="form-inline">
+                            @Html.DropDownList("VIEW_YN", viewList, new {@class = "form-control"})
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>검색</th>
+                    <td colspan="3">
+                        <div class="form-group form-inline">
+                            @Html.DropDownList("SearchType", searchList, new { @class = "form-control" })
+                            <div class="input-group" style="width: 600px">
+                                <input class="form-control" type="text" placeholder="검색어를 입력하세요." name="SearchText" maxlength="100" id="txtSearch"  value="@ViewBag.Condition.SearchText">
+                                <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" id="seq" name="seq"/>
+            <input type="hidden" id="pageSize" name="pageSize" value="20"/>
+            <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex"/>
+            <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.BOARD_SEQ" />
+            <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])"/>
+        </form>
+    </div>
+    <!-- //Global Search -->
+    <!-- Table Top -->
+    <div class="box-top-table">
+        <div class="inner-right">
+            <p>총 <span class="text-color1">@ViewBag.TotalDataCount</span>개의 게시물이 등록되어 있습니다.
+            </p>
+        </div>
+    </div>
+    <!-- //Table Top -->
+
+    <!-- BBS List -->
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="allCheck"></th>
+                <th>No.</th>
+                <th>질문유형</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일(수정일)</th>
+                <th>게시여부</th>
+            </tr>
+            </thead>
+            <tbody>
+                
+            @if (ViewBag.TotalDataCount == 0)
+            {
+        
+                <tr>
+                    <td colspan="7" style="height:400px">게시물이 없습니다.</td>
+                </tr>
+            }
+            else
+            {
+
+                foreach (var item in Model.ListData)
+                {
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        @*<td class="al_c"><input type="checkbox" class="form-group"></td>*@
+                        <td >@Html.DisplayFor(modelItem => item.BOARD_CONTENT_SEQ)</td>
+                        <td>@Html.DisplayFor(modelItem => Model.CommonCodes.FirstOrDefault(x => x.COMMON_CODE == item.COMMON_CODE).CODE_NAME)</td>
+                        <td class="text-left"><a href="#" onclick="return FAQIndex.GoEdit(@item.BOARD_CONTENT_SEQ);">@Html.Raw(item.TITLE)</a></td>
+                        <td >@Html.DisplayFor(modelItem => item.USER_NAME)</td>
+                        <td>@Html.DisplayFor(modelItem => item.REG_DATE)
+                            @if (item.MOD_DATE != null)
+                            {
+                                <br>
+                                <span class="text-color1">(@Html.DisplayFor(modelItem => item.MOD_DATE))</span>
+                            }
+                        </td>
+                        @*<td >@Html.DisplayFor(modelItem => item.READ_CNT)</td>*@
+                        <td >@Html.DisplayFor(modelItem => item.VIEW_YN)</td>
+                    </tr>
+                }
+                    
+            }
+
+            @*<tr>
+                <td colspan="7" style="height:400px">검색결과가 없습니다.</td>
+            </tr>*@
+            </tbody>
+        </table>
+    </div>
+    <!-- //BBS List -->
+
+    <!-- Pagenate -->
+    <div class="box-paginate">
+        <div id="divPaging"></div>
+    </div>
+    <!-- //Pagenate -->
+
+    <!-- Bottom Buttons -->
+    <div class="box-button">
+        <div class="inner-right">
+                
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+            {
+                <button class="btn btn-success" id="btnAdd">글쓰기</button>
+            }
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+            {
+                if (Model != null)
+                {
+                    <button class="btn btn-default" id="btnDelete">삭제하기</button>
+                }
+            }
+        </div>
+    </div>
+    <!-- //Bottom Buttons -->
+                       
+</div>

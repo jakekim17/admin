@@ -1,0 +1,190 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.broadcast
+@using Wow.Tv.Middle.Model.Db49.broadcast.MyProgram
+
+@model Wow.Tv.Admin.CastService.ProgramCastModel
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    CastCondition condition = ViewBag.Condition;
+    Pro_wowList expertInfo = ViewBag.ExpertInfo;
+}
+
+@section scripts{
+
+    <script src="@wowTvScript/MyBroadProgram/CastManage/Edit.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+    <div id="divExpert" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+<form id="frmSearch">
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+    <input type="hidden" name="CastType" value="@condition.CastType" />
+    <input type="hidden" name="PublishYn" value="@condition.PublishYn" />
+    <input type="hidden" name="SearchType" value="@condition.SearchType" />
+    <input type="hidden" name="SearchText" value="@condition.SearchText" />
+</form>
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-notice1">'*'표시는 필수 입력입니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+                <form id="frmSave">
+                    <input type="hidden" id="hidProgramCastSeq" name="PROGRAM_CAST_SEQ" value="@Model.ProgramCast.PROGRAM_CAST_SEQ" />
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>분류</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="CAST_TYPE" value="Make" @(String.IsNullOrEmpty(Model.ProgramCast.CAST_TYPE) == true || Model.ProgramCast.CAST_TYPE == "Make" ? "checked" : "")> 출연진(ID 無)</label>
+                                <label class="radio-inline"><input type="radio" name="CAST_TYPE" value="Cast" @(Model.ProgramCast.CAST_TYPE == "Cast" ? "checked" : "")> 출연진(ID 有)</label>
+                            </td>
+                            <th>게시여부</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="Y" @(String.IsNullOrEmpty(Model.ProgramCast.PUBLISH_YN) == true || Model.ProgramCast.PUBLISH_YN == "Y" ? "checked" : "")> Y</label>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="N" @(Model.ProgramCast.PUBLISH_YN == "N" ? "checked" : "")> N</label>
+                            </td>
+                        </tr>
+                        <tr class="devTrCast">
+                            <th>전문가 ID</th>
+                            <td colspan="3">
+                                <div class="input-group">
+                                    <input type="hidden" id="hidPayNo" name="pay_no" value="@Model.ProgramCast.pay_no">
+                                    <input class="form-control" type="text" id="txtExpertName" value="@expertInfo.FullName" readonly>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnExpertSearch" >검색</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="devTrCast">
+                            <th>카페정보</th>
+                            @if (String.IsNullOrEmpty(expertInfo.NickName) == true)
+                            {
+                                <td colspan="3"><input type="text" class="form-control" id="txtCafeInfo" readonly></td>
+                            }
+                            else
+                            {
+                                <td colspan="3"><input type="text" class="form-control" id="txtCafeInfo" value="http://wowpro.wownet.co.kr/common/profileLink.asp?nickname=@(expertInfo.NickName)&link=cafe" readonly></td>
+                            }
+                        </tr>
+                        <tr class="devTrCast">
+                            <th>전문가방송 정보</th>
+                            @if (String.IsNullOrEmpty(expertInfo.Pro_id) == true)
+                            {
+                                <td colspan="3"><input type="text" class="form-control" id="txtBroadInfo" readonly></td>
+                            }
+                            else
+                            {
+                                <td colspan="3"><input type="text" class="form-control" id="txtBroadInfo" value="http://wowpro.wownet.co.kr/pro/pro_main_new/profile.asp?proID=@(expertInfo.Pro_id)" readonly></td>
+                            }
+                        </tr>
+                        <tr class="devTrCast">
+                            <th>이미지</th>
+                            @if (String.IsNullOrEmpty(expertInfo.Profile) == true)
+                            {
+                                <td colspan="3"><img id="imgCast" src="" /></td>
+                            }
+                            else
+                            {
+                                <td colspan="3"><img id="imgCast" src="http://image.wownet.co.kr/@(expertInfo.Photo_Service)" /></td>
+                            }
+                        </tr>
+                        <tr class="devTrMake">
+                            <th>이름</th>
+                            <td colspan="3"><input type="text" class="form-control" name="CAST_NAME" value="@Model.ProgramCast.CAST_NAME" ></td>
+                        </tr>
+                        <tr class="devTrMake">
+                            <th>사진</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="attachFileBase"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <img src="@Model.AttachFile.REAL_WEB_PATH" alt="" style="width:200px;height:auto;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>출연요일</th>
+                            <td>
+                                <label class="checkbox-inline"><input type="checkbox" name="MONDAY_YN" value="Y" @(Model.ProgramCast.MONDAY_YN == "Y" ? "checked" : "")> 월</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="TUESDAY_YN" value="Y" @(Model.ProgramCast.TUESDAY_YN == "Y" ? "checked" : "")> 화</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="WEDNESDAY_YN" value="Y" @(Model.ProgramCast.WEDNESDAY_YN == "Y" ? "checked" : "")> 수</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="THURSDAY_YN" value="Y" @(Model.ProgramCast.THURSDAY_YN == "Y" ? "checked" : "")> 목</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="FRIDAY_YN" value="Y" @(Model.ProgramCast.FRIDAY_YN == "Y" ? "checked" : "")> 금</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="STURDAY_YN" value="Y" @(Model.ProgramCast.STURDAY_YN == "Y" ? "checked" : "")> 토</label>
+                                &nbsp;&nbsp;
+                                <label class="checkbox-inline"><input type="checkbox" name="SUNDAY_YN" value="Y" @(Model.ProgramCast.SUNDAY_YN == "Y" ? "checked" : "")> 일</label>
+                            </td>
+                            <th>등록일</th>
+                            <td>@Model.ProgramCast.REG_DATE.ToDate()</td>
+                        </tr>
+                        <tr>
+                            <th>작성자</th>
+                            <td>@Model.ProgramCast.REG_NAME</td>
+                            <th>마지막 수정일</th>
+                            <td>@Model.ProgramCast.MOD_DATE.ToDate()</td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="3">
+                                <textarea id="hidRemark" style="width:100%;height:200px;display:none;" name="REMARK">@Model.ProgramCast.REMARK</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Wtite -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                @if (Model.ProgramCast.PROGRAM_CAST_SEQ > 0)
+                {
+                <button class="btn btn-default" id="btnDelete">삭제</button>
+                }
+                <button class="btn btn-success" id="btnSave">저장</button>
+                <a href="#" class="btn btn-default" id="btnList">목록</a>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+

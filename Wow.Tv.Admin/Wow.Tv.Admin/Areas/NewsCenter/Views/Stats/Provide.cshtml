@@ -1,0 +1,52 @@
+﻿@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string assetsUrl = AppState["AssetsUrl"].ToString();
+}
+
+
+@{
+    Layout = null;
+}
+
+
+<link rel="stylesheet" href="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/bootstrap-datepicker3.min.css">
+<script type="text/javascript" src="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.min.js"></script>
+<script src="@assetsUrl/admin/js/design.js" charset="UTF-8"></script>
+<script src="@wowTvScript/jquery.blockUI.js"></script>
+<script src="@wowTvScript/NewsCenter/Stats/Provide.js"></script>
+
+<p><span class="text-notice1">1년 이내에 생산 된 기사만 검색하실 수 있습니다.</span> (2018년 2월 1일 이후의 일자를 검색하세요.)</p>
+<!-- Global Search -->
+<div class="contain-search-global">
+    <form id="frmSearch">
+        <table>
+            <colgroup>
+                <col width="120px">
+                <col>
+            </colgroup>
+            <tr>
+                <th rowspan="2">검색</th>
+                <td>
+                    <div class="form-group form-inline">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" name="StartDate" id="txtStartDate" value="@(ViewBag.Condition.StartDate.Year == 0001 ? "" : ViewBag.Condition.StartDate.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div> ~
+                        <div class="input-group date">
+                            <input type="text" class="form-control" name="EndDate" id="txtEndDate" value="@(ViewBag.Condition.EndDate.Year == 0001  ? "" : ViewBag.Condition.EndDate.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div>
+                        <button type="button" id="btnSearch" class="btn btn-default">검색</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+    </form>
+    
+    
+    <div id="divProvideList"></div>
+
+</div>
+<!-- //Global Search -->
+

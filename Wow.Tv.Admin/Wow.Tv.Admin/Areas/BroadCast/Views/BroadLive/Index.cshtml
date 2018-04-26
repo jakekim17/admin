@@ -1,0 +1,174 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+
+@model ListModel<NTB_BROAD_LIVE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    BroadLiveCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+    </script>
+
+    <script src="@wowTvScript/BroadCast/BroadLive/Index.js"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>방송일</th>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="BroadStartDate" value="@condition.BroadStartDate.ToDate()">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="BroadEndDate" value="@condition.BroadEndDate.ToDate()">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th>게시여부</th>
+                            <td>
+                                <select class="form-control" name="PublishYn">
+                                    <option value="">전체</option>
+                                    <option value="Y" @(condition.PublishYn == "Y" ? "selected" : "")>Y</option>
+                                    <option value="N" @(condition.PublishYn == "N" ? "selected" : "")>N</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>프로그램명</th>
+                            <td colspan="3">
+                                <div class="input-group" style="width:600px">
+                                    <input class="form-control" type="text" name="ProgramName" value="@condition.ProgramName">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+
+                    <input type="hidden" id="hidBroadLiveID" name="broadLiveID" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table inform">
+                <div class="inner-right inform-btn">
+
+                    <span class="link-icon-youtube comp"><a href="http://www.youtube.com/hkwowtv" target="_blank">유튜브 통계</a></span>
+                    <span class="link-icon-afreeca comp"><a href="http://www.afreecatv.com/no1wowtv" target="_blank">아프리카 통계</a></span>
+                    <span class="link-icon-kakaostory comp"><a href="http://tv.kakao.com" target="_blank">카카오 통계</a></span>
+                    <span class="link-icon-facebook comp"><a href="http://www.facebook.com/hkwowtv" target="_blank">페이스북 통계</a></span>
+
+                    <button class="btn btn-success devCreate">등록</button>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS List -->
+            <div class="bbs-list1" id="divList">
+                <form id="frmList">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="chAll"></th>
+                                <th>번호</th>
+                                @*<th>방송상태</th>*@
+                                <th>방송일</th>
+                                <th>방송시간</th>
+                                <th>프로그램명</th>
+                                <th>통계</th>
+                                <th>등록일</th>
+                                <th>게시여부</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="seqList" value="@item.BROAD_LIVE_ID"></td>
+                                    <td>@item.BROAD_LIVE_ID</td>
+                                    @*<td>@item.CurrentStatus</td>*@
+                                    <td>@item.BROAD_DATE.ToDate()</td>
+                                    <td>@item.START_HOUR.ToString("00"):@item.START_MINUT.ToString("00") ~ @item.END_HOUR.ToString("00"):@item.END_MINUT.ToString("00")</td>
+                                    <td><a href="#" onclick="return BroadLiveIndex.GoEdit(@item.BROAD_LIVE_ID);">@item.PROGRAM_NAME</a></td>
+                                    <td>
+                                        @if (String.IsNullOrEmpty(item.YOUTUBE_URL) == false)
+                                        {
+                                            <span class="link-icon-youtube comp"><a href="@item.YOUTUBE_URL" target="_blank">유튜브 통계</a></span>
+                                        }
+                                        @if (String.IsNullOrEmpty(item.AFREECA_URL) == false)
+                                        {
+                                            <span class="link-icon-afreeca comp"><a href="@item.AFREECA_URL" target="_blank">아프리카 통계</a></span>
+                                        }
+                                        @if (String.IsNullOrEmpty(item.KAKAO_URL) == false)
+                                        {
+                                            <span class="link-icon-kakaostory comp"><a href="@item.KAKAO_URL" target="_blank">카카오 통계</a></span>
+                                        }
+                                        @if (String.IsNullOrEmpty(item.FACEBOOK_URL) == false)
+                                        {
+                                            <span class="link-icon-facebook comp"><a href="@item.FACEBOOK_URL" target="_blank">페이스북 통계</a></span>
+                                        }
+                                    </td>
+                                    <td>@item.REG_DATE.ToDate()</td>
+                                    <td>@item.PUBLISH_YN</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS List -->
+
+            <!-- Pagenate -->
+            <div class="table-responsive mt-5" id="divPaging"></div>
+            <!-- //Pagenate -->
+
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <div class="inner-left">
+                    <button class="btn btn-default" id="btnDelete">삭제</button>
+                </div>
+                <div class="inner-right">
+                    <button class="btn btn-success devCreate">등록</button>
+                </div>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+

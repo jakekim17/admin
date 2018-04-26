@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cba06810-e9ec-4a80-abdc-341424129143" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/Admin/AdminService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AdminService1.disco" MetadataType="Disco" ID="4539f4ca-03cc-40f4-a4be-038a5923f103" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?disco" />
+    <MetadataFile FileName="AdminService1.wsdl" MetadataType="Wsdl" ID="e6283058-28db-4bc4-96a2-fe6b74cc8780" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?wsdl" />
+    <MetadataFile FileName="AdminService6.xsd" MetadataType="Schema" ID="f214f243-badd-496d-bd21-77cbae6ac9b2" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd5" />
+    <MetadataFile FileName="AdminService61.xsd" MetadataType="Schema" ID="fc4679ae-4cb4-4c79-8da1-479ed4ec7cb3" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd4" />
+    <MetadataFile FileName="AdminService62.xsd" MetadataType="Schema" ID="2a41d056-90b1-4f9c-993b-4b3e1277857e" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd7" />
+    <MetadataFile FileName="AdminService63.xsd" MetadataType="Schema" ID="500d0482-af86-44f2-b242-d48e73208389" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd6" />
+    <MetadataFile FileName="AdminService64.xsd" MetadataType="Schema" ID="29c9bf58-ddfb-44e7-bc55-4f7caa5bb53c" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AdminService65.xsd" MetadataType="Schema" ID="e76d49ea-4bde-46bf-8720-be0bcedd6e5e" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AdminService66.xsd" MetadataType="Schema" ID="c67b2b5d-9b69-4ad8-9e94-73267ccaea71" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd3" />
+    <MetadataFile FileName="AdminService67.xsd" MetadataType="Schema" ID="2c00e0dd-7d8d-410b-b017-1fb371fda5cc" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AdminService.xsd" MetadataType="Schema" ID="9900046e-9059-4328-a63c-690083d37479" SourceId="1" SourceUrl="http://localhost:8088/Admin/AdminService.svc?xsd=xsd8" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

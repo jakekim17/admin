@@ -1,0 +1,187 @@
+﻿@model Wow.Tv.Middle.Model.Db49.wowtv.tblTradingStarTrade
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string assetsUrl = AppState["AssetsUrl"].ToString();
+}
+
+@{
+    Layout = null;
+    var buystateListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "정상", Value = "정상"},
+            new SelectListItem { Text = "미편입", Value = "미편입"},
+            new SelectListItem { Text = "편입실패", Value = "편입실패"}
+        }, "Value", "Text");
+
+
+    var buystateList = new SelectList(buystateListItem, "Value", "Text", Model.seq == 0 ? "진행중" : Model.buystate);
+}
+
+
+
+
+
+<link rel="stylesheet" href="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/bootstrap-datepicker3.min.css">
+<script type="text/javascript" src="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.min.js"></script>
+<script src="@assetsUrl/admin/js/design.js" charset="UTF-8"></script>
+<script src="@wowTvScript/jquery.blockUI.js"></script>
+<script src="@wowTvScript/TradingStar/Trade/Edit.js?date=20170727163009"></script>
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">거래현황 등록/수정</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave">
+
+                <input type="hidden" name="seq" id="hidSeq" value="@Model.seq" />
+
+                <input type="hidden" name="regseq" id="hidregSeq" value="@ViewBag.regSeq" />
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">종목명</label>
+                        <div class="input-group button">
+                            <input class="form-control" type="text" name="cname" maxlength="30" value="@Model.cname" id="txtName">
+                            <span class="input-group-btn"><button class="btn btn-success" onclick="return TradeEdit.OpenStockList();">종목검색</button></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">종목코드</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" numberOnly type="text" name="code" maxlength="10" value="@Model.code" id="txtCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">게시일</label>
+                        <div class="col-sm-10">
+                            <div class="input-group date">
+
+                                @if (Model.broaddt?.Year > 1900)
+                                {
+                                    @:<input type="text" class="form-control" name="broaddt" maxlength="10" value="@Model.broaddt.Value.ToString("yyyy-MM-dd")">
+                                }
+                                else
+                                {
+                                    @:<input type="text" class="form-control" name="broaddt" maxlength="10" value="">
+                                }
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매수일</label>
+                        <div class="col-sm-10">
+                            <div class="input-group date">
+
+                                @if (Model.buydt?.Year > 1900)
+                                {
+                                    @:<input type="text" class="form-control" name="buydt" maxlength="10" value="@Model.buydt.Value.ToString("yyyy-MM-dd")">
+                                }
+                                else
+                                {
+                                    @:<input type="text" class="form-control" name="buydt" maxlength="10" value="">
+                                }
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매수가</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="buycost" maxlength="10" value="@Model.buycost" id="txtBuycost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">목표수익률</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="goalEarningRate" maxlength="10" value="@Model.goalEarningRate" id="txtGoalEarningRate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매수상태</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("buystate", buystateList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매도일</label>
+                        <div class="col-sm-10">
+                            <div class="input-group date">
+                                @if (Model.selldt?.Year > 1900)
+                                {
+                                    @:<input type="text" class="form-control" name="selldt" maxlength="10" value="@Model.selldt.Value.ToString("yyyy-MM-dd")">
+                                }
+                                else
+                                {
+                                    @:<input type="text" class="form-control" name="selldt" maxlength="10" value="">
+                                }
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매도가</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" numberOnly  name="sellcost" maxlength="10" value="@Model.sellcost" id="txtSellcost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">목표가</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" numberOnly name="targetCost" maxlength="10" value="@Model.targetCost" id="txtTargetCost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">손절가</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" numberOnly name="losscutCost" maxlength="10" value="@Model.losscutCost" id="txtLosscutCost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h3 class="panel-title font-bold">매매전략 등록</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">매수가 전략</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="strategybuy" maxlength="100" value="@Model.strategybuy" id="txtStrategybuy">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">목표가 전략</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="strategytarget" maxlength="100" value="@Model.strategytarget" id="txtStrategytarget">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">손절가 전략</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="strategylosscut" maxlength="10" value="@Model.strategylosscut" id="txtStrategylosscut">
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-footer">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                <button type="button" class="btn btn-theme no-margin rounded" id="btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>

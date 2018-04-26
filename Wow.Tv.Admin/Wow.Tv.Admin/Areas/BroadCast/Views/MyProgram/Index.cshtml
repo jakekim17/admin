@@ -1,0 +1,137 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@model ListModel<T_NEWS_PRG>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+
+    NewsProgramCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+
+
+    $(document).ready(function () {
+
+
+        $("#frmSearch").keydown(function () {
+            if (event.keyCode == 13) {
+                $("#btnSearch").click();
+
+                return false;
+            }
+        });
+
+        $("#btnSearch").click(function () {
+            SearchList(0);
+
+            return false;
+        });
+
+        $("#divPaging").html(cfGetPagingHtml(totalDataCount, $("#currentIndex").val(), $("#pageSize").val(), "SearchList"));
+
+    });
+
+    function SearchList(currentIndex) {
+
+        $("#currentIndex").val(currentIndex);
+
+        $("#frmSearch").attr("method", "POST");
+        $("#frmSearch").attr("action", "/BroadCast/MyProgram/Index?menuSeq=" + $("#hidCurrentMenuSeq").val());
+        $("#frmSearch").submit();
+    }
+
+</script>
+    
+}
+
+@section modalDiv{
+    
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+
+<div class="row">
+
+
+
+
+    <div class="col-md-12 clearfix">
+
+        <div class="panel-body no-padding rounded-bottom">
+            <div class="form-body">
+                <form id="frmSearch">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">검색</label>
+                        <div class="input-group col-md-3 fl-l pad-r10">
+                            <select class="form-control " name="SearchType">
+                                <option value="ProgramCd" @(condition.SearchType == "ProgramCd" ? "selected" : "")>프로그램코드</option>
+                                <option value="ProgramName" @(condition.SearchType == "ProgramName" ? "selected" : "")>프로그램명</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-md-3">
+                            <input class="form-control" type="text" name="SearchText" value="@condition.SearchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+
+                        <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                        <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        <div class="wrap">
+
+            <!-- BBS List -->
+            <div class="bbs-list1">
+                <table class="table">
+                    <colgroup>
+                        <col width="100">
+                        <col>
+                        <col width="100">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>프로그램 코드</th>
+                            <th>프로그램 명</th>
+                            <th>종영여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListData)
+                        {
+                        <tr>
+                            <td>@item.PRG_CD</td>
+                            <td class="text-left"><a href="/MyBroadProgram/Gate/Index?ProgramCode=@item.PRG_CD" target="_blank">@item.PRG_NM</a></td>
+                            <td>@item.ProgramList.ING_YN</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- //BBS List -->
+
+            <div class="table-responsive mt-5" id="divPaging"></div>
+
+        </div>
+
+    </div>
+</div>
+
+

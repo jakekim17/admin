@@ -1,0 +1,42 @@
+﻿@model List<Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU>
+
+@{ 
+    Layout = null;
+
+    int depth = ViewBag.Depth;
+    int nextDepth = depth + 1;
+    int upMenuSeq = ViewBag.UpMenuSeq;
+}
+
+<div class="panel-heading bord-b-1">
+    <div class="pull-left">
+        <h3 class="panel-title font-bold">@depth-DEPTH</h3>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.panel-heading -->
+
+@foreach (var item in Model)
+{
+    <div class="menu-list">
+        <input class="col-md-1 fl-l h-16" type="radio" name="menu_@depth" value="@item.MENU_SEQ">
+        <span><a href="#" class="devMenuItem" onclick="return MenuManageIndex.MenuItemClick(this, @item.MENU_SEQ, @nextDepth, 'divMenu_@nextDepth');">@item.MENU_NAME</a></span>
+        <span class="arrow-updown" onclick="return MenuManageIndex.UpDown(@item.MENU_SEQ, false, @item.UP_MENU_SEQ, @depth);"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+        <span class="arrow-updown" onclick="return MenuManageIndex.UpDown(@item.MENU_SEQ, true, @item.UP_MENU_SEQ, @depth);"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+    </div>
+}
+
+<div class="form-footer">
+    <div class="pull-right">
+        @if (LoginHandler.IsAuth(ViewBag.CurrentMenuSeq, false, false, true) == true)
+        {
+        <button class="btn btn-default mr-5" onclick="return MenuManageIndex.MenuItemDeleteClick(this, @depth, @upMenuSeq);">삭제</button>
+        }
+        @if (LoginHandler.IsAuth(ViewBag.CurrentMenuSeq, false, true, false) == true)
+        {
+        <button class="btn btn-success" onclick="return MenuManageIndex.MenuItemModifyClick(this, @depth, @upMenuSeq);">수정</button>
+        <button class="btn btn-success" onclick="return MenuManageIndex.OpenEdit(0, @upMenuSeq);">등록</button>
+        }
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->
+

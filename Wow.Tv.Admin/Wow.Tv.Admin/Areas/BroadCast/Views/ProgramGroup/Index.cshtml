@@ -1,0 +1,118 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+
+
+@model ListModel<NTB_PROGRAM_GROUP>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    BroadGroupCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+    </script>
+
+    <script src="@wowTvScript/BroadCast/ProgramGroup/Index.js"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th rowspan="2">검색</th>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group" style="width:600px">
+                                            <input class="form-control" type="text" name="GroupName" value="@condition.GroupName">
+                                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <input type="hidden" id="hidProgramGroupSeq" name="programGroupSeq" />
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+                </form>
+            </div>
+            <div class="box-button">
+                <div class="inner-right">
+                    <button class="btn btn-success" id="btnCreate">등록</button>
+                </div>
+            </div>
+            <div class="box-top-table inform">
+                <div class="inner-right">
+                    <p>총 @Model.TotalDataCount.ToString("N0")개의 게시물이 등록되어있습니다.</p>
+                </div>
+            </div>
+            <!-- BBS List -->
+            <div class="bbs-list1" id="divList">
+                <form id="frmList">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="chAll"></th>
+                                <th>대표프로그램코드</th>
+                                <th>그룹명</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="seqList" value="@item.PROGRAM_GROUP_SEQ"></td>
+                                    <td>@item.MASTER_PRG_CD</td>
+                                    <td class="text-left"><a href="#" onclick="return ProgramGroupIndex.GoEdit(@item.PROGRAM_GROUP_SEQ);">@item.GROUP_NAME</a></td>
+                                    <td>@item.REG_DATE.ToDate()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS List -->            
+            
+            <!-- Pagenate -->
+            <div class="table-responsive mt-5" id="divPaging"></div>
+            <!-- //Pagenate -->
+
+
+            <div class="box-button">
+                <div class="inner-left">
+                    <button class="btn btn-default" id="btnDeleteList">삭제</button>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+

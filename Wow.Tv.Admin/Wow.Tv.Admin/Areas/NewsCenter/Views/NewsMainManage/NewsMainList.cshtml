@@ -1,0 +1,85 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model  ListModel<NUP_NEWS_MAIN_MAGE_SELECT_Result>
+
+@{ Layout = null; }
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+<!-- #region 뉴스 메인 리스트 -->
+@if (Model.TotalDataCount > 0)
+{
+    foreach (var item in Model.ListData)
+    {
+        <tr name="trNewsMainList" @(item.LIST_YN.Equals("Y") ? "class=checked" : "")>
+            <td>
+                @(item.ROWCNT - item.ROWNUM + 1)
+                <input type="hidden" name="ARTICLE_ID"          value="@item.ARTID.Trim()" />
+                <input type="hidden" name="ORIGINAL_LIST_YN"    value="@item.LIST_YN" />
+                <input type="hidden" name="ORIGINAL_GUBUN_CODE" value="@item.GUBUN_CODE" />
+                <input type="hidden" name="ORIGINAL_RANK"       value="@item.RANK" />
+                <input type="hidden" name="ORIGINAL_SHOW_NUM"   value="@item.SHOW_NUM" />
+                <input type="hidden" name="ORIGINAL_BOLD_YN"    value="@item.BOLD_YN" />
+            </td>
+            <td><input type="checkbox" @(item.LIST_YN.Equals("Y") ? "checked=checked" : "") name="LIST_YN"    value="Y"></td>
+            <td><input type="radio" @(item.GUBUN_CODE.Equals("2") ? "checked=checked" : "") name="GUBUN_CODE_@item.ARTID.Trim()" value="2" ></td>
+            <td><input type="radio" @(item.GUBUN_CODE.Equals("3") ? "checked=checked" : "") name="GUBUN_CODE_@item.ARTID.Trim()" value="3" ></td>
+            <td><input type="radio" @(item.GUBUN_CODE.Equals("4") ? "checked=checked" : "") name="GUBUN_CODE_@item.ARTID.Trim()" value="4" ></td>
+            <td>
+                <select class="form-control" name="RANK">
+                    @if (item.RANK <= 0) { <option value=''> 선택 </option> }
+                    @for (int i = 1; i <= ViewBag.newsStandManualCount; i++)
+                    {
+                        <option value="@i" @(item.RANK.Equals(i) ? "selected" : "") >@i</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select class="form-control" name="SHOW_NUM">
+                    @if (item.SHOW_NUM <= 0){ <option value=''> 선택 </option> }
+                    @for (int i = 1; i <= ViewBag.newsRelationManualCount; i++)
+                    {
+                        <option value="@i" @(item.SHOW_NUM.Equals(i) ? "selected" : "")>@i</option>
+                    }
+                </select>
+            </td>
+            <td class="text-left">
+                <a href="javascript:NewsCommon.NewsView('@item.ARTID')" class="font-bold">@item.TITLE</a>
+                <div class="text-right">
+                    [<a href="javascript:NewsCommon.linkwwwUrl('@item.ARTID');">www. URL</a>] 
+@*
+                    [<a href="javascript:NewsCommon.linkHtmlUrl('@item.ARTID','@item.COMPCODE');">HTML URL</a>] 
+                @if (item.COMPCODE.Equals("WO") || item.COMPCODE.Equals("HK") || item.COMPCODE.Equals("YH")) {
+                    <a href = "javascript:NewsCommon.htmlReConvert('@item.ARTID','@item.COMPCODE');" >[HTML 재변환]</a>
+                }
+*@
+                </div>
+            </td>
+            <td>@item.COMP_CODE<br>@item.DEPT_NAME</td>
+            <td>@item.REG_DATE @if (item.MOD_DATE != null)
+                { <br><span class="text-color1">(@item.MOD_DATE)</span> }</td>
+            <td><input type="checkbox" @(item.BOLD_YN.Equals("Y") ? "checked=checked" : "") name="BOLD_YN" value="Y"></td>
+            <td colspan="2" class="text-left">
+                <span class="link-icon-facebook comp"><a href="javascript:NewsCommon.FacebookScrap('@item.ARTID')">Facebook</a></span>
+                <span class="link-icon-twitter comp"><a href="javascript:NewsCommon.TwitterScrap('@item.ARTID','@item.TITLE')">Twitter</a></span>
+                <span class="link-icon-kakaostory comp"><a href="javascript:NewsCommon.KaKaoStoryScrap('@item.ARTID','@item.TITLE')">KaKao Story</a></span>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="14"><strong>조건에 맞는 검색된 데이터가 없습니다.</strong></td>
+    </tr>
+}   
+    <script>
+        $("#totalDataCount").val("@Model.TotalDataCount");
+        $("#newsStandManualCount").val("@ViewBag.newsStandManualCount");
+    </script>
+    <script src="@wowTvScript/NewsCenter/NewsMainManage/NewsMainList.js"></script>
+
+

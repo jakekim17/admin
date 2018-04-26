@@ -1,0 +1,40 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model  ListModel<NUP_NEWS_LAND_ENTSPO_SELECT_Result>
+
+@{ Layout = null; }
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@if (Model.ListData.Count > 0)
+{
+    foreach (var item in Model.ListData)
+    {
+        <tr>
+            <td>-</td>
+            <td>
+                <select class="form-control" disabled>
+                    <option>@item.SHOW_NUM</option>
+                </select>
+            </td>
+            <td class="text-left">
+                @if (item.ICON_NAME != null && item.ICON_NAME.Length > 0)
+                { <span class="icon-state-title1">@item.ICON_NAME</span> }
+                <a href="javascript:NewsCommon.NewsView('@item.ARTID')">@item.TITLE</a>
+                <!--div class="text-right">
+                    [<a href="javascript:NewsCommon.linkwwwUrl('@item.ARTID');">www. URL</a>]
+                    [<a href="javascript:NewsCommon.linkHtmlUrl('@item.ARTID','@item.COMPCODE');">HTML URL</a>]
+                </div-->
+            </td>
+            <td>@item.COMP_CODE<br>@item.DEPT_NAME</td>
+            <td>
+                @item.REG_DATE @if (item.MOD_DATE != null)
+                { <br><span class="text-color1">(@item.MOD_DATE)</span> }
+            </td>
+            <td><input type="checkbox" disabled @(item.BOLD_YN.Equals("Y") ? "checked=checked" : "") name="Stand_BOLD_YN_@item.ARTID"></td>
+        </tr>
+    }
+}

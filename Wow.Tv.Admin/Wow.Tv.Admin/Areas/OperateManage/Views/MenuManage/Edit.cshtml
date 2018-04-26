@@ -1,0 +1,134 @@
+﻿@model Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{ 
+    Layout = null;
+
+    Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU upMenuInfo = ViewBag.UpMenuInfo;
+    Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU menuInfo_1 = ViewBag.MenuInfo_1;
+    Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU menuInfo_2 = ViewBag.MenuInfo_2;
+    Wow.Tv.Middle.Model.Db49.wowtv.NTB_MENU menuInfo_3 = ViewBag.MenuInfo_3;
+}
+
+
+<script src="@wowTvScript/OperateManage/MenuManage/Edit.js?date=20170727163009"></script>
+
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">메뉴 등록/수정</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave" >
+                <input type="hidden" name="MENU_SEQ" id="hidMenuSeq" value="@Model.MENU_SEQ" />
+                <input type="hidden" name="CHANNEL_CODE" value="@Model.CHANNEL_CODE" />
+                <input type="hidden" name="UP_MENU_SEQ" id="hidUpMenuSeq" value="@Model.UP_MENU_SEQ" />
+                <input type="hidden" name="DEPTH" id="hidDepth" value="@Model.DEPTH" />
+
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">위치</label>
+                        <div class="col-sm-10">
+                            <span>@menuInfo_1.MENU_NAME</span> > <span>@menuInfo_2.MENU_NAME</span> > <span>@menuInfo_3.MENU_NAME</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">메뉴명</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="MENU_NAME" value="@Model.MENU_NAME" id="txtMenuName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">컨텐츠 유형</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" id="rdoContentTypeCode_Html" name="CONTENT_TYPE_CODE" value="Html" @(String.IsNullOrEmpty(Model.CONTENT_TYPE_CODE) == true || Model.CONTENT_TYPE_CODE == "Html" ? "checked" : "")>
+                                <span> HTML 컨텐츠</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" id="rdoContentTypeCode_Board" name="CONTENT_TYPE_CODE" value="Board" @(Model.CONTENT_TYPE_CODE == "Board" ? "checked" : "")>
+                                <span> 게시판</span>
+                            </div>
+                            <div>
+                                <input class="fl-l h-16" type="radio" id="rdoContentTypeCode_Page" name="CONTENT_TYPE_CODE" value="Page" @(Model.CONTENT_TYPE_CODE == "Page" ? "checked" : "")>
+                                <span> 개별페이지</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divCode">
+                        <label class="col-sm-2 control-label pad-r10">코드</label>
+                        <div class="input-group col-sm-9" style="width: 80% !important">
+                            <input class="form-control" type="text" id="txtContentName" value="@Model.ContentName">
+                            <input type="hidden" name="CONTENT_SEQ" id="txtContentSeq" value="@Model.CONTENT_SEQ">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnCodeSearch">검색</button></span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divLink">
+                        <label class="col-sm-2 control-label">링크주소</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" placeholder="http://" name="LINK_URL" id="txtLinkUrl" value="@Model.LINK_URL">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">링크방식</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" name="LINK_TYPE_CODE" value="_self" @(String.IsNullOrEmpty(Model.LINK_TYPE_CODE) == true || Model.LINK_TYPE_CODE == "_self" ? "checked" : "")>
+                                <span> Self</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" name="LINK_TYPE_CODE" value="_blank" @(Model.LINK_TYPE_CODE == "_blank" ? "checked" : "")>
+                                <span> blank</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">활성</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" name="ACTIVE_YN" value="Y" @(String.IsNullOrEmpty(Model.ACTIVE_YN) == true || Model.ACTIVE_YN == "Y" ? "checked" : "") >
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" name="ACTIVE_YN" value="N" @(Model.ACTIVE_YN == "N" ? "checked" : "")>
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-footer">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                <button type="button" class="btn btn-theme no-margin rounded" id="btnSave">등록(수정)</button>
+                                @if (Model.MENU_SEQ > 0)
+                                {
+                                <button type="button" class="btn btn-default no-margin rounded" id="btnDelete">삭제</button>
+                                }
+                                @*<button type="button" class="btn btn-default no-margin rounded" id="btnPreview">미리보기</button>*@
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+            <!--/ 비밀번호변경 -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>

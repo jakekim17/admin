@@ -1,0 +1,77 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model ListModel<NTB_PROGRAM_GROUP>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    T_NEWS_PRG newsProgram = ViewBag.NewsProgram;
+}
+
+@{
+    Layout = null;
+}
+
+
+<script>
+        var divProgramGroupSearchList_totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/BroadCast/ProgramTemplate/ProgramGroupSearchList.js?date=20170727163009"></script>
+
+
+<!-- Table Top -->
+<div class="box-top-table inform">
+    <div class="inner-right inform-btn">
+        @*<button class="btn btn-success" id="divProgramGroupSearchList_btnAdd">그룹추가</button>*@
+    </div>
+</div>
+<!-- //Table Top -->
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>선택</th>
+                <th>그룹명</th>
+                <th>등록일</th>
+                @*<th>편집</th>*@
+            </tr>
+        </thead>
+        <tbody id="tbProgramGroupSearchList">
+            @foreach (var item in Model.ListData)
+            {
+            <tr>
+                <td><input type="radio" name="PROGRAM_GROUP_SEQ" value="@item.PROGRAM_GROUP_SEQ"></td>
+                <td class="text-left">
+                    <input type="text" class="form-control" style="display:none;" name="GROUP_NAME" value="@item.GROUP_NAME">
+                    <span>@item.GROUP_NAME</span>
+                </td>
+                <td>@item.REG_DATE.ToDate()</td>
+                @*<td>
+                    <button class="btn btn-success devModify" onclick="return ProgramGroupSearchList.Modify(this);">수정</button>
+                    <button class="btn btn-default devDelete" onclick="return ProgramGroupSearchList.Delete(this);">삭제</button>
+
+                    <button class="btn btn-success devSave" style="display:none;" onclick="return ProgramGroupSearchList.Save(this);">저장</button>
+                </td>*@
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- //BBS List -->
+<!-- Pagenate -->
+
+<div class="table-responsive mt-5" id="divProgramGroupSearchList_divPaging"></div>
+
+<!-- //Pagenate -->
+
+<!-- Bottom Buttons -->
+<div class="box-button">
+    <button class="btn btn-success" id="divProgramGroupSearchList_btnApply">적용</button>
+</div>
+<!-- //Bottom Buttons -->
+

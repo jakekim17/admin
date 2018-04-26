@@ -1,0 +1,72 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_MAIN_MANAGE>
+
+@{
+    Layout = null;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    int orderNumber = 0;
+}
+
+
+<script src="@wowTvScript/OperateManage/MainManage/SearchList.js"></script>
+
+
+
+
+
+
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            <col width="15%">
+            <col>
+            <col width="200px">
+            <col width="15%">
+            <col width="15%">
+            <col width="15%">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>순서</th>
+                <th colspan="2">타이틀</th>
+                <th>노출일시</th>
+                <th>등록일시</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListData)
+            {
+                orderNumber++;
+
+            <tr>
+                <td>@orderNumber</td>
+                <td>
+                    <a href="#" onclick="return MainManageIndex.BindEdit(@item.MAIN_MANAGE_SEQ)">@item.TITLE</a>
+
+                </td>
+                <td>
+                    <span class="btn-arrow-up"><button class="btn btn-success" onclick="return MainManageSearchList.UpDown(@item.MAIN_MANAGE_SEQ, true)">위로</button></span>
+                    <span class="btn-arrow-down"><button class="btn btn-success" onclick="return MainManageSearchList.UpDown(@item.MAIN_MANAGE_SEQ, false)">아래로</button></span>
+                </td>
+                <td>
+                    @(item.PUBLISH_START == null ? "" : item.PUBLISH_START.Value.ToString("yyyy-MM-dd HH:mm"))<br>
+                    <span class="text-color1">@(item.PUBLISH_END == null ? "" : item.PUBLISH_END.Value.ToString("yyyy-MM-dd HH:mm"))</span></td>
+                <td><span class="text-color1">(@item.MOD_DATE.ToString("yyyy-MM-dd HH:mm:ss"))</span></td>
+                <td>@(item.ACTIVE_YN == "Y" ? "노출" : "비노출")</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*<!-- Bottom Buttons -->
+<div class="box-button">
+    <a href="#" class="btn btn-success">순서저장</a>
+</div>
+<!-- //Bottom Buttons -->*@
+
+
+

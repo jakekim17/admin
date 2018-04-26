@@ -1,0 +1,154 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@model tv_program
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    BroadWatchCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+    <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script src="@wowTvScript/MyBroadProgram/Common.js"></script>
+    <script src="@wowTvScript/MyBroadProgram/BroadWatch/Edit.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+<form id="frmSearch">
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+
+    <input type="hidden" name="PublishYn" value="@condition.PublishYn" />
+    <input type="hidden" name="SearchType" value="@condition.SearchType" />
+    <input type="hidden" name="SearchText" value="@condition.SearchText" />
+</form>
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-notice1">'*'표시는 필수 입력입니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+                <form id="frmSave">
+                    <input type="hidden" name="Num" value="@Model.Num" />
+
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th><span class="nec">*</span>제목</th>
+                            <td colspan="3"><input type="text" class="form-control" id="txtTitle" name="Title" value="@Model.Title"></td>
+                        </tr>
+                        <tr>
+                            <th>작성자</th>
+                            <td>@Model.WriterID</td>
+                            <th><span class="nec">*</span>게시여부</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" value="Y" name="PublishYn" @(Model.PublishYn == "Y" ? "checked" : "")> Y</label>
+                                <label class="radio-inline"><input type="radio" value="N" name="PublishYn" @(String.IsNullOrEmpty(Model.PublishYn) == true || Model.PublishYn == "N" ? "checked" : "")> N</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>작성일</th>
+                            <td>@Model.CreateDate</td>
+                            <th>조회수</th>
+                            <td>@(Model.ClickNum == null ? "0" : Model.ClickNum.Value.ToString("N0"))</td>
+                        </tr>
+                        <tr>
+                            <th>마지막 수정일</th>
+                            <td>@Model.ModifyDate</td>
+                            <th>공유</th>
+                            <td>
+                                <span class="link-icon-facebook"><a href="#" target="_blank" id="btnFacebook">Facebook</a></span>
+                                <span class="link-icon-twitter"><a href="#" target="_blank" id="btnTwitter">Twitter</a></span>
+                                <span class="link-icon-naver"><a href="#" target="_blank" id="btnNaver">네이버</a></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>방송일</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <input type="hidden" id="txtBroad_date" name="broad_date" value="@Model.broad_date">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="txtBroadDate" value="@Model.BroadDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    시작시간
+                                    &nbsp;
+                                    <select class="form-control" id="cboBroadHour">
+                                        <option value="00">00시</option>
+                                        @for (int i = 1; i < 24; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.BroadHour == i.ToString("00") ? "selected" : "")>@i.ToString("00")시</option>
+                                        }
+                                    </select> :
+                                    <select class="form-control" id="cboBroadMinute">
+                                        <option value="00">00분</option>
+                                        @for (int i = 1; i < 60; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.BroadMinute == i.ToString("00") ? "selected" : "")>@i.ToString("00")분</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <th>파일</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="attachFileBase"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                            </td>
+                        </tr>*@
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="3">
+                                <textarea id="hidContents" style="width:100%;height:200px;display:none;" name="Contents">@Model.Contents</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Write -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <button class="btn btn-success" id="btnSave">저장</button>
+                <a href="#" class="btn btn-default" id="btnCancel">취소</a>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+
+
+

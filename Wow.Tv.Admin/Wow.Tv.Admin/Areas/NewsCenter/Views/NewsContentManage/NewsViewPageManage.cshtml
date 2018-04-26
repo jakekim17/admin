@@ -1,0 +1,105 @@
+﻿
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.Article.NewsCenter
+
+@model List<NTB_ARTICLE_VIEWPAGE_MANAGE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsContentManage/NewsViewPageManage.js"></script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>카테고리명</th>
+                            <th>당신이 좋아할 만한 기사 사용여부</th>
+                            <th>당신에게 맞는 추천 뉴스 사용여부</th>
+                            <th>이 기사와 많이 본 기사 사용여부</th>
+                            <th>SNS 채널 홍보 팝업(Mobile)</th>
+                            <th>저장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            
+                            <tr>
+                                <td>
+                                    @item.REG_ID
+                                    <input type="hidden" name="MENU_SEQ" value="@item.MENU_SEQ">
+                                    <p name="MENU_NAME">
+                                        @item.MENU_NAME 
+                                        @if (item.CHANNEL_CODE == "WowTv")
+                                        {
+                                            @:(PC)
+                                        }
+                                        else if(item.CHANNEL_CODE == "WowTv_Mobile")
+                                        {
+                                            @:(MOBILE)
+                                        }
+                                    </p>
+                                </td>
+                                <td>
+                                    <select class="form-control" name="LIKE_YN" id="LIKE_YN_@item.MENU_SEQ">
+                                        <option value="Y" @(item.LIKE_YN.Equals("Y") ? "selected" : "")>Y</option>
+                                        <option value="N" @(item.LIKE_YN.Equals("N") ? "selected" : "")>N</option>                                        
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" name="RECOM_YN">
+                                        <option value="Y" @(item.RECOM_YN.Equals("Y") ? "selected" : "")>Y</option>    
+                                        <option value="N" @(item.RECOM_YN.Equals("N") ? "selected" : "")>N</option>                                                                   
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" name="SEE_YN">
+                                        <option value="Y" @(item.SEE_YN.Equals("Y") ? "selected" : "")>Y</option>       
+                                        <option value="N" @(item.SEE_YN.Equals("N") ? "selected" : "")>N</option>                                                                
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" name="SNS_PR_YN" @(item.CHANNEL_CODE.Equals("WowTv") ? "disabled" : "")>
+                                        <option value="Y" @(item.SNS_PR_YN.Equals("Y") ? "selected" : "")>Y</option>
+                                        <option value="N" @(item.SNS_PR_YN.Equals("N") ? "selected" : "") @(item.CHANNEL_CODE.Equals("WowTv") ? "selected" : "")>N</option>                                 
+                                    </select>
+                                </td>
+                                <td><button class="btn btn-success" name="btnSave">@(string.IsNullOrEmpty(item.LIKE_YN) ? "등록" : "수정")</button></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">조건에 맞는 데이터가 없습니다.</td>
+                        </tr>
+                    }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+

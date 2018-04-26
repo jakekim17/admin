@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0e0a392a-7ce1-4a47-b2e2-c91717098a94" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HolidayTimeMngService1.disco" MetadataType="Disco" ID="ec6c928b-d6f5-4d0a-997a-40006caddba1" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?disco" />
+    <MetadataFile FileName="HolidayTimeMngService1.wsdl" MetadataType="Wsdl" ID="6b8c54c7-16b4-49b6-8e30-de5ae5cc3395" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?wsdl" />
+    <MetadataFile FileName="HolidayTimeMngService5.xsd" MetadataType="Schema" ID="09d95ad8-cc25-459b-95bd-801c3195529e" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd3" />
+    <MetadataFile FileName="HolidayTimeMngService51.xsd" MetadataType="Schema" ID="1d35dbea-b12c-40f5-9f58-814a81310992" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd0" />
+    <MetadataFile FileName="HolidayTimeMngService52.xsd" MetadataType="Schema" ID="22164b3e-848e-43a1-a10d-ad6ce4bc346a" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd2" />
+    <MetadataFile FileName="HolidayTimeMngService53.xsd" MetadataType="Schema" ID="8bd98a03-03ba-4c86-bbfb-945ffb03a6f1" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd4" />
+    <MetadataFile FileName="HolidayTimeMngService54.xsd" MetadataType="Schema" ID="92fec284-45d1-44f9-96bd-10d87a00cb50" SourceId="1" SourceUrl="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

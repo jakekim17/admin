@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+    int collapseNumber = 0;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+@model IList<Wow.Tv.Middle.Model.Db49.Article.NUP_FREELANCER_TRAFFIC_SELECT_Result>
+
+<script src="@wowTvScript/NewsCenter/Stats/SearchFreelancer.js"></script>
+
+<div class="bbs-list1">
+    <table class="table collapse-table">
+        <thead>
+        <tr>
+            <th>기자명</th>
+            <th>최초 시작일</th>
+            <th>총 뉴스 생산량</th>
+            <th>기간별 조회수/뉴스 생산량</th>
+            <th>보기</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        
+        @if (ViewBag.TotalDataCount == 0)
+        {
+            <tr>
+                <td colspan="5" style="height: 400px">등록된 데이터가 없습니다.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                collapseNumber++;
+                <tr>
+                    <td>@item.User_NM</td>
+                    <td>@item.ARTDATE.Value.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (item.TOTAL_ARTICLE_COUNT != null)
+                        {
+                            @($"{item.TOTAL_ARTICLE_COUNT.Value:n0}")
+                        }
+                    </td>
+                    <td>
+                        @if (item.TERM_COUNT != null && item.NEWS_MAKE_COUNT != null)
+                        {
+                            @($"{item.TERM_COUNT.Value:n0} / {item.NEWS_MAKE_COUNT.Value:n0}")
+                        }
+                    </td>
+                    <td>
+                        <a href="@($"#collapse{collapseNumber}")" onclick="javascript:SearchFreelancer.BindTopList('@($"collapse{collapseNumber}")','@item.USER_ID','@($"divIndex{collapseNumber}")');" data-toggle="collapse">열기</a>
+                    </td>
+                </tr>
+                <tr id="@($"collapse{collapseNumber}")" class="collapse" aria-expanded="false">
+                    <td class="inner-table" colspan="5">
+                        <div id="@($"divIndex{collapseNumber}")"class="bbs-list1"></div>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+

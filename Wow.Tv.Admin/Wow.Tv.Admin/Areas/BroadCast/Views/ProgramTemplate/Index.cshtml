@@ -1,0 +1,122 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@model ListModel<T_NEWS_PRG>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsProgramCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+    </script>
+
+    <script src="@wowTvScript/BroadCast/ProgramTemplate/Index.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+    <div id="divProgramGroupSearch" class="modal fade" role="dialog"></div>
+    <div id="divPartnerSearch" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <div class="box-button">
+                <div class="inner-right">
+                    <button class="btn btn-default" id="btnDelete">삭제</button>
+                    <button class="btn btn-success" id="btnSave">저장</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="box-title">
+                        <h3>프로그램 목록</h3>
+                    </div>
+
+                    
+                    <form id="frmSearch">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <input class="form-control" style="width:120px;" type="text" name="ProgramName" value="@condition.ProgramName">
+                                </td>
+                                <td>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                </td>
+                                <td>
+                                    <label class="radio-inline"><input type="radio" name="IngYn" value="Y" @(String.IsNullOrEmpty(condition.IngYn) == true || condition.IngYn == "Y" ? "checked" : "")>방영</label>
+                                    <label class="radio-inline"><input type="radio" name="IngYn" value="N" @(condition.IngYn == "N" ? "checked" : "")>종영</label>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                        <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+                    </form>
+
+                    <div class="contain-scroll" style="height:1063px">
+                        <div class="box-scroll">
+                            <!-- BBS List -->
+                            <div class="bbs-list1">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>프로그램명</th>
+                                            @*<th>템플릿</th>*@
+                                            @*<th>그룹정보</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ListData)
+                                        {
+                                            <tr>
+                                                <td colspan="2" class="text-left">
+                                                    <label class="radio-inline"><input type="radio" name="PRG_CD" value="@item.PRG_CD"> (@item.PRG_CD) @item.PRG_NM</label>
+                                                </td>
+                                                @*<td>@item.ProgramTemplateType</td>*@
+                                                @*<td>@item.ProgramTemplateName</td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- //BBS List -->
+
+                        </div>
+                    </div>
+                    <!-- Pagenate -->
+                    <div class="table-responsive mt-5" id="divPaging">
+                    </div>
+                    <!-- //Pagenate -->
+
+                </div>
+                <div class="col-md-8" id="divProgramTemplate">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

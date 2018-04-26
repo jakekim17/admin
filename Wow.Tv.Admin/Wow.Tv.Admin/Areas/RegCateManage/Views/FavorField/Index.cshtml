@@ -1,0 +1,73 @@
+﻿@using Wow.Tv.Middle.Model.Db89.wowbill.RegiCategoryManage
+@model FavorField[]
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+@section scripts
+{
+    <script src="@wowTvScript/RegCateManage/FavorField/Index.js"></script>
+}
+
+
+<div class="body-content animated fadeIn">
+    <!-- Contents -->
+
+    <div class="wrap">
+
+        <!-- Table Top -->
+        <div class="box-top-table">
+            <div class="inner-left inform-btn">
+                <p class="text-notice1">체크박스를 선택하시면 Front에서 노출 여부를 선택하실 수 있습니다.</p>
+            </div>
+        </div>
+        <!-- //Table Top -->
+        <!-- BBS List -->
+        <div class="bbs-list1">
+            <table class="table" id="tblCodeList">
+                <colgroup>
+                    <col width="80">
+                    <col>
+                    <col width="200">
+                    <col width="80" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>사용여부</th>
+                        <th>항목</th>
+                        <th>노출순서</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Length; i++)
+                    {
+                        FavorField item = Model[i];
+                        <tr>
+                            <td><input type="checkbox" name="Apply" @(item.Apply == true ? " checked=checked" : "")></td>
+                            <td><input type="text" class="form-control" name="Descript" value="@item.Descript"></td>
+                            <td>
+                                <span class="btn-arrow-up"><button class="btn btn-default" name="SortUp" onclick="RegCateManageFavorFieldIndex.SortUp(this); return false;">위로</button></span>
+                                <span class="btn-arrow-down"><button class="btn btn-success" name="SortDown" onclick="RegCateManageFavorFieldIndex.SortDown(this); return false;">아래로</button></span>
+                                <input type="hidden" name="InterestId" value="@item.InterestId" />
+                            </td>
+                            <td>
+                                <button class="btn btn-default" onclick="RegCateManageFavorFieldIndex.Delete(this); return false;">삭제</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- //BBS List -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            <button class="btn btn-success" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" id="btnAdd">추가</button>
+            <button class="btn btn-default" id="btnSave">수정</button>
+        </div>
+        <!-- //Bottom Buttons -->
+    </div>
+    <!-- //Contents -->
+</div>
+
+<input type="hidden" id="deletedList" />
+<input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@Request["menuSeq"]" />

@@ -1,0 +1,70 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<TAB_CMS_ADMIN>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var divSearchAdmin_totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/BroadCast/NewsProgramManage/PopAdminSearchList.js?date=20170727163009"></script>
+
+
+
+
+
+<table class="table_colRow" id="divSearchAdmin_tblList">
+    <thead>
+        <tr>
+            <th><input type="checkbox" class="form-group" id="divSearchAdmin_chAll"></th>
+            <th>번호</th>
+            <th>이름</th>
+            <th>아이디</th>
+            <th>그룹</th>
+            <th>부서</th>
+            <th>작성일</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.ListData)
+        {
+            <tr>
+                <td class="al_c">
+                    <input type="checkbox" class="form-group" value="@item.SEQ" name="seqList">
+                    <input type="hidden" value="@item.NAME" >
+                </td>
+                <td class="al_c">@item.SEQ</td>
+                <td class="al_c">@item.NAME</td>
+                <td class="al_c">@item.ADMIN_ID</td>
+                <td class="al_c">@item.GroupName</td>
+                <td class="al_c">@item.PartCodeName</td>
+                <td class="al-c">@item.REG_DATE.ToDateTime()<br /><span style="color: cadetblue">@item.MOD_DATE.ToDateTime()</span></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="table-responsive mt-5" id="divSearchAdmin_divPaging"></div>
+
+
+<!-- Bottom Buttons -->
+<div class="box-button">
+    <button class="btn btn-success" id="divSearchAdmin_btnApply">적용</button>
+</div>
+<!-- //Bottom Buttons -->
+
+
+

@@ -1,0 +1,92 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/StockSituation/Index.js"></script>
+}
+
+<input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="body-content animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12 clearfix">
+
+            <div class="contain-tabletop">
+                <div style="padding:10px 20px 0 20px;text-align:right;">
+                    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                    {
+                        <button class="btn btn-success" type="button" id="btnAdd">등록</button>
+                    }
+                </div>
+            </div>
+            <div class="app-ui-section group mt-10">
+                <form id="frmAdd">
+                    <table id="mytable" class="table_colRow">
+                        <colgroup>
+                            <col width="110">
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col width="150">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>순서</th>
+                                <th>성명</th>
+                                <th>관계</th>
+                                <th>주식의 종류</th>
+                                <th>주식수(지분율)/기말</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{Double total = 0; }
+                            @if (Model.ListData.Count > 0)
+                            {
+                                Double stock = 0;
+                                foreach (var item in Model.ListData)
+                                {
+                                    stock = Math.Round(item.STOCK_CNT / (Double)Model.totalStockCnt * 100, 2);
+                                    total += stock;
+
+                                    <tr id="@item.SEQ">
+                                        <td>
+                                            <span class="orderDown arrow-updown-c"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                                            <span class="orderUp arrow-updown-c"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                                        </td>
+                                        <td class="name">@item.NAME</td>
+                                        <td class="flag">@item.STOCK_FLAG</td>
+                                        <td class="stock">@item.STOCK</td>
+                                        <td class="cnt"><span>@item.STOCK_CNT</span>주 / (@stock%)</td>
+                                        <td>
+                                            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                                            {
+                                                <button type="button" class="btnEdit btn btn-success">수정</button>
+                                            }
+                                            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                                            {
+                                                <button type="button" class="btnDelete btn btn-default">삭제</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">계</td>
+                                <td><span>@Model.totalStockCnt</span>주 / (@Math.Round(total,0)%)</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

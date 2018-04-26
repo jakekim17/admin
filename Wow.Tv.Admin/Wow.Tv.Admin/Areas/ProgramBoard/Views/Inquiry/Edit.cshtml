@@ -1,0 +1,203 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD_CONTENT
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/ProgramBoard/Inquiry/Edit.js"></script>
+
+}
+
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+<form id="frmSearch">
+    <input type="hidden" id="REPLY_YN" name="REPLY_YN" value="@ViewBag.Condition.REPLY_YN" />
+    <input type="hidden" id="SearchType" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+</form>
+
+<!--TODO : 게시판 성격에 따라 답변 여부 표시 비표시  -->
+
+@using (Html.BeginForm("Save", "Inquiry", FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.Hidden("seq", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("DEL_YN", Model.DEL_YN)
+    <div class="wrap">
+
+        <!-- BBS View -->
+        <div class="bbs-view1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th><span class="nec">*</span>질문유형</th>
+                    <td>
+                        <div class="form-inline">
+                            <select class="form-control" id="COMMON_CODE" name="COMMON_CODE">
+                                @foreach (var code in ViewBag.CommonCodes)
+                                {
+                                    <option value="@code.COMMON_CODE" @(code.COMMON_CODE == Model.COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>이름(아이디)</th>
+                    @if (string.IsNullOrWhiteSpace(Model.USER_ID))
+                    {
+                        <td>@Model.USER_NAME (비회원)</td>
+                    }
+                    else
+                    {
+                        <td>@Model.USER_NAME (@Model.USER_ID)</td>
+                    }
+                </tr>
+                <tr>
+                    <th>이메일</th>
+                    <td>@Model.EMAIL</td>
+                </tr>
+                <tr>
+                    <th>연락처</th>
+                    <td>@Model.USER_PHONE</td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td>@Model.TITLE</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding:30px;">
+                        @Html.Raw(Model.CONTENT)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS view -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+
+            @if (Model.IsReply)
+            {
+                <button class="btn btn-success btn-bbs-answer" type="button" id="btnReply">답변달기</button>
+            }
+            else
+            {
+                if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                {
+                    <button type="button" class="btn btn-success" id="btnSave">수정하기</button>
+                }
+            }
+            <button class="btn btn-default" type="button" id="btnList">목록으로</button>
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+            {
+                if (Model != null)
+                {
+                    <button class="btn btn-default" id="btnDelete">삭제하기</button>
+                }
+            }
+        </div>
+        <!-- //Bottom Buttons -->
+
+        @if (Model.IsReply)
+        {
+            <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.Condition.BOARD_SEQ" />
+            @Html.Hidden("DEPTH", "1")
+            <div class="contain-answer" style="height: @(Model.ReplyList.Count > 0 ? "auto" : "0");" >
+                @if (Model.ReplyList.Count > 0)
+                {
+                    @Html.Hidden("replyListCount", Model.ReplyList.Count.ToString())
+                    foreach (var item in Model.ReplyList)
+                    {
+                        @Html.Hidden("UP_BOARD_CONTENT_SEQ", item.UP_BOARD_CONTENT_SEQ)
+                        <!-- BBS Write -->
+                        <div class="bbs-write1" >
+                            <table class="table">
+                                <colgroup>
+                                    <col width="200px">
+                                    <col>
+                                    <col width="200px">
+                                    <col>
+                                </colgroup>
+                                <tr>
+                                    <th><span class="nec">*</span>답변 제목</th>
+                                    <td colspan="3">
+                                        <input type="text" class="form-control" id="TITLE" name="TITLE" value="@item.TITLE">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>답변 작성자</th>
+                                    <td>@item.USER_NAME</td>
+                                    <th>작성일</th>
+                                    <td>@item.REG_DATE
+                                        @if (item.MOD_DATE != null)
+                                        {
+                                            <br>
+                                            <span class="text-color1">(@Html.DisplayFor(modelItem => item.MOD_DATE))</span>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="padding: 0; height: 400px;">
+                                        <textarea id="hidContent" style="display: none;" name="CONTENT">@item.CONTENT</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                <!-- //BBS Write -->
+                    }
+                }
+                else
+                {
+                    @Html.Hidden("UP_BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+                    <!-- BBS Write -->
+                    <div class="bbs-write1">
+                        <table class="table">
+                            <colgroup>
+                                <col width="200px">
+                                <col>
+                                <col width="200px">
+                                <col>
+                            </colgroup>
+                            <tr>
+                                <th><span class="nec">*</span>답변 제목</th>
+                                <td colspan="3">
+                                    <input type="text" class="form-control" id="TITLE" name="TITLE" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>답변 작성자</th>
+                                <td>@Model.USER_NAME</td>
+                                <th>작성일</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="padding: 0; height: 400px;">
+                                    <textarea id="hidContent" style="display: none;" name="CONTENT"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            <!-- //BBS Write -->
+                }
+                <!-- Bottom Buttons -->
+                <div class="box-button">
+                        <button type="button" class="btn btn-success" id="btnSave">@(Model.ReplyList.Count > 0 ? "수정하기" : "답변하기")</button>
+
+                    <button type="button" class="btn btn-default" id="btnReplyCancle">취소하기</button>
+                </div>
+                <!-- //Bottom Buttons -->
+            </div>
+        }
+    </div>
+    <!-- //문의하기 등록/수정/상세 -->
+}

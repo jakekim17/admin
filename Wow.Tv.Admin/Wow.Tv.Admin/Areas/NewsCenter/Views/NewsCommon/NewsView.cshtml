@@ -1,0 +1,99 @@
+﻿@using Wow;
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model tblArticleList
+
+@{ Layout = null; }
+
+@{
+    string relationImageUrl = ViewBag.relationImageUrl;
+
+
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+    <div class="modal-dialog preview-news">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">기사 내용보기</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bbs-view1">
+                    <table class="table">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <td colspan="3">@Model.Title</td>
+                            </tr>
+                            <tr>
+                                <th>출처</th>
+                                <td>@ViewBag.sourceName</td>
+                                <th>작성일(수정일)</th>
+                                <td>@String.Format("{0:yyyy-MM-dd HH:mm:ss}", @Model.ArtDate)  @if (Model.ArtState.Equals("U"))
+                                { <span class="text-color1">(@String.Format("{0:yyyy-MM-dd HH:mm:ss}", Model.inputDate))</span> }</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">@MvcHtmlString.Create(Model.Contents)</td>
+                            </tr>
+                        @if (string.IsNullOrEmpty(relationImageUrl))
+                        {
+                            <tr>
+                                <th>이미지 등록</th>
+                                <td colspan="3">
+                                    <div class="form-inline">
+                                        <form id="frmImgAdd" name="frmImgAdd" onsubmit="return false">
+                                            <div class="form-group">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename" id="sapnImgFile" style="width:350px"></span></div>
+                                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="imgFile" id="imgFile"></span>
+                                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                    <input type="hidden" id="artID" name="artID" value="@Model.ArtID" />
+                                                    <input type="hidden" id="ArtDate" name="ArtDate" value="@Model.ArtDate" />
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-success" onclick="NewsCommon.RelationImageSave();" id="btnImgSave">저장</button>
+                                        </form>
+                                    </div>
+                                    <p style="padding-top:10px">
+                                        메인 탑: 675*379px (노출 순서 1번)<br />
+                                        서브 탑: 285*379px (노출 순서 2~6번)<br />
+                                        뉴스 썸: 226*127px (노출 순서 7~13번)
+                                    </p>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <th>이미지 URL</th>
+                                <td colspan="3">
+                                    <div style="font-size:11px">
+                                        @relationImageUrl
+                                    </div>
+                                    <p style="padding-top:10px">
+                                        메인 탑: 675*379px (노출 순서 1번)<br />
+                                        서브 탑: 285*379px (노출 순서 2~6번)<br />
+                                        뉴스 썸: 226*127px (노출 순서 7~13번)
+                                    </p>
+                                    <div class="form-inline" style="margin-top:10px">
+                                        <button class="btn btn-success" onclick="NewsCommon.RelationImageDelete('@Model.ArtID');" id="btnImgDelete">삭제</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnNewsViewClose">Close</button>
+            </div>
+        </div>
+    </div>

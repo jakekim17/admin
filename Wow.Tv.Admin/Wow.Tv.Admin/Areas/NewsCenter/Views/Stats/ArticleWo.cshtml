@@ -1,0 +1,169 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@model Wow.Tv.Middle.Model.Common.ListModel<NUP_ARTICLE_SELECT_Result>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    @*
+        400. That’s an error.
+        Error: origin_mismatch
+        발생시 허용된 주소를 아래에서 확인 바람
+            https://console.developers.google.com/apis/credentials?project=thinking-prism-179701&authuser=1
+    *@
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/Stats/ArticleWo.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var searchType = "@ViewBag.Condition.SearchType";
+        var freelancerID = "@ViewBag.Condition.FreelancerID";
+
+        //var CLIENT_ID = '538387482734-g69mbcs293es19in424h6km617ktn3le.apps.googleusercontent.com';
+        var CLIENT_ID = '592087973259-ien66vgvi4m0h1u7h8k1tksqu8n6v2vk.apps.googleusercontent.com';
+        var DISCOVERY = 'https://analyticsreporting.googleapis.com/$discovery/rest';
+        var SCOPES = ['https://www.googleapis.com/auth/analytics.readonly'];
+    </script>
+}
+
+@{
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "선택", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "작성자", Value = "WRITER"},
+            new SelectListItem { Text = "기사ID", Value = "ARTID"}
+        }, "Value", "Text");
+
+    string selectSearchType = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchType) ? "ALL" : ViewBag.Condition.SearchType;
+
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchType);
+}
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <p class="text-right"><a onclick="javascript:Article.GoNaverAnalytics('@ViewBag.Condition.DeptCD');">네이버 애널리틱스</a></p>
+            <p><span class="text-notice1">1년 이내에 생산 된 기사만 검색하실 수 있습니다.</span> (2018년 2월 1일 이후의 일자를 검색하세요.)</p>
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>뉴스이동</th>
+                            <td>
+                                <div class="form-inline">
+                                    <select class="form-control" id="DeptCD" name="DeptCD">                                        
+                                        <option pc-viewId="86739186" mobile-viewId="86751131" value="WOWTV">한국경제TV</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">검색</th>
+                            <td>
+                                <div class="form-group form-inline">
+                                    <button class="btn btn-default" id="OneWeekTerm">1주일</button>
+                                    <button class="btn btn-default" id="TwoWeekTerm">2주일</button>
+                                    <button class="btn btn-default" id="OneMonthTerm">1개월</button>
+                                    <div class="input-group date">
+
+                                        <input type="text" class="form-control" name="StartDate" id="txtStartDate" value="@(ViewBag.Condition.StartDate.Year == 0001 ? "" : ViewBag.Condition.StartDate.ToString("yyyy-MM-dd"))">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="EndDate" id="txtEndDate" value="@(ViewBag.Condition.EndDate.Year == 0001  ? "" : ViewBag.Condition.EndDate.ToString("yyyy-MM-dd"))">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    @Html.DropDownList("SearchType", searchList, new { @class = "form-control", Id = "SearchType" })
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" name="SearchText" id="txtSearch" maxlength="100" value="@ViewBag.Condition.SearchText">
+                                        <span class="input-group-btn"><button type="button" id="btnSearch" class="btn btn-default">검색</button></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+                    <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-color1">총 조회수 = PC 조회수 + MOBILE 조회수</p>
+                </div>
+                <div class="inner-right">
+                    <p>승인 생산된 기사 수 : 총 <span class="text-color2">@(Model?.TotalDataCount ?? 0)</span>건</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+
+            <div class="bbs-list1">
+                <table id="articleList" class="table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>총 조회수</th>
+                            <th>PC 조회수</th>
+                            <th class="line-div-right">MOBILE 조회수</th>
+                            <th>PC (Google)</th>
+                            <th>MOBILE (Google)</th>
+                            <th>작성자</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>출처</th>
+                            <th>기사ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.TotalDataCount == 0)
+                        {
+
+                            <tr>
+                                <td colspan="12" style="height: 400px">조건에 맞는 검색된 데이터가 없습니다.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.ListData)
+                            {
+                                int total = item.PC_CLICK_NUM + item.MOBILE_CLICK_NUM;
+                                <tr>
+                                    <td>@item.IDX.ToString()</td>
+                                    <td>@total.ToString()</td>
+                                    <td>@item.PC_CLICK_NUM.ToString()</td>
+                                    <td class="line-div-right">@item.MOBILE_CLICK_NUM.ToString()</td>
+                                    <td>불러오는 중</td>
+                                    <td>불러오는 중</td>
+                                    <td>@item.Writer</td>
+                                    <td class="text-left"><a onclick="javascript:NewsCommon.linkwwwUrl('@item.ArtID');"><span>@item.Title</span></a> </td>
+                                    <td>@item.ArtDate.ToString()</td>
+                                    <td>한국경제TV</td>
+                                    <td>@item.ArtID</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagenate -->
+            <div class="box-paginate">
+                <div id="divPaging"></div>
+            </div>
+            <!-- //Pagenate -->
+        </div>
+    </div>
+</div>

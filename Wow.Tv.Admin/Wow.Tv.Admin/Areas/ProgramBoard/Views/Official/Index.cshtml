@@ -1,0 +1,215 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model IntegratedBoard<NTB_BOARD_CONTENT>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    //AppState["UploadWebPath"] = System.Configuration.ConfigurationManager.AppSettings["UploadWebPath"];
+}
+
+@section scripts{
+    <script src="@wowTvScript/ProgramBoard/Official/Index.js"></script>
+
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var viewYN = "@ViewBag.Condition.VIEW_YN";
+        var searchType = "@ViewBag.Condition.SearchType";
+    </script>
+}
+
+@{
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "내용", Value = "CONTENT"}
+        }, "Value", "Text");
+
+    string selectSearchType = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchType) ? "ALL" : ViewBag.Condition.SearchType;
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchType);
+}
+
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+<!--TODO : 첨부파일 링크,날짜 조회조건 -->
+<!-- 공고게시판 리스트 -->
+<div class="wrap">
+
+    <!-- Global Search -->
+    <div class="contain-search-global">
+
+        <form id="frmSearch">
+            <table>
+                <colgroup>
+                    <col width="120px">
+                    <col>
+                    <col width="120px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>기간</th>
+                    <td>
+                        <div class="form-inline">
+                            <div class="input-group date">
+                                @if (ViewBag.Condition.START_DATE.Year < 1900)
+                                {
+                                    <input type="text" class="form-control" name="START_DATE" value="">
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" name="START_DATE" value="@ViewBag.Condition.START_DATE.ToString("yyyy-MM-dd")">
+                                }
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div> ~
+                            <div class="input-group date">
+                                @if (ViewBag.Condition.END_DATE.Year < 1900)
+                                {
+                                    <input type="text" class="form-control" name="END_DATE" value="">
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" name="END_DATE" value="@ViewBag.Condition.END_DATE.ToString("yyyy-MM-dd")">
+                                }
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                    <th>상태</th>
+                    <td>
+                        <div class="form-inline">
+                            <select class="form-control" id="COMMON_CODE" name="COMMON_CODE">
+                                @foreach (var code in Model.CommonCodes)
+                                {
+                                    <option value="@code.COMMON_CODE" @(code.COMMON_CODE == ViewBag.Condition.COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>검색</th>
+                    <td colspan="3">
+                        <div class="form-group form-inline">
+                            @Html.DropDownList("SearchType", searchList, new { @class = "form-control" })
+                            <div class="input-group" style="width: 600px">
+                                <input class="form-control" type="text" placeholder="검색어를 입력하세요." name="SearchText" id="txtSearch"  maxlength="100" value="@ViewBag.Condition.SearchText">
+                                <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" id="seq" name="seq" />
+            <input type="hidden" id="pageSize" name="pageSize" value="20" />
+            <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+            <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.BOARD_SEQ" />
+            <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+        </form>
+    </div>
+    <!-- //Global Search -->
+    <!-- BBS List -->
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>번호</th>
+                    <th>상태</th>
+                    <th>제목</th>
+                    <th>기간</th>
+                    <th>첨부파일</th>
+                    <th>작성자</th>
+                    <th>작성일<br>(수정일)</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.TotalDataCount == 0)
+                {
+
+                    <tr>
+                        <td colspan="9" style="height:400px">게시물이 없습니다.</td>
+                    </tr>
+                }
+                else
+                {
+
+                    foreach (var item in Model.ListData)
+                    {
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            @*<td class="al_c"><input type="checkbox" class="form-group"></td>*@
+                            <td>@Html.DisplayFor(modelItem => item.BOARD_CONTENT_SEQ)</td>
+                            <td>@Html.DisplayFor(modelItem => Model.CommonCodes.FirstOrDefault(x => x.COMMON_CODE == item.COMMON_CODE).CODE_NAME)</td>
+                            <td class="text-left"><a href="#" onclick="return OfficialIndex.GoEdit(@item.BOARD_CONTENT_SEQ);" download>@Html.Raw(item.TITLE)</a></td>
+                            <td>
+                                @if (item.START_DATE != null)
+                                {
+                                    @item.START_DATE.Value.ToString("yyyy-MM-dd")
+                                }
+                                ~
+                                @if (item.END_DATE != null)
+                                {
+                                    @item.END_DATE.Value.ToString("yyyy-MM-dd")
+                                }
+                            </td>
+                            
+                            @if (item.AttachFileList.Count > 0)
+                            {
+                                <td>
+                                    @foreach (var file in item.AttachFileList)
+                                    {
+                                        <a href="@file.REAL_WEB_PATH">@file.USER_UPLOAD_FILE_NAME</a><br />
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@Html.DisplayFor(modelItem => item.USER_NAME)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.REG_DATE)
+                                @if (item.MOD_DATE != null)
+                                {
+                                    <br>
+                                    <span class="text-color1">(@Html.DisplayFor(modelItem => item.MOD_DATE))</span>
+                                }
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.READ_CNT)</td>
+                            @*<td >@Html.DisplayFor(modelItem => item.VIEW_YN)</td>*@
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- //BBS List -->
+    <!-- Pagenate -->
+    <div class="box-paginate">
+        <div id="divPaging"></div>
+    </div>
+    <!-- //Pagenate -->
+    <div class="box-button">
+        <div class="inner-right">
+
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+            {
+                <button class="btn btn-success" id="btnAdd">글쓰기</button>
+            }
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+            {
+                if (Model != null)
+                {
+                    <button class="btn btn-default" id="btnDelete">삭제하기</button>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+<!-- //공고 리스트 -->

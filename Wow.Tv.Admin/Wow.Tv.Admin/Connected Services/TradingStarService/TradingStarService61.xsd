@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="ArrayOftblOnlineSise">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblOnlineSise" nillable="true" type="tns:tblOnlineSise" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblOnlineSise" nillable="true" type="tns:ArrayOftblOnlineSise" />
+  <xs:complexType name="tblOnlineSise">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AfterAskVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="AfterBidVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="AfterTradeMoney" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="AfterTradeVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="AskPrice_1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BeforeAskVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="BeforeBidVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="BeforeTradeMoney" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="BeforeTradeVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="BidPrice_1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ChgPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ChgType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CloseType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ForecastPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ForecastVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="HogaMatch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InsertDT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LPTakeVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Market" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MarketState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpenPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalMoney" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TotalVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TradeAvgPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TradePrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TradeTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TradeType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TradeVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="korname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblOnlineSise" nillable="true" type="tns:tblOnlineSise" />
+  <xs:complexType name="StockBatchCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StockBatchCondition" nillable="true" type="tns:StockBatchCondition" />
+  <xs:complexType name="ArrayOftblStockBatch">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblStockBatch" nillable="true" type="tns:tblStockBatch" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblStockBatch" nillable="true" type="tns:ArrayOftblStockBatch" />
+  <xs:complexType name="tblStockBatch">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdditionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AmountScale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AroundReg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BPS" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BPS_Expect" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BadFaith" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BasePrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BasePriceChange" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BidHigh" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BidLow" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Capital" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Class_L" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Class_M" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Class_S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClosePrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CloseType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CountryCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DangerSign" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Dispose" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EPS" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EPS_Expect" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EventEndDT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EventStartDT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExceptOpen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExistEndDT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExistStartDT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry_L" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry_M" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Industry_S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InsertDT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IssuePrice" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KOSDAQ150" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KOSPI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KOSPI100" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KOSPI50" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KOSTAR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KP200Detail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KRX100" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimitHigh" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LimitLow" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ListCount" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="ListDay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LockType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LossType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Manage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Manufacture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Market" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PBR" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PER" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ParChange" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PeopleItem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PreferenceItem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SRI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SettlementDay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareIndex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareMoney" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ShareRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Share_Expect" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShortCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalMoney" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TotalVol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TradeDay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TradeStop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValuationPrice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="WarningType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="engName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="korName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblStockBatch" nillable="true" type="tns:tblStockBatch" />
+</xs:schema>

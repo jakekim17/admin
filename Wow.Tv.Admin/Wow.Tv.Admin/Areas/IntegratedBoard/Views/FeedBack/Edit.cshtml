@@ -1,0 +1,141 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD_CONTENT
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    bool isReply = Model.IsReply;
+
+}
+
+@section scripts{
+    <script>
+            var commonCode = "@Model.COMMON_CODE";
+            var isReply = "@isReply";
+    </script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IntegratedBoard/FeedBack/Edit.js"></script>
+}
+
+<form id="frmSearch">
+    <input type="hidden" id="REPLY_YN" name="REPLY_YN" value="@ViewBag.Condition.REPLY_YN" />
+    <input type="hidden" id="SearchType" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+</form>
+
+@using (Html.BeginForm("Save", "FeedBack", FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.Hidden("seq", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("DEL_YN", Model.DEL_YN)
+    <div class="wrap">
+
+        <!-- BBS View -->
+        <div class="col-md-12">
+            <!-- Start body content -->
+            <div class="box-title" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                <h3>고객문의 원본글</h3>
+            </div>
+            <div class="app-ui-section group mt-10">
+                <!-- 전체100% -->
+                <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                    </colgroup>
+                    <tbody>
+                        <tr class="noback">
+                            <th>프로그램</th>
+                            <td @(isReply ? "" : "colspan=3")>
+                                <div class="form-inline">
+                                    <select class="form-control" name="IngYn" id="cboIngYn">
+                                        <option value="Y" @(ViewBag.IngYn == "Y" ? "selected" : "")>방영중</option>
+                                        <option value="N" @(ViewBag.IngYn == "N" ? "selected" : "")>종영</option>
+                                    </select>
+                                    @*<select class="form-control" id="cboUP_COMMON_CODE" name="UP_COMMON_CODE">
+                                        @foreach (var code in ViewBag.CommonCodes)
+                                        {
+                                            <option value="@code.COMMON_CODE" @(code.COMMON_CODE == Model.UP_COMMON_CODE ? "selected='selected' " : "")>@code.CODE_NAME</option>
+                                        }
+                                    </select>*@
+                                    <select class="form-control" id="cboPRG_CD" name="COMMON_CODE"></select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>제목</th>
+                            <td colspan="3" @(isReply ? "" : "name=TITLE")>@Model.TITLE</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>작성자</th>
+                            @if (string.IsNullOrWhiteSpace(Model.USER_ID))
+                            {
+                                <td>@Model.USER_NAME (비회원)</td>
+                            }
+                            else
+                            {
+                                <td>@Model.USER_NAME (@Model.USER_ID)</td>
+                            }
+                            <th>작성일</th>
+                            <td>@Model.REG_DATE</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>이메일</th>
+                            <td>@Model.EMAIL</td>
+                            <th>연락처</th>
+                            <td>@Model.USER_PHONE</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>페이지링크</th>
+                            <td colspan="3">@Model.PAGE_LINK</td>
+                        </tr>
+                        @if (ViewBag.BoardInfo.ATTACH_FILE_YN.Equals("Y"))
+                        {
+                            for (int i = 0; i < ViewBag.BoardInfo.FILE_COUNT; i++)
+                            {
+                                <tr>
+                                    <th>첨부파일</th>
+                                    <td colspan="3">
+                                        @if (Model.AttachFileList.Count > 0)
+                                        {
+                                            <a href="/File/Download?realFilePath=@Model.AttachFileList[i].REAL_FILE_PATH&downloadFilename=@Model.AttachFileList[i].USER_UPLOAD_FILE_NAME"><span class="file type2"></span>@Model.AttachFileList[i].USER_UPLOAD_FILE_NAME</a>
+                                            <br/>  
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr class="noback">
+                            <td colspan="4" @(isReply ? "" : "name=CONTENT")>@Html.Raw(Model.CONTENT)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <div class="pull-right" style="margin: 20px 10px 0 10px !important;">
+                @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                {
+                    <button type="button" class="btn btn-success" id="btnSave" data-toggle="modal" data-target="#myModal-url">저장하기</button>
+                }
+
+                <button class="btn btn-default mr-5" type="button" id="btnList">목록으로</button>
+                @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                {
+                    if (Model != null)
+                    {
+                        <button class="btn btn-default mr-5" id="btnDelete">삭제하기</button>
+                    }
+                }
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //문의하기 등록/수정/상세 -->
+}

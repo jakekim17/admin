@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfusp_GetStockPrice_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_GetStockPrice_Result" nillable="true" type="tns:usp_GetStockPrice_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_GetStockPrice_Result" nillable="true" type="tns:ArrayOfusp_GetStockPrice_Result" />
+  <xs:complexType name="usp_GetStockPrice_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Groupid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="arj_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="banner" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="capital" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="chg_type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="curr_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="data_day" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="final_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="gubun" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="high_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="highest_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="init_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="k_gbn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="list_num" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="list_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="list_sum" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="low_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="lowest_price" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="mkt_halt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="net_chg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="net_turnover" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="net_vol" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="part_code1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="part_code2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stock_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stock_nickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stock_wanname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_GetStockPrice_Result" nillable="true" type="tns:usp_GetStockPrice_Result" />
+</xs:schema>

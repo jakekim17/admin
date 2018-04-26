@@ -1,0 +1,373 @@
+﻿@{
+    Layout = "~/Areas/IntMemManage/Views/Shared/_LayoutModal.cshtml"; 
+}
+
+<div class="modal-dialog profes-id" style="width:700px;">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">우편번호 찾기</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 우편번호 찾기  도로명 주소로 찾기-->
+            <div class="popup-type1 layer-zipcode" id="AddressSearchLayerByRoad">
+                <div class="inner">
+                    <div class="box-title">
+                        <h1 class="title">우편번호 찾기</h1>
+                    </div>
+                    <div class="contain-content">
+
+                        <div class="box-tap-type2 col2">
+                            <ul>
+                                <li class="on"><span>도로명 주소로 찾기</span></li>
+                                <li><a href="#" id="addressSearchGoReviseDomain">지번 주소로 찾기</a></li>
+                            </ul>
+                        </div>
+                        <div class="box-cont2">
+                            <p style="font-size:17px;">도로명 주소를 모르실 경우, <a href="http://www.juso.go.kr/" target="_blank" class="text-link-type1">http://www.juso.go.kr/</a>에서 정확한 주소를 확인하세요.</p>
+                        </div>
+                        <div class="box-cont2">
+                            <p style="font-size:17px;">지번주소를 입력해 주세요.</p>
+                        </div>
+
+                        <div class="box-findaddress-form">
+                            <input type="text" placeholder="도로명 주소를 입력하세요." id="addressSearchKeywordInputByRoad">
+                            <input type="submit" class="btn-type1" value="검색" id="addressSearchSubmitByRoad">
+                        </div>
+
+                        <p class="title">검색방법</p>
+                        <div class="list-type1">
+                            <ol>
+                                <li>도로명으로 검색하세요. <span class="text-color-type1">예) 버드나루로84 (O)</span></li>
+                                <li>
+                                    도로명 + 건물번호로 검색하세요.<br>
+                                    주소가 “서울시 송파구 잠실로 51-33”인 경우. <span class="text-color-type1">예)잠실로 51-33</span><br>
+                                    ※ 지번주소, 동/리명만으로는 검색되지 않습니다. <span class="text-color-type1">예) 영등포동7가 (X)</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <hr class="division4">
+                        <div class="table-type1">
+                            <table id="addressSearchResultByRoad">
+                                <colgroup>
+                                    <col width="128">
+                                    <col>
+                                </colgroup>
+                                <tr>
+                                    <th>우편번호</th>
+                                    <th>주소</th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box-paginate" id="addressSearchPagingByRoad">
+                            <a href="#" class="first">처음목록</a>
+                            <a href="#" class="prev">이전목록</a>
+                            <span>
+                                <a href="#" class="on">1</a>
+                            </span>
+                            <a href="#" class="next">다음목록</a>
+                            <a href="#" class="last">마지막목록</a>
+                        </div>
+
+                    </div>
+                    <span class="btn-close-popup"><button>팝업 닫기</button></span>
+                </div>
+            </div>
+            <!-- //우편번호 찾기  도로명 주소로 찾기-->
+            <!-- 우편번호 찾기  지번 주소로 찾기-->
+            <div class="popup-type1 layer-zipcode" id="AddressSearchLayerByReviseDomain">
+                <div class="inner">
+                    <div class="box-title">
+                        <h1 class="title">우편번호 찾기</h1>
+                    </div>
+                    <div class="contain-content">
+
+                        <div class="box-tap-type2 col2">
+                            <ul>
+                                <li><a href="#" id="addressSearchGoRoad">도로명 주소로 찾기</a></li>
+                                <li class="on"><span>지번 주소로 찾기</span></li>
+                            </ul>
+                        </div>
+                        <div class="box-cont2">
+                            <p style="font-size:17px;">지번주소를 입력해 주세요.</p>
+                        </div>
+
+                        <div class="box-findaddress-form">
+                            <input type="text" placeholder="지번 주소를 입력하세요." id="addressSearchKeywordInputByReviseDomain">
+                            <input type="submit" class="btn-type1" value="검색" id="addressSearchSubmitByReviseDomain">
+                        </div>
+
+                        <p class="title">검색방법</p>
+                        <p class="text-type1">주소가 "서울 송파구 잠실동"인 경우 <span class="text-color-type1">예) 잠실동</span></p>
+                        <hr class="division4">
+                        <div class="table-type1">
+                            <table id="addressSearchResultByReviseDomain">
+                                <colgroup>
+                                    <col width="128">
+                                    <col>
+                                </colgroup>
+                                <tr>
+                                    <th>우편번호</th>
+                                    <th>주소</th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="box-paginate" id="addressSearchPagingByReviseDomain">
+                            <a href="#" class="first">처음목록</a>
+                            <a href="#" class="prev">이전목록</a>
+                            <span>
+                                <a href="#" class="on">1</a>
+                            </span>
+                            <a href="#" class="next">다음목록</a>
+                            <a href="#" class="last">마지막목록</a>
+                        </div>
+
+                    </div>
+                    <span class="btn-close-popup"><button>팝업 닫기</button></span>
+                </div>
+            </div>
+            <!-- //우편번호 찾기  지번 주소로 찾기-->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var addressSearchLatestTab = "ROAD";
+
+    function AddressSearchLayerOpen() {
+        AddressSearchTabSelect(addressSearchLatestTab);
+    }
+
+    function AddressSearchLayerClose() {
+        $("#AddressSearchLayerByRoad").css("display", "none");
+        $("#AddressSearchLayerByReviseDomain").css("display", "none");
+    }
+
+    function AddressSearchTabSelect(addressSearchTab) {
+        if (addressSearchTab == "ROAD") {
+            $("#AddressSearchLayerByRoad").css("display", "block");
+            $("#AddressSearchLayerByReviseDomain").css("display", "none");
+        }
+        else {
+            $("#AddressSearchLayerByRoad").css("display", "none");
+            $("#AddressSearchLayerByReviseDomain").css("display", "block");
+        }
+        addressSearchLatestTab = addressSearchTab;
+    }
+
+    function SelectOK(zipCode, address) {
+        @(Request["returnmethod"])(zipCode.replace("-", ""), address);
+        AddressSearchLayerClose();
+    }
+
+    var AddressListByRoadData = null;
+    function DoAddressSearchByRoad(pageIndex) {
+        addressSearchLatestTab = "";
+        var searchKeywordInput = $("#addressSearchKeywordInputByRoad").val();
+        $('#addressSearchResultByRoad > tbody > tr').remove();
+        $('#addressSearchResultByRoad > tbody:last').append("<tr><th>우편번호</th><th>주소</th></tr>");
+
+        $.ajax({
+            type: "get",
+            url: "./AddressSearchByRoad",
+            data: { searchkeyword: searchKeywordInput, pageindex: pageIndex },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.DataReceived == "Y" && data.SuccessYN == "Y") {
+                    if (data.AddressList.length > 0) {
+                        for (rowIndex = 0; rowIndex < data.AddressList.length; rowIndex++) {
+                            var zipCode = data.AddressList[rowIndex].ZipCode;
+                            var address1 = data.AddressList[rowIndex].Address1;
+                            var appendHtml = "<tr>" +
+                                "<td><a href=\"\" onclick=\"SelectOK('" + zipCode + "', '" + address1 + "'); return false;\">" + zipCode + "</a></td>" +
+                                "<td><a href=\"\" onclick=\"SelectOK('" + zipCode + "', '" + address1 + "'); return false;\">" + address1 + "</a></td>" +
+                                "</tr>"
+                            $('#addressSearchResultByRoad > tbody:last').append(appendHtml);
+                            $("#addressSearchResultByRoad").css("display", "block");
+                            $("#addressSearchPagingByRoad").html(cfGetPagingHtml(data.TotalCount, pageIndex, data.PageSize, "DoAddressSearchByRoad"));
+                        }
+                    }
+                    else {
+                        var appendHtml = "<tr>" +
+                            "<td colspan=\"2\" style=\"height: 150px;\">검색결과가 없습니다.</td>" +
+                            "</tr>"
+                        $('#addressSearchResultByRoad > tbody:last').append(appendHtml);
+                        $("#addressSearchPagingByRoad").css("display", "none");
+                    }
+
+                    AddressListByRoadData = data.AddressList;
+                }
+            },
+            error: function (e) {
+                console.log("error ==> " + JSON.stringify(e));
+            }
+        });
+
+        return false;
+    }
+
+    function DoAddressSearchByReviseDomain(pageIndex) {
+        addressSearchLatestTab = "";
+        var searchKeywordInput = $("#addressSearchKeywordInputByReviseDomain").val();
+        $('#addressSearchResultByReviseDomain > tbody > tr').remove();
+        $('#addressSearchResultByReviseDomain > tbody:last').append("<tr><th>우편번호</th><th>주소</th></tr>");
+
+        $.ajax({
+            type: "get",
+            url: "./AddressSearchByReviseDomain",
+            data: { searchkeyword: searchKeywordInput, pageindex: pageIndex },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.DataReceived == "Y") {
+                    if (data.AddressList.length > 0) {
+                        for (rowIndex = 0; rowIndex < data.AddressList.length; rowIndex++) {
+                            var zipCode = data.AddressList[rowIndex].ZipCode;
+                            var address1 = data.AddressList[rowIndex].Address1;
+                            var appendHtml = "<tr>" +
+                                "<td><a href=\"\" onclick=\"SelectOK('" + zipCode + "', '" + address1 + "'); return false;\">" + zipCode + "</a></td>" +
+                                "<td><a href=\"\" onclick=\"SelectOK('" + zipCode + "', '" + address1 + "'); return false;\">" + address1 + "</a></td>" +
+                                "</tr>"
+                            $('#addressSearchResultByReviseDomain > tbody:last').append(appendHtml);
+                            $("#addressSearchPagingByReviseDomain").css("display", "block");
+                            $("#addressSearchPagingByReviseDomain").html(cfGetPagingHtml(data.TotalCount, pageIndex, data.PageSize, "DoAddressSearchByReviseDomain"));
+                        }
+                    }
+                    else {
+                        var appendHtml = "<tr>" +
+                            "<td colspan=\"2\" style=\"height: 150px;\">검색결과가 없습니다.</td>" +
+                            "</tr>"
+                        $('#addressSearchResultByReviseDomain > tbody:last').append(appendHtml);
+                        $("#addressSearchPagingByReviseDomain").css("display", "none");
+                    }
+                }
+            },
+            error: function (e) {
+                console.log("error ==> " + JSON.stringify(e));
+            }
+        });
+
+        return false;
+    }
+
+    $("#addressSearchGoRoad").click(function () {
+        AddressSearchTabSelect("ROAD");
+        return false;
+    });
+
+    $("#addressSearchGoReviseDomain").click(function () {
+        AddressSearchTabSelect("REVISEDOMAIN");
+        return false;
+    });
+
+    $("#addressSearchSubmitByRoad").click(function () {
+        DoAddressSearchByRoad(0);
+        return false;
+    });
+
+    $("#addressSearchSubmitByReviseDomain").click(function () {
+        DoAddressSearchByReviseDomain(0);
+        return false;
+    });
+
+    $("#addressSearchKeywordInputByRoad").keydown(function () {
+        if (event.keyCode == 13) {
+            $("#addressSearchSubmitByRoad").click();
+            return false;
+        }
+    });
+
+    $("#addressSearchKeywordInputByReviseDomain").keydown(function () {
+        if (event.keyCode == 13) {
+            $("#addressSearchSubmitByReviseDomain").click();
+            return false;
+        }
+    });
+
+
+
+function cfGetPagingHtml(totalCnt, startRowNo, pageSize, getListFncName) {
+
+    var iTotalCnt = parseInt(totalCnt + "");
+    var iStartRowNo = parseInt(startRowNo + "");
+    var iPageSize = parseInt(pageSize + "");
+
+    var htmlStr = "";       //반환할 페이징 처리 html
+    var displyPageCnt = 10; //화면에 보여줄 페이지 번호 개수(<<1 2 3 4 5 6 7 8 9 10 >> 일때 10개)
+    var totalPageCnt = 0;   //전체 페이지 수
+    var currentPageNo = 0;  //현재 페이지 번호
+    var pageGroupStart = 0; //화면에 보이는  페이지 번호 목록 중 첫번째 번호
+    var pageGroupEnd = 0;   //화면에 보이는  페이지 번호 목록 중 마지막 번호
+    var preStartRowNo = 0;  //이전 10개 눌렀을 경우 첫번째 페이지 번호
+    var nextStartRowNo = 0; //다음 10개 눌렀을 경우 첫번째 페이지 번호
+
+    //전체 페이지 수 계산
+    totalPageCnt = Math.floor(iTotalCnt / iPageSize);
+    if ((iTotalCnt % iPageSize) > 0) {
+        totalPageCnt++;
+    }
+
+    //현재 페이지 번호 계산
+    currentPageNo = Math.floor(iStartRowNo / iPageSize);
+    if (currentPageNo == 0) {
+        currentPageNo = 1;
+    } else {
+        currentPageNo++;
+    }
+
+    //화면에 보이는  페이지 번호 목록 중 첫번째 번호 계산
+    if (currentPageNo % displyPageCnt == 0) {
+        pageGroupStart = ((Math.floor(currentPageNo / displyPageCnt)) * displyPageCnt) - displyPageCnt + 1;
+    } else {
+        pageGroupStart = (Math.floor(currentPageNo / displyPageCnt)) * displyPageCnt + 1;
+    }
+
+    //화면에 보이는  페이지 번호 목록 중 마지막 번호 계산
+    pageGroupEnd = pageGroupStart + displyPageCnt - 1;
+    if (totalPageCnt < pageGroupEnd) {
+        pageGroupEnd = totalPageCnt;
+    }
+
+    //이전 10개 눌렀을 경우 첫번째 페이지 번호
+    preStartRowNo = (Math.floor(iStartRowNo / (iPageSize * displyPageCnt))) * (iPageSize * displyPageCnt) - iPageSize;
+
+    //다음 10개 눌렀을 경우 첫번째 페이지 번호
+    nextStartRowNo = (Math.floor(iStartRowNo / (iPageSize * displyPageCnt))) * (iPageSize * displyPageCnt) + (iPageSize * displyPageCnt);
+
+    htmlStr += "<a href=\"\" class=\"first\" onclick=\"return " + getListFncName + "(0);\">처음목록</a>";
+
+    if (preStartRowNo >= 0) {
+        htmlStr += "<a href=\"\" class=\"prev\" onclick=\"return " + getListFncName + "('" + preStartRowNo + "');\">이전목록</a>";
+    }
+
+    htmlStr += "<span>";
+    for (var i = pageGroupStart; i <= pageGroupEnd; i++) {
+        if (i == currentPageNo) {
+            htmlStr += "<a class=\"on\" onclick=\"return false;\">" + i + "</a>";
+        } else {
+            htmlStr += "<a href=\"\" onclick=\"return " + getListFncName + "('" + (i * iPageSize - iPageSize) + "');\">" + i + "</a>";
+        }
+
+    }
+    htmlStr += "</span>";
+
+    if (totalPageCnt > currentPageNo && totalPageCnt > pageGroupEnd) {
+        htmlStr += "<a href=\"\" class=\"next\" onclick=\"return " + getListFncName + "('" + nextStartRowNo + "');\">다음목록</a>";
+    }
+
+    htmlStr += "<a href=\"\" class=\"last\" onclick=\"return " + getListFncName + "('" + ((totalPageCnt - 1) * iPageSize) + "');\">마지막목록</a>";
+
+    return htmlStr;
+}
+</script>

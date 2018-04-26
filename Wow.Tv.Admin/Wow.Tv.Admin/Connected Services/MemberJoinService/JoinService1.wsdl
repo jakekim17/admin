@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="JoinService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Member" />
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IJoinService_JoinCheckIpin_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckIpin" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_JoinCheckIpin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckIpinResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_JoinCheckSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckSms" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_JoinCheckSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_JoinCheckForeign_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckForeign" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_JoinCheckForeign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinCheckForeignResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserIpin_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserIpin" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserIpin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserIpinResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserSms" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserForeign_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserForeign" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserForeign_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserForeignResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserCompany_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserCompany" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_RegistUserCompany_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistUserCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetSido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSido" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetSido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetGugun_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGugun" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetGugun_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGugunResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddress" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_GetAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_IsUserIdDuplicated_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsUserIdDuplicated" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_IsUserIdDuplicated_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsUserIdDuplicatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_IsNickNameDuplicated_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsNickNameDuplicated" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_IsNickNameDuplicated_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsNickNameDuplicatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_MobileSendSMS_InputMessage">
+    <wsdl:part name="parameters" element="tns:MobileSendSMS" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_MobileSendSMS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MobileSendSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_CompanyExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompanyExists" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_CompanyExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompanyExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_EmailAuthComplete_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmailAuthComplete" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_EmailAuthComplete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmailAuthCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_BillingServiceTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:BillingServiceTest" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_BillingServiceTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BillingServiceTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_EmailSendTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmailSendTest" />
+  </wsdl:message>
+  <wsdl:message name="IJoinService_EmailSendTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmailSendTestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IJoinService">
+    <wsdl:operation name="JoinCheckIpin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/JoinCheckIpin" message="tns:IJoinService_JoinCheckIpin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/JoinCheckIpinResponse" message="tns:IJoinService_JoinCheckIpin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinCheckSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/JoinCheckSms" message="tns:IJoinService_JoinCheckSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/JoinCheckSmsResponse" message="tns:IJoinService_JoinCheckSms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinCheckForeign">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/JoinCheckForeign" message="tns:IJoinService_JoinCheckForeign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/JoinCheckForeignResponse" message="tns:IJoinService_JoinCheckForeign_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserIpin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/RegistUserIpin" message="tns:IJoinService_RegistUserIpin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/RegistUserIpinResponse" message="tns:IJoinService_RegistUserIpin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/RegistUserSms" message="tns:IJoinService_RegistUserSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/RegistUserSmsResponse" message="tns:IJoinService_RegistUserSms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserForeign">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/RegistUserForeign" message="tns:IJoinService_RegistUserForeign_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/RegistUserForeignResponse" message="tns:IJoinService_RegistUserForeign_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserCompany">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/RegistUserCompany" message="tns:IJoinService_RegistUserCompany_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/RegistUserCompanyResponse" message="tns:IJoinService_RegistUserCompany_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/GetSido" message="tns:IJoinService_GetSido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/GetSidoResponse" message="tns:IJoinService_GetSido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGugun">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/GetGugun" message="tns:IJoinService_GetGugun_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/GetGugunResponse" message="tns:IJoinService_GetGugun_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/GetAddress" message="tns:IJoinService_GetAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/GetAddressResponse" message="tns:IJoinService_GetAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserIdDuplicated">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/IsUserIdDuplicated" message="tns:IJoinService_IsUserIdDuplicated_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/IsUserIdDuplicatedResponse" message="tns:IJoinService_IsUserIdDuplicated_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsNickNameDuplicated">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/IsNickNameDuplicated" message="tns:IJoinService_IsNickNameDuplicated_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/IsNickNameDuplicatedResponse" message="tns:IJoinService_IsNickNameDuplicated_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MobileSendSMS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/MobileSendSMS" message="tns:IJoinService_MobileSendSMS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/MobileSendSMSResponse" message="tns:IJoinService_MobileSendSMS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompanyExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/CompanyExists" message="tns:IJoinService_CompanyExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/CompanyExistsResponse" message="tns:IJoinService_CompanyExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmailAuthComplete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/EmailAuthComplete" message="tns:IJoinService_EmailAuthComplete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/EmailAuthCompleteResponse" message="tns:IJoinService_EmailAuthComplete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BillingServiceTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/BillingServiceTest" message="tns:IJoinService_BillingServiceTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/BillingServiceTestResponse" message="tns:IJoinService_BillingServiceTest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmailSendTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IJoinService/EmailSendTest" message="tns:IJoinService_EmailSendTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IJoinService/EmailSendTestResponse" message="tns:IJoinService_EmailSendTest_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IJoinService" type="tns:IJoinService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="JoinCheckIpin">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/JoinCheckIpin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinCheckSms">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/JoinCheckSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinCheckForeign">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/JoinCheckForeign" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserIpin">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/RegistUserIpin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserSms">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/RegistUserSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserForeign">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/RegistUserForeign" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUserCompany">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/RegistUserCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSido">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/GetSido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGugun">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/GetGugun" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddress">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/GetAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserIdDuplicated">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/IsUserIdDuplicated" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsNickNameDuplicated">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/IsNickNameDuplicated" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MobileSendSMS">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/MobileSendSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompanyExists">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/CompanyExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmailAuthComplete">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/EmailAuthComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BillingServiceTest">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/BillingServiceTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmailSendTest">
+      <soap:operation soapAction="http://tempuri.org/IJoinService/EmailSendTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JoinService">
+    <wsdl:port name="BasicHttpBinding_IJoinService" binding="tns:BasicHttpBinding_IJoinService">
+      <soap:address location="http://localhost:8088/Member/JoinService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,152 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db51.contents
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/Balance/Edit.js"></script>
+    <script>
+     var menuSeq = @Request["menuSeq"];
+    </script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <p class="notice-table-top">* 모두 필수사항입니다.</p>
+        <form id="balanceData">
+            <table class="table bbs-write">
+                <colgroup>
+                    <col width="20%">
+                    <col width="30%">
+                    <col width="20%">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>년도</th>
+                    <td>
+                        <select class="form-control" id="year" name="YEAR">
+                            <option value="">선택 </option>
+                            @for (var item = ViewBag.startYear; item < ViewBag.date.Year + 3; item++)
+                            {
+                                if (Model.YEAR != null)
+                                {
+                                    if (item == Int32.Parse(Model.YEAR))
+                                    {
+                                        <option value="@item" selected>@item</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+
+                                }
+                            }
+
+                        </select>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th>유동자산</th>
+                    <td><input type="text" class="form-control" name="CURNT_ASSET" value="@Model.CURNT_ASSET"></td>
+                    <th>비유동자산</th>
+                    <td><input type="text" class="form-control" name="NON_CURNT_ASSET" value="@Model.NON_CURNT_ASSET"></td>
+                </tr>
+                <tr>
+                    <th>자산총계</th>
+                    <td><input type="text" class="form-control" name="TOTAL_ASSET" value="@Model.TOTAL_ASSET"></td>
+                    <th>유동부채</th>
+                    <td><input type="text" class="form-control" name="CURNT_LIABILITES" value="@Model.CURNT_LIABILITES"></td>
+                </tr>
+                <tr>
+                    <th>비유동부채</th>
+                    <td><input type="text" class="form-control" name="NON_CURNT_LIABILITES" value="@Model.NON_CURNT_LIABILITES"></td>
+                    <th>부채총계</th>
+                    <td><input type="text" class="form-control" name="TOTAL_LIABILITES" value="@Model.TOTAL_LIABILITES"></td>
+                </tr>
+                <tr>
+                    <th>자본금</th>
+                    <td><input type="text" class="form-control" name="CAPITAL_STOCK" value="@Model.CAPITAL_STOCK"></td>
+                    <th>자본총계</th>
+                    <td><input type="text" class="form-control" name="TOTAL_CAPITAL" value="@Model.TOTAL_CAPITAL"></td>
+                </tr>
+                <tr>
+                    <th>매출액</th>
+                    <td><input type="text" class="form-control" name="REVENUE" value="@Model.REVENUE"></td>
+                    <th>영업이익</th>
+                    <td><input type="text" class="form-control" name="OPERATING_PROFIT" value="@Model.OPERATING_PROFIT"></td>
+                </tr>
+                <tr>
+                    <th>당기순이익</th>
+                    <td colspan="3"><input type="text" class="form-control" name="NET_INCOME" value="@Model.NET_INCOME"></td>
+                </tr>
+                <tr>
+                    <th>활성</th>
+                    <td colspan="3">
+                        @if (Model.FLAG == "Y")
+                        {
+                            <label class="radio radio-inline"><input type="radio" name="FLAG" value="Y" checked="checked">Y</label>
+                            <label class="radio radio-inline"><input type="radio" name="FLAG" value="N">N</label>
+                        }
+                        else
+                        {
+                            <label class="radio radio-inline"><input type="radio" name="FLAG" value="Y">Y</label>
+                            <label class="radio radio-inline"><input type="radio" name="FLAG" value="N" checked="checked">N</label>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    @if (Model.REG_ID != null)
+                    {
+                        <td colspan="3" id="REG_ID">@Model.REG_ID</td>
+                    }
+                    else
+                    {
+                        <td colspan="3" id="REG_ID">@LoginHandler.CurrentLoginUser.UserName</td>
+                    }
+                </tr>
+                <tr>
+                    <th>작성일(수정일)</th>
+                    @if (Model.REG_DATE.ToString("yyyy-MM-dd") != "0001-01-01")
+                    {
+                        if (Model.MOD_DATE != null || Model.MOD_DATE != null)
+                        {
+                            <td colspan="3">@Model.REG_DATE <span style="color: cadetblue">(@Model.MOD_DATE)</span></td>
+                        }
+                        else
+                        {
+                            <td colspan="3">@Model.REG_DATE</td>
+                        }
+                    }
+                    else
+                    {
+                        <td colspan="3">@ViewBag.currDate</td>
+                    }
+                </tr>
+                <input type="hidden" name="NO" value="@Model.NO" />
+
+            </table>
+        </form>
+        <div class="box-button">
+            <button class="btn btn-success" type="button" id="submit">등록(수정)</button>
+            @if (Model != null)
+            {
+                <button class="btn btn-default" id="delete">삭제</button>
+            }
+            <button class="btn btn-default" id="list">목록</button>
+        </div>
+
+    </div>
+</div>

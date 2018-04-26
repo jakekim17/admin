@@ -1,0 +1,84 @@
+﻿@model ListModel<Wow.Tv.Middle.Model.Db49.wowtv.NTB_BOARD_COMMENT>
+@{
+    Layout = null;
+}
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    var blindListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "N", Value = "N"},
+            new SelectListItem { Text = "Y", Value = "Y"}
+        }, "Value", "Text");
+
+}
+<script>
+    var totalDataCount = "@ViewBag.TotalDataCount";
+    var currentIndex = "@ViewBag.CurrentIndex";
+</script>
+
+
+<!-- Reply Block -->
+<script src="@wowTvScript/ProgramBoard/FeedBack/ReplyList.js"></script>
+
+
+<!-- Table Top -->
+<div class="box-top-table">
+    <div class="inner-right">
+        <p>
+            등록 된 댓글 총 <span class="text-color1">@ViewBag.TotalDataCount</span>개
+        </p>
+    </div>
+</div>
+<!-- //Table Top -->
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>블라인드 여부</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일<br />(수정일)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (ViewBag.TotalDataCount == 0)
+            {
+
+                <tr>
+                    <td colspan="6" style="height:400px">댓글이 없습니다.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.ListData)
+                {
+                    <tr>
+                        <td>@Html.DropDownList("BLIND_YN", new SelectList(blindListItem, "Value", "Text", item.BLIND_YN), new { @class = "form-control", onchange = $"ReplyList.UpdateReplyBlind('{item.COMMENT_SEQ}', this.value)" })</td>
+                        <td class="text-left"><a href="#" onclick="return FeedBackIndex.GoEdit('@item.COMMENT_SEQ');">@Html.Raw(item.CONTENT)</a></td>
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.NickName)</td>
+                        <td class="al_c">
+                            @Html.DisplayFor(modelItem => item.REG_DATE)
+                        @if (item.MOD_DATE != null)
+                        {
+                            <br>
+                            <span class="text-color1">(@Html.DisplayFor(modelItem => item.MOD_DATE))</span>
+                        }
+                    </td>
+                </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagenate -->
+<div class="box-paginate">
+    <div id="divPaging"></div>
+</div>
+<!-- //Pagenate -->

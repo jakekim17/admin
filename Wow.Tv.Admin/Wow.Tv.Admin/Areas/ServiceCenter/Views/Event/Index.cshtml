@@ -1,0 +1,171 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wownet.ServiceCenter
+@using Wow.Tv.Middle.Model.Db49.wownet
+
+@model EventModel<EventContent>
+
+@{
+string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+<script src="@wowTvScript/ServiceCenter/Event/Index.js"></script>
+<script>
+    var totalDataCount = "@ViewBag.TotalDataCount";
+    var currentIndex = "@ViewBag.Condition.CurrentIndex";
+    var searchType = "@ViewBag.Condition.SearchType";
+    var eventType = "@ViewBag.Condition.EventType";
+    var menuSeq = @Request["menuSeq"];
+</script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+
+        <form id="frmSearch">
+            <div class="form-body">
+                <div class="form-group  col-md-9" style="clear: both">
+                    <label class="col-md-1 control-label" style="width:13.3% !important;">검색</label>
+                    <div class="input-group col-md-2 fl-l pad-r10">
+                        <select class="form-control" name="CodeType">
+                            <option value="">사이트구분</option>
+                            @foreach (var item in Model.CodeList)
+                            {
+                                if (item.CODE_VALUE1 == ViewBag.condition.CodeType)
+                                {
+                                    <option value="@item.CODE_VALUE1" selected>@item.CODE_NAME</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="input-group col-md-2 fl-l pad-r10">
+                        <select class="form-control" name="EventType">
+                            <option value="">진행상태</option>
+                            <option value="0">진행전</option>
+                            <option value="1">진행중</option>
+                            <option value="2">마감</option>
+                            <option value="3">당첨자발표</option>
+                            
+                        </select>
+                    </div>
+                    <div class="input-group col-md-2 fl-l pad-r10">
+                        <select class="form-control" name="SearchType" id="searchType">
+                            <option value="title">이벤트제목</option>
+                            <option value="partner">파트너명</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-md-4">
+                        <input class="form-control" type="text" id="searchText" name="SearchText" value="@ViewBag.Condition.SearchText">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="search">검색</button></span>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="pageSize" name="pageSize" value="10" />
+            <input type="hidden" id="currentIndex" name="currentIndex" value="0" />
+            <input type="hidden" id="seq" name="seq" />
+        </form>
+    </div>
+
+
+    <!-- Start body content -->
+    <div class="app-ui-section group mt-10">
+        <!-- 전체100% -->
+        <span class="fl-r">총 <font class="f-red">@ViewBag.TotalDataCount</font>개의 게시물이 등록되어 있습니다</span>
+        <table class="table_colRow">
+            <thead>
+                <tr>
+                    <th class="al-c"><input type="checkbox" id="total"></th>
+                    <th>No.</th>
+                    <th>사이트구분</th>
+                    <th>진행상태</th>
+                    <th>이벤트제목</th>
+                    <th>파트너명</th>
+                    <th>이벤트기간</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th>게시여부</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                @if (Model.EventList.Count > 0)
+                {
+
+                    foreach (var item in Model.EventList)
+                    {
+                        
+                        <tr>
+                            <td class="al-c"><input type="checkbox" name="eventNo" value="@item.Seq"></td>
+                            <td class="al_c">@item.Seq</td>
+                            <td class="al_c">@item.CodeName</td>
+                            
+                            @if (int.Parse(item.StartDate.ToString("yyyyMMdd")) > int.Parse(ViewBag.current) && item.WinViewFlag == null)
+                            {
+                                <td class="al_c">진행전</td>
+                            }
+                            @if (int.Parse(item.StartDate.ToString("yyyyMMdd")) <= int.Parse(ViewBag.current) 
+                                && int.Parse(item.EndDate.ToString("yyyyMMdd")) >= int.Parse(ViewBag.current))
+                            {
+                                <td class="al_c">진행중</td>
+                            }
+                            @if (int.Parse(item.EndDate.ToString("yyyyMMdd")) < int.Parse(ViewBag.current) && item.WinViewFlag == null)
+                            {
+                                <td class="al_c">마감</td>
+                            }
+                            
+                            @if (item.WinViewFlag != null && (int.Parse(item.EndDate.ToString("yyyyMMdd")) < int.Parse(ViewBag.current)))
+                            {
+                                <td class="al_c">당첨자발표</td>
+                            }
+                            <td class="al_c"><a href="javascript:EventIndex.GoEdit(@item.Seq)">@item.Title</a></td>
+                            <td class="al_c">@item.NickName</td>
+                            <td class="al_c">@item.StartDate.ToString("yyyy-MM-dd") ~ @item.EndDate.ToString("yyyy-MM-dd")</td>
+                            <td class="al_c">@item.RegDate.ToString("yyyy-MM-dd")</td>
+                            <td class="al-c">@item.ReadCount</td>
+                            <td class="al-c">@item.ViewFlag</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+
+                    <tr>
+                        <td colspan="10">등록이벤트가 없습니다.</td>
+                    </tr>
+                       
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="table-responsive mt-5">
+        <div id="divPaging"></div>
+    </div>
+</div>
+
+<div class="form-footer">
+    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+        {
+            <button class="btn btn-success" type="button" id="insert" data-toggle="modal" data-target="#myModal-url">등록</button>
+        }
+        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+        {
+            <button class="btn btn-default mr-5" id="delete">삭제</button>
+        }
+           
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->
+
+
+
+

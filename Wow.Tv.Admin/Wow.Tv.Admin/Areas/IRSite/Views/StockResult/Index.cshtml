@@ -1,0 +1,131 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/StockResult/Index.js"></script>
+    <script>
+        var currentIndex = "@ViewBag.Condition.CurrentIndex"
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var year = "@ViewBag.Condition.Year";
+        var rounds = "@ViewBag.Condition.Rounds";
+        console.log('year:' + year);
+    </script>
+}
+<div class="body-content animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <form id="frmSearch">
+                <div class="contain-tabletop form-body form-inline clearfix">
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-2 control-label">년도</label>
+                        <div class="input-group col-sm-7">
+                            <select class="selectSearch form-control" name="Year">
+                                <option value="">선택</option>
+                                @if (Model.YearList.Count > 0)
+                                {
+                                    foreach (var item in Model.YearList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-2 control-label">회차</label>
+                        <div class="input-group col-sm-7">
+                            <select class="selectSearch form-control" name="Rounds">
+                                <option value="">선택</option>
+                                @if (Model.RoundsList.Count > 0)
+                                {
+                                    foreach (var item in Model.RoundsList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="seq" name="seq" />
+                <input type="hidden" id="pageSize" name="pageSize" value="10" />
+                <input type="hidden" id="currentIndex" name="currentIndex"/>
+                <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+            </form>
+            <div class="app-ui-section group mt-10">
+                <table class="table_colRow">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="form-group" id="allCheck"></th>
+                            <th>번호</th>
+                            <th>년도</th>
+                            <th>회차</th>
+                            <th>개최일시</th>
+                            <th>개최장소</th>
+                            <th>활성</th>
+                            <th>작성자</th>
+                            <th>작성일(수정일)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            string[] week = { "일", "월", "화", "수", "목", "금", "토" };
+                            foreach (var item in Model.ListData)
+                            {
+                                var txtDate = item.SYEAR + "-" + item.SMONTH + "-" + item.SDAY;
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="checkbox" value="@item.SEQ" ></td>
+                                    <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + ViewBag.Condition.CurrentIndex))</td>
+                                    <td><a href="#" onclick="return StockResultIndex.GoEdit(@item.SEQ);">@item.SYEAR</a></td>
+                                    <td><a href="#" onclick="return StockResultIndex.GoEdit(@item.SEQ);">@item.DIVERGE</a></td>
+                                    <td>
+                                        <a href="#" onclick="return StockResultIndex.GoEdit(@item.SEQ);">
+                                            @txtDate (@week[(int)Convert.ToDateTime(txtDate).DayOfWeek]) <span>@item.STIME1</span>:@item.STIME2
+                                        </a>
+                                    </td>
+                                    <td class="text-left"><a href="#" onclick="return StockResultIndex.GoEdit(@item.SEQ);">@item.PLACE</a></td>
+                                    <td>@item.VIEW_FLAG</td>
+                                    <td>@item.REG_ID</td>
+                                    <td>
+                                        @item.REG_DATE<br />
+                                        @if (item.MOD_DATE != null)
+                                        {
+                                            <span style="color: cadetblue">@item.MOD_DATE</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8">등록게시물이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5">
+                <div id="divPaging"></div>
+                <div class="form-footer clearfix">
+                    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                        {
+                            <button class="btn btn-success" type="button" id="btnAdd">등록</button>
+                        }
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                        {
+                            <button class="btn btn-default mr-5" type="button" id="btnDelete">삭제</button>
+                        }
+                    </div>
+                </div>
+                <!-- /.form-footer -->
+            </div>
+        </div>
+    </div>
+</div>

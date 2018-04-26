@@ -1,0 +1,198 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+
+@model NTB_BROAD_LIVE
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+
+    BroadLiveCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+    <script src="@wowTvScript/BroadCast/BroadLive/Edit.js?date=20171025113000"></script>
+    @*<script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>*@
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<form id="frmSearch">
+    <input type="hidden" name="BroadStartDate" value="@condition.BroadStartDate">
+    <input type="hidden" name="BroadEndDate" value="@condition.BroadEndDate">
+    <input type="hidden" name="PublishYn" value="@condition.PublishYn">
+    <input type="hidden" name="ProgramName" value="@condition.ProgramName">
+</form>
+
+
+
+<form id="frmSave">
+    <input type="hidden" name="BROAD_LIVE_ID" id="hidBroadLiveID" value="@Model.BROAD_LIVE_ID" />
+    <div class="row">
+        <div class="col-md-12 clearfix">
+
+            <div class="wrap">
+
+                <!-- BBS Write -->
+                <div class="bbs-write1">
+                    <table class="table">
+                        <colgroup>
+                            <col width="100px">
+                            <col width="120px">
+                            <col>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th colspan="2">프로그램명</th>
+                            <td colspan="3"><input type="text" class="form-control" id="txtProgramName" name="PROGRAM_NAME" value="@Model.PROGRAM_NAME"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">방영시간</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="txtBroadDate" name="BROAD_DATE" value="@Model.BROAD_DATE.ToDate()">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    시작시간
+                                    &nbsp;
+                                    <select class="form-control" id="cboStartHour" name="START_HOUR">
+                                        <option value="0">시간</option>
+                                        @for (int i = 1; i < 24; i++)
+                                        {
+                                            <option value="@i" @(Model.START_HOUR == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select> :
+                                    <select class="form-control" id="cboStartMinut" name="START_MINUT">
+                                        <option value="0">분</option>
+                                        @for (int i = 1; i < 60; i++)
+                                        {
+                                            <option value="@i" @(Model.START_MINUT == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select> ~ 종료시간
+                                    &nbsp;
+                                    <select class="form-control" id="cboEndHour" name="END_HOUR">
+                                        <option value="0">시간</option>
+                                        @for (int i = 1; i < 24; i++)
+                                        {
+                                            <option value="@i" @(Model.END_HOUR == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select> :
+                                    <select class="form-control" id="cboEndMinut" name="END_MINUT">
+                                        <option value="0">분</option>
+                                        @for (int i = 1; i < 60; i++)
+                                        {
+                                            <option value="@i" @(Model.END_MINUT == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="3">유튜브</th>
+                            <th>방송 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl" name="YOUTUBE_URL" value="@Model.YOUTUBE_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>통계 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl2" name="YOUTUBE_STA_URL" value="@Model.YOUTUBE_STA_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>방문수</th>
+                            <td><input type="text" class="form-control devNumber" name="YOUTUBE_COUNT" value="@Model.YOUTUBE_COUNT"></td>
+                            <th>페이지 뷰</th>
+                            <td><input type="text" class="form-control devNumber" name="YOUTUBE_PAGE_COUNT" value="@Model.YOUTUBE_PAGE_COUNT"></td>
+                        </tr>
+                        <tr>
+                            <th rowspan="3">아프리카</th>
+                            <th>방송 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl" name="AFREECA_URL" value="@Model.AFREECA_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>통계 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl2" name="AFREECA_STA_URL" value="@Model.AFREECA_STA_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>방문수</th>
+                            <td><input type="text" class="form-control devNumber" name="AFREECA_COUNT" value="@Model.AFREECA_COUNT"></td>
+                            <th>페이지 뷰</th>
+                            <td><input type="text" class="form-control devNumber" name="AFREECA_PAGE_COUNT" value="@Model.AFREECA_PAGE_COUNT"></td>
+                        </tr>
+                        <tr>
+                            <th rowspan="3">카카오</th>
+                            <th>방송 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl" name="KAKAO_URL" value="@Model.KAKAO_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>통계 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl2" name="KAKAO_STA_URL" value="@Model.KAKAO_STA_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>방문수</th>
+                            <td><input type="text" class="form-control devNumber" name="KAKAO_COUNT" value="@Model.KAKAO_COUNT"></td>
+                            <th>페이지 뷰</th>
+                            <td><input type="text" class="form-control devNumber" name="KAKAO_PAGE_COUNT" value="@Model.KAKAO_PAGE_COUNT"></td>
+                        </tr>
+                        <tr>
+                            <th rowspan="3">페이스북</th>
+                            <th>방송 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl" name="FACEBOOK_URL" value="@Model.FACEBOOK_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>통계 URL</th>
+                            <td colspan="3"><input type="text" class="form-control devUrl2" name="FACEBOOK_STA_URL" value="@Model.FACEBOOK_STA_URL"></td>
+                        </tr>
+                        <tr>
+                            <th>방문수</th>
+                            <td><input type="text" class="form-control devNumber" name="FACEBOOK_COUNT" value="@Model.FACEBOOK_COUNT"></td>
+                            <th>페이지 뷰</th>
+                            <td><input type="text" class="form-control devNumber" name="FACEBOOK_PAGE_COUNT" value="@Model.FACEBOOK_PAGE_COUNT"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2"><span class="nec">*</span>게시여부</th>
+                            <td colspan="3">
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="Y" @(String.IsNullOrEmpty(Model.PUBLISH_YN) == true || Model.PUBLISH_YN == "Y" ? "checked" : "")> Y</label>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="N" @(Model.PUBLISH_YN == "N" ? "checked" : "")> N</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">내용</th>
+                            <td colspan="3">
+                                <textarea id="hidRemark" @*style="display:none;"*@ name="REMARK">@Model.REMARK</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">대표영상URL</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control devUrl2" name="MAIN_VOD_URL" value="@Model.MAIN_VOD_URL">
+                                예) https://www.youtube.com/embed/Ajeo41t9aI8 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- //BBS Write -->
+                <!-- Bottom Buttons -->
+                <div class="box-button">
+                    @if (Model.BROAD_LIVE_ID > 0)
+                    {
+                    <button class="btn btn-default" id="btnDelete">삭제</button>
+                    }
+                    <button class="btn btn-success" id="btnSave">저장</button>
+                    <a href="#" class="btn btn-default" id="btnList">목록</a>
+                </div>
+                <!-- //Bottom Buttons -->
+
+            </div>
+
+        </div>
+    </div>
+</form>

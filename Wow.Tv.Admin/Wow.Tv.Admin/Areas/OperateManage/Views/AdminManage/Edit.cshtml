@@ -1,0 +1,210 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model TAB_CMS_ADMIN
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    List<NTB_GROUP> groupList = ViewBag.GroupList;
+    List<NTB_COMMON_CODE> jobCodeList = ViewBag.JobCodeList;
+    List<NTB_COMMON_CODE> partCodeList = ViewBag.PartCodeList;
+}
+
+@{
+    Layout = null;
+}
+
+
+
+<script src="@wowTvScript/OperateManage/AdminManage/Edit.js?date=20170727163009"></script>
+
+
+
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">운영자등록</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave">
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 권한</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cboGroupSeq" name="GROUP_SEQ">
+                                <option value="0">선택안함</option>
+                                @foreach (var item in groupList)
+                                {
+                                    <option value="@item.GROUP_SEQ" @(item.GROUP_SEQ == Model.GROUP_SEQ ? "selected" : "")>@item.GROUP_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 아이디</label>
+                        <div class="col-sm-9">
+                            <input class="form-control rounded" type="text" value="@Model.ADMIN_ID" id="txtAdminId" name="ADMIN_ID">
+                        </div>
+                    </div>
+                    @if (Model.SEQ == 0)
+                    {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 패스워드</label>
+                        <div class="col-sm-9">
+                            <input class="form-control rounded" type="text" value="@Model.PWD" id="pwdPwd" name="PWD">
+                            <font class="f-red">*</font> 2종 조합시(영어/숫자) 10자리 이상 입력 * 3종 조합시(영어/숫자/특수기호) 8자리 이상 입력
+
+                        </div>
+                    </div>
+                    }
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 이름</label>
+                        <div class="col-sm-9">
+                            <input class="form-control rounded" type="text" value="@Model.NAME" id="txtName" name="NAME">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 휴대폰</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="3" value="@Model.MOBILE1" id="txtMobile1" name="MOBILE1">
+                        </div>
+                        <div class="col-sm-1 f-and al-c"> - </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="4" value="@Model.MOBILE2" id="txtMobile2" name="MOBILE2">
+                        </div>
+                        <div class="col-sm-1 f-and al-c"> - </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="4" value="@Model.MOBILE3" id="txtMobile3" name="MOBILE3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 접속IP입력</label>
+                        <div class="col-sm-9">
+                            <div class="fl-l mar-r20">
+                                <input class="h-16 fl-l" type="radio" name="IP_TYPE" value="IPv4" @(String.IsNullOrEmpty(Model.IP_TYPE) == true || Model.IP_TYPE == "IPv4" ? "checked" : "") >
+                                <span class="fl-l"> IPv4&nbsp;&nbsp;</span>
+                                <input class="form-control fl-l ma-r-5" type="text" style="width: 327px" value="@Model.IP" id="txtIp" name="IP">
+                            </div>
+                        </div>
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9" style="margin-top: 5px;">
+                            <div class="fl-l mar-r20">
+                                <input class="h-16 fl-l" type="radio" name="IP_TYPE" value="IPv6" @(Model.IP_TYPE == "IPv6" ? "checked" : "") >
+                                <span class="fl-l"> IPv6&nbsp;&nbsp;</span>
+                                <input class="form-control fl-l ma-r-5" type="text" style="width: 327px" value="@Model.IP6" id="txtIp6" name="IP6">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 부서명</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cboPartName" name="PART_CODE">
+                                @foreach (var item in partCodeList)
+                                {
+                                    <option value="@item.CODE_VALUE1" @(item.CODE_VALUE1 == Model.PART_CODE ? "selected" : "") >@item.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 담당업무</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="cboJobCode" name="JOB_CODE">
+                                @foreach (var item in jobCodeList)
+                                {
+                                    <option value="@item.CODE_VALUE1" @(item.CODE_VALUE1 == Model.JOB_CODE ? "selected" : "")>@item.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><font class="f-red">*</font> 전화번호</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="3" value="@Model.PHONE1" id="txtPhone1" name="PHONE1">
+                        </div>
+                        <div class="col-sm-1 f-and al-c"> - </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="4" value="@Model.PHONE2" id="txtPhone2" name="PHONE2">
+                        </div>
+                        <div class="col-sm-1 f-and al-c"> - </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control devNumber" maxlength="4" value="@Model.PHONE3" id="txtPhone3" name="PHONE3">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">한국경제TV 아이디</label>
+                        <div class="col-sm-9">
+                            <input class="form-control rounded" type="text" value="@Model.WOWNET" name="WOWNET">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">승인</label>
+                        <div class="col-sm-9">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" name="APPROVAL_YN" value="Y" @(Model.APPROVAL_YN == "Y" ? "checked" : "") >
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" name="APPROVAL_YN" value="N" @(String.IsNullOrEmpty(Model.APPROVAL_YN) == true || Model.APPROVAL_YN == "N" ? "checked" : "") >
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">최종접속시간</label>
+                        <div class="col-sm-9" style="padding-top: 3px;">@Model.LAST_LOGIN_DATE.ToDateTime()</div>
+                    </div>
+
+                </div>
+                <div class="sign-footer">
+
+
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                <input type="hidden" id="hidSeq" name="SEQ" value="@Model.SEQ" />
+                                <input type="hidden" id="hidADMIN_ID" name="hidADMIN_ID" value="@Model.ADMIN_ID" />
+
+                                <!-- admin_id = @LoginHandler.CurrentLoginUser.LoginId   -->
+                                @if (Model.SEQ > 0 && (@LoginHandler.CurrentLoginUser.LoginId == "ckato21" || @LoginHandler.CurrentLoginUser.LoginId == "ckato22222test"  ))
+                                {
+                                    //비밀번호초기화(고정값+SMS문자발송X없음.)
+                                    <button type="button" class="btn btn-default no-margin rounded" id="divEdit_btnPwdInit">비밀번호초기화(고정값)</button>
+                                    //비밀번호초기화(난수값+SMS문자로 임시비밀번호발송)
+                                    <button type="button" class="btn btn-default no-margin rounded" id="divEdit_btnPwdInitRanNum">비밀번호초기화(임시비번발송)</button>
+                                }
+
+                                @if (Model.SEQ > 0)
+                                {
+
+                                <button type="button" class="btn btn-default no-margin rounded" id="divEdit_btnDelete">삭제</button>
+                                }
+                                <button type="button" class="btn btn-theme no-margin rounded" id="divEdit_btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+
+

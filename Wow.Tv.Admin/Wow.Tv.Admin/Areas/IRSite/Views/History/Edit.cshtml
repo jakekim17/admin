@@ -1,0 +1,136 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+@section scripts{
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IRSite/History/Edit.js"></script>
+}
+
+<form id="frmSearch">
+    <input type="hidden" id="ctgYr" name="CTGYR" value="@ViewBag.Condition.CTGYR" />
+    <input type="hidden" id="dispYn" name="DispYN" value="@ViewBag.Condition.DispYN" />
+    <input type="hidden" id="searchType" name="SearchType" value="@ViewBag.Condition.SearchType"/>
+    <input type="hidden" id="searchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+</form>
+
+<div class="body-content animated fadeIn">
+    <form id="frmSave">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+
+                <p class="notice-table-top">* 표시는 필수사항입니다.</p>
+
+                <table class="table bbs-write">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="30%">
+                        <col width="20%">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th><i class="nec">*</i>년도</th>
+                        <td colspan="3">
+                            <div class="input-group col-sm-2">
+                                <select class="form-control" name="CTGR_SEQ">
+                                    <option value="">선택</option>
+                                    @if (Model.CTGRList != null)
+                                    {
+                                        foreach (var item in Model.CTGRList)
+                                        {
+                                            if (Model.HISData != null && item.CTGR_SEQ == Model.HISData.CTGR_SEQ)
+                                            {
+                                                <option value="@item.CTGR_SEQ" selected>@item.CTGR_YR</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CTGR_SEQ">@item.CTGR_YR</option>
+                                            }
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>날짜</th>
+                        <td colspan="3" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" id="txtHisDate" name="HIS_DATE" class="form-control" value="@Model.HISData.HIS_DATE" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>작성자</th>
+                        <td>
+                            @if (Model.HISData.REG_ID != null)
+                            {
+                                @Model.HISData.REG_ID
+
+                            }
+                            else
+                            {
+                                if (LoginHandler.CurrentLoginUser != null)
+                                {
+                                    @LoginHandler.CurrentLoginUser.UserName
+                                }
+                            }
+                        </td>
+                        <th>등록일(수정일)</th>
+                        <td>
+                            @if (Model.HISData.HIS_SEQ > 0)
+                            {
+                                @Model.HISData.REG_DATE.ToString("yyyy-MM-dd")
+                                if (Model.HISData.MOD_ID != null)
+                                {
+                                    <span style="color: cadetblue">@Model.HISData.MOD_DATE</span>
+                                }
+                            } 
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>연혁내용</th>
+                        <td colspan="3" style="padding:0;height:400px;">
+                            <textarea id="editor" style="display:none;" name="HIS_CONT">@Model.HISData.HIS_CONT</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>활성</th>
+                        <td colspan="3">
+                            @if (Model.HISData.HIS_DISP_YN == "Y")
+                            {
+                                <input type="radio" class="radio radio-inline" name="HIS_DISP_YN" value="Y" checked /> @: Y
+                                <input type="radio" class="radio radio-inline" name="HIS_DISP_YN" value="N" />@:N
+                            }
+                            else
+                            {
+                                <input type="radio" class="radio radio-inline" name="HIS_DISP_YN" value="Y" /> @: Y
+                                <input type="radio" class="radio radio-inline" name="HIS_DISP_YN" value="N" checked /> @:N
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <div class="box-button">
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                    {
+                        <button class="btn btn-success" id="btnSave" type="button">등록(수정)</button>
+                    }
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                    {
+                        if (Model.HISData != null)
+                        {
+                            <button class="btn btn-default" id="btnDelete" type="button">삭제</button>
+                        }
+                    }
+                    <button class="btn btn-default" id="btnGoIndex" type="button">목록</button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="HIS_SEQ" value="@Model.HISData.HIS_SEQ" />
+    </form>
+</div>

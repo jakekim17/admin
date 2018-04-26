@@ -1,0 +1,132 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/BusinessManage/Index.js"></script>
+    <script>
+        var currentIndex = @ViewBag.Condition.CurrentIndex;
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var displayYn = "@ViewBag.Condition.displayYn";
+        var searchType = "@ViewBag.Condition.searchType";
+    </script>
+}
+
+<div class="body-content animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <div class="form-body">
+                <form id="frmSearch">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">활성</label>
+                        <div class="input-group col-sm-5">
+                            <select class="form-control" name="displayYn">
+                                <option value="">전체</option>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 form-inline">
+                        <label class="col-sm-1 control-label">검색</label>
+                        <div class="input-group col-sm-2">
+                            <select class="form-control" name="searchType">
+                                <option value="all">전체</option>
+                                <option value="title">컨텐츠명</option>
+                                @*<option value="contentId">컨텐츠 아이디</option>*@
+                                <option value="regId">작성자</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-sm-8">
+                            <input class="form-control" type="text" name="searchText" value="@ViewBag.Condition.searchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="pageSize" name="pageSize" value="10" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="0"/>
+                    <input type="hidden" id="seq" name="seq" />
+                    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                </form>
+            </div>
+                
+
+            <div class="app-ui-section group mt-10">
+                <table class="table_colRow">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="form-group" id="allCheck"></th>
+                            <th>번호</th>
+                            <th>컨텐츠명</th>
+                            @*<th>컨텐츠아이디</th>*@
+                            <th>연결메뉴</th>
+                            <th>활성</th>
+                            <th>작성자</th>
+                            <th>조회수</th>
+                            <th>작성일(수정일)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            foreach (var item in Model.ListData)
+                            {
+                                string str = item.MENU_NAME_DEPTH_1;
+                                if (item.MENU_NAME_DEPTH_2 != null)
+                                {
+                                    str += ">" + item.MENU_NAME_DEPTH_2;
+                                    if (item.MENU_NAME_DEPTH_3 != null)
+                                    {
+                                        str += ">" + item.MENU_NAME_DEPTH_3;
+                                    }
+                                }
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="checkbox" value="@item.BOARD_CONTENT_SEQ"/></td>
+                                    <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + ViewBag.Condition.CurrentIndex))</td>
+                                    <td><a href="#" onclick="return BusinessIndex.GoEdit(@item.BOARD_CONTENT_SEQ);">@item.TITLE</a></td>
+                                    @*<td><a href="#" onclick="return BusinessIndex.GoEdit(@item.BOARD_CONTENT_SEQ);">@item.CONTENT_ID</a></td>*@
+                                    <td class="text-left">@str</td>
+                                    <td>@item.VIEW_YN</td>
+                                    <td>@item.REG_ID</td>
+                                    <td>@item.READ_CNT</td>
+                                    <td>
+                                        @item.REG_DATE.ToString("yyyy-MM-dd")
+                                        @if (item.MOD_DATE != null)
+                                        {
+                                            <span style="color: cadetblue">@item.MOD_DATE</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8">등록게시물이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5">
+                <div id="divPaging"></div>
+                <div class="form-footer clearfix">
+                    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                        {
+                            <button id="btnAdd" class="btn btn-success" type="button">등록</button>
+                        }
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                        {
+                            <button id="btnDelete" class="btn btn-default mr-5">삭제</button>
+                        }
+                    </div>
+                </div>
+                <!-- /.form-footer -->
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model IList<tblTradingStarCategory>
+
+
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>tradingCode</th>
+            <th>codeName</th>
+            <th>시작일</th>
+            <th>종료일</th>
+            <th>등록일</th>
+            <th>전문가관리</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count == 0)
+        {
+
+            <tr>
+                <td colspan="6" style="height:400px">게시물이 없습니다.</td>
+            </tr>
+        }
+        else
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="#" onclick="CategoryIndex.OpenEdit('@item.tradingCode')">@item.tradingCode</a></td>
+                    <td>@Html.DisplayFor(modelItem => item.codeName)</td>
+                    <td>
+                        @if (item.startDt != null && !item.startDt.Value.ToString("yyyy-MM-dd").Equals("1900-01-01"))
+                        {
+                            @item.startDt.Value.ToString("yyyy-MM-dd")
+                        }
+                    </td>
+                    <td>
+                        @if (item.endDt != null && !item.endDt.Value.ToString("yyyy-MM-dd").Equals("1900-01-01"))
+                        {
+                            @item.endDt.Value.ToString("yyyy-MM-dd")
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.regdt)</td>
+                    <td>
+                        <button class="btn btn-success" onclick="return CategoryIndex.TradeManage('@item.tradingCode');">전문가관리</button>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>

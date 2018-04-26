@@ -1,0 +1,181 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.Article.NewsCenter
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsCenterCondition condition = ViewBag.condition;
+}
+
+@model  tblPlanArticle
+
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsContentManage/NewsOpinionEdit.js"></script>
+}
+
+<input type="hidden" id="hidCurrentMenuSeq" name="currentMenuSeq" value="@Request["menuSeq"]" />
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Table Top -->
+            <div class="contain-tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class='active'><a href="#">@ViewBag.opinionTitle</a></li>
+                </ul>
+            </div>
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-color2">'*' 표시는 필수입력입니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+                <form id="frmSearch" name="frmSearch" method="post">                    
+                    <input type="hidden" id="SearchGubun"       name="SearchGubun"    value="@condition.SearchGubun" />
+                    <input type="hidden" id="CurrentMenuSeq"    name="CurrentMenuSeq" value="@condition.CurrentMenuSeq" />
+                    <input type="hidden" id="CurrentIndex"      name="CurrentIndex"   value="@condition.CurrentIndex" />
+                    <input type="hidden" id="SearchViewYN"      name="SearchViewYN"   value="@condition.SearchViewYN" />
+                    <input type="hidden" id="SearchOnOff"       name="SearchOnOff"    value="@condition.SearchOnOff" />
+                    <input type="hidden" id="SearchText"        name="SearchText"     value="@condition.SearchText" />
+                    <input type="hidden" id="StartDate"         name="StartDate"      value="@condition.StartDate" />
+                    <input type="hidden" id="EndDate"           name="EndDate"        value="@condition.EndDate" />
+                </form>
+                <form id="frmAdd" name="frmAdd" enctype="multipart/form-data">
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th><span class="nec">*</span>타이틀</th>
+                            <td>
+                                <div class="input-group">
+                                    <input type="hidden" id="SEQ" name="SEQ" value="@Model.SEQ" />
+                                    <input type="hidden" id="CLASS" name="CLASS" value="@condition.SearchGubun" />
+                                    <input type="text" class="form-control" maxlength="50" id="TITLE" name="TITLE" value="@Model.TITLE">
+                                    <span class="input-group-addon intext">(50자 이내)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>추출 텍스트</th>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" maxlength="45" id="EXTRACTION_TEXT" name="EXTRACTION_TEXT" value="@Model.EXTRACTION_TEXT">
+                                    <span class="input-group-addon intext text-color2">추출 텍스트는 "[" "]" 안에 넣어야됨 ex) [현장취재] / [올부 이야기]</span>
+                                    @*<span class="input-group-addon intext text-color2">추출 텍스트 띄어쓰기는 반드시 & 넣어야됨 ex) 현장취재&종목&핫라인 / 올후&이야기</span>*@
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>코너설명</th>
+                            <td style="height:10px">
+                                <textarea class="form-control" rows="6" id="REMRK" name="REMRK" maxlength="200">@Model.REMRK</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이미지 업로드 경로</th>
+                            <td style="height:10px">
+                                /Admin/News/PlanArticle
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>칼럼 리스트명</th>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" maxlength="30" id="COLUMNLIST_NAME" name="COLUMNLIST_NAME" value="@Model.COLUMNLIST_NAME" size="17">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>목록(허브)</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename" id="sapnMainFile">@Model.IMG_MAIN</span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="img_main" id="img_main"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <span class="input-group-addon intext">(230*230 px) &nbsp;</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>프로필 이미지</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group form-inline" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename" id="sapnHotissueFile">@Model.IMG_HOTISSUE</span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="img_hotissue" id="img_hotissue"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <span class="input-group-addon intext">(230*230 px) &nbsp;</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>TV 메인 포커스</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename" id="sapnListFile">@Model.IMG_LIST</span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="img_list" id="img_list"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <span class="input-group-addon intext">@*(149*73 px)*@ &nbsp;</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>공통 상단 타이틀</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename" id="sapnBannFile">@Model.IMG_BANN</span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="img_bann" id="img_bann"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <span class="input-group-addon intext">(870*94 px)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>게제기간</th>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" maxlength="10" id="VW_FROM" name="VW_FROM" value="@Model.VW_FROM">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" maxlength="10" id="VW_TO" name="VW_TO" value="@Model.VW_TO">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>&nbsp;
+                                    <span>(종료일은 입력하지 않아도 무방합니다.)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>노출여부</th>
+                            <td>
+                                <label class="radio-inline">
+                                    <input type="radio" value="Y" name="VIEW_FLAG" @(Model.VIEW_FLAG != null && Model.VIEW_FLAG.Equals("Y") ? "checked=checked" : "")> Y
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="N" name="VIEW_FLAG" @( Model.VIEW_FLAG == null || Model.VIEW_FLAG.Equals("N") ? "checked=checked" : "")> N
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Write -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                
+            @if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+            {
+                <button class="btn btn-success" type="submit" id="btnSave">@( Model.SEQ == 0 ? "등록" : "수정")</button>
+            }
+                <button class="btn btn-default" type="submit" id="btnList">목록</button>
+            </div>
+            <!-- //Bottom Buttons -->
+        </div>
+    </div>
+</div>

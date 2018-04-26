@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.NewsCenter" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.NewsCenter" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/NewsCmtManageService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/NewsCmtManageService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+  <xs:complexType name="NewsCmtCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COMMENT" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COMMENT_SEQ" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NewsGubun" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OPEN_YN" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Sort" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NewsCmtCondition" nillable="true" type="tns:NewsCmtCondition" />
+  <xs:complexType name="NewsCmdCodeModelOfNewsCmtManageModelSZYJwTGC">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="NewsCmdCodeModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.NewsCenter" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NewsCmtManageModel" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.NewsCenter" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q2:ListModelOfNewsCmtManageModelSZYJwTGC">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="CodeList" nillable="true" type="q3:ArrayOfNTB_COMMON_CODE" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NewsCmdCodeModelOfNewsCmtManageModelSZYJwTGC" nillable="true" type="tns:NewsCmdCodeModelOfNewsCmtManageModelSZYJwTGC" />
+  <xs:complexType name="ArrayOfNewsCmtManageModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NewsCmtManageModel" nillable="true" type="tns:NewsCmtManageModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNewsCmtManageModel" nillable="true" type="tns:ArrayOfNewsCmtManageModel" />
+  <xs:complexType name="NewsCmtManageModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMMENT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMMENT_SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OPEN_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NewsCmtManageModel" nillable="true" type="tns:NewsCmtManageModel" />
+</xs:schema>

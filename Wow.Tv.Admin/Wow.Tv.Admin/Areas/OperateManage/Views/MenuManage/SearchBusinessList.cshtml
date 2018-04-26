@@ -1,0 +1,73 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv.BusinessManage
+
+@model ListModel<BOARD_CONT_MENU>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var divSearchBusiness_totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/OperateManage/MenuManage/SearchBusinessList.js?date=20170727163009"></script>
+
+
+
+
+<table class="table_colRow">
+    <thead>
+        <tr>
+            <th>컨텐츠명</th>
+            <th>컨텐츠 아이디</th>
+            <th>연결메뉴</th>
+            <th>활성</th>
+            <th>작성자</th>
+            <th>작성일(수정일)</th>
+            <th>적용</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListData)
+        {
+            string str = item.MENU_NAME_DEPTH_1;
+            if (item.MENU_NAME_DEPTH_2 != null)
+            {
+                str += ">" + item.MENU_NAME_DEPTH_2;
+                if (item.MENU_NAME_DEPTH_3 != null)
+                {
+                    str += ">" + item.MENU_NAME_DEPTH_3;
+                }
+            }
+
+            <tr>
+                <td class="al_c">@item.TITLE</td>
+                <td class="al_c">@item.CONTENT_ID</td>
+                <td class="al_c">@str</td>
+                <td class="al_c">@item.DEL_YN</td>
+                <td class="al_c">@item.REG_ID</td>
+                <td class="al_c">
+                    @item.REG_DATE.ToDateTime()<br />
+                    @if (item.MOD_DATE != null)
+                    {
+                        <span style="color: cadetblue">@item.MOD_DATE</span>
+                    }
+                </td>
+                <td class="al_c"><button type="button" class="btn btn-default" onclick="return MenuManageSearchBusinessList.SelectBusiness(@item.BOARD_CONTENT_SEQ, '@item.TITLE');">적용</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="table-responsive mt-5" id="divSearchBusiness_divPaging"></div>
+
+
+

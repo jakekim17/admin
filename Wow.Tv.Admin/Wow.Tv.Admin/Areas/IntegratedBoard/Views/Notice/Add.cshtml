@@ -1,0 +1,129 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IntegratedBoard/Notice/Add.js"></script>
+}
+
+<form id="frmSearch">
+    <input type="hidden" id="VIEW_YN" name="VIEW_YN" value="@ViewBag.Condition.VIEW_YN" />
+    <input type="hidden" id="SearchType" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+</form>
+
+
+
+@using (Html.BeginForm("Save", "Notice", FormMethod.Post, new { id = "frmSave" }))
+{
+    <input type="hidden" id="seq" name="seq"/>
+    <input type="hidden" id="pageSize" name="pageSize" value="20"/>
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex"/>
+    <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.Condition.BOARD_SEQ" />
+    <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])"/>
+    <div class="wrap">
+
+        <!-- BBS Write -->
+        <div class="bbs-write1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th><span class="nec">*</span>분류</th>
+                    <td>
+                        <div class="form-inline">
+                            <select class="form-control" id="COMMON_CODE" name="COMMON_CODE">
+                                @foreach (var code in ViewBag.CommonCodes)
+                                {
+                                    <option value="@code.COMMON_CODE" )>@code.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="nec">*</span>제목</th>
+                    <td>
+                        <input type="text" class="form-control" name="TITLE" id="TITLE" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0; height: 400px;">
+                        <!-- 에디터 영역 -->
+                        <textarea id="hidContent" style="display:none;"  maxlength="10000" name="CONTENT"></textarea>
+
+                    </td>
+                </tr>
+
+                @if (Model.ATTACH_FILE_YN.Equals("Y"))
+                {
+                    for (int i = 0; i < Model.FILE_COUNT; i++)
+                    {
+                        <tr>
+
+                            <th>첨부파일 @(i + 1)</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-success btn-file">
+                                        <span class="fileinput-new">파일선택</span>
+                                        <span class="fileinput-exists">다시선택</span>
+                                        <input type="file" name="files">
+                                    </span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <th>상단고정</th>
+                    <td>
+                        <label class="radio-inline"><input type="radio" name="NOTICE_YN" value="Y">Y</label>
+                        <label class="radio-inline"><input type="radio" name="NOTICE_YN" value="N" checked="checked">N</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>게시여부</th>
+                    <td>
+
+                        <label class="radio-inline"><input type="radio" name="VIEW_YN" value="Y" checked="checked">Y</label>
+                        <label class="radio-inline"><input type="radio" name="VIEW_YN" value="N">N</label>
+                        @*<label class="radio-inline"><input type="radio" id="VIEW_YN" name="VIEW_YN" checked="@Model.VIEW_YN.Equals("Y")"> Y</label>
+                            <label class="radio-inline"><input type="radio" id="VIEW_YN" name="VIEW_YN" checked="@Model.VIEW_YN.Equals("N")"> N</label>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS Write -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+            {
+                <button class="btn btn-success" id="btnSave">글쓰기</button>
+                @*<button class="btn btn-success" type="button" id="btnSave">등록(수정)</button>*@
+            }
+            <button class="btn btn-default" id="btnList">취소하기</button>
+
+        </div>
+        <!-- //Bottom Buttons -->
+
+    </div>
+    <!-- //공지사항 등록/수정/상세 -->
+}

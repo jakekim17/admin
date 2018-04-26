@@ -1,0 +1,77 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Kvina;
+
+
+
+
+
+
+<script>
+
+    function goWriteEdit() {
+
+        $.ajax({
+            type: "GET",
+            data: "menuSeq=@Request["menuSeq"]",
+            url: "/kvina/kvina/KvinaNoticeWriteProc",
+            success: function (resultText) {
+                //alert(resultText);
+                alert("처리됐습니다.");
+                location.href = "/kvina/kvina/KvinaNoticeList?menuSeq=@Request["menuSeq"]";
+            },
+            error: function (xhr, status, error) {
+                alert(status);
+            }
+        });
+
+
+        //document.f.submit();
+    }
+</script>
+
+<form name="f" method="get" action="/kvina/kvina/KvinaNoticeWriteProc">
+    <input type="hidden" name="menuSeq" value="@Request["menuSeq"]" />
+    <input type="hidden" name="seq" value="" />
+
+    <div class="wrap">
+
+        <!-- BBS Write -->
+        <div class="bbs-write1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th><span class="nec">*</span>제목</th>
+                    <td>
+                        <input type="text" class="form-control" name="title" id="TITLE" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0; height: 400px;">
+                        <!-- 에디터 영역 -->
+                        <textarea id="" style="display: block;" maxlength="10000" cols="10" rows="20" name="content"></textarea>
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>작성자</th>
+                    <td><input type="text" class="form-control" name="user_name" id="USER_NAME" value="" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS Write -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            <button class="btn btn-success" onclick="JavaScript: goWriteEdit();">글쓰기(수정하기)</button>
+            <a href="JavaScript:location.href='/Kvina/Kvina/KvinaNoticeList?menuSeq=21514'" class="btn btn-success">목록</a>
+        </div>
+        <!-- //Bottom Buttons -->
+
+    </div>
+</form>
+<!-- //공지사항 등록/수정/상세 -->

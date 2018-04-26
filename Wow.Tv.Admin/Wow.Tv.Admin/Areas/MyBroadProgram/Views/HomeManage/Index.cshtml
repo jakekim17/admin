@@ -1,0 +1,170 @@
+﻿
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.editVOD
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+
+@model T_NEWS_PRG
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NTB_ATTACH_FILE mainFile = ViewBag.MainFile;
+    NTB_ATTACH_FILE subFile = ViewBag.SubFile;
+}
+
+@section scripts{
+    <script src="@wowTvScript/MyBroadProgram/HomeManage/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divPartnerSearch" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+                <form id="frmSave">
+                    <input type="hidden" id="programCode" name="PRG_CD" value="@Model.PRG_CD" />
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>프로그램 명</th>
+                            <td>@Model.PRG_NM</td>
+                        </tr>
+                        <tr>
+                            <th>템플릿 정보, 그룹정보</th>
+                            <td> @*@Model.ProgramTemplateType,*@ @Model.ProgramTemplateName</td>
+                        </tr>
+                        <tr>
+                            <th>대표 이미지 (000*000)</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="mainFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                @*<img src="@mainFile.REAL_WEB_PATH" alt="" style="width:920px;height:auto;">*@
+                                <p>@mainFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>작은이미지 (000*000)</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="subFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                @*<img src="@mainFile.REAL_WEB_PATH" alt="" style="width:920px;height:auto;">*@
+                                <p>@subFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>방송시간</th>
+                            <td>
+                                <div class="form-inline">
+                                    <input type="checkbox" class="form-control" name="Monday" value="1" @(Model.IsMonday == true ? "checked" : "")> 월
+                                    <input type="checkbox" class="form-control" name="Tuesday" value="16" @(Model.IsTuesday == true ? "checked" : "")> 화
+                                    <input type="checkbox" class="form-control" name="Wednesday" value="256" @(Model.IsWednesday == true ? "checked" : "")> 수
+                                    <input type="checkbox" class="form-control" name="Thursday" value="4096" @(Model.IsThursday == true ? "checked" : "")> 목
+                                    <input type="checkbox" class="form-control" name="Friday" value="65536" @(Model.IsFriday == true ? "checked" : "")> 금
+                                    <input type="checkbox" class="form-control" name="Saturday" value="1048576" @(Model.IsSaturday == true ? "checked" : "")> 토
+                                    <input type="checkbox" class="form-control" name="Sunday" value="16777216" @(Model.IsSunday == true ? "checked" : "")> 일
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    @Model.BRO_START ~ @Model.BRO_START
+
+                                    @*시작시간
+                                    &nbsp;&nbsp;
+                                    <select class="form-control" name="StartHour">
+                                        <option value="00">00시</option>
+                                        @for (int i = 1; i < 24; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.StartHour == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select> :
+                                    <select class="form-control" name="StartMinute">
+                                        <option value="00">00분</option>
+                                        @for (int i = 1; i < 60; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.StartMinute == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select>
+                                    ~ 종료시간
+                                    &nbsp;&nbsp;
+                                    <select class="form-control" name="EndHour">
+                                        <option value="00">00시</option>
+                                        @for (int i = 1; i < 24; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.EndHour == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select> :
+                                    <select class="form-control" name="EndMinute">
+                                        <option value="00">00분</option>
+                                        @for (int i = 1; i < 60; i++)
+                                        {
+                                            <option value="@i.ToString("00")" @(Model.EndMinute == i ? "selected" : "")>@i.ToString("00")</option>
+                                        }
+                                    </select>*@
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연출1</th>
+                            <td><input type="text" class="form-control" name="PD_NM" value="@Model.PD_NM"></td>
+                        </tr>
+                        <tr>
+                            <th>연출2</th>
+                            <td><input type="text" class="form-control" name="PD2_NM" value="@Model.PD2_NM"></td>
+                        </tr>
+                        <tr>
+                            <th>작가1</th>
+                            <td><input type="text" class="form-control" name="TD_NM" value="@Model.TD_NM"></td>
+                        </tr>
+                        <tr>
+                            <th>작가2</th>
+                            <td><input type="text" class="form-control" name="TD2_NM" value="@Model.TD2_NM"></td>
+                        </tr>
+                        <tr>
+                            <th>기타</th>
+                            <td><input type="text" class="form-control" name="CP_NM" value="@Model.CP_NM"></td>
+                        </tr>
+                        <tr>
+                            <th>파트너</th>
+                            <td>
+                                <button class="btn btn-default" id="btnPartnerSearch">파트너</button>
+                                <ul class="list-type1" style="margin-top:10px;" id="ulPartnerList"></ul>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Write -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <button class="btn btn-success" id="btnSave">저장</button>
+                <button class="btn btn-default" id="btnCancel">초기화</button>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+
+
+

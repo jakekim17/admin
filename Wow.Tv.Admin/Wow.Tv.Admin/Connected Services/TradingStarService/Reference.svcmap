@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2982ca4d-8942-488b-8a2c-b3c59c147137" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/Admin/TradingStarService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TradingStarService66.xsd" MetadataType="Schema" ID="876d27ff-334c-47fa-977a-e408e66ebc22" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd3" />
+    <MetadataFile FileName="TradingStarService67.xsd" MetadataType="Schema" ID="d3309517-e042-44b4-9350-33aadcfbe5bb" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd6" />
+    <MetadataFile FileName="TradingStarService68.xsd" MetadataType="Schema" ID="a12d4bb0-9c0d-45e7-b107-d56ba4d239f6" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd5" />
+    <MetadataFile FileName="TradingStarService69.xsd" MetadataType="Schema" ID="03dc0f42-4c4d-423f-84ee-711742abcff3" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd4" />
+    <MetadataFile FileName="TradingStarService610.xsd" MetadataType="Schema" ID="86cddbac-5331-458e-be92-62a7b25daf70" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd2" />
+    <MetadataFile FileName="TradingStarService611.xsd" MetadataType="Schema" ID="950a7cfd-a68d-4164-a5d3-7038c435d99d" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd1" />
+    <MetadataFile FileName="TradingStarService11.disco" MetadataType="Disco" ID="a0435695-1cea-470d-8274-67c2287238cb" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?disco" />
+    <MetadataFile FileName="TradingStarService612.xsd" MetadataType="Schema" ID="c6bc726f-9d49-4375-9624-a9d6b9750cb0" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?xsd=xsd0" />
+    <MetadataFile FileName="TradingStarService11.wsdl" MetadataType="Wsdl" ID="8d081685-44a0-4887-913a-3f70baca849d" SourceId="1" SourceUrl="http://localhost:8088/Admin/TradingStarService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,70 @@
+﻿@model Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage.MemberInfoStatisticsResult
+
+<div class="body-content animated fadeIn">
+    <!-- Contents -->
+
+    <div class="wrap">
+
+        <!-- Table Top -->
+        <div class="box-top-table">
+            <div class="inner-left inform-btn">
+                <p>오늘 가입한 회원은 <strong class="text-color1">@Model.Statistics.JOIN_TODAY_COUNT</strong>명입니다.</p>
+            </div>
+        </div>
+        <!-- //Table Top -->
+        <!-- BBS View -->
+        <div class="bbs-view1">
+            <table class="table">
+                <colgroup>
+                    <col width="100">
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th colspan="2">전체 회원수</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.TOTAL_MEMBER_COUNT))명</td>
+                </tr>
+                <tr>
+                    <th colspan="2">일반회원수<br>(휴면회원 제외)</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.ALIVE_MEMBER_COUNT))명</td>
+                </tr>
+                <tr>
+                    <th colspan="2">SMS 수신동의</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.SMS_RECEIVE_MEMBER_COUNT))명</td>
+                </tr>
+                <tr>
+                    <th colspan="2">E-Mail 수신동의</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.EMAIL_RECEIVE_MEMBER_COUNT))명</td>
+                </tr>
+                <tr>
+                    <th rowspan="2">성별</th>
+                    <th>남자</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.MAN_COUNT))명</td>
+                </tr>
+                <tr>
+                    <th>여자</th>
+                    <td>@(string.Format("{0:#,0}", Model.Statistics.WOMAN_COUNT))명</td>
+                </tr>
+
+                @if (Model.AgeList.Count > 0)
+                {
+                    <tr>
+                        <th rowspan="@Model.AgeList.Count">나이대</th>
+                        <th>@(Model.AgeList[0].YEAR_AREA)대</th>
+                        <td>@(string.Format("{0:#,0}", Model.AgeList[0].MEMBER_COUNT))명</td>
+                    </tr>
+
+                    for (int i = 1; i < Model.AgeList.Count; i++)
+                    {
+                        <tr>
+                            <th>@(Model.AgeList[i].YEAR_AREA)대</th>
+                            <td>@(string.Format("{0:#,0}", Model.AgeList[i].MEMBER_COUNT))명</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+        <!-- //BBS View -->
+    </div>
+    <!-- //Contents -->
+</div>

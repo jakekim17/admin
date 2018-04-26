@@ -1,0 +1,100 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model List<NTB_COMMON_CODE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/AdminLog/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+        <div class="form-body">
+            <form id="frmSearch">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">액션타입</label>
+                    <div class="input-group col-md-3">
+                        <select class="form-control" name="ActionCode">
+                            <option value="">전체</option>
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">기간</label>
+
+                    <div class="form-inline">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" name="StartDate">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div> ~
+                        <div class="input-group date">
+                            <input type="text" class="form-control" name="EndDate">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">검색</label>
+                    <div class="input-group col-md-3 fl-l pad-r10">
+                        <select class="form-control " name="SearchType">
+                            <option value="MenuName">메뉴명</option>
+                            <option value="Url">URL</option>
+                            <option value="AdminName">관리자명</option>
+                            <option value="AdminId">관리자 ID</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-md-3">
+                        <input class="form-control" type="text" name="SearchText">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                    </div>
+                </div>
+
+
+                <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                <input type="hidden" id="currentIndex" name="currentIndex" />
+            </form>
+        </div>
+
+    </div>
+
+
+    <!-- Start body content -->
+    <div class="app-ui-section group mt-10" id="divList">
+
+    </div>
+
+
+
+    <div class="table-responsive mt-5">
+
+        <div class="form-footer">
+            <div class="pull-left" style="margin:20px 0 0 10px !important;">
+                <button class="btn btn-default mr-5" id="btnExcel">엑셀 다운로드</button>
+            </div>
+            
+            <div class="clearfix"></div>
+        </div><!-- /.form-footer -->
+
+
+
+
+    </div>
+</div>
+

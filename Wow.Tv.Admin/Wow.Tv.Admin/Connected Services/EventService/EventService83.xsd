@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet.ServiceCenter" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet.ServiceCenter" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/ServiceCenter/EventService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:8088/ServiceCenter/EventService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:import schemaLocation="http://localhost:8088/ServiceCenter/EventService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+  <xs:import schemaLocation="http://localhost:8088/ServiceCenter/EventService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet" />
+  <xs:complexType name="EventCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdminId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BannerImage" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodeType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EventGubun" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EventType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Readcount" type="xs:int" />
+          <xs:element minOccurs="0" name="Regdate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Seq" type="xs:int" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ViewFlag" type="ser:char" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EventCondition" nillable="true" type="tns:EventCondition" />
+  <xs:complexType name="EventModelOfEventContenthAFliQv3">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="EventModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet.ServiceCenter" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="EventContent" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet.ServiceCenter" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q2:ListModelOfEventContenthAFliQv3">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BroadData" nillable="true" type="tns:BroadModel" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="CodeList" nillable="true" type="q3:ArrayOfNTB_COMMON_CODE" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wownet" minOccurs="0" name="EventData" nillable="true" type="q4:tblEvent" />
+          <xs:element minOccurs="0" name="EventList" nillable="true" type="tns:ArrayOfEventContent" />
+          <xs:element minOccurs="0" name="FrontData" nillable="true" type="tns:EventContent" />
+          <xs:element minOccurs="0" name="ProImage" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EventModelOfEventContenthAFliQv3" nillable="true" type="tns:EventModelOfEventContenthAFliQv3" />
+  <xs:complexType name="ArrayOfEventContent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EventContent" nillable="true" type="tns:EventContent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEventContent" nillable="true" type="tns:ArrayOfEventContent" />
+  <xs:complexType name="EventContent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BannerImage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EventFlag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_small2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReadCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Seq" type="xs:int" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCommonCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ViewFlag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ViewSite" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WinContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WinViewFlag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WinnerDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WowtvId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventContent" nillable="true" type="tns:EventContent" />
+  <xs:complexType name="BroadModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BMemType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BPlayType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BRoom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PriceId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BroadModel" nillable="true" type="tns:BroadModel" />
+</xs:schema>

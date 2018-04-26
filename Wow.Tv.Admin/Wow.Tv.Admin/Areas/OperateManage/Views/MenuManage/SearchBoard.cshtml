@@ -1,0 +1,50 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model List<NTB_COMMON_CODE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/OperateManage/MenuManage/SearchBoard.js?date=20170727163009"></script>
+
+
+
+<div class="form-body">
+    <form id="divSearchBoard_frmSearch">
+        <div class="form-group">
+            <label class="col-md-1 control-label">검색</label>
+            <div class="input-group col-md-3 fl-l pad-r10">
+                <select class="form-control " name="BoardTypeCode">
+                    <option value="">전체</option>
+                    @foreach (var item in Model)
+                    {
+                    <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group col-md-7">
+                <input class="form-control" type="text" name="BoardName">
+                <span class="input-group-btn"><button type="button" class="btn btn-default" id="divSearchBoard_btnSearch">검색</button></span>
+            </div>
+        </div>
+
+
+
+        <input type="hidden" id="divSearchBoard_pageSize" name="pageSize" value="20" />
+        <input type="hidden" id="divSearchBoard_currentIndex" name="currentIndex" />
+    </form>
+</div>
+
+<div class="app-ui-section group mt-10" id="divSearchBoard_divList">
+    <!-- 전체100% -->
+</div>
+
+

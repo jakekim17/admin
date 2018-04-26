@@ -1,0 +1,256 @@
+﻿@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/Stats/GoogleTraffic.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
+    <script>
+        //var CLIENT_ID = '538387482734-g69mbcs293es19in424h6km617ktn3le.apps.googleusercontent.com';
+        var CLIENT_ID = '592087973259-ien66vgvi4m0h1u7h8k1tksqu8n6v2vk.apps.googleusercontent.com';
+        var DISCOVERY = 'https://analyticsreporting.googleapis.com/$discovery/rest';
+        var SCOPES = ['https://www.googleapis.com/auth/analytics.readonly'];
+    </script>
+}
+
+@section modalDiv{
+    <div id="divPopupGoogleTrafficPrint" class="modal fade" role="dialog"></div>
+}
+
+<input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+
+        <div class="wrap">
+
+            <div class="box-links-sites">
+                <button id="btnExcelExport">엑셀 다운로드</button>
+                <button id="btnPrint">프린트하기</button>
+            </div>
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <table>
+                    <colgroup>
+                        <col width="120">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th rowspan="2">검색</th>
+                        <td>
+
+                            <div class="form-group form-inline">
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" name="StartDate" id="txtStartDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div> ~
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" name="EndDate" id="txtEndDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                                <button type="button" id="btnSearch" class="btn btn-default">검색</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- //Global Search -->
+            <div id="RegionPrint">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            ※ 한국경제TV 주간 트래픽 순위 : <input type="text" value="@Model.CODE_VALUE1" class="form-control" id="txtRank" name="rank" style="width:80px"> 위 &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" id="btnSaveRank">저장</button>
+                            <span style="margin-left:10px;">수정일: @Model.MOD_DATE.ToString("yyyy-MM-dd")</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bbs-list1">
+                            <table id="tblSiteCount" class="table collapse-table">
+                                <thead>
+                                    <tr>
+                                        <th>사이트명</th>
+                                        <th>방문자수(PC)</th>
+                                        <th>방문자수(mobile)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>한국경제TV</td>
+                                        <td id="tdGoogleApi_WowTv"></td>
+                                        <td id="tdGoogleApi_WowTv_Mobile"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Table Top -->
+                    <div class="box-top-table">
+                        <div class="box-title inner-left">
+                            <h3>회원현황</h3>
+                        </div>
+                        <div class="inner-right">
+                            <p>웹툰 가입자수: 신규가입체크 기준일시 : 6/27일 14:30부터 ~ 현재까지(누적 데이터)</p>
+                        </div>
+                    </div>
+                    <!-- //Table Top -->
+                    <div id="divPresentMember">
+                        <div class="bbs-list1">
+                            <table id="tblMember" class="table collapse-table" >
+                                <thead>
+                                <tr>
+                                    <th>총 회원수</th>
+                                    <th>가입자 수</th>
+                                    <th>웹툰 가입자수</th>
+                                    <th>탈퇴자 수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box-title">
+                            <h3>메뉴별 트래픽</h3>
+                        </div>
+                        <div class="bbs-list1">
+                            <table id="tblMenu" class="table collapse-table">
+                                <thead>
+                                    <tr>
+                                        <th>메뉴명</th>
+                                        <th>페이지뷰(PC)</th>
+                                        <th>페이지뷰(Mobile)</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td>합계</td>
+                                        <td id="tdMenuTotalPc"></td>
+                                        <td id="tdMenuTotalMobile"></td>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="tbody-menu">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box-title inner-left">
+                            <h3>기사제공사별 트래픽</h3>
+                        </div>
+                        <div class="bbs-list1">
+                            <table id="tblArt" class="table collapse-table">
+                                <thead>
+                                    <tr>
+                                        <th>기사 제공사</th>
+                                        <th>페이지뷰(PC)</th>
+                                        <th>페이지뷰(Mobile)</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td>합계</td>
+                                        <td id="tdArtTotalPc"></td>
+                                        <td id="tdArtTotalMobile"></td>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="tbody-art">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" >
+                    <div class="box-title inner-left">
+                        <h3>상위 Top10 기사(PC)</h3>
+                    </div>
+                    <div class="bbs-list1">
+                        <table class="table collapse-table"  id="tblTopPc">
+                            <colgroup>
+                                <col width="80">
+                                <col>
+                                <col width="150">
+                                <col width="150">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>제목</th>
+                                <th>기자명</th>
+                                <th>조회수</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <td colspan="3">합계</td>
+                                <td id="tdArtTotal"></td>
+                            </tr>
+                            </tfoot>
+                            <tbody id="tbody-top10">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-title inner-left">
+                        <h3>상위 Top10 기사(MOBILE)</h3>
+                    </div>
+                    <div class="bbs-list1">
+                        <table class="table collapse-table" id="tblTopMobile">
+                            <colgroup>
+                                <col width="80">
+                                <col>
+                                <col width="150">
+                                <col width="150">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>제목</th>
+                                <th>기자명</th>
+                                <th>조회수</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <td colspan="3">합계</td>
+                                <td id="tdArtMobileTotal"></td>
+                            </tr>
+                            </tfoot>
+                            <tbody id="tbody-Mobile-top10">
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>※ 뉴스 제보수 : <span class="text-color2" id="spanReportCount"></span>개</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

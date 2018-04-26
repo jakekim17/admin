@@ -1,0 +1,240 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    ListModel<NTB_COMMON_CODE> boardTypeCodeList = ViewBag.BoardTypeCodeList;
+}
+
+@{
+    Layout = null;
+}
+
+
+
+<script src="@wowTvScript/OperateManage/IntegrateBoard/Edit.js?date=20170727163009"></script>
+
+
+
+
+
+<div class="modal-dialog" style="width:810px;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">통합게시판등록</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave">
+                <input type="hidden" value="@Model.BOARD_SEQ" name="BOARD_SEQ" id="hidBoardSeq" />
+
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font class="f-red">*</font> 유형</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="BOARD_TYPE_CODE">
+                                @foreach (var item in boardTypeCodeList.ListData)
+                                {
+                                <option value="@item.CODE_VALUE1" @(item.CODE_VALUE1 == Model.BOARD_TYPE_CODE ? "selected" : "")>@item.CODE_NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font class="f-red">*</font> 게시판명</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" id="txtBoardName" value="@Model.BOARD_NAME" name="BOARD_NAME">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">상단공지</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.TOP_NOTICE_YN) == true || Model.TOP_NOTICE_YN == "Y" ? "checked" : "") name="TOP_NOTICE_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.TOP_NOTICE_YN == "N" ? "checked" : "") name="TOP_NOTICE_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">공지수</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded devNumber" type="text" value="@Model.NOTICE_COUNT" name="NOTICE_COUNT">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">덧글</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.COMMENT_YN) == true || Model.COMMENT_YN == "Y" ? "checked" : "") name="COMMENT_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.COMMENT_YN == "N" ? "checked" : "") name="COMMENT_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">답변</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.REPLY_YN) == true || Model.REPLY_YN == "Y" ? "checked" : "") name="REPLY_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.REPLY_YN == "N" ? "checked" : "") name="REPLY_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">블라인드</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.BLIND_YN) == true || Model.BLIND_YN == "Y" ? "checked" : "") name="BLIND_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.BLIND_YN == "N" ? "checked" : "") name="BLIND_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">비밀번호</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.PASSWORD_YN) == true || Model.PASSWORD_YN == "Y" ? "checked" : "") name="PASSWORD_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.PASSWORD_YN == "N" ? "checked" : "") name="PASSWORD_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">파일첨부</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.ATTACH_FILE_YN) == true || Model.ATTACH_FILE_YN == "Y" ? "checked" : "") name="ATTACH_FILE_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.ATTACH_FILE_YN == "N" ? "checked" : "") name="ATTACH_FILE_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font class="f-red">*</font> 파일수</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded devNumber" type="text" value="@Model.FILE_COUNT" name="FILE_COUNT">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">스크랩</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.SCRAP_YN) == true || Model.SCRAP_YN == "Y" ? "checked" : "") name="SCRAP_YN"  value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.SCRAP_YN == "N" ? "checked" : "") name="SCRAP_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">활성</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.ACTIVE_YN) == true || Model.ACTIVE_YN == "Y" ? "checked" : "") name="ACTIVE_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.ACTIVE_YN == "N" ? "checked" : "") name="ACTIVE_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">키워드</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.KEYWORD_YN) == true || Model.KEYWORD_YN == "Y" ? "checked" : "") name="KEYWORD_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.KEYWORD_YN == "N" ? "checked" : "") name="KEYWORD_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">이메일 전송</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.EMAIL_YN) == true || Model.EMAIL_YN == "Y" ? "checked" : "") name="EMAIL_YN" value="Y">
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.EMAIL_YN == "N" ? "checked" : "") name="EMAIL_YN" value="N">
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">게시판상단</label>
+                        <div class="col-sm-10">
+                            <textarea id="hidTopContent" style="display:none;" name="TOP_CONTENT">@Model.TOP_CONTENT</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">게시판하단</label>
+                        <div class="col-sm-10">
+                            <textarea id="hidBottomContent" style="display:none;" name="BOTTOM_CONTENT">@Model.BOTTOM_CONTENT</textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="sign-footer">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                @if (Model.BOARD_SEQ > 0)
+                                {
+                                <button type="button" class="btn btn-default no-margin rounded" id="divEdit_btnDelete">삭제</button>
+                                }
+                                <button type="button" class="btn btn-theme no-margin rounded" id="divEdit_btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+            <!--/ 비밀번호변경 -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+

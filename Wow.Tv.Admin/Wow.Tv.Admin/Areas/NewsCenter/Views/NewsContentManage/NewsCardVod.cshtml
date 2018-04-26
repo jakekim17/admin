@@ -1,0 +1,145 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model NTB_ARTICLE_SHOW_CONFIG
+
+@{
+    List<NTB_COMMON_CODE> compList = ViewBag.compCode;
+
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsContentManage/NewsCardVod.js"></script>
+}
+@section modalDiv{
+    <!-- #region DIV divModalView -->
+    <div id="divModalView" class="modal fade" role="dialog" />
+    <!-- #endregion -->
+}
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Global Search -->
+            <form id="frmSearch" name="frmSearch" method="post" onsubmit="return false;">
+                <div class="contain-search-global">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th rowspan="2">검색</th>
+                            <td>
+                                <div class="form-group form-inline">
+                                    <button class="btn btn-default" id="OneWeekTerm">1주일</button>
+                                    <button class="btn btn-default" id="TwoWeekTerm">2주일</button>
+                                    <button class="btn btn-default" id="OneMonthTerm">1개월</button>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="SearchStartDate" name="StartDate" maxlength="10">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="SearchEndDate" name="EndDate" maxlength="10">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" id="SearchText" name="SearchText" maxlength="100">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+
+                                        <input type="hidden" name="Page" id="Page" value="1" />
+                                        <input type="hidden" name="PageSize" id="PageSize" value="30" />
+                                        <input type="hidden" name="totalDataCount" id="totalDataCount" value="0" />
+                                        <input type="hidden" name="currentIndex" id="currentIndex" value="1" />
+                                        <input type="hidden" name="newsManualCount" id="newsManualCount" value="0" />
+                                        <input type="hidden" name="SearchGubun" id="SearchGubun" value="@ViewBag.gubunCode" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- //Global Search -->
+                <!-- Table Top -->
+                <div class="box-top-table">
+                    <div class="inner-left">
+                        <div class="box-notice form-inline">
+                            <label>노출순서 설정</label>
+                            &nbsp;&nbsp;
+                            <select class="form-control " name="AUTO_MANUAL">
+                                <option value="AUTO" @(Model != null && Model.AUTO_MANUAL.Equals("AUTO") ? "selected" : "")>자동</option>
+                                <option value="MANUAL" @(Model != null && Model.AUTO_MANUAL.Equals("MANUAL") ? "selected" : "")>수동</option>
+                            </select>
+                            <button type="button" class="btn btn-success" id="btnSave">저장</button>
+                        </div>
+                    </div>
+                    <div class="inner-right box-links-sites">
+                        <a href="http://www.vingle.net" target="_blank">빙글 바로가기</a>
+                        <a href="https://center-pf.kakao.com/login" target="_blank">카카오 플러스 친구 바로가기</a>
+                        <a href="http://post.naver.com" target="_blank">네이버 포스트 바로가기</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    @if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+                    {
+                        <button class="btn btn-success" onclick="NewsCardVodList.ConfigSave();">노출순서 적용</button>
+                    }
+                    </div>
+                </div>
+
+                <!-- 출처 -->
+                <div class="box-top-table">
+                    <div class="inner-left">
+                        <p></p>
+                    </div>
+                    <div class="inner-right">
+                        <p>
+                            출처:
+                            @foreach (var item in compList)
+                            {
+                                @String.Format("({0}){1} ", item.CODE_VALUE1.Substring(0, 1).ToLower(), item.CODE_NAME)
+                            }
+                        </p>
+                    </div>
+                </div>
+                <!-- //출처 -->
+            </form>
+            <!-- //Table Top -->
+            <!-- News List -->
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th><span style="cursor:pointer" onclick="$('#tbodyNewsConfigList').toggle();">노출순서</span></th>
+                            <th>제목</th>
+                            <th>출처</th>
+                            <th>작성일(수정일)</th>
+                            <th>SNS 공유하기</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyNewsConfigList"></tbody>
+                    <tbody id="tbodyNewsList">
+                        <tr>
+                            <td colspan="7">조건에 맞는 검색된 데이터가 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- //News List -->
+            <!-- Pagenate -->
+            <div class="box-paginate" id="divPaging"></div>
+            <!-- //Pagenate -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <div class="inner-right">
+                    <button class="btn btn-success" onclick="NewsCardVodList.ConfigSave();">노출순서 적용</button>
+                </div>
+            </div>
+            <!-- //Bottom Buttons -->
+        </div>
+    </div>
+</div>
+

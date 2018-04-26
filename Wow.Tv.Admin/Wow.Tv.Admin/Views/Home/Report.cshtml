@@ -1,0 +1,38 @@
+﻿@using Wow.Tv.Middle.Model.Common
+
+@model List<MainStatsModel>
+
+@{
+    Layout = null;
+}
+
+<!-- //BBS List -->
+<div class="box-title">
+    <h3>고객제보</h3>
+    <div class="box-link">
+        <a href="/IntegratedBoard/Inquiry/Index?menuSeq=@ViewBag.MenuSeq" class="btn btn-default">더보기</a>
+    </div>
+</div>
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            <col width="50%">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>@Model[0].GroupName</th>
+                <th>@Model[1].GroupName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model[0].GroupCount.ToString("N0")건</td>
+                <td>@Model[1].GroupCount.ToString("N0")건</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<!-- //BBS List -->

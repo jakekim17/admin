@@ -1,0 +1,68 @@
+﻿@model Wow.Tv.Middle.Model.Db49.wowtv.TAB_NOTICE
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/ServiceCenter/Notice/Detail.js"></script>
+}
+<form id="frmSearch">
+    <input type="hidden" id="seq" name="seq" value="@Model.SEQ" />
+    <input type="hidden" id="ViewFlag" name="ViewFlag" value="@ViewBag.Condition.ViewFlag" />
+    <input type="hidden" id="TopFlag" name="TopFlag" value="@ViewBag.Condition.TopFlag" />
+    <input type="hidden" id="SearchFlag" name="SearchFlag" value="@ViewBag.Condition.SearchFlag" />
+    <input type="hidden" id="SearchName" name="SearchName" value="@ViewBag.Condition.SearchName" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+</form>
+
+<div class="col-md-12">
+
+    <!-- Start body content -->
+    <div class="app-ui-section group mt-10">
+        <!-- 전체100% -->
+
+        <table class="table_colRow" style="width: 98%; margin: 0 auto; margin-top: 10px;">
+            <tbody>
+                <tr class="noback">
+                    <th>제목</th>
+                    <td colspan="3">@Html.Raw(Model.TITLE)</td>
+                </tr>
+                <tr class="noback">
+                    <th>작성자</th>
+                    <td colspan="3">@Model.USER_NAME</td>
+                </tr>
+                <tr class="noback">
+                    <th>게시여부</th>
+                    <td>@Model.VIEW_FLAG</td>
+                    <th>상단공지</th>
+                    <td></td>
+                </tr>
+                <tr class="noback">
+                    <th>작성일</th>
+                    <td>@Model.REG_DATE</td>
+                    <th>조회수</th>
+                    <td>@Model.READ_CNT</td>
+                </tr>
+                <tr class="noback">
+                    <th>내용</th>
+                    <td colspan="3">
+                        @*Html tag때문에 textarea 제거함*@
+                        @Html.Raw(Model.CONTENT)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="form-footer">
+    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+        <button class="btn btn-default mr-5" id="btnList">목록</button>
+        <button class="btn btn-default mr-5" id="btnDelete">삭제</button>
+        <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#myModal-url" id="btnModify">수정</button>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->

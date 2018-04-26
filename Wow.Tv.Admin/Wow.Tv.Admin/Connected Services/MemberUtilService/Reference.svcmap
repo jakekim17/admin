@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b05de677-3bf4-4f12-a347-3a0d0ec96168" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/Member/MemberUtilService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MemberUtilService.disco" MetadataType="Disco" ID="506d1e2d-0009-40ab-b842-725a9604e811" SourceId="1" SourceUrl="http://localhost:8088/Member/MemberUtilService.svc?disco" />
+    <MetadataFile FileName="MemberUtilService.xsd" MetadataType="Schema" ID="80d65fad-a048-4fba-8b89-bf3dd88432ad" SourceId="1" SourceUrl="http://localhost:8088/Member/MemberUtilService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MemberUtilService.wsdl" MetadataType="Wsdl" ID="03e25892-d3c1-4bdf-a1d5-0c1734e3c192" SourceId="1" SourceUrl="http://localhost:8088/Member/MemberUtilService.svc?wsdl" />
+    <MetadataFile FileName="MemberUtilService1.xsd" MetadataType="Schema" ID="9e151fa4-b0a9-4270-8cc7-9bedb4307a51" SourceId="1" SourceUrl="http://localhost:8088/Member/MemberUtilService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MemberUtilService2.xsd" MetadataType="Schema" ID="7c460eec-ee29-483a-a439-8f7df3e8685e" SourceId="1" SourceUrl="http://localhost:8088/Member/MemberUtilService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

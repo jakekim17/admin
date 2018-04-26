@@ -1,0 +1,62 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.broadcast
+@using Wow.Tv.Middle.Model.Db49.broadcast.MyProgram
+
+@model ListModel<Pro_wowList>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    Layout = null;
+}
+
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/BroadCast/Expert/SearchList.js"></script>
+
+
+
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table" id="divExpertSearchList_tblList">
+        <thead>
+            <tr>
+                <th>선택</th>
+                <th>전문가 ID</th>
+                <th>이름</th>
+                <th>카페정보</th>
+                <th>전문가방송정보</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListData)
+            {
+            <tr>
+                <td>
+                    <input type="radio" name="payNo" value="@item.Pay_no">
+                    <input type="hidden" value="@item.NickName" />
+                    <input type="hidden" value="http://wowpro.wownet.co.kr/common/profileLink.asp?nickname=@(HttpUtility.UrlEncode(item.NickName, System.Text.Encoding.GetEncoding("euc-kr")))&link=cafe" />
+                    <input type="hidden" value="http://wowpro.wownet.co.kr/pro/pro_main_new/profile.asp?proID=@item.Pro_id" />
+                    <input type="hidden" value="@item.Profile" />
+                    <input type="hidden" value="@item.Photo_Service" />
+                </td>
+                <td>@item.Wowtv_id</td>
+                <td>@item.NickName</td>
+                <td>http://wowpro.wownet.co.kr/common/profileLink.asp?nickname=@(HttpUtility.UrlEncode(item.NickName, System.Text.Encoding.GetEncoding("euc-kr")))&link=cafe</td>
+                <td>http://wowpro.wownet.co.kr/pro/pro_main_new/profile.asp?proID=@item.Pro_id</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- //BBS List -->
+
+<!-- Pagenate -->
+<div class="table-responsive mt-5" id="divExpertSearchList_divPaging"></div>
+<!-- //Pagenate -->
+
+

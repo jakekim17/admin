@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HolidayTimeMngService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock.Admin" />
+      <xsd:import schemaLocation="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+      <xsd:import schemaLocation="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db22.stock" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IHolidayTimeMngService_GetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetList" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_GetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_DateConfirm_InputMessage">
+    <wsdl:part name="parameters" element="tns:DateConfirm" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_DateConfirm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DateConfirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_SaveTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTime" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_SaveTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_SaveMaster_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveMaster" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_SaveMaster_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveMasterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_GetTimeData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeData" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_GetTimeData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTimeDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_GetMasterData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMasterData" />
+  </wsdl:message>
+  <wsdl:message name="IHolidayTimeMngService_GetMasterData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMasterDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IHolidayTimeMngService">
+    <wsdl:operation name="GetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetList" message="tns:IHolidayTimeMngService_GetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetListResponse" message="tns:IHolidayTimeMngService_GetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DateConfirm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/DateConfirm" message="tns:IHolidayTimeMngService_DateConfirm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/DateConfirmResponse" message="tns:IHolidayTimeMngService_DateConfirm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/SaveTime" message="tns:IHolidayTimeMngService_SaveTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/SaveTimeResponse" message="tns:IHolidayTimeMngService_SaveTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveMaster">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/SaveMaster" message="tns:IHolidayTimeMngService_SaveMaster_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/SaveMasterResponse" message="tns:IHolidayTimeMngService_SaveMaster_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/Delete" message="tns:IHolidayTimeMngService_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/DeleteResponse" message="tns:IHolidayTimeMngService_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetTimeData" message="tns:IHolidayTimeMngService_GetTimeData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetTimeDataResponse" message="tns:IHolidayTimeMngService_GetTimeData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMasterData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetMasterData" message="tns:IHolidayTimeMngService_GetMasterData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHolidayTimeMngService/GetMasterDataResponse" message="tns:IHolidayTimeMngService_GetMasterData_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IHolidayTimeMngService" type="tns:IHolidayTimeMngService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetList">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/GetList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DateConfirm">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/DateConfirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTime">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/SaveTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveMaster">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/SaveMaster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeData">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/GetTimeData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMasterData">
+      <soap:operation soapAction="http://tempuri.org/IHolidayTimeMngService/GetMasterData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HolidayTimeMngService">
+    <wsdl:port name="BasicHttpBinding_IHolidayTimeMngService" binding="tns:BasicHttpBinding_IHolidayTimeMngService">
+      <soap:address location="http://localhost:8088/HolidayTimeMng/HolidayTimeMngService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

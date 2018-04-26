@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+<script>
+    var totalDataCount = @ViewBag.TotalDataCount;
+    var currentIndex = @ViewBag.CurrentIndex;
+</script>
+
+<script src="@wowTvScript/OperateManage/HolidayTimeMng/SearchList.js"></script>
+
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>날짜</th>
+                <th>휴일구분</th>
+                <th>설명</th>
+                <th>사용여부</th>
+                <th>작성일<br />(수정일)</th>
+                <th>등록자<br />(수정자)</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.TotalDataCount > 0)
+            {
+                foreach (var item in Model.ListData)
+                {
+                    <tr>
+                        @{
+                            var marketDt = "";
+                            if (item.MARKET_DT != null)
+                            {
+                                marketDt = item.MARKET_DT.Substring(0, 4) + "-" + item.MARKET_DT.Substring(4, 2) + "-" + item.MARKET_DT.Substring(6, 2);
+                            }
+                        }
+                        <td>@marketDt</td>
+                        <td>
+                            <a href="#" onclick="return HolidayTimeMngIndex.EditTime('@item.MARKET_SEQ')" data-toggle="modal" data-target="#divTimeModal">
+                                @if (item.HOLIDAY_CD == "01")
+                                {
+                                    @: 법정공휴일
+                                                        }
+                                else if (item.HOLIDAY_CD == "02")
+                                {
+                                    @: 대체공휴일
+                                                        }
+                                else if (item.HOLIDAY_CD == "03")
+                                {
+                                    @: 임시공휴일
+                                                        }
+                                else if (item.HOLIDAY_CD == "04")
+                                {
+                                    @: 기타
+                                }
+                            </a>
+                        </td>
+                        <td>@item.MARKET_HOLY_DESC</td>
+                        <td>@item.HOLY_YN</td>
+                        <td>
+                            @item.REG_DATE.ToString("yyyy-MM-dd")<br/>
+                            @if (item.MOD_ID != null)
+                            {
+                                <span style="color: cadetblue">@item.MOD_DATE</span>
+                            }
+                        </td>
+                        <td>
+                            @item.REG_ID<br/>
+                            @if (item.MOD_ID != null)
+                            {
+                                        @:(@item.MOD_ID)
+                            }
+                        </td>
+                        <td>
+                            <button class="btn btn-default btnDelete" id="@item.MARKET_SEQ">삭제</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7">등록게시물이 없습니다.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<!-- //BBS List -->
+<div id="divPaging" class="box-paginate"></div>

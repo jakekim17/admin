@@ -1,0 +1,162 @@
+﻿@using Wow.Tv.Admin.MenuService;
+@using Wow.Tv.Middle.Model.Common;
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Menu;
+
+@{ 
+    MenuCondition menuCondition = new MenuCondition();
+    menuCondition.ChannelCode = "WowTvAdmin";
+    menuCondition.Depth = 1;
+    menuCondition.ActiveYn = "Y";
+    menuCondition.PageSize = -1;
+    var menuList_1 = new MenuServiceClient().SearchList(menuCondition);
+
+    string currentMenuSeq = Request["menuSeq"];
+
+    LoginUser loginUser = LoginHandler.CurrentLoginUser;
+
+
+    //loginUser.MenuList.
+
+
+
+
+
+
+
+
+
+}
+<!-- Start left navigation - profile shortcut -->
+<div class="sidebar-content">
+    <div class="media" style="padding-left:20px;">
+        <div class="media-body">
+            @if (loginUser != null)
+            {
+            <h4 class="media-heading">Hello, <span>@loginUser.UserName</span></h4>
+            <small>@loginUser.PartCodeName</small>
+            }
+        </div>
+    </div>
+</div><!-- /.sidebar-content -->
+<!--/ End left navigation -  profile shortcut -->
+<!-- Start left navigation - menu -->
+<ul class="sidebar-menu">
+
+    <!-- Start navigation - dashboard -->
+    @foreach (var menu1 in menuList_1.ListData@*.Where(a => a.MENU_SEQ != 77 && a.MENU_SEQ != 400 && a.MENU_SEQ != 403 && a.MENU_SEQ != 412)*@)
+    {
+        @* 1Dept 메뉴 권한 체크 *@
+        bool isMenuAccess = false;
+        foreach (var item in loginUser.MenuList)
+        {
+            if (menu1.MENU_SEQ == item.MenuSeq && (item.IsRead || item.IsWrite || item.IsDelete))
+            {
+                isMenuAccess = true;
+            }
+        }
+
+        if (isMenuAccess)
+        {
+            string className1 = "";
+            menuCondition.UpMenuSeq = menu1.MENU_SEQ;
+            menuCondition.Depth = 2;
+            var menuList_2 = new MenuServiceClient().SearchList(menuCondition);
+
+            if (menuList_2.TotalDataCount > 0)
+            {
+                className1 = "submenu";
+            }
+            if (currentMenuSeq == menu1.MENU_SEQ.ToString())
+            {
+                className1 += " active";
+            }
+
+            <li class="@className1">
+                <a href="@menu1.Href" target="@menu1.LINK_TYPE_CODE">
+                    <span class="icon"><i class="fa fa-building-o"></i></span>
+                    <span class="text">@menu1.MENU_NAME</span>
+                    @if (menuList_2.TotalDataCount > 0)
+                    {
+                        <span class="arrow"></span>
+                    }
+                </a>
+                @if (menuList_2.TotalDataCount > 0)
+                {
+                    <ul>
+                        @foreach (var menu2 in menuList_2.ListData)
+                        {   
+                            @* 2Dept 메뉴 권한 체크 *@
+                            isMenuAccess = false;
+                            foreach (var item in loginUser.MenuList)
+                            {
+                                if (menu2.MENU_SEQ == item.MenuSeq && (item.IsRead || item.IsWrite || item.IsDelete))
+                                {
+                                    isMenuAccess = true;
+                                }
+                            }
+                            
+                            if (isMenuAccess)
+                            {
+                                string className2 = "";
+                                menuCondition.UpMenuSeq = menu2.MENU_SEQ;
+                                menuCondition.Depth = 3;
+                                var menuList_3 = new MenuServiceClient().SearchList(menuCondition);
+                                if (menuList_3.TotalDataCount > 0)
+                                {
+                                    className2 = "submenu";
+                                }
+                                if (currentMenuSeq == menu2.MENU_SEQ.ToString())
+                                {
+                                    className2 += " active";
+                                }
+                                <li class="@className2">
+                                    <a href="@menu2.Href" target="@menu2.LINK_TYPE_CODE">
+                                        @menu2.MENU_NAME
+
+                                        @if (menuList_3.TotalDataCount > 0)
+                                        {
+                                            <span class="arrow"></span>
+                                        }
+                                    </a>
+                                    @if (menuList_3.TotalDataCount > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var menu3 in menuList_3.ListData)
+                                            {
+                                                @* 3Dept 메뉴 권한 체크 *@
+                                                isMenuAccess = false;
+                                                foreach (var item in loginUser.MenuList)
+                                                {
+                                                    if (menu3.MENU_SEQ == item.MenuSeq && (item.IsRead || item.IsWrite || item.IsDelete))
+                                                    {
+                                                        isMenuAccess = true;
+                                                    }
+                                                }                                                
+                                                
+                                                if (isMenuAccess)
+                                                {                                                
+                                                    string className3 = "";
+                                                    if (currentMenuSeq == menu3.MENU_SEQ.ToString())
+                                                    {
+                                                        className3 += " active";
+                                                    }
+
+                                                    <li class="@className3"><a href="@menu3.Href" target="@menu3.LINK_TYPE_CODE">@menu3.MENU_NAME</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    }
+    <!--/ End navigation - dashboard -->
+
+</ul><!-- /.sidebar-menu -->
+<!--/ End left navigation - menu -->
+

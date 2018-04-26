@@ -1,0 +1,147 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Board
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model IntegratedBoard<NTB_BOARD_CONTENT>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var searchType = "@ViewBag.Condition.SearchType";
+    </script>
+    <script src="@wowTvScript/ProgramBoard/FeedBack/Index.js"></script>
+}
+
+@{
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "내용", Value = "CONTENT"},
+            new SelectListItem { Text = "작성자", Value = "WRITE"}
+        }, "Value", "Text");
+
+    string selectSearchType = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchType) ? "ALL" : ViewBag.Condition.SearchType;
+
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchType);
+}
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+<!-- FAQ 리스트 -->
+<div class="wrap">
+
+    <!-- Global Search -->
+    <div class="contain-search-global">
+
+
+        <form id="frmSearch">
+            <table>
+                <colgroup>
+                    <col width="120px">
+                    <col>
+                    <col width="120px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th>검색</th>
+                    <td colspan="3">
+                        <div class="form-group form-inline">
+                            @Html.DropDownList("SearchType", searchList, new { @class = "form-control", Id = "SearchType" })
+                            <div class="input-group" style="width: 600px">
+                                <input class="form-control" type="text" placeholder="검색어를 입력하세요." name="SearchText" id="txtSearch" maxlength="100" value="@ViewBag.Condition.SearchText">
+                                <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" id="seq" name="seq" />
+            <input type="hidden" id="pageSize" name="pageSize" value="20" />
+            <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+            <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.BOARD_SEQ" />
+            <input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+        </form>
+    </div>
+    <!-- //Global Search -->
+    <!-- Table Top -->
+    <div class="box-top-table">
+        <div class="inner-right">
+            <p>
+                총 <span class="text-color1">@ViewBag.TotalDataCount</span>개의 게시물이 등록되어 있습니다.
+            </p>
+        </div>
+    </div>
+    <!-- //Table Top -->
+    <!-- BBS List -->
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="allCheck"></th>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>작성일<br />(수정일)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (ViewBag.TotalDataCount == 0)
+                {
+
+                    <tr>
+                        <td colspan="6" style="height:400px">게시물이 없습니다.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model.ListData)
+                    {
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td class="al_c">@Html.DisplayFor(modelItem => item.BOARD_CONTENT_SEQ)</td>
+                            <td class="text-left"><a href="#" onclick="return FeedBackIndex.GoEdit('@item.BOARD_CONTENT_SEQ');">@Html.Raw(item.TITLE)</a></td>
+                            <td class="al_c">@Html.DisplayFor(modelItem => item.USER_NAME)</td>
+                            <td class="al_c">@Html.DisplayFor(modelItem => item.READ_CNT)</td>
+                            <td class="al_c">@Html.DisplayFor(modelItem => item.REG_DATE)
+                                @if (item.MOD_DATE != null)
+                                {
+                                    <br>
+                                    <span class="text-color1">(@Html.DisplayFor(modelItem => item.MOD_DATE))</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- //BBS List -->
+    <!-- Pagenate -->
+    <div class="box-paginate">
+        <div id="divPaging"></div>
+    </div>
+    <!-- //Pagenate -->
+    <!-- Bottom Buttons -->
+    <div class="box-button">
+        <div class="inner-right">
+            
+                @if (Model != null)
+                {
+                    <button class="btn btn-default" id="btnDelete">삭제하기</button>
+                }
+        </div>
+    </div>
+    <!-- //Bottom Buttons -->
+
+</div>

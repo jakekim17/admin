@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.broadcast" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.broadcast" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/NewsCenterService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="USP_GetBroadcast1ByProId_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BCONTENTS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BCOST" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BMEMTYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BPLAYTYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BRENDTIME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BROOM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BRSTARTTIME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BTITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CLICKNUM" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CURCOUNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="INVESTKIND" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Intro_Profile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWPHOTO_BIG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWPHOTO_SMALL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWPHOTO_SMALL2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_service" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NICKNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ONAIRTIME" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PHOTO_BIG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PHOTO_SERVICE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PHOTO_SMALL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PROBEST" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PRODUCT_ID_1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PRO_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo_Consult" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_Type" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="STATE" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="btype" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="overseaType" nillable="true" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="USP_GetBroadcast1ByProId_Result" nillable="true" type="tns:USP_GetBroadcast1ByProId_Result" />
+  <xs:complexType name="Pro_wowList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ars_Bnb" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ars_Danal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ars_Number" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BMEMTYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BROOM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BankAccount" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Best_Bnb" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BookWriter" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BroadTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CEnable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COrder" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CRegist" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CafeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cell_Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Debate_MainPro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstWord" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GradePro" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Intro_Profile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Invest" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InvestKind" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MainValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberShip" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWPhoto_Recommend" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_big" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_service" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_small" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWphoto_small2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NTB_PROGRAM_CAST" nillable="true" type="tns:ArrayOfNTB_PROGRAM_CAST" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Normal_Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pay_no" type="xs:int" />
+      <xs:element minOccurs="0" name="Photo_Big" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo_Consult" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo_Expert" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo_Service" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Photo_Small" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Price01" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Price03" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProARS_new" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProBest" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProBest_future" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProGubun" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProItem_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProReCommand" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Pro_Type" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="Pro_estock" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_future" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_mode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_wowmsn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductID6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductIDVIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Product_ID_1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Product_ID_12" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Product_ID_3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Product_ID_6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Product_ID_VIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Profile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qulification" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="STATE" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Specialist_gubun" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Wowtv_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zip_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="aIntro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="bank" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="joins" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="jumin_number" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="kookgoTop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="overseaType" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="recommandYN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="recommand_url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sort" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="stockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stockName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="top10" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pro_wowList" nillable="true" type="tns:Pro_wowList" />
+  <xs:complexType name="ArrayOfNTB_PROGRAM_CAST">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NTB_PROGRAM_CAST" nillable="true" type="tns:NTB_PROGRAM_CAST" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNTB_PROGRAM_CAST" nillable="true" type="tns:ArrayOfNTB_PROGRAM_CAST" />
+  <xs:complexType name="NTB_PROGRAM_CAST">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CAST_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DayOfWeekString" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="FRIDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PRG_CD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PROGRAM_CAST_SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="PUBLISH_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pro_wowList" nillable="true" type="tns:Pro_wowList" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REMARK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="STURDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUNDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="THURSDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TUESDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WEDNESDAY_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pay_no" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_PROGRAM_CAST" nillable="true" type="tns:NTB_PROGRAM_CAST" />
+</xs:schema>

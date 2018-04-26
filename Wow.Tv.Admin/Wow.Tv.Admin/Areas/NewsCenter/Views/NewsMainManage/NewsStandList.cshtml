@@ -1,0 +1,72 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model List<NUP_NEWSSTAND_SELECT_Result>
+
+@{ Layout = null; }
+
+<!-- #region 뉴스 스탠드 -->
+@if (Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <tr @(item.LIST_YN.Equals("Y") ? "class=checked" : "")>
+            <td>-</td>
+            <td><input type="checkbox" disabled @(item.LIST_YN.Equals("Y") ? "checked=checked" : "") name="Stand_LIST_YN_@item.ARTID"></td>
+            <td><input type="radio" disabled @(item.GUBUN_CODE.Equals("2") ? "checked=checked" : "") name="Stand_GUBUN_@item.ARTID"></td>
+            <td><input type="radio" disabled @(item.GUBUN_CODE.Equals("3") ? "checked=checked" : "") name="Stand_GUBUN_@item.ARTID"></td>
+            <td><input type="radio" disabled @(item.GUBUN_CODE.Equals("4") ? "checked=checked" : "") name="Stand_GUBUN_@item.ARTID"></td>
+            <td>
+                <select class="form-control" disabled>
+                    <option>@item.RANK</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-control" disabled>
+                    @if (item.SHOW_NUM <= 0)
+                    {
+                        <option>-</option>
+                    }
+                    else
+                    {
+                        <option>@item.SHOW_NUM</option>
+                    }
+                </select>
+            </td>
+            <td class="text-left">
+                <a href="javascript:NewsCommon.NewsView('@item.ARTID')" class="font-bold">@item.TITLE</a>
+                <div class="text-right">
+                    [<a href="javascript:NewsCommon.linkwwwUrl('@item.ARTID');">www. URL</a>]
+@*
+                    @if (item.COMPCODE.Equals("WO") || item.COMPCODE.Equals("HK") || item.COMPCODE.Equals("YH"))
+                    {
+                        <a href="javascript:NewsCommon.linkHtmlUrl('@item.ARTID','@item.COMPCODE');">[<span id="linkHtml_@item.ARTID">HTML URL</span>]</a>
+                        <a href="javascript:NewsCommon.htmlReConvert('@item.ARTID','@item.COMPCODE');">[HTML 재변환]</a>
+                        <!--iframe src="http://cast.wowtv.co.kr/castFileCheck.asp?folder=20170907&filename=A201709070004&seq=@item.ARTID&compcode=@item.COMPCODE" width="0" height="0" style="display: none;" /-->
+                    }
+*@
+                </div>
+            </td>
+            <td>@item.COMP_CODE<br>@item.DEPT_NAME</td>
+            <td>@item.REG_DATE @if (item.MOD_DATE != null)
+                { <br><span class="text-color1">(@item.MOD_DATE)</span> }</td>
+            <td><input type="checkbox" disabled @(item.BOLD_YN.Equals("Y") ? "checked=checked" : "") name="Stand_BOLD_YN_@item.ARTID"></td>
+            <td class="text-left">
+                <span class="link-icon-facebook comp"><a href="javascript:NewsCommon.FacebookScrap('@item.ARTID')">Facebook</a></span>
+                <span class="link-icon-twitter comp"><a href="javascript:NewsCommon.TwitterScrap('@item.ARTID','@item.TITLE')">Twitter</a></span>
+                <span class="link-icon-kakaostory comp"><a href="javascript:NewsCommon.KaKaoStoryScrap('@item.ARTID','@item.TITLE')">KaKao Story</a></span>
+            </td>
+            @if (item.RANK == 1)
+            {
+                <td rowspan="@Model.Count" style="background-color:#FFFFFF"><a href="javascript:NewsMainManageIndex.NewsStandManageView()">가제목</a></td>}
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="14"><strong>뉴스 스탠드에 등록된 데이터가 없습니다.</strong></td>
+    </tr>
+}
+<!-- #endregion -->

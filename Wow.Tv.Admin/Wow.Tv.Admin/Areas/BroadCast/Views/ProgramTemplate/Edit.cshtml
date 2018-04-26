@@ -1,0 +1,294 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model NTB_PROGRAM_TEMPLATE
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    T_NEWS_PRG newsProgram = ViewBag.NewsProgram;
+    NTB_ATTACH_FILE mainFile = ViewBag.MainFile;
+    NTB_ATTACH_FILE subFile = ViewBag.SubFile;
+    NTB_ATTACH_FILE rectangleFile = ViewBag.RectangleFile;
+    NTB_ATTACH_FILE thumbnailFile = ViewBag.ThumbnailFile;
+}
+
+@{
+    Layout = null;
+}
+
+
+
+<script src="@wowTvScript/BroadCast/ProgramTemplate/Edit.js?date=20170727163009"></script>
+
+
+<form id="frmSave">
+
+    <input type="hidden" id="hidProgramTemplateSeq" name="PROGRAM_TEMPLATE_SEQ" value="@Model.PROGRAM_TEMPLATE_SEQ" />
+    <input type="hidden" id="hidProgramCode" name="PRG_CD" value="@Model.PRG_CD" />
+    <input type="hidden" id="hidDelYn" value="@Model.DEL_YN" />
+
+    <div class="box-title">
+        <h3>템플릿 설정 정보</h3>
+    </div>
+    <!-- BBS Write -->
+    <div class="bbs-write1">
+        <table class="table">
+            <colgroup>
+                <col width="200px">
+                <col>
+            </colgroup>
+            <tr>
+                <th>ID</th>
+                <td>@Model.PRG_CD</td>
+            </tr>
+            <tr>
+                <th>프로그램명</th>
+                <td>
+                    @newsProgram.PRG_NM
+                    <input type="hidden" name="TEMPLATE_TYPE" value="_" /> <!-- 기존에 있던 칼럼을 그냥 살려둠 -->
+                </td>
+            </tr>
+            @*<tr>
+                <th><span class="nec">*</span>템플릿</th>
+                <td>
+                    <label class="radio-inline"><input type="radio" onchange="return ProgramTemplateEdit.TypeChange();" name="TEMPLATE_TYPE" value="A" @(String.IsNullOrEmpty(Model.TEMPLATE_TYPE) == true || Model.TEMPLATE_TYPE == "A" ? "checked" : "")> A Type(개별 프로그램형)</label>
+                    <label class="radio-inline"><input type="radio" onchange="return ProgramTemplateEdit.TypeChange();" name="TEMPLATE_TYPE" value="B" @(Model.TEMPLATE_TYPE == "B" ? "checked" : "")>B Type(사용자 정의형)</label>
+                </td>
+            </tr>*@
+            <tr>
+                <th><span class="nec">*</span>대표 이미지(1600*534)</th>
+                <td>
+                    <div class="fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                        <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="hidden"><input type="file" name="mainFile"></span>
+                        <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <p>
+                        @mainFile.REAL_WEB_PATH
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th><span class="nec">*</span>작은 이미지(419*145)</th>
+                <td>
+                    <div class="fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                        <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="hidden"><input type="file" name="subFile"></span>
+                        <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <p>
+                        @subFile.REAL_WEB_PATH
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th><span class="nec">*</span>직사각형 이미지(570*321)</th>
+                <td>
+                    <div class="fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                        <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="hidden"><input type="file" name="rectangleFile"></span>
+                        <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <p>
+                        @rectangleFile.REAL_WEB_PATH
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th><span class="nec">*</span>썸네일 이미지(220*124)</th>
+                <td>
+                    <div class="fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                        <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="hidden"><input type="file" name="thumbnailFile"></span>
+                        <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <p>
+                        @thumbnailFile.REAL_WEB_PATH
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th>메인비쥬얼 설정</th>
+                <td>
+                    <label class="radio-inline"><input type="radio" name="MainViewType" value="Image" @(String.IsNullOrEmpty(newsProgram.MainViewType) == true || newsProgram.MainViewType == "Image" ? "checked" : "")>이미지</label>
+                    <label class="radio-inline"><input type="radio" name="MainViewType" value="Editor" @(newsProgram.MainViewType == "Editor" ? "checked" : "")>에디터</label>
+                </td>
+            </tr>
+            <tr>
+                <th>목록노출 설정</th>
+                <td>
+                    <label><input type="checkbox" name="MainBottomViewYn" value="Y" @(newsProgram.MainBottomViewYn == "Y" ? "checked" : "")>메인하단에 비노출</label>
+                    <label><input type="checkbox" name="AllProgramViewYn" value="Y" @(newsProgram.AllProgramViewYn == "Y" ? "checked" : "")>전체프로그램에 비노출</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- //BBS Write -->
+
+    <div id="divRemark">
+        <div class="box-title">
+            <h3>내용 직접입력</h3>
+        </div>
+        <!-- BBS Write -->
+        <div class="bbs-write1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <td style="padding:0;height:400px">
+                        <textarea id="hidRemark" style="display:none;" name="REMARK">@Model.REMARK</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS Write -->
+    </div>
+
+
+    <div class="box-title">
+        <h3>방송정보</h3>
+    </div>
+    <!-- BBS Write -->
+    <div class="bbs-write1">
+        <table class="table">
+            <colgroup>
+                <col width="200px">
+                <col>
+            </colgroup>
+            <tr>
+                <th>방송시간</th>
+                <td>
+                    @newsProgram.BRO_START ~ @newsProgram.BRO_END
+                </td>
+            </tr>
+            <tr>
+                <th>연출1</th>
+                <td>
+                    @newsProgram.PD_NM
+                </td>
+            </tr>
+            <tr>
+                <th>연출2</th>
+                <td>
+                    @newsProgram.PD2_NM
+                </td>
+            </tr>
+            <tr>
+                <th>작가1</th>
+                <td>
+                    @newsProgram.ANC1_NM
+                </td>
+            </tr>
+            <tr>
+                <th>작가2</th>
+                <td>
+                    @newsProgram.ANC2_NM
+                </td>
+            </tr>
+            <tr>
+                <th>기타</th>
+                <td>
+                    @newsProgram.CP_NM
+                </td>
+            </tr>
+            <tr>
+                <th>파트너</th>
+                <td>
+                    <button class="btn btn-default" id="divEdit_btnPartnerSearch">파트너</button>
+                    <ul class="list-type1" style="margin-top:10px;" id="ulPartnerList"></ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- //BBS Write -->
+
+    <div class="box-title">
+        <h3>외부링크</h3>
+    </div>
+    <!-- BBS Write -->
+    <div class="bbs-write1">
+        <table class="table">
+            <colgroup>
+                <col width="200px">
+                <col>
+            </colgroup>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="WOW_YN" @(Model.WOW_YN == "Y" ? "checked" : "")> WOW 스타 URL</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" placeholder="http://" name="WOW_URL" value="@Model.WOW_URL">
+                </td>
+            </tr>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="NAVER_CAFE_YN" @(Model.NAVER_CAFE_YN == "Y" ? "checked" : "")> 네이버카페 URL</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" placeholder="http://" name="NAVER_CAFE_URL" value="@Model.NAVER_CAFE_URL">
+                </td>
+            </tr>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="WOWNET_YN" @(Model.WOWNET_YN == "Y" ? "checked" : "")> 와우넷 URL</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" placeholder="http://" name="WOWNET_URL" value="@Model.WOWNET_URL">
+                </td>
+            </tr>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="WOW_CAFE_YN" @(Model.WOW_CAFE_YN == "Y" ? "checked" : "")> 와우카페 URL</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" placeholder="http://" name="WOW_CAFE_URL" value="@Model.WOW_CAFE_URL">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- //BBS Write -->
+
+
+
+    <div class="box-title">
+        <h3>구독정보</h3>
+    </div>
+    <!-- BBS Write -->
+    <div class="bbs-write1">
+        <table class="table">
+            <colgroup>
+                <col width="200px">
+                <col>
+            </colgroup>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="NAVER_READ_YN" @(Model.NAVER_READ_YN == "Y" ? "checked" : "")> 네이버TV 구독 URL</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" name="NAVER_READ_URL" value="@Model.NAVER_READ_URL">
+                </td>
+            </tr>
+            <tr>
+                <th><label><input type="checkbox" value="Y" name="YOUTUBE_READ_YN" @(Model.YOUTUBE_READ_YN == "Y" ? "checked" : "")> 유튜브 구독</label></th>
+                <td>
+                    <input type="text" class="form-control devUrl" name="YOUTUBE_READ_URL" value="@Model.YOUTUBE_READ_URL">
+                </td>
+            </tr>
+            <tr>
+                <th>그룹정보</th>
+                <td>
+                    <button class="btn btn-default" id="divEdit_btnProgramGroupSearch">그룹검색</button>
+                    <ul class="list-type1" style="margin-top:10px;" id="ulProgramTemplateGroupList"></ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- //BBS Write -->
+    <!-- Bottom Buttons -->
+    <div class="box-button">
+        <div class="inner-right">
+            <button class="btn btn-default" id="divEdit_btnDelete">초기화</button>
+            <button class="btn btn-success" id="divEdit_btnSave">저장</button>
+        </div>
+    </div>
+    <!-- //Bottom Buttons -->
+
+</form>
+
+
+

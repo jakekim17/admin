@@ -1,0 +1,201 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/ProductManage/Lecture/Index.js"></script>
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+        var currentIndex = "@ViewBag.Condition.CurrentIndex";
+        var ViewSite = "@ViewBag.Condition.ViewSite";
+        var MainCtgr = "@ViewBag.Condition.MainCtgr";
+        var TypeFlag = "@ViewBag.Condition.TypeFlag";
+        var SearchType = "@ViewBag.Condition.SearchType";
+    </script>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="col-md-12">
+        <div class="panel-body no-padding rounded-bottom">
+            <div class="form-body">
+                <div class="form-group  col-md-9" style="clear: both">
+                    <label class="col-md-1 control-label" style="width:13.3% !important;">검색</label>
+                    <form id="frmSearch">
+                        <div class="input-group col-md-2 fl-l pad-r10">
+                            <select class="form-control" name="ViewSite">
+                                <option value="">사이트구분</option>
+                                <option value="T">한국경제TV</option>
+                                <option value="N">와우넷</option>
+                                <option value="F">와우파</option>
+                                <option value="S">와우스타</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-md-2 fl-l pad-r10">
+                            <select class="form-control" name="MainCtgr">
+                                <option value="">대분류</option>
+                                <option value="S">주식</option>
+                                <option value="E">행사</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-md-2 fl-l pad-r10">
+                            <select class="form-control" name="TypeFlag">
+                                <option value="">구분</option>
+                                <option value="L">강연회</option>
+                                <option value="E">행사안내</option>
+                                <option value="A">증권교육</option>
+                                <option value="G">원고강연회</option>
+                                <option value="O">해외투자</option>
+                                <option value="B">부동산</option>
+                                <option value="W">와우스타</option>
+                                <option value="S">주식창</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-md-2 fl-l pad-r10">
+                            <select class="form-control" name="SearchType">
+                                <option value="ALL">전체</option>
+                                <option value="TITLE">제목</option>
+                                <option value="PLACE">주소</option>
+                                <option value="LECTURER">강사</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-md-2">
+                            <input class="form-control" type="text" name="SearchText" value="@ViewBag.Condition.SearchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+                        <input type="hidden" name="seq" id="seq" />
+                        <input type="hidden" id="pageSize" name="pageSize" value="10" />
+                        <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="0" />
+                        <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-ui-section group mt-10">
+            <!-- 전체100% -->
+            <span class="fl-r pad-r10">총 <font class="f-red">@Model.TotalDataCount</font>개의 게시물이 등록되어 있습니다</span>
+            <table class="table_colRow">
+                <thead>
+                    <tr>
+                        <th class="al-c"><input type="checkbox"></th>
+                        <th>No.</th>
+                        <th>사이트구분</th>
+                        <th>대분류</th>
+                        <th>구분</th>
+                        <th>강연회 명</th>
+                        <th>일정</th>
+                        <th>등록일</th>
+                        <th>게시여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListData != null && Model.ListData.Count > 0)
+                    {
+                        foreach (var item in Model.ListData)
+                        {
+                            <tr>
+                                <td class="al-c"><input type="checkbox" name="check" value="@item.SEQ"></td>
+                                <td class="al-c">@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + ViewBag.Condition.CurrentIndex))</td>
+                                <td class="al-c">
+                                    @if(item.VIEW_SITE == "T")
+                                    {
+                                        @:한국경제TV
+                                    }
+                                    else if (item.VIEW_SITE == "N")
+                                    {
+                                        @:와우넷
+                                    }
+                                    else if (item.VIEW_SITE == "F")
+                                    {
+                                        @:와우파 
+                                    }
+                                    else if (item.VIEW_SITE == "S")
+                                    {
+                                        @:와우스타
+                                    }
+                                </td>
+                                <td class="al-c">
+                                    @if (item.MAIN_CTGR != null)
+                                    {
+                                        if (item.MAIN_CTGR == "S")
+                                        {
+                                            @: 주식
+                                        }
+                                        else if (item.MAIN_CTGR == "E")
+                                        {
+                                            @: 행사
+                                        }
+                                    }
+                                </td>
+                                <td class="al-c">
+                                    @if (!String.IsNullOrEmpty(item.TYPE_FLAG))
+                                    {
+                                        string str = item.TYPE_FLAG.ToString();
+                                        switch (str)
+                                        {
+                                            case "L":
+                                                @: 강연회
+                                            break;
+                                            case "E":
+                                                @: 행사안내
+                                            break;
+                                            case "A":
+                                                @: 증권교육
+                                            break;
+                                            case "G":
+                                                @: 원고강연회
+                                            break;
+                                            case "O":
+                                                @: 해외투자
+                                            break;
+                                            case "P":
+                                                @: 부동산
+                                            break;
+                                            case "W":
+                                                @: 와우스타
+                                            break;
+                                            case "S":
+                                                @: 주식
+                                            break;
+                                        }
+                                    }
+                                </td>
+                                <td class="al-l"><a href="" onclick="return LectureIndex.GoEdit(@item.SEQ)">@item.TITLE</a></td>
+                                <td class="al-c">@item.LECTURES_DATE</td>
+                                <td class="al-c">@item.REG_DATE</td>
+                                <td class="al-c">@item.VIEW_FLAG</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9">등록게시물이 없습니다.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="table-responsive mt-5">
+           <div id="divPaging"></div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+            {
+                <button id="btnDelete" class="btn btn-default mr-5">삭제</button>
+            }
+            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+            {
+                <button id="btnAdd" class="btn btn-success" type="button">등록</button>
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>

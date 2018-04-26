@@ -1,0 +1,57 @@
+﻿@using Wow.Tv.Admin.MenuService;
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Menu;
+
+@{
+    string currentMenuSeq = Request["menuSeq"];
+
+    NTB_MENU currentMenu = new NTB_MENU();
+    NTB_MENU parentMenu_1 = null;
+    NTB_MENU parentMenu_2 = null;
+    if (String.IsNullOrEmpty(currentMenuSeq) == false)
+    {
+        currentMenu = new MenuServiceClient().GetAt(int.Parse(currentMenuSeq));
+
+        if (currentMenu.UP_MENU_SEQ > 0)
+        {
+            parentMenu_1 = new MenuServiceClient().GetAt(currentMenu.UP_MENU_SEQ);
+
+            if (parentMenu_1.UP_MENU_SEQ > 0)
+            {
+                parentMenu_2 = new MenuServiceClient().GetAt(parentMenu_1.UP_MENU_SEQ);
+            }
+        }
+    }
+
+
+}
+
+
+<div class="header-content">
+    <h2><i class="fa fa-building-o"></i> @currentMenu.MENU_NAME</h2>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="#">홈</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            @if (parentMenu_2 != null)
+            {
+                <li>
+                    <a href="#">@parentMenu_2.MENU_NAME</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            }
+            @if (parentMenu_1 != null)
+            {
+                <li>
+                    <a href="#">@parentMenu_1.MENU_NAME</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+            }
+            <li class="active">@currentMenu.MENU_NAME</li>
+        </ol>
+    </div><!-- /.breadcrumb-wrapper -->
+</div><!-- /.header-content -->
+

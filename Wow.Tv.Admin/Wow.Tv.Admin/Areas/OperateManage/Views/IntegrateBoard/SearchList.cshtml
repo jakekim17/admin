@@ -1,0 +1,57 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_BOARD>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/OperateManage/IntegrateBoard/SearchList.js?date=20170727163009"></script>
+
+
+<!-- 전체100% -->
+<span class="fl-r s-text pad-r10">총 <font class="cho">@Model.AddInfoInt1.ToString("N0")</font> 개의 게시물이 등록되어 있습니다.</span>
+<table class="table_colRow">
+    <thead>
+        <tr>
+            <th><input type="checkbox" class="form-group" id="chAll"></th>
+            <th>번호</th>
+            <th>유형</th>
+            <th>게시판명</th>
+            <th>파일첨부</th>
+            <th>활성</th>
+            <th>작성일(수정일)</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.ListData)
+        {
+        <tr>
+            <td class="al_c"><input type="checkbox" class="form-group" name="seqList" value="@item.BOARD_SEQ"></td>
+            <td class="al_c">@item.BOARD_SEQ</td>
+            <td class="al_c" style="cursor:pointer; color:blue;" onclick="return IntegrateBoardIndex.OpenEdit(@item.BOARD_SEQ);">@item.BoardTypeCodeName</td>
+            <td class="al_c">@item.BOARD_NAME</td>
+            <td class="al_c">@item.ATTACH_FILE_YN</td>
+            <td class="al_c">@item.ACTIVE_YN</td>
+            <td class="al-c">@item.REG_DATE.ToDateTime()<br /><span style="color: cadetblue">@item.MOD_DATE.ToDateTime()</span></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="table-responsive mt-5" id="divPaging"></div>
+
+

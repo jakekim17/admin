@@ -1,0 +1,73 @@
+﻿@model List<Wow.Tv.Middle.Model.Db49.wowtv.NTB_COMMON_CODE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/MenuManage/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog"></div>
+    <div id="divSearchContent" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+        <div class="form-body">
+            <form id="frmSearch">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">채널</label>
+                    <div class="input-group col-md-3">
+                        <select class="form-control" name="ChannelCode" id="cboChannelCode">
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">검색</label>
+                    <div class="input-group col-md-3 fl-l pad-r10">
+                        <select class="form-control " name="SearchType">
+                            <option value="Name">메뉴명</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-md-3">
+                        <input class="form-control" type="text" name="SearchText">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="UpMenuSeq" id="txtUpMenuSeq" />
+                <input type="hidden" name="Depth" id="txtDepth" />
+            </form>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <div class="row" style="margin: 0 auto">
+                    <div class="col-md-4 bod-1" id="divMenu_1">
+                    </div>
+                    <div class="col-md-4 bod-1" id="divMenu_2">
+                    </div>
+                    <div class="col-md-4 bod-1" id="divMenu_3">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

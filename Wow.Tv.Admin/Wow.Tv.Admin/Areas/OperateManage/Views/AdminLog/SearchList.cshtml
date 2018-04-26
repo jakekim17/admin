@@ -1,0 +1,56 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_ACTION_LOG>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/OperateManage/AdminLog/SearchList.js?date=20170727163009"></script>
+
+
+<table class="table_colRow">
+    <thead>
+        <tr>
+            <th>메뉴명</th>
+            <th>URL</th>
+            <th>액션타입</th>
+            <th>설명</th>
+            <th>접속IP</th>
+            <th>운영자</th>
+            <th>작성일</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.ListData)
+        {
+        <tr>
+            <td class="al_c">@item.MENU_NAME</td>
+            <td class="al_c">@item.URL</td>
+            <td class="al_c">@item.ACTION_CODE</td>
+            <td class="al_c">@item.ADD_INFO_1</td>
+            <td class="al_c">@item.IP</td>
+            <td class="al_c">@item.REG_NAME / @item.REG_ID</td>
+            <td class="al-c">@item.REG_DATE.ToDate()</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="table-responsive mt-5" id="divPaging"></div>
+
+

@@ -1,0 +1,87 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+@using Wow.Tv.Middle.Model.Db49.Article.NewsCenter
+
+@model  ListModel<tblPlanArticle>
+
+@{ Layout = null; }
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsCenterCondition condition = ViewBag.condition;
+
+    int addIndex = 0;
+    if (condition.Page > 1)
+    {
+        addIndex = (condition.Page - 1) * condition.PageSize;
+    }
+}
+
+@if (Model.TotalDataCount > 0)
+{
+    foreach (var item in Model.ListData)
+    {
+        string strState = "-";
+
+        if (string.IsNullOrEmpty(item.VW_TO))
+        {
+            strState = "진행중";
+        }
+        else
+        {
+            DateTime Today  = DateTime.Now;
+            DateTime VwFrom = DateTime.Parse(item.VW_FROM); //게재기간 시작일
+            DateTime VwTo   = DateTime.Parse(item.VW_TO);   //게재기간 종료일
+
+            if(VwFrom <= DateTime.Parse(Today.ToString("yyyy-MM-dd")))
+            {
+                TimeSpan TS = Today - VwTo;
+
+                int diffDay = TS.Days;                       //날짜의 차이 구하기
+
+                if (diffDay > 0)
+                {
+                    strState = "종료";
+                }
+                else
+                {
+                    strState = "진행중";
+                }
+            }
+            else
+            {
+                strState = "-";
+            }
+        }
+        <tr name="trNewsList">
+            <td><input type="checkbox" value="@item.SEQ" name="SEQ"></td>
+            <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + addIndex))</td>
+            <td class="text-left"><a href="javascript:NewsOpinion.Edit('@item.SEQ')">@item.TITLE</a></td>
+            <td>@item.EXTRACTION_TEXT</td>
+            <td>
+                @item.VW_FROM
+            @if (!String.IsNullOrEmpty(item.VW_TO))
+            {<br>@item.VW_TO}
+        </td>
+        <td>
+            @item.REG_DATE.Value.ToString("yyyy-MM-dd HH:mm")
+        @if (item.UP_DATE != null)
+        { <br><span class="text-color1">(@item.UP_DATE.Value.ToString("yyyy-MM-dd HH:mm"))</span> }
+    </td>
+    <td>@item.VIEW_FLAG</td>
+    <td>@strState</td>
+</tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="7">조건에 맞는 검색된 데이터가 없습니다.</td>
+    </tr>
+}
+<script>
+    $("#totalDataCount").val("@Model.TotalDataCount");
+    $("#spanIngCount").html("@ViewBag.ingCount");
+</script>
+<script src="@wowTvScript/NewsCenter/NewsContentManage/NewsOpinionList.js"></script>

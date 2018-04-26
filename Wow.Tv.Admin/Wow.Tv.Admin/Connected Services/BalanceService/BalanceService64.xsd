@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/IRCenter/BalanceService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8088/IRCenter/BalanceService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents.Balance" />
+  <xs:import schemaLocation="http://localhost:8088/IRCenter/BalanceService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="BalanceModelOfNTB_FINANCE_STATUSSXN200Bc">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="BalanceModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NTB_FINANCE_STATUS" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:ListModelOfNTB_FINANCE_STATUSSXN200Bc">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AccountData1" nillable="true" type="tns:NTB_FINANCE_STATUS" />
+          <xs:element minOccurs="0" name="AccountData2" nillable="true" type="tns:NTB_FINANCE_STATUS" />
+          <xs:element minOccurs="0" name="AccountData3" nillable="true" type="tns:NTB_FINANCE_STATUS" />
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DeleteList" nillable="true" type="q2:ArrayOfstring" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents.Balance" minOccurs="0" name="MonthList" nillable="true" type="q3:ArrayOfBalanceYear" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db51.contents.Balance" minOccurs="0" name="YearList" nillable="true" type="q4:ArrayOfBalanceYear" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BalanceModelOfNTB_FINANCE_STATUSSXN200Bc" nillable="true" type="tns:BalanceModelOfNTB_FINANCE_STATUSSXN200Bc" />
+  <xs:complexType name="ArrayOfNTB_FINANCE_STATUS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NTB_FINANCE_STATUS" nillable="true" type="tns:NTB_FINANCE_STATUS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNTB_FINANCE_STATUS" nillable="true" type="tns:ArrayOfNTB_FINANCE_STATUS" />
+  <xs:complexType name="NTB_FINANCE_STATUS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CAPITAL_STOCK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURNT_ASSET" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURNT_LIABILITES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NET_INCOME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NO" type="xs:int" />
+      <xs:element minOccurs="0" name="NON_CURNT_ASSET" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NON_CURNT_LIABILITES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OPERATING_PROFIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REVENUE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TOTAL_ASSET" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TOTAL_CAPITAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TOTAL_LIABILITES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YEAR" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_FINANCE_STATUS" nillable="true" type="tns:NTB_FINANCE_STATUS" />
+</xs:schema>

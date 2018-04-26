@@ -1,0 +1,280 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage
+
+@model ListModel<MemberManageListResult>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    int searchedTotalCount = 0;
+    int joinTodayCount = 0;
+    if (Model.ListData.Count > 0)
+    {
+        searchedTotalCount = Model.ListData[0].SEARCHED_TOTAL_COUNT.Value;
+        joinTodayCount = Model.ListData[0].JOIN_TODAY_COUNT.Value;
+    }
+
+    string smsSendNo = "1599-0700";
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        var totalDataCount = "@searchedTotalCount";
+        var currentIndex = "@ViewBag.currentIndex";
+    </script>
+
+    <script src="@wowTvScript/IntMemManage/MemIdx/Index.js"></script>
+}
+
+<!-- Start body content -->
+<div class="body-content animated fadeIn">
+    <!-- Contents -->
+
+    <div class="wrap">
+
+        <!-- Global Search -->
+        <div class="contain-search-global">
+            <form id="frmSearch">
+                <table>
+                    <colgroup>
+                        <col width="120px">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th>가입일</th>
+                        <td>
+                            <div class="form-group form-inline">
+                                <button class="btn btn-default" id="RegistDateSearch1">오늘</button>
+                                <button class="btn btn-default" id="RegistDateSearch2">어제</button>
+                                <button class="btn btn-default" id="RegistDateSearch3">3일간</button>
+                                <button class="btn btn-default" id="RegistDateSearch4">7일간</button>
+                                <button class="btn btn-default" id="RegistDateSearch5">10일간</button>
+                                <button class="btn btn-default" id="RegistDateSearch6">30일간</button>
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="RegistDateFrom" name="RegistDateFrom" value="@(ViewBag.ShowRegistDateFrom?.ToString("yyyy-MM-dd"))">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div> ~
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="RegistDateTo" name="RegistDateTo" value="@(ViewBag.ShowRegistDateTo?.ToString("yyyy-MM-dd"))">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>최근 접속일</th>
+                        <td>
+                            <div class="form-group form-inline">
+                                <button class="btn btn-default" id="LatestConnectDateSearch1">오늘</button>
+                                <button class="btn btn-default" id="LatestConnectDateSearch2">어제</button>
+                                <button class="btn btn-default" id="LatestConnectDateSearch3">3일간</button>
+                                <button class="btn btn-default" id="LatestConnectDateSearch4">7일간</button>
+                                <button class="btn btn-default" id="LatestConnectDateSearch5">10일간</button>
+                                <button class="btn btn-default" id="LatestConnectDateSearch6">30일간</button>
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="LatestConnectDateFrom" name="LatestConnectDateFrom" value="@(ViewBag.ShowLatestConnectDateFrom?.ToString("yyyy-MM-dd"))">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div> ~
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="LatestConnectDateTo" name="LatestConnectDateTo" value="@(ViewBag.ShowLatestConnectDateTo?.ToString("yyyy-MM-dd"))">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>검색</th>
+                        <td>
+                            <div class="form-group form-inline">
+                                <select class="form-control" id="SearchType" name="SearchType">
+                                    <option value=""@(string.IsNullOrEmpty(ViewBag.Condition.SearchType) == true ? " selected=\"selected\"" : "")>선택</option>
+                                    <option value="USER_ID"@(ViewBag.Condition.SearchType == "USER_ID" ? " selected=\"selected\"" : "")>아이디</option>
+                                    <option value="COMPANY_NAME"@(ViewBag.Condition.SearchType == "COMPANY_NAME" ? " selected=\"selected\"" : "")>회사명</option>
+                                    <option value="USER_NAME"@(ViewBag.Condition.SearchType == "USER_NAME" ? " selected=\"selected\"" : "")>회원명</option>
+                                    <option value="NICK_NAME"@(ViewBag.Condition.SearchType == "NICK_NAME" ? " selected=\"selected\"" : "")>필명</option>
+                                    <option value="MOBILE_NO"@(ViewBag.Condition.SearchType == "MOBILE_NO" ? " selected=\"selected\"" : "")>휴대폰</option>
+                                    <option value="TEL_NO"@(ViewBag.Condition.SearchType == "TEL_NO" ? " selected=\"selected\"" : "")>전화번호</option>
+                                    <option value="EMAIL"@(ViewBag.Condition.SearchType == "EMAIL" ? " selected=\"selected\"" : "")>E-Mail</option>
+                                    <option value="INACTIVE"@(ViewBag.Condition.SearchType == "INACTIVE" ? " selected=\"selected\"" : "")>휴면회원</option>
+                                </select>
+                                <div class="input-group" style="width:900px">
+                                    <input class="form-control" type="text" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <input type="hidden" id="PageSize" name="PageSize" value="@ViewBag.Condition.PageSize" />
+                <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+                <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                <input type="hidden" id="UserNumber" name="UserNumber" />
+                <input type="hidden" id="PostBack" name="PostBack" value="Y" />
+            </form>
+        </div>
+        <!-- //Global Search -->
+        <!-- Table Top -->
+        <div class="box-top-table">
+            <div class="inner-left">
+                <p>&nbsp;</p>
+            </div>
+            <div class="inner-right">
+                <p>총 <span class="text-color1">@String.Format("{0:#,0}", searchedTotalCount)</span>명의 회원이 조회되었으며, 오늘 가입한 회원은 <span class="text-color1">@String.Format("{0:#,0}", joinTodayCount)</span>명입니다.</p>
+            </div>
+        </div>
+        <!-- //Table Top -->
+        <!-- BBS List -->
+        <div class="bbs-list1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>아이디</th>
+                        <th>이름</th>
+                        <th>필명</th>
+                        <th>휴대폰</th>
+                        <th>전화번호</th>
+                        <th>E-Mail</th>
+                        <th>WOW Cash</th>
+                        <th>회원구분</th>
+                        <th>법인명</th>
+                        <th>회원등급</th>
+                        <th>회원타입</th>
+                        <th>휴면/탈퇴여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (MemberManageListResult item in Model.ListData)
+                    {
+                        string maskedUserName = item.USERNAME;
+                        if (string.IsNullOrEmpty(item.USERNAME) == false)
+                        {
+                            if (item.USERNAME.Length > 2)
+                            {
+                                maskedUserName = item.USERNAME.Substring(0, 1) + "*" + item.USERNAME.Substring(2);
+                            }
+                            else if (item.USERNAME.Length == 2)
+                            {
+                                maskedUserName = item.USERNAME.Substring(0, 1) + "*";
+                            }
+                        }
+                        <tr>
+                            <td>@item.ROW_NUM</td>
+                            <td>@item.USERID</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@maskedUserName</button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:MemIdxIndex.GoEdit(@item.USERNUMBER);">회원정보 보기</a></li>
+                                        <li><a href="mailto:@item.EMAIL">Email 발송</a></li>
+                                        <li><a data-toggle="modal" data-target="#phone-pup" onclick="MemIdxIndex.GoSms('@smsSendNo','@item.MOBILE_NO');">SMS 발송</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>@item.NICKNAME</td>
+                            <td>@item.MOBILE_NO</td>
+                            <td>@item.TEL_NO</td>
+                            <td>@item.EMAIL</td>
+                            <td>@string.Format("{0:#,0}", item.WOW_CASH.Value)</td>
+                            <td>@item.USER_SECTION</td>
+                            <td>@item.COMPANY_NAME</td>
+                            <td>@item.USER_CLASS_TEXT</td>
+                            <td>@item.USER_TYPE</td>
+                            <td>@item.ALIVE_TYPE</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- //BBS List -->
+        <!-- Pagenate -->
+        <div class="box-paginate">
+            <div id="divPaging"></div>
+        </div>
+        <!-- //Pagenate -->
+    </div>
+
+    <!-- POPUP SMS 발송 -->
+    <div id="phone-pup" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width:700px;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">SMS 발송</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="sms-area">
+                        <!-- phone -->
+                        <div class="marvel-device iphone8">
+                            <div class="top-bar"></div>
+                            <div class="speaker"></div>
+                            <!-- Content -->
+                            <div class="screen">
+                                <textarea id="smsContents" class="sms-text"></textarea>
+                                <div class="text">
+                                    <strong>SMS</strong> <p class="byte" id="byteStatus"><span>88</span>/<span>88</span> byte</p>
+                                </div>
+                            </div>
+
+                            <!-- // Content -->
+                            <div class="home"></div>
+                            <div class="bottom-bar"></div>
+                        </div>
+
+                        <!-- phone -->
+                        <!-- table -->
+                        <div class="bbs-list1">
+                            <ul class="phone-number">
+                                <li id="liSendNo"></li>
+                                <li id="liReceiveNo"></li>
+                            </ul>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>가입/환불</th>
+                                        <th>휴면회원</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(1);">신한계좌</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(2);">신주소</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(3);">구주소</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(4);">팩스변호</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(5);">카드취소완료</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(6);">DVD반송주소</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(7);">와우넷회원가입</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(8);">모바일 회원가입</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(9);">와우밴드설치</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(10);">주식창TEL</a></li>
+                                                <li><a href="#none" onclick="MemIdxIndex.BindingTemplate(11);">샤프슈터도서구매</a></li>
+                                            </ul>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- table -->
+                    </div>
+                    <div class="box-button">
+                        <button class="btn btn-success" role="button" data-toggle="collapse" href="#addData" aria-expanded="false" aria-controls="collapseExample" id="sendSms">전송</button>
+                        <button class="btn btn-default" data-dismiss="modal" id="smsClose">닫기</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- // POPUP SMS 발송 -->
+    <input type="hidden" id="hidSendNo" />
+    <input type="hidden" id="hidReceiveNo" />
+    <!-- //Contents -->
+</div>

@@ -1,0 +1,89 @@
+﻿@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string uploadWebPathRoot = AppState["UploadWebPathRoot"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/RecruitManage/Index.js"></script>
+    <script>
+        totalDataCount = "@(Model.Length > 0 ? Model[0].ROWCNT : 0 )";
+    </script>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+
+            <div class="form-body">
+                <div class="form-group col-sm-12 form-inline">
+                    <form id="frmSearch">
+                        <label class="col-sm-1 control-label" style="padding-top:10px">지원자 성명 검색</label>
+                        <div class="input-group col-sm-8">
+                            <input class="form-control" type="text" name="SearchName" value="@ViewBag.Condition.SearchName">
+                            <span class="input-group-btn" id="btnSearch"><button type="button" class="btn btn-default">검색</button></span>
+                            <input type="hidden" name="SearchSeq" id="Seq" />
+                            <input type="hidden" name="CurrentIndex" id="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+                            <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                            <input type="hidden" name="PageSize" id="PageSize" value="10" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="app-ui-section group mt-10">
+                <span class="fl-r s-text pad-r10">총 <font class="cho">@(Model.Length > 0 ? Model[0].ROWCNT : 00 )</font> 개의 게시물이 등록되어 있습니다.</span>
+                <table class="table_colRow">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>지원자 성명</th>
+                            <th>응시직종</th>
+                            <th>입사지원서</th>
+                            <th>조회수</th>
+                            <th>입사지원일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Length > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ROWNUM</td>
+                                    <td><a href="#" onclick="return RecuitManageIndex.GoDetail('@item.SEQ')">@item.NAME</a></td>
+                                    <td>@item.TYPE</td>
+                                    <td>
+                                        @if (item.JOB_APPLICATION != null && item.JOB_APPLICATION != "")
+                                        {
+                                            var splitPath = item.JOB_APPLICATION.Split('/');
+                                            var downloadName = item.TYPE + "_" + item.NO + "." + item.JOB_APPLICATION.Split('.')[1];
+                                            <a href="/DownLoad/Index?realFilePath=@item.JOB_APPLICATION&userUpLoadFileName=@downloadName">@splitPath[splitPath.Length - 1]</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#none"> - </a>
+                                        }
+                                    </td>
+                                    <td>@item.VIEW_CNT</td>
+                                    <td><span class="text-color1">@item.REG_DATE.ToString("yyyy-MM-dd")</span></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6">등록게시물이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5">
+                <div id="divPaging"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

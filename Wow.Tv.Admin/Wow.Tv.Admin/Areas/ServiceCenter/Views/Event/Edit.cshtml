@@ -1,0 +1,277 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wownet
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+<script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script src="@wowTvScript/ServiceCenter/Event/Edit.js"></script>
+<script>
+    var menuSeq = @Request["menuSeq"];
+    var imageName = "@ViewBag.ImageName";
+    var winViewFlag = "@Model.EventData.WIN_VIEW_FLAG"; //당첨자발표게시여부
+</script>
+}
+
+<div class="col-md-12">
+    <form id="eventData">
+        <!-- Start body content -->
+        <div class="app-ui-section group mt-10">
+            <!-- 전체100% -->
+            <span><font class="s-text f-red fl-r pad-r10">* 표시는 필수 입력입니다.</font></span>
+
+            <table class="table_colRow">
+                <colgroup>
+                    <col width="15%">
+                    <col width="35%">
+                    <col width="15%">
+                    <col width="35%">
+                </colgroup>
+                <tbody>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 사이트구분</th>
+                        <td colspan="3">
+                            <div class="input-group col-md-7">
+                                @foreach (var item in Model.CodeList)
+                                {
+                                    if (item.CODE_VALUE1 == Model.EventData.VIEW_SITE)
+                                    {
+                                        <span class="pad-r10 mar-r20"><input type="radio" name="VIEW_SITE" value="@item.CODE_VALUE1" checked>@item.CODE_NAME</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="pad-r10 mar-r20"><input type="radio" name="VIEW_SITE" value="@item.CODE_VALUE1">@item.CODE_NAME</span>
+                                    }
+                                }
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 제목</th>
+                        <td colspan="3">
+                            <input type="text" class="form-control" name="title" value="@Model.EventData.title">
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 이벤트구분</th>
+                        <td colspan="3">
+                            <div class="input-group col-md-7 form-inline">
+                                @if (Model.EventData.proId == "0000")
+                                {
+                                    <span class="pad-r10 mar-r20"><input type="radio" name="EventGubun" value="Integrate" checked>공통 이벤트</span>
+                                    <span class="pad-r10"><input type="radio" name="EventGubun" value="partners">파트너스 이벤트</span>
+                                }
+                                else
+                                {
+                                    <span class="pad-r10 mar-r20"><input type="radio" name="EventGubun" value="Integrate">공통 이벤트</span>
+                                    <span class="pad-r10"><input type="radio" name="EventGubun" value="partners" checked>파트너스 이벤트</span>
+                                }
+
+                                <div class="input-group col-md-2 pad-r10">
+                                    <select class="form-control" id="partners">
+                                        @foreach (var item in ViewBag.broadData.ListData)
+                                        {
+                                            if (item.Pro_id == Model.EventData.proId)
+                                            {
+                                                <option value="@item.Pro_id" selected="selected">@item.NickName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Pro_id">@item.NickName</option>
+                                            }
+                                        }
+                                    </select>
+                                    <select class="form-control" id="integrate" style="display:none;">
+                                        <option value="0000">공통이벤트</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 이벤트기간</th>
+                        <td>
+                            @if (Model.EventData.startDate.ToString("yyyyMMdd") == "00010101")
+                            {
+                                <div class=" col-md-13">
+                                    <div class="input-group date fl-l col-md-5">
+                                        <input type="text" name="startDate" class="form-control" value="">
+                                        <span class="input-group-addon" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div><span class="fl-l" style="padding: 0 10px"> ~ </span>
+                                    <div class="input-group date fl-l col-md-5">
+                                        <input type="text" name="endDate" class="form-control" value="">
+                                        <span class="input-group-addon" id="dtEndDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class=" col-md-13">
+                                    <div class="input-group date fl-l col-md-5">
+                                        <input type="text" name="startDate" class="form-control" value="@Model.EventData.startDate.ToString("yyyy-MM-dd")">
+                                        <span class="input-group-addon" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div><span class="fl-l" style="padding: 0 10px"> ~ </span>
+                                    <div class="input-group date fl-l col-md-5">
+                                        <input type="text" name="endDate" class="form-control" value="@Model.EventData.endDate.ToString("yyyy-MM-dd")">
+                                        <span class="input-group-addon" id="dtEndDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            }
+
+                        </td>
+                        <th> 진행상태</th>
+                        <td id="eventFlag">
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 썸네일</th>
+                        <td colspan="3" id="somenailArea">
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                        <span class="fileinput-filename">@ViewBag.ImageName</span>
+                                </div>
+                                <span class="input-group-addon btn btn-success btn-file">
+                                    <span class="fileinput-new">파일선택</span>
+                                    <span class="fileinput-exists">다시선택</span>
+                                    <input type="file" id="file" name="bannerImage">
+                                </span>
+                                <a href="#" class="input-group-addon fileinput-exists" id="removeImg" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </div>
+                            @if (Model.EventData.bannerImage == null)
+                            { 
+                                <img src="http://image.wownet.co.kr/@(Model.ProImage)" alt="" style="width:300px;height:auto">
+                            }
+                            else
+                            {
+                                <img src="http://img.wowtv.co.kr@(Model.EventData.bannerImage)" alt="" style="width:300px;height:auto">
+                            }
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th>외부링크 URL</th>
+                        <td colspan="3">
+                            <input type="text" class="form-control" name="linkUrl" value="@Model.EventData.linkUrl">
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 당첨자발표</th>
+                        <td>
+                            @if (Model.EventData.WIN_CONTENT != null)
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="winner" value="Y" checked>Y</span>
+                                <span class="pad-r10"><input type="radio" name="winner" value="N">N</span>
+                            }
+                            else
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="winner" value="Y">Y</span>
+                                <span class="pad-r10"><input type="radio" name="winner" value="N" checked>N</span>
+                            }
+
+                        </td>
+                        <th><font class="s-text f-red">*</font> 게시여부</th>
+                        <td>
+                            @if (Model.EventData.viewFlag == "Y")
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="viewFlag" value="Y" checked>Y</span>
+                                <span class="pad-r10"><input type="radio" name="viewFlag" value="N">N</span>
+                            }
+                            else
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="viewFlag" value="Y">Y</span>
+                                <span class="pad-r10"><input type="radio" name="viewFlag" value="N" checked>N</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 내용</th>
+                        <td colspan="3" style="height:400px;">
+                            <textarea id="hidTopContent" name="content" style="display:none;">@Model.EventData.content</textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="form-body row" id="winnerHead" style="display:none;">
+            <div class="panel-heading bord-b-1">
+                <h3 class="panel-title font-bold">당첨자 발표</h3>
+            </div><!-- /.panel-heading -->
+        </div>
+
+    <!-- Start body content -->
+        <div class="app-ui-section group mt-10" id="winnerBody" style="display:none;">
+            <!-- 전체100% -->
+            <table class="table_colRow">
+                <colgroup>
+                    <col width="15%">
+                    <col width="35%">
+                    <col width="15%">
+                    <col width="35%">
+                </colgroup>
+                <tbody>
+                    <tr class="noback">
+                        <th>발표일</th>
+                        <td>
+                            @if (Model.EventData.WINNER_DATE == null)
+                            {
+                                <div class="input-group date fl-l col-md-5">
+                                    <input type="text" class="form-control" name="WINNER_DATE" value="@Model.EventData.WINNER_DATE">
+                                    <span class="input-group-addon" id="dtWinnerDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-group date fl-l col-md-5">
+                                    <input type="text" class="form-control" name="WINNER_DATE" value="@Model.EventData.WINNER_DATE.ToString("yyyy-MM-dd")">
+                                    <span class="input-group-addon" id="dtWinnerDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            }
+                        </td>
+                        <th><font class="s-text f-red">*</font> 게시여부</th>
+                        <td>
+                            @if (Model.EventData.WIN_VIEW_FLAG == "Y")
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="WIN_VIEW_FLAG" value="Y" checked>Y</span>
+                                <span class="pad-r10"><input type="radio" name="WIN_VIEW_FLAG" value="N">N</span>
+                            }
+                            else
+                            {
+                                <span class="pad-r10 mar-r20"><input type="radio" name="WIN_VIEW_FLAG" value="Y">Y</span>
+                                <span class="pad-r10"><input type="radio" name="WIN_VIEW_FLAG" value="N" checked>N</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr class="noback">
+                        <th><font class="s-text f-red">*</font> 내용</th>
+                        <td colspan="3" style="height:400px;">
+                            <textarea id="hidBottomContent" name="WIN_CONTENT" style="display:none;">@Model.EventData.WIN_CONTENT</textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <input type="hidden" name="seq" value="@Model.EventData.seq"/>
+        <input type="hidden" name="proId" value="" />
+    </form>
+
+</div>
+
+<div class="form-footer">
+    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+        <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#myModal-url" id="submit">저장</button>
+        <button class="btn btn-default mr-5" id="list">목록</button>
+        @if (Model != null)
+        {
+            <button class="btn btn-default mr-5" id="delete">삭제</button>
+        }
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->

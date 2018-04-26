@@ -1,0 +1,97 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_COMMON_CODE
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/OperateManage/CommonCodeManage/Edit.js?date=20170727163009"></script>
+
+
+
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">공통코드관리 등록/수정</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave" >
+                <input type="hidden" name="COMMON_CODE" value="@Model.COMMON_CODE" />
+                <input type="hidden" id="hidUpCode" name="UP_COMMON_CODE" value="@Model.UP_COMMON_CODE" />
+
+                <div class="sign-body">
+                    @*<div class="form-group">
+                        <label class="col-sm-2 control-label">위치</label>
+                        <div class="col-sm-10">
+                            <span>대분류</span> &#8250; <span class="cho">중분류</span> &#8250; <span>소분류</span>
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font class="f-red">*</font> 코드명</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" value="@Model.CODE_NAME" name="CODE_NAME" id="txtCodeName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font class="f-red">*</font> 코드값</label>
+                        <div class="col-sm-10">
+                            @if (String.IsNullOrEmpty(Model.COMMON_CODE) == true)
+                            {
+                            <input class="form-control rounded" type="text" value="@Model.CODE_VALUE1" name="CODE_VALUE1" id="txtCodeValue1">
+                            }
+                            else
+                            {
+                                <input type="hidden" value="@Model.SORT_ORDER" name="SORT_ORDER">
+                                <input type="hidden" value="@Model.CODE_VALUE1" name="CODE_VALUE1" >
+                                @Model.CODE_VALUE1
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">활성</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" @(String.IsNullOrEmpty(Model.ACTIVE_YN) == true || Model.ACTIVE_YN == "Y" ? "checked" : "") value="Y" name="ACTIVE_YN" >
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" @(Model.ACTIVE_YN == "N" ? "checked" : "") value="N" name="ACTIVE_YN" >
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-footer">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                @*<button type="submit" class="btn btn-default no-margin rounded" id="btnDelete">삭제</button>*@
+                                <button type="submit" class="btn btn-theme no-margin rounded" id="btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+

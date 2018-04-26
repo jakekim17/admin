@@ -1,0 +1,174 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/StockResult/Edit.js"></script>
+    <script>
+        var conListCount = @Model.ConnectList.Count;
+    </script>
+}
+
+<div class="body-content animated fadeIn">
+    <form id="frmSearch">
+        <input type="hidden" name="Year" value="@ViewBag.Condition.Year" />
+        <input type="hidden" name="Rounds" value="@ViewBag.Condition.Rounds" />
+        <input type="hidden" name="pageSize" value="@ViewBag.Condition.PageSize" />
+        <input type="hidden" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+        <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+    </form>
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <form id="frmSave">
+                <p class="notice-table-top">* 표시는 필수사항입니다.</p>
+                <table class="table bbs-write">
+                    <colgroup>
+                        <col width="20%">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th><i class="nec">*</i>회차</th>
+                        <td>
+                            <input type="text" class="form-control" name="StockData.DIVERGE" value="@Model.StockData.DIVERGE" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>개최일시</th>
+                        <td class="form-inline">
+                            <div class="input-group">
+                                @{ var txtDate = Model.StockData.SYEAR + "-" + Model.StockData.SMONTH + "-" + Model.StockData.SDAY; }
+                                <input type="text" id="txtDate" class="form-control" name="StockData.SYEAR" value="@txtDate">
+                                <span class="input-group-addon" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" class="form-control" style="width:80px"  name="StockData.STIME1" value="@Model.StockData.STIME1"> : 
+                            <input type="text" class="form-control" style="width:80px" name="StockData.STIME2" value="@Model.StockData.STIME2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>개최장소</th>
+                        <td>
+                            <input type="text" name="StockData.PLACE" value="@Model.StockData.PLACE" class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="nec">*</i>안건명</th>
+                        <td>
+                            @if (Model.ConnectList.Count == 0)
+                            {
+                                <input type="text" class="form-control" name="ConnectList[0].CONTENT" style="width:80%" />
+                                <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="승인">승인</label>
+                                <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="" checked>승인거부</label>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="ConnectList[0].SEQ" value="@Model.ConnectList[0].SEQ" />
+                                <input type="text" class="form-control" name="ConnectList[0].CONTENT" value="@Model.ConnectList[0].CONTENT" />
+                                if (Model.ConnectList[0].STOCK == "승인")
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="승인" checked>승인</label>
+                                    <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="">승인거부</label>
+                                }
+                                else
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="승인">승인</label>
+                                    <label class="radio radio-inline"><input type="radio" name="ConnectList[0].STOCK" value="" checked>승인거부</label>
+                                }
+                            }
+                            <button type="button" id="btnConTabAdd" class="btn btn-default">안건 추가</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>활성</th>
+                        <td>
+                            @if (Model.StockData.VIEW_FLAG == "Y")
+                            {
+                                <label class="radio radio-inline"><input type="radio" name="StockData.VIEW_FLAG" value="Y" checked >Y</label>
+                                <label class="radio radio-inline"><input type="radio" name="StockData.VIEW_FLAG" value="N">N</label>
+                            }
+                            else
+                            {
+                                <label class="radio radio-inline"><input type="radio" name="StockData.VIEW_FLAG" value="Y">Y</label>
+                                <label class="radio radio-inline"><input type="radio" name="StockData.VIEW_FLAG" value="N" checked>N</label>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>작성자</th>
+                        <td>
+                            @if (Model.StockData.REG_ID != null)
+                            {
+                                @Model.StockData.REG_ID
+                            }
+                            else
+                            {
+                                if (LoginHandler.CurrentLoginUser != null)
+                                {
+                                    @LoginHandler.CurrentLoginUser.UserName
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>작성일(수정일)</th>
+                        <td>
+                            @if (Model.StockData.SEQ > 0)
+                            {
+                                @Model.StockData.REG_DATE.ToString("yyyy-MM-dd")
+                                if (Model.StockData.MOD_DATE != null)
+                                {
+                                    <span style="color: cadetblue">(@Model.StockData.MOD_DATE)</span>
+                                }
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <div class="box-button">
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                    {
+                        <button class="btn btn-success" type="button" id="btnSave">등록(수정)</button>
+                    }
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                    {
+                        if (Model != null)
+                        {
+                            <button class="btn btn-default" type="button" id="btnDelete">삭제</button>
+                        }
+                    }
+                    <button class="btn btn-default" type="button" id="btnGoIndex">목록</button>
+                </div>
+
+                <input type="hidden" name="StockData.SEQ" value="@Model.StockData.SEQ" />
+                @*<input type="hidden" name="deleteList" id="deleteList"/>*@
+
+                <table class="table bbs-write" id="ConTable" hidden>
+                    <tr>
+                        <th><i class="nec">*</i>안건명</th>
+                        <td>
+                            @for (var i = 1; i < Model.ConnectList.Count; i++)
+                            {
+                                <div>
+                                    <input type="text" class="form-control" name="ConnectList[@i].CONTENT" value="@Model.ConnectList[i].CONTENT" />
+                                    <input type="hidden" name="ConnectList[@i].SEQ" value="@Model.ConnectList[i].SEQ" class="SEQ"/>
+                                    @if (Model.ConnectList[i].STOCK == "승인")
+                                    {
+                                        <label class="radio radio-inline"><input type="radio" name="ConnectList[@i].STOCK" value="승인" checked>승인</label>
+                                        <label class="radio radio-inline"><input type="radio" name="ConnectList[@i].STOCK" value="">승인거부</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="radio radio-inline"><input type="radio" name="ConnectList[@i].STOCK" value="승인">승인</label>
+                                        <label class="radio radio-inline"><input type="radio" name="ConnectList[@i].STOCK" value="" checked>승인거부</label>
+                                    }
+                                    <button type="button" class="btnContDelete">안건 삭제</button>
+                                </div>
+                            }
+                            <button type="button" id="btnContAdd">안건추가</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/History/Index.js"></script>
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var dispYn = "@ViewBag.Condition.DispYN";
+        var searchType = "@ViewBag.Condition.SearchType";
+    </script>
+}
+
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <form id="frmSearch">
+                <div class="form-body">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">년도</label>
+                        <div class="input-group col-sm-5">
+                            <select class="form-control" id="sltCTGRSeq" name="CTGYR">
+                                <option value="">전체</option>
+                                @foreach (var item in Model.CTGRList)
+                                {
+                                    if (ViewBag.Condition.CTGYR == item.CTGR_SEQ)
+                                    {
+                                        <option value="@item.CTGR_SEQ" selected>@item.CTGR_YR</option>
+                                    }
+                                    <option value="@item.CTGR_SEQ">@item.CTGR_YR</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">활성</label>
+                        <div class="input-group col-sm-5">
+                            <select name="DispYN" class="form-control">
+                                <option value="">전체</option>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 form-inline">
+                        <label class="col-sm-1 control-label">검색</label>
+                        <div class="input-group col-sm-2">
+                            <select name="SearchType" class="form-control">
+                                <option value="all">전체</option>
+                                <option value="content">연혁내용</option>
+                                <option value="regId">작성자</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-sm-8">
+                            <input class="form-control" type="text" name="SearchText" value="@ViewBag.Condition.SearchText">
+                            <span class="input-group-btn"><button type="button" id="btnSearch" class="btn btn-default">검색</button></span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="seq" name="seq" />
+                <input type="hidden" id="pageSize" name="pageSize" value="10" />
+                <input type="hidden" id="currentIndex" name="currentIndex" value="0" />
+                <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+            </form>
+
+            <div class="app-ui-section group mt-10">
+                <table class="table_colRow">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="allCheck" class="form-group"></th>
+                            <th>번호</th>
+                            <th>년도</th>
+                            <th>날짜</th>
+                            <th>연혁내용</th>
+                            <th>활성</th>
+                            <th>작성자</th>
+                            <th>작성일(수정일)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="checkbox-1" value="@item.HIS_SEQ" class="form-group"></td>
+                                    <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + ViewBag.Condition.CurrentIndex))</td>
+                                    <td>@item.CTGR_YR</td>
+                                    <td>@item.HIS_DATE</td>
+                                    <td class="text-left"><a href="#" onclick="return HistoryIndex.GoEdit(@item.HIS_SEQ);">@Html.Raw(item.HIS_CONT)</a></td>
+                                    <td>@item.HIS_DISP_YN</td>
+                                    <td>@item.REG_ID</td>
+                                    <td>
+                                        @item.REG_DATE.ToString("yyyy-MM-dd")<br />   
+                                        @if (item.MOD_DATE != null)
+                                        {
+                                            <span style="color: cadetblue">@item.MOD_DATE</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8">등록게시물이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5">
+                <div id="divPaging"></div>
+                <div class="form-footer clearfix">
+                    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                        {
+                            <button id="btnAdd" class="btn btn-success" type="button" data-toggle="modal" data-target="#myModal-menu">등록</button>
+                        }
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                        {
+                            <button id="btnDelete" type="button" class="btn btn-default mr-5">삭제</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

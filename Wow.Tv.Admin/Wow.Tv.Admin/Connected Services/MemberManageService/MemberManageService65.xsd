@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/MemberManage/MemberManageService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage" />
+  <xs:import schemaLocation="http://localhost:8088/MemberManage/MemberManageService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+  <xs:complexType name="BaseCondition">
+    <xs:sequence>
+      <xs:element name="_x003C_CurrentIndex_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_CurrentMenuSeq_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_PageSize_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseCondition" nillable="true" type="tns:BaseCondition" />
+  <xs:complexType name="ListModelOfMemberManageListResultw_PtHq4vS">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MemberManageListResult" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage" minOccurs="0" name="ListData" nillable="true" type="q1:ArrayOfMemberManageListResult" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.MemberAdminManage" minOccurs="0" name="ListData2" nillable="true" type="q2:ArrayOfMemberManageListResult" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfMemberManageListResultw_PtHq4vS" nillable="true" type="tns:ListModelOfMemberManageListResultw_PtHq4vS" />
+  <xs:complexType name="ListModelOfNUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_ResultfjC7S_Spq">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_Result" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="ListData" nillable="true" type="q3:ArrayOfNUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_Result" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="ListData2" nillable="true" type="q4:ArrayOfNUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_Result" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfNUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_ResultfjC7S_Spq" nillable="true" type="tns:ListModelOfNUP_ADMIN_MEMBER_INFO_HISTORY_SELECT_ResultfjC7S_Spq" />
+  <xs:complexType name="ListModelOfTblMemberDIDenialListfjC7S_Spq">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="TblMemberDIDenialList" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="ListData" nillable="true" type="q5:ArrayOfTblMemberDIDenialList" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" minOccurs="0" name="ListData2" nillable="true" type="q6:ArrayOfTblMemberDIDenialList" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfTblMemberDIDenialListfjC7S_Spq" nillable="true" type="tns:ListModelOfTblMemberDIDenialListfjC7S_Spq" />
+</xs:schema>

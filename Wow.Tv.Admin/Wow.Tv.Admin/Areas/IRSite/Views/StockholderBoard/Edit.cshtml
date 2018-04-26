@@ -1,0 +1,168 @@
+﻿
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script src="@wowTvScript/IRSite/StockholderBoard/Edit.js"></script>
+}
+
+<div class="body-content animated fadeIn">
+
+    <form id="frmSearch">
+        <input type="hidden" name="PageSize" value="@ViewBag.PageSize" />
+        <input type="hidden" name="CurrentIndex" value="@ViewBag.CurrentIndex" />
+        <input type="hidden" name="SearchText" value="@ViewBag.SearchText" />
+        <input type="hidden" name="SearchType" value="@ViewBag.SearchText" />
+        <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+    </form>
+
+    <div class="row">
+        <div class="col-md-12 clearfix">
+
+            <p class="text-notice1" style="padding:10px 20px;">* 표시는 필수사항입니다.</p>
+            <form id="frmBoard">
+                <!-- BBS Write -->
+                <table class="table bbs-write">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="35%">
+                        <col width="20%">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>제목</th>
+                            <td colspan="3">@Model.TITLE</td>
+                        </tr>
+                        <tr>
+                            <th>작성자</th>
+                            <td>@Model.USER_NAME</td>
+                            <th>작성일(수정일)</th>
+                            <td>
+                                @Model.REG_DATE.ToString("yyyy-MM-dd")
+                                @if (Model.MOD_ID != null)
+                                {
+                                    @:(@Model.MOD_DATE)
+                            }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>글내용</th>
+                            <td colspan="3">
+                                @Html.Raw(Model.CONTENTS)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>조회수</th>
+                            <td colspan="3">@Model.READ_CNT</td>
+                        </tr>
+                        <tr>
+                            <th>블라인드</th>
+                            <td colspan="3">
+                                @if (Model.BLIND_YN == "Y")
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="blindYn" value="Y" checked>Y</label>
+                                    <label class="radio radio-inline"><input type="radio" name="blindYn" value="N">N</label>
+                                }
+                                else
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="blindYn" value="Y">Y</label>
+                                    <label class="radio radio-inline"><input type="radio" name="blindYn" value="N" checked>N</label>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- //BBS Write -->
+                <input type="hidden" id="seq" name="seq" value="@Model.STOCKHOLDER_SEQ" />
+            </form>
+            
+            <div class="form-footer clearfix">
+                <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                    <button class="btn btn-success mr-5" type="button" id="btnBoardAdd">수정</button>
+                    <button class="btn btn-default mr-5" type="button" data-toggle="collapse" data-target="#answerContain">답변</button>
+                    <button class="btn btn-default" type="button" id="btnGoIndex">목록</button>
+                </div>
+            </div>
+
+            <!-- 답변영역 -->
+            <div class="collapse" id="answerContain" aria-expanded="false">
+                <div class="form-body row">
+                    <h3 class="panel-title font-bold">답변등록</h3>
+                </div>
+                <form id="frmReply">
+                <!-- BBS Write -->
+                    <input type="hidden" name="UP_STOCKHOLDER_SEQ" value="@Model.STOCKHOLDER_SEQ" />
+                    <input type="hidden" name="STOCKHOLDER_SEQ" value="@Model.ReplyData.STOCKHOLDER_SEQ" />
+                    <table class="table bbs-write">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="35%">
+                            <col width="20%">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th><i class="nec">*</i>제목</th>
+                                <td colspan="3"><input type="text" class="form-control" name="TITLE" value="@Model.ReplyData.TITLE"></td>
+                            </tr>
+                            <tr>
+                                <th>작성자</th>
+                                <td>@Model.ReplyData.USER_NAME</td>
+                                <th>작성일(수정일)</th>
+                                <td>
+                                    @if (Model.ReplyData.USER_NAME != null)
+                                    {
+                                        @Model.ReplyData.REG_DATE.ToString("yyyy-MM-dd")
+                                        if(Model.ReplyData.MOD_ID != null)
+                                        {
+                                            @:(@Model.ReplyData.MOD_DATE)
+                                        }
+                                    } 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="nec">*</i>답변내용</th>
+                                <td colspan="3" style="padding:0;height:300px">
+                                    <textarea id="editor" name="CONTENTS" style="display:none;">@Model.ReplyData.CONTENTS</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>조회수</th>
+                                <td colspan="3">@Model.ReplyData.READ_CNT</td>
+                            </tr>
+                            <tr>
+                                <th>활성</th>
+                                <td colspan="3">
+                                    @if (Model.ReplyData.VIEW_YN == "Y")
+                                    {
+                                        <label class="radio radio-inline"><input type="radio" name="VIEW_YN" value="Y" checked>Y</label>
+                                        <label class="radio radio-inline"><input type="radio" name="VIEW_YN" value="N">N</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="radio radio-inline"><input type="radio" name="VIEW_YN" value="Y">Y</label>
+                                        <label class="radio radio-inline"><input type="radio" name="VIEW_YN" value="N" checked>N</label>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- //BBS Write -->
+                </form>
+                <div class="form-footer clearfix">
+                    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                        <button type="button" class="btn btn-success" id="btnReplyAdd">등록</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- //답변영역 -->
+
+        </div>
+    </div>
+</div>

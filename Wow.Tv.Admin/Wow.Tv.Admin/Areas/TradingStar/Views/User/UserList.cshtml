@@ -1,0 +1,89 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model Wow.Tv.Middle.Model.Common.ListModel<tblTradingStarUser>
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+@{
+    Layout = null;
+}
+
+
+<script>
+    var totalDataCount = "@ViewBag.TotalDataCount";
+    var currentIndex = "@ViewBag.CurrentIndex";
+</script>
+<script src="@wowTvScript/TradingStar/User/UserList.js"></script>
+
+<form id="frmSearch">
+    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+    <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="allCheck"></th>
+            <th>번호</th>
+            <th>출연자명</th>
+            <th>regseq</th>
+            <th>pro_id</th>
+            <th>출연요일</th>
+            <th>투자성향</th>
+            <th>상태</th>
+            <th>총누적수익률</th>
+            <th>거래현황⊙매매전략</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ListData.Count == 0)
+        {
+
+            <tr>
+                <td colspan="10" style="height:400px">게시물이 없습니다.</td>
+            </tr>
+        }
+        else
+        {
+            int number = Model.ListData.Count;
+            foreach (var item in Model.ListData)
+            {
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>@number</td>
+                    <td><a href="#" onclick="UserIndex.OpenEdit('@item.seq','@item.tradingCode')">@item.name</a></td>
+                    <td>@Html.DisplayFor(modelItem => item.seq)</td>
+                    <td>@Html.DisplayFor(modelItem => item.pro_id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.weekname)</td>
+                    <td>@Html.DisplayFor(modelItem => item.stockchar)</td>
+                    <td>@Html.DisplayFor(modelItem => item.state)</td>
+                    <td>
+                        @if (item.earningRateSum != null)
+                        {
+                            @Math.Round(item.earningRateSum.Value, 2)@:%
+                        }
+                        else
+                        {
+                            @:0%
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-success" onclick="return UserIndex.TradeList('@item.seq');">거래현황⊙매매전략</button>
+                    </td>
+                </tr>
+                number = number - 1;
+            }
+
+        }
+    </tbody>
+</table>
+<!-- Pagenate -->
+<div class="box-paginate">
+    <div id="divPaging"></div>
+</div>
+<!-- //Pagenate -->

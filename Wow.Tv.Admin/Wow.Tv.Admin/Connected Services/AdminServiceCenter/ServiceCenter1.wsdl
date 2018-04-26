@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServiceCenter" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8088/Admin/ServiceCenter.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/ServiceCenter.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/ServiceCenter.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv.ServiceCenter" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/ServiceCenter.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/ServiceCenter.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServiceCenter_NolticeSearchList_InputMessage">
+    <wsdl:part name="parameters" element="tns:NolticeSearchList" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_NolticeSearchList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NolticeSearchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_GetNoticeSingle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNoticeSingle" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_GetNoticeSingle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNoticeSingleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_NoticeSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:NoticeSave" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_NoticeSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NoticeSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_NoticeDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:NoticeDelete" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_NoticeDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NoticeDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQSearchList_InputMessage">
+    <wsdl:part name="parameters" element="tns:FAQSearchList" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQSearchList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FAQSearchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_GetFAQSingle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFAQSingle" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_GetFAQSingle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFAQSingleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:FAQSave" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FAQSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:FAQDelete" />
+  </wsdl:message>
+  <wsdl:message name="IServiceCenter_FAQDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FAQDeleteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServiceCenter">
+    <wsdl:operation name="NolticeSearchList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/NolticeSearchList" message="tns:IServiceCenter_NolticeSearchList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/NolticeSearchListResponse" message="tns:IServiceCenter_NolticeSearchList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNoticeSingle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/GetNoticeSingle" message="tns:IServiceCenter_GetNoticeSingle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/GetNoticeSingleResponse" message="tns:IServiceCenter_GetNoticeSingle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NoticeSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/NoticeSave" message="tns:IServiceCenter_NoticeSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/NoticeSaveResponse" message="tns:IServiceCenter_NoticeSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NoticeDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/NoticeDelete" message="tns:IServiceCenter_NoticeDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/NoticeDeleteResponse" message="tns:IServiceCenter_NoticeDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FAQSearchList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/FAQSearchList" message="tns:IServiceCenter_FAQSearchList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/FAQSearchListResponse" message="tns:IServiceCenter_FAQSearchList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFAQSingle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/GetFAQSingle" message="tns:IServiceCenter_GetFAQSingle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/GetFAQSingleResponse" message="tns:IServiceCenter_GetFAQSingle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FAQSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/FAQSave" message="tns:IServiceCenter_FAQSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/FAQSaveResponse" message="tns:IServiceCenter_FAQSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FAQDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceCenter/FAQDelete" message="tns:IServiceCenter_FAQDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCenter/FAQDeleteResponse" message="tns:IServiceCenter_FAQDelete_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServiceCenter" type="tns:IServiceCenter">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NolticeSearchList">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/NolticeSearchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNoticeSingle">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/GetNoticeSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NoticeSave">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/NoticeSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NoticeDelete">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/NoticeDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FAQSearchList">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/FAQSearchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFAQSingle">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/GetFAQSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FAQSave">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/FAQSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FAQDelete">
+      <soap:operation soapAction="http://tempuri.org/IServiceCenter/FAQDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceCenter">
+    <wsdl:port name="BasicHttpBinding_IServiceCenter" binding="tns:BasicHttpBinding_IServiceCenter">
+      <soap:address location="http://localhost:8088/Admin/ServiceCenter.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

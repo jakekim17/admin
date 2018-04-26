@@ -1,0 +1,61 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_FAMILY>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/OperateManage/FamilySiteManage/SearchList.js?date=20170727163009"></script>
+
+
+<table class="table_colRow">
+    <thead>
+        <tr>
+            <th><input type="checkbox" class="form-group" id="chAll"></th>
+            <th>번호</th>
+            <th>그룹</th>
+            <th>사이트명</th>
+            <th>URL</th>
+            <th>활성</th>
+            <th>작성일</th>
+            <th>순서</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.ListData)
+        {
+        <tr>
+            <td class="al_c"><input type="checkbox" class="form-group" name="seqList" value="@item.FAMILY_SEQ"></td>
+            <td class="al_c">@item.FAMILY_SEQ</td>
+            <td class="al_c" style="cursor:pointer; color:blue;" onclick="return FaliySiteManageIndex.OpenEdit(@item.FAMILY_SEQ);">@item.GroupCodeName</td>
+            <td class="al_c">@item.SITE_NAME</td>
+            <td class="al_c">@item.URL</td>
+            <td class="al_c">@item.ACTIVE_YN</td>
+            <td class="al-c">@item.REG_DATE.ToDateTime()<br /><span style="color: cadetblue">@item.MOD_DATE.ToDateTime()</span></td>
+            <td class="al_c">
+                <span class="arrow-updown-c" onclick="return FaliySiteManageSearchList.UpDown(@item.FAMILY_SEQ, false);"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                <span class="arrow-updown-c" onclick="return FaliySiteManageSearchList.UpDown(@item.FAMILY_SEQ, true);"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<div class="table-responsive mt-5" id="divPaging"></div>
+
+

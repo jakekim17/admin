@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/Broad/BroadService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+  <xs:import schemaLocation="http://localhost:8088/Broad/BroadService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" />
+  <xs:import schemaLocation="http://localhost:8088/Broad/BroadService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" />
+  <xs:complexType name="BaseCondition">
+    <xs:sequence>
+      <xs:element name="_x003C_CurrentIndex_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_CurrentMenuSeq_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_PageSize_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseCondition" nillable="true" type="tns:BaseCondition" />
+  <xs:complexType name="ListModelOfNTB_BROAD_LIVEaHPuSDKR">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NTB_BROAD_LIVE" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData" nillable="true" type="q1:ArrayOfNTB_BROAD_LIVE" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData2" nillable="true" type="q2:ArrayOfNTB_BROAD_LIVE" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfNTB_BROAD_LIVEaHPuSDKR" nillable="true" type="tns:ListModelOfNTB_BROAD_LIVEaHPuSDKR" />
+  <xs:complexType name="LoginUser">
+    <xs:sequence>
+      <xs:element name="_x003C_AdminSeq_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Ip_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_LastLoginDate_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_LoginId_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_MenuList_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAdminMenuItem" />
+      <xs:element name="_x003C_PartCodeName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_UserName_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoginUser" nillable="true" type="tns:LoginUser" />
+  <xs:complexType name="ArrayOfAdminMenuItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AdminMenuItem" nillable="true" type="tns:AdminMenuItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAdminMenuItem" nillable="true" type="tns:ArrayOfAdminMenuItem" />
+  <xs:complexType name="AdminMenuItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Href" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDelete" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRead" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsWrite" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MenuSeq" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AdminMenuItem" nillable="true" type="tns:AdminMenuItem" />
+  <xs:complexType name="ListModelOfTAB_CODEaHPuSDKR">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="TAB_CODE" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData" nillable="true" type="q3:ArrayOfTAB_CODE" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData2" nillable="true" type="q4:ArrayOfTAB_CODE" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfTAB_CODEaHPuSDKR" nillable="true" type="tns:ListModelOfTAB_CODEaHPuSDKR" />
+  <xs:complexType name="ListModelOfT_NEWS_PRGYfMTzeJu">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="T_NEWS_PRG" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" minOccurs="0" name="ListData" nillable="true" type="q5:ArrayOfT_NEWS_PRG" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" minOccurs="0" name="ListData2" nillable="true" type="q6:ArrayOfT_NEWS_PRG" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfT_NEWS_PRGYfMTzeJu" nillable="true" type="tns:ListModelOfT_NEWS_PRGYfMTzeJu" />
+  <xs:complexType name="ListModelOfIMG_SCHEDULEYfMTzeJu">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="IMG_SCHEDULE" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" minOccurs="0" name="ListData" nillable="true" type="q7:ArrayOfIMG_SCHEDULE" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" minOccurs="0" name="ListData2" nillable="true" type="q8:ArrayOfIMG_SCHEDULE" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfIMG_SCHEDULEYfMTzeJu" nillable="true" type="tns:ListModelOfIMG_SCHEDULEYfMTzeJu" />
+  <xs:complexType name="ArrayOfDumyModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DumyModel" nillable="true" type="tns:DumyModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDumyModel" nillable="true" type="tns:ArrayOfDumyModel" />
+  <xs:complexType name="DumyModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IntValue1" type="xs:int" />
+      <xs:element minOccurs="0" name="IntValue2" type="xs:int" />
+      <xs:element minOccurs="0" name="IntValue3" type="xs:int" />
+      <xs:element minOccurs="0" name="IntValue4" type="xs:int" />
+      <xs:element minOccurs="0" name="IntValue5" type="xs:int" />
+      <xs:element minOccurs="0" name="StringValue1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StringValue2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StringValue3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StringValue4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StringValue5" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DumyModel" nillable="true" type="tns:DumyModel" />
+  <xs:complexType name="ListModelOfusp_GetCornerVODList_WEB_ResultgZrpW2fe">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="usp_GetCornerVODList_WEB_Result" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" minOccurs="0" name="ListData" nillable="true" type="q9:ArrayOfusp_GetCornerVODList_WEB_Result" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" minOccurs="0" name="ListData2" nillable="true" type="q10:ArrayOfusp_GetCornerVODList_WEB_Result" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfusp_GetCornerVODList_WEB_ResultgZrpW2fe" nillable="true" type="tns:ListModelOfusp_GetCornerVODList_WEB_ResultgZrpW2fe" />
+  <xs:complexType name="ListModelOfNUP_GetCornerVODList_WEB_ResultgZrpW2fe">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NUP_GetCornerVODList_WEB_Result" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" minOccurs="0" name="ListData" nillable="true" type="q11:ArrayOfNUP_GetCornerVODList_WEB_Result" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" minOccurs="0" name="ListData2" nillable="true" type="q12:ArrayOfNUP_GetCornerVODList_WEB_Result" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfNUP_GetCornerVODList_WEB_ResultgZrpW2fe" nillable="true" type="tns:ListModelOfNUP_GetCornerVODList_WEB_ResultgZrpW2fe" />
+  <xs:complexType name="ListModelOfNTB_PROGRAM_GROUPaHPuSDKR">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NTB_PROGRAM_GROUP" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddInfoInt1" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt2" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoInt3" type="xs:int" />
+      <xs:element minOccurs="0" name="AddInfoString1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddInfoString3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData" nillable="true" type="q13:ArrayOfNTB_PROGRAM_GROUP" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="ListData2" nillable="true" type="q14:ArrayOfNTB_PROGRAM_GROUP" />
+      <xs:element minOccurs="0" name="TotalDataCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListModelOfNTB_PROGRAM_GROUPaHPuSDKR" nillable="true" type="tns:ListModelOfNTB_PROGRAM_GROUPaHPuSDKR" />
+</xs:schema>

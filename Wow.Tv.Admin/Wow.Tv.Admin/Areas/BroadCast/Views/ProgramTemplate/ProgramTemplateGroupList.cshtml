@@ -1,0 +1,28 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model List<NTB_PROGRAM_GROUP>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+
+<script src="@wowTvScript/BroadCast/ProgramTemplate/ProgramTemplateGroupList.js?date=20170727163009"></script>
+
+
+
+@foreach (var item in Model)
+{
+<li>
+    @item.GROUP_NAME<button class="btn btn-default btn-xs" onclick="return ProgramTemplateEdit.DeleteProgramTemplateGroup(this);">×</button>
+    <input type="hidden" name="programGroupSeqList" value="@item.PROGRAM_GROUP_SEQ" />
+</li>
+}

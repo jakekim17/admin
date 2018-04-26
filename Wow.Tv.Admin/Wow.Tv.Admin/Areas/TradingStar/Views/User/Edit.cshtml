@@ -1,0 +1,140 @@
+﻿@model Wow.Tv.Middle.Model.Db49.wowtv.tblTradingStarUser
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+
+    var weekListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "월요일", Value = "월요일"},
+            new SelectListItem { Text = "화요일", Value = "화요일"},
+            new SelectListItem { Text = "수요일", Value = "수요일"},
+            new SelectListItem { Text = "목요일", Value = "목요일"},
+            new SelectListItem { Text = "금요일", Value = "금요일"},
+            new SelectListItem { Text = "토요일", Value = "토요일"},
+            new SelectListItem { Text = "일요일", Value = "일요일"}
+        }, "Value", "Text");
+
+    var stateListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "진행중", Value = "진행중"},
+            new SelectListItem { Text = "종료", Value = "종료"}
+        }, "Value", "Text");
+
+
+    var weekList = new SelectList(weekListItem, "Value", "Text", Model.seq ==0 ? "월요일" : Model.weekname);
+    var stateList = new SelectList(stateListItem, "Value", "Text", Model.seq == 0 ? "진행중" : Model.state);
+}
+}
+
+<script src="@wowTvScript/jquery.blockUI.js"></script>
+<script src="@wowTvScript/TradingStar/User/Edit.js?date=20170727163009"></script>
+
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">출연자 등록/수정</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave">
+
+                <input type="hidden" name="Seq" id="hidSeq" value="@Model.seq" />
+                <input type="hidden" name="tradingCode" id="hidTradingCode" value="@Model.tradingCode" />
+
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">출연자명</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="name"  maxlength="30" value="@Model.name" id="txtName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">pro_id</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="pro_id" maxlength="10" value="@Model.pro_id" id="txtPro_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">출연요일</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("weekname", weekList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">투자성향</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="stockchar" maxlength="50" value="@Model.stockchar" id="txtStockchar">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">상태</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("state", stateList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">댓글ID</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="replyid" maxlength="30" value="@Model.replyid" id="txtReplyid">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">출연자사진경로</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="thumbnail" maxlength="300" value="@Model.thumbnail" id="txtThumbnail">
+                        </div>
+                    </div>
+                    @if (Model.seq > 0)
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">미리보기</label>
+                            <div class="col-sm-10">
+                                <img src="@Model.thumbnail" id="thumbnailView" width="100" height="100">
+                                @*<input class="form-control rounded" type="text" name="name" maxlength="30" value="@Model.name" id="txtName">*@
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">도전자한마디</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="introduce" maxlength="30" value="@Model.introduce" id="txtIntroduce">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">변경사항</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" name="memo" maxlength="30" value="@Model.memo" id="txtMemo">
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-footer">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+                                <button type="button" class="btn btn-theme no-margin rounded" id="btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Recruit" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Recruit" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://devhkprimid.wowtv.co.kr/Recruit/RecruitService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="RecruitCondition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:BaseCondition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Page" type="xs:int" />
+          <xs:element minOccurs="0" name="Passed" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchPassword" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SearchSeq" type="xs:int" />
+          <xs:element minOccurs="0" name="SearchSsno" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RecruitCondition" nillable="true" type="tns:RecruitCondition" />
+</xs:schema>

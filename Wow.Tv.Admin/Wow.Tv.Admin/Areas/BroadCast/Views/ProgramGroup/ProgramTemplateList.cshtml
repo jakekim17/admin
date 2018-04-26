@@ -1,0 +1,46 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+
+@model List<NTB_PROGRAM_TEMPLATE_GROUP>
+
+@{
+    Layout = null;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+<script src="@wowTvScript/BroadCast/ProgramGroup/ProgramTemplateList.js"></script>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>프로그램 명</th>
+            <th>순서</th>
+            <th>편집</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+                int index = 0;
+                foreach (var item in Model)
+                {
+                    index++;
+        <tr>
+            <td>@index</td>
+            <td class="text-left">@item.ProgramName</td>
+            <td>
+                <span class="btn-arrow-up"><button class="btn btn-default" onclick="return ProgramGroupProgramTemplateList.UpDown(@item.PROGRAM_TEMPLATE_SEQ, @item.PROGRAM_GROUP_SEQ, true);">위로</button></span>
+                <span class="btn-arrow-down"><button class="btn btn-success" onclick="return ProgramGroupProgramTemplateList.UpDown(@item.PROGRAM_TEMPLATE_SEQ, @item.PROGRAM_GROUP_SEQ, false);">아래로</button></span>
+            </td>
+            <td><button class="btn-success" onclick="return ProgramGroupProgramTemplateList.Delete(@item.PROGRAM_TEMPLATE_SEQ, @item.PROGRAM_GROUP_SEQ);">그룹탈퇴</button></td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="tblUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlertText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsBlackList" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsHumanUser" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rejected" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RejectedReason" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiredPasswordChange" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SharePassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShareUserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="accumulatePointBalance" type="xs:int" />
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="club" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyDetailId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fusiblePointBalance" type="xs:int" />
+      <xs:element minOccurs="0" name="isEmailOk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isSendEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="isSendSMS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="longTermUncollectedCount" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="option1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="option2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="passwordConfirmAnswer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="passwordConfirmId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="pointToWowCashBalance" type="xs:int" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ssno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tblTransaction" nillable="true" type="tns:ArrayOftblTransaction" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:tblUserDetail" />
+      <xs:element minOccurs="0" name="tel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userGradeId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="userSectionId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="userTypeId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="wowCashBalance" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblUser" nillable="true" type="tns:tblUser" />
+  <xs:complexType name="ArrayOftblTransaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblTransaction" nillable="true" type="tns:tblTransaction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblTransaction" nillable="true" type="tns:ArrayOftblTransaction" />
+  <xs:complexType name="tblTransaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="changeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pointAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="pointBalance" type="xs:int" />
+      <xs:element minOccurs="0" name="pointToWowCashAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="pointToWowCashBalance" type="xs:int" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="registdt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblCodeTransactionType" nillable="true" type="tns:tblCodeTransactionType" />
+      <xs:element minOccurs="0" name="tblUser" nillable="true" type="tns:tblUser" />
+      <xs:element minOccurs="0" name="transactionCode" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="transactionId" type="xs:int" />
+      <xs:element minOccurs="0" name="userNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="wowCashAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="wowCashBalance" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblTransaction" nillable="true" type="tns:tblTransaction" />
+  <xs:complexType name="tblCodeTransactionType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblTransaction" nillable="true" type="tns:ArrayOftblTransaction" />
+      <xs:element minOccurs="0" name="transactionCode" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeTransactionType" nillable="true" type="tns:tblCodeTransactionType" />
+  <xs:complexType name="tblUserDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="birthday" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyDepartmentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyTel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="companyZipcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="handphone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hobbyId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="homepageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="infoAcquirementId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="interestArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="interestItemId1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="interestItemId2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="interestItemId3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="investmentPeriodId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="investmentPreferenceObjectId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="investmentPropensityId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="investmentScaleId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="isSolar" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="jobId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="registRouteId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="residingStatusId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="salaryId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="statusChangeReasonId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="stockCompanyId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="tblCodeHobby" nillable="true" type="tns:tblCodeHobby" />
+      <xs:element minOccurs="0" name="tblCodeInfoAcquirement" nillable="true" type="tns:tblCodeInfoAcquirement" />
+      <xs:element minOccurs="0" name="tblCodeInterestItem" nillable="true" type="tns:tblCodeInterestItem" />
+      <xs:element minOccurs="0" name="tblCodeInterestItem1" nillable="true" type="tns:tblCodeInterestItem" />
+      <xs:element minOccurs="0" name="tblCodeInterestItem2" nillable="true" type="tns:tblCodeInterestItem" />
+      <xs:element minOccurs="0" name="tblCodeInvestmentPeriod" nillable="true" type="tns:tblCodeInvestmentPeriod" />
+      <xs:element minOccurs="0" name="tblCodeInvestmentPreferenceObject" nillable="true" type="tns:tblCodeInvestmentPreferenceObject" />
+      <xs:element minOccurs="0" name="tblCodeInvestmentPropensity" nillable="true" type="tns:tblCodeInvestmentPropensity" />
+      <xs:element minOccurs="0" name="tblCodeInvestmentScale" nillable="true" type="tns:tblCodeInvestmentScale" />
+      <xs:element minOccurs="0" name="tblCodeJob" nillable="true" type="tns:tblCodeJob" />
+      <xs:element minOccurs="0" name="tblCodeRegistRoute" nillable="true" type="tns:tblCodeRegistRoute" />
+      <xs:element minOccurs="0" name="tblCodeResidingStatus" nillable="true" type="tns:tblCodeResidingStatus" />
+      <xs:element minOccurs="0" name="tblCodeSalary" nillable="true" type="tns:tblCodeSalary" />
+      <xs:element minOccurs="0" name="tblCodeStockCompany" nillable="true" type="tns:tblCodeStockCompany" />
+      <xs:element minOccurs="0" name="tblUser" nillable="true" type="tns:tblUser" />
+      <xs:element minOccurs="0" name="userNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="weddingAnniversary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="zipcode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblUserDetail" nillable="true" type="tns:tblUserDetail" />
+  <xs:complexType name="tblCodeHobby">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hobbyId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeHobby" nillable="true" type="tns:tblCodeHobby" />
+  <xs:complexType name="ArrayOftblUserDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUserDetail" nillable="true" type="tns:tblUserDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+  <xs:complexType name="tblCodeInfoAcquirement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="infoAcquirementId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInfoAcquirement" nillable="true" type="tns:tblCodeInfoAcquirement" />
+  <xs:complexType name="tblCodeInterestItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="industryCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="industryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="tblUserDetail1" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="tblUserDetail2" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInterestItem" nillable="true" type="tns:tblCodeInterestItem" />
+  <xs:complexType name="tblCodeInvestmentPeriod">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="investmentPeriodId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInvestmentPeriod" nillable="true" type="tns:tblCodeInvestmentPeriod" />
+  <xs:complexType name="tblCodeInvestmentPreferenceObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="investmentPreferenceObjectId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInvestmentPreferenceObject" nillable="true" type="tns:tblCodeInvestmentPreferenceObject" />
+  <xs:complexType name="tblCodeInvestmentPropensity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="investmentPropensityId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInvestmentPropensity" nillable="true" type="tns:tblCodeInvestmentPropensity" />
+  <xs:complexType name="tblCodeInvestmentScale">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="investmentScaleId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeInvestmentScale" nillable="true" type="tns:tblCodeInvestmentScale" />
+  <xs:complexType name="tblCodeJob">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="jobId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeJob" nillable="true" type="tns:tblCodeJob" />
+  <xs:complexType name="tblCodeRegistRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="registRouteId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeRegistRoute" nillable="true" type="tns:tblCodeRegistRoute" />
+  <xs:complexType name="tblCodeResidingStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="residingStatusId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeResidingStatus" nillable="true" type="tns:tblCodeResidingStatus" />
+  <xs:complexType name="tblCodeSalary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="salaryId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeSalary" nillable="true" type="tns:tblCodeSalary" />
+  <xs:complexType name="tblCodeStockCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="apply" type="xs:boolean" />
+      <xs:element minOccurs="0" name="descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="registDt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="stockCompanyId" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="tblUserDetail" nillable="true" type="tns:ArrayOftblUserDetail" />
+      <xs:element minOccurs="0" name="updateDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCodeStockCompany" nillable="true" type="tns:tblCodeStockCompany" />
+</xs:schema>

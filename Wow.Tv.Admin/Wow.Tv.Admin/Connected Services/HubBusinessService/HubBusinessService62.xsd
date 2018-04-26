@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.HubBusiness" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.HubBusiness" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/HubBusinessService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" />
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/HubBusinessService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="HubBusinessModelOfNTB_HUB_BUSINESSp95ZFpkp">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="HubBusinessModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.HubBusiness" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NTB_HUB_BUSINESS" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:ListModelOfNTB_HUB_BUSINESSp95ZFpkp">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" minOccurs="0" name="HubData" nillable="true" type="q2:NTB_HUB_BUSINESS" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="HubBusinessModelOfNTB_HUB_BUSINESSp95ZFpkp" nillable="true" type="tns:HubBusinessModelOfNTB_HUB_BUSINESSp95ZFpkp" />
+</xs:schema>

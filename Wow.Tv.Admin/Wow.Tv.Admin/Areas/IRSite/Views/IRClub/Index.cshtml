@@ -1,0 +1,140 @@
+﻿
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/IRClub/Index.js"></script>
+<script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.Condition.CurrentIndex";
+        var industryVolume = "@ViewBag.Condition.industryVolume";
+        var regType = "@ViewBag.Condition.regType";
+        var searchType = "@ViewBag.Condition.searchType"
+</script>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <form id="frmSearch">
+                <div class="form-body">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">상장종류</label>
+                        <div class="input-group col-sm-5">
+                            <select class="form-control" name="industryVolume">
+                                <option value="">선택</option>
+                                <option value="KOSPI">코스피</option>
+                                <option value="KOSDAK">코스닥</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-1 control-label">가입구분</label>
+                        <div class="input-group col-sm-5">
+                            <select class="form-control" name="regType">
+                                <option value="">선택</option>
+                                <option value="N">신규</option>
+                                <option value="R">재가입</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 form-inline">
+                        <label class="col-sm-1 control-label">검색</label>
+                        <div class="input-group col-sm-2">
+                            <select class="form-control" name="searchType">
+                                <option value="all">전체</option>
+                                <option value="companyName">회사명</option>
+                                <option value="homepage">홈페이지URL</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-sm-8">
+                            <input class="form-control" type="text" name="searchText" value="@ViewBag.Condition.searchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="seq" id="seq" />
+                    <input type="hidden" id="pageSize" name="pageSize" value="10" />
+                    <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="0" />
+                    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                </div>
+            </form>
+
+            <div class="app-ui-section group mt-10">
+                <span class="fl-r s-text pad-r10">총 <font class="cho">@Model.TotalDataCount</font> 개의 게시물이 등록되어 있습니다.</span>
+                <table class="table_colRow">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"  class="form-group" id="allCheck"></th>
+                            <th>번호</th>
+                            <th>상장종류</th>
+                            <th>회사명</th>
+                            <th>홈페이지</th>
+                            <th>승인</th>
+                            <th>대표전화</th>
+                            <th>가입년월</th>
+                            <th>만료년월</th>
+                            <th>가입구분</th>
+                            <th>활성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="checkbox" value="@item.SEQ"></td>
+                                    <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item)+ ViewBag.Condition.CurrentIndex))</td>
+                                    <td><a href="#" onclick="return IRClubIndex.GoEdit(@item.SEQ)">@item.INDUSTRY_VOLUME</a></td>
+                                    <td><a href="#" onclick="return IRClubIndex.GoEdit(@item.SEQ)">@item.COMPANY_NAME</a></td>
+                                    <td class="text-left"><a href="@item.HOMEPAGE" target="_blank">@item.HOMEPAGE</a></td>
+                                    <td>@item.APPROVAL_FLAG</td>
+                                    <td>@item.COMPANY_PHONE</td>
+                                    <td>@item.START_DATE</td>
+                                    <td>@item.END_DATE</td>
+                                    <td>
+                                        @if (item.REG_TYPE == "R")
+                                        {
+                                            @: 재가입
+                                        }
+                                        else
+                                        {
+                                            @: 가입
+                                        }
+                                    </td>
+                                    <td>@item.VIEW_FLAG</td>
+                                </tr>
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="11">등록게시물이 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-5">
+               <div id="divPaging"></div>
+                <div class="form-footer clearfix">
+                    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                        {
+                            <button class="btn btn-success" type="button" id="btnAdd">등록</button>
+                        }
+                        @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                        {
+                            <button class="btn btn-default mr-5" type="button" id="btnDelete">삭제</button>
+                        }
+                    </div>
+                </div>
+                <!-- /.form-footer -->
+            </div>
+        </div>
+    </div>
+</div>

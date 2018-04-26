@@ -1,0 +1,39 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_BOARD_CONTENT>
+
+@{
+    Layout = null;
+}
+
+<div class="box-title">
+    <h3>최근 시청자 의견</h3>
+    <div class="box-link">
+        @*<a href="" class="btn btn-default">더보기</a>*@
+    </div>
+</div>
+
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            <col width="200px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>프로그램</th>
+                <th>제목 </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ListData)
+            {
+                <tr>
+                    <td>@item.ProgramName</td>
+                    <td class="text-left"><a href="/IntegratedBoard/FeedBack/Edit?menuSeq=570&seq=@item.BOARD_CONTENT_SEQ&ProgramCode=@item.ProgramCode">@item.TITLE</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

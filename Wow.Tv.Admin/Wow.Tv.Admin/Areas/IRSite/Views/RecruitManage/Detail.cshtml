@@ -1,0 +1,107 @@
+﻿@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string uploadWebPathRoot = AppState["UploadWebPathRoot"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/RecruitManage/Detail.js"></script>
+}
+
+<form id="frm">
+    <input type="hidden" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex"/>
+    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+    <input type="hidden" name="PageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" name="SearchName" value="@ViewBag.Condition.SearchName" />
+</form>
+
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <p class="text-notice1" style="padding:10px 20px;">* 표시는 필수사항입니다.</p>
+            <!-- BBS Write -->
+            <table class="table bbs-write">
+                <colgroup>
+                    <col width="20%">
+                    <col width="35%">
+                    <col width="20%">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>이름</th>
+                        <td colspan="3">@Model.NAME</td>
+                    </tr>
+                    <tr>
+                        <th>응시직종</th>
+                        <td>@Model.TYPE</td>
+                        <th>주민등록번호</th>
+                        <td>@Model.SSNO-*******</td>
+                    </tr>
+                    <tr>
+                        <th>사진</th>
+                        <td colspan="3">
+                            @if (Model.IMG != null && Model.IMG != "")
+                            {
+                                var splitImgName = "";
+                                var imgName = "";
+
+                                if (Model.IMG.Contains("/"))
+                                {
+                                    var splitImg = Model.IMG.Split('/');
+                                    splitImgName = splitImg[splitImg.Length - 1].ToString();
+                                }
+                                else if(Model.IMG.Contains("\\"))
+                                {
+                                    var splitImg = Model.IMG.Split('\\');
+                                    splitImgName = splitImg[splitImg.Length - 1].ToString();
+                                }
+
+                                splitImgName = splitImgName.Replace('\\', '/');
+                                imgName = Model.TYPE + "_" + Model.NO + "." + Model.IMG.Split('.')[1];
+                                <a href="/DownLoad/Index?realFilePath=@Model.IMG&userUpLoadFileName=@imgName">@splitImgName</a>
+                            }
+                            else
+                            {
+                                <a href="#none"> - </a>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>입사지원서</th>
+                        <td colspan="3">
+                            @if (Model.JOB_APPLICATION != null && Model.JOB_APPLICATION != "")
+                            {
+                                var splitPathName = "";
+                                if (Model.JOB_APPLICATION.Contains("/"))
+                                {
+                                    var splitPath = Model.JOB_APPLICATION.Split('/');
+                                    splitPathName = splitPath[splitPath.Length - 1].ToString();
+                                }
+                                else if (Model.JOB_APPLICATION.Contains("\\"))
+                                {
+                                    var splitPath = Model.JOB_APPLICATION.Split('\\');
+                                    splitPathName = splitPath[splitPath.Length - 1].ToString();
+                                }
+
+                                var jobFileName = Model.TYPE + "_" + Model.NO + "." + Model.JOB_APPLICATION.Split('.')[1];
+                                <a href="/DownLoad/Index?realFilePath=@Model.JOB_APPLICATION&userUpLoadFileName=@jobFileName">@splitPathName</a>
+                            }
+                            else
+                            {
+                                <a href="#none"> - </a>
+                            }                        
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <!-- //BBS Write -->
+            <div class="form-footer clearfix">
+                <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                    <button id="btnGoIndex" type="button" class="btn btn-default">목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

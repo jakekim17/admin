@@ -1,0 +1,252 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/IRClub/Edit.js"></script>
+    @if (Model != null)
+    {
+        <script>
+            $('select[name=INDUSTRY_VOLUME]').val("@Model.INDUSTRY_VOLUME").attr("selected", true);
+            $('select[name=REG_TYPE]').val("@Model.REG_TYPE").attr("selected", true);
+        </script>
+    }
+}
+
+@section modalDiv{
+    <div id="searchCode" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">종목검색</h4>
+                </div>
+                <div class="modal-body clearfix">
+
+                    <div class="form-group col-sm-12 form-inline">
+                        <label class="col-sm-2 control-label">검색</label>
+                        <div class="input-group col-sm-10">
+                            <input class="form-control" type="text" id="searchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnCodeSearch">검색</button></span>
+                        </div>
+                    </div>
+                    <div class="search-select-options" id="searchDiv">
+                        <button>가</button>
+                        <button>나</button>
+                        <button>다</button>
+                        <button>라</button>
+                        <button>마</button>
+                        <button>바</button>
+                        <button>사</button>
+                        <button>아</button>
+                        <button>자</button>
+                        <button>차</button>
+                        <button>카</button>
+                        <button>타</button>
+                        <button>파</button>
+                        <button>하</button>
+                        <button>A~Z</button>
+                    </div>
+                    <p class="al-c">종목명/종목코드를 입력하세요.</p>
+
+                    <div class="contain-scroll" style="height:150px;">
+                        <div class="box-scroll">
+                            <ul class="list-type1 stockticker">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="al-c">해당종목을 클릭하면 자동 추가됩니다.</p>
+                    <!-- Button Box -->
+                    <div class="box-button">
+                        <button class="btn btn-success" type="button" data-dismiss="modal">확인</button>
+                        <button class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                    <!-- //Button Box -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <form id="frm">
+                <input type="hidden" name="industryVolume" value="@ViewBag.Condition.industryVolume" />
+                <input type="hidden" name="regType" value="@ViewBag.Condition.regType" />
+                <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+                <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+                <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+            </form>
+            <form id="frmAdd" enctype="multipart/form-data">
+                <p class="notice-table-top">* 표시는 필수사항입니다.</p>
+                <!-- BBS Write -->
+                <table class="table bbs-write">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="35%">
+                        <col width="20%">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>승인</th>
+                            <td colspan="3">
+                                @if (Model.APPROVAL_FLAG == "R")
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="APPROVAL_FLAG" value="R" checked>R</label>
+                                    <label class="radio radio-inline"><input type="radio" name="APPROVAL_FLAG" value="D">D</label>
+                                }
+                                else
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="APPROVAL_FLAG" value="R">R</label>
+                                    <label class="radio radio-inline"><input type="radio" name="APPROVAL_FLAG" value="D" checked>D</label>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상장종류</th>
+                            <td>
+                                <select class="form-control" name="INDUSTRY_VOLUME">
+                                    <option value="">선택</option>
+                                    <option value="KOSPI">코스피</option>
+                                    <option value="KOSDAK">코스닥</option>
+                                </select>
+                            </td>
+                            <th>업종</th>
+                            <td>
+                                <input type="text" class="form-control" name="INDUSTRY_NAME" value="@Model.INDUSTRY_NAME">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>회사명</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" name="COMPANY_NAME" value="@Model.COMPANY_NAME">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>종목코드</th>
+                            <td colspan="3">
+                                <div class="input-group col-sm-12">
+                                    <input class="form-control" type="text" name="SCODE" value="@Model.SCODE">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">종목검색</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>회사로고</th>
+                            <td colspan="3">
+                                <div class="input-group col-sm-12">
+                                    <input class="form-control" type="text" id="fileText">
+                                    <input type="file" id="file" name="upload" style="display: none;">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnFile">찾아보기</button></span>
+                                </div>
+                                <p>
+                                    <label class="checkbox checkbox-inline"><input type="checkbox" id="checkbox">삭제</label>
+                                    <span>
+                                        @if (Model.COMPANY_LOGO != null)
+                                        {
+                                            var split = Model.COMPANY_LOGO.Split('\\');
+                                            @split[split.Length - 1];
+                                        }
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>홈페이지</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" name="HOMEPAGE" value="@Model.HOMEPAGE">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>대표전화</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" name="COMPANY_PHONE" value="@Model.COMPANY_PHONE">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>가입일</th>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="START_DATE" value="@Model.START_DATE" id="txtStartDate">
+                                    <span class="input-group-addon" style="cursor:pointer" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                            <th><i class="nec">*</i>만료일</th>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="END_DATE" value="@Model.END_DATE" id="txtEndDate">
+                                    <span class="input-group-addon" style="cursor:pointer" id="dtEndDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="nec">*</i>가입구분</th>
+                            <td colspan="3">
+                                <select class="form-control" name="REG_TYPE">
+                                    <option value="">선택</option>
+                                    <option value="N">가입</option>
+                                    <option value="R">재가입</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>활성</th>
+                            <td colspan="3">
+                                @if (Model.VIEW_FLAG == "Y")
+                                {
+                                    <label class="radio radio-inline"><input type="radio" name="VIEW_FLAG" value="Y" checked>Y</label>
+                                    <label class="radio radio-inline"><input type="radio" name="VIEW_FLAG" value="N">N</label>
+                                }
+                                else
+                                {
+                                    <label class="radio radio-inline"><input type = "radio" name="VIEW_FLAG" value="Y">Y</label>
+                                    <label class="radio radio-inline"><input type = "radio" name="VIEW_FLAG" value="N" checked>N</label>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>등록일(수정일)</th>
+                            <td colspan="3">
+                                @if (Model.REG_DATE != null)
+                                {
+                                   @Model.REG_DATE.ToString("yyyy-MM-dd");
+                                }
+                                @if (Model.MOD_DATE != null)
+                                {
+                                    <span class="text-color1">@Model.MOD_DATE</span>
+                                }
+
+                                    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="hidden" name="SEQ" value="@Model.SEQ" />
+                <div class="box-button">
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, true, false) == true)
+                    {
+                        <button class="btn btn-success" type="button" id="btnAdd">등록(수정)</button>
+                    }
+                    @if (LoginHandler.IsAuth(@ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+                    {
+                        if (Model != null)
+                        {
+                            <button class="btn btn-default" type="button" id="btnDelete">삭제</button>
+                        }
+                    }
+                    <button class="btn btn-default" type="button" id="btnGoIndex">목록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

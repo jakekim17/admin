@@ -1,0 +1,97 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv.MemberManage
+@model ListModel<AccLogResult>
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+@section scripts{
+    <script type="text/javascript" src="@wowTvScript/Monitoring/AccLog/Index.js"></script>
+    <script type="text/javascript">
+        var totalDataCount = @Model.TotalDataCount;
+    </script>
+}
+
+<div class="contain-search-global">
+    <form id="frmSearch">
+        <table>
+            <colgroup>
+                <col width="120px">
+                <col>
+            </colgroup>
+            <tr>
+                <th>가입일</th>
+                <td>
+                    <div class="form-group form-inline">
+                        <button class="btn btn-default" id="RegistDateSearch1">오늘</button>
+                        <button class="btn btn-default" id="RegistDateSearch2">어제</button>
+                        <button class="btn btn-default" id="RegistDateSearch3">3일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch4">7일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch5">10일간</button>
+                        <button class="btn btn-default" id="RegistDateSearch6">30일간</button>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="RegistDateFrom" name="RegistDateFrom" value="@(ViewBag.ShowRegistDateFrom?.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div> ~
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="RegistDateTo" name="RegistDateTo" value="@(ViewBag.ShowRegistDateTo?.ToString("yyyy-MM-dd"))">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>검색</th>
+                <td>
+                    <div class="form-group form-inline">
+                        <select class="form-control" id="SearchType" name="SearchType">
+                            <option value="" @(string.IsNullOrEmpty(ViewBag.Condition.SearchType) == true ? " selected=\"selected\"" : "")>선택</option>
+                            <option value="MENU_NAME" @(ViewBag.Condition.SearchType == "MENU_NAME" ? " selected=\"selected\"" : "")>메뉴명</option>
+                            <option value="ADMIN_ID" @(ViewBag.Condition.SearchType == "ADMIN_ID" ? " selected=\"selected\"" : "")>관리자아이디</option>
+                        </select>
+                        <div class="input-group" style="width:900px">
+                            <input class="form-control" type="text" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText">
+                            <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" id="PageSize" name="PageSize" value="@ViewBag.Condition.PageSize" />
+        <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+        <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@Request["menuSeq"]" />
+    </form>
+</div>
+<div class="wrap">
+    <div class="bbs-list1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>메뉴명</th>
+                    <th>액션타입</th>
+                    <th>설명</th>
+                    <th>아이피주소</th>
+                    <th>관리자</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AccLogResult item in Model.ListData)
+                {
+                    <tr>
+                        <td>@item.ActionSeq</td>
+                        <td>@item.MenuName</td>
+                        <td>@item.ActionType</td>
+                        <td>@item.ActionDescription</td>
+                        <td>@item.IpAddress</td>
+                        <td>@item.AdminId</td>
+                        <td>@(item.ActionDate.HasValue == true ? item.ActionDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-paginate">
+        <div id="divPaging"></div>
+    </div>
+</div>

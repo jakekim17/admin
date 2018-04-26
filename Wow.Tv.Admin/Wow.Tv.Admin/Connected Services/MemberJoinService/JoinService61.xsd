@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Member" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill.Member" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/Member/JoinService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+  <xs:complexType name="JoinCheckIpinResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgeRestriction" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DenialText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IpinCheckResult" nillable="true" type="tns:IpinCheckResult" />
+      <xs:element minOccurs="0" name="IsDenial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Registered" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RegisteredDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RegisteredUserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JoinCheckIpinResult" nillable="true" type="tns:JoinCheckIpinResult" />
+  <xs:complexType name="IpinCheckResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CIUpdate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CoInfo1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DupInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GenderCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NationalInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VirtualNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IpinCheckResult" nillable="true" type="tns:IpinCheckResult" />
+  <xs:complexType name="JoinCheckSmsResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgeRestriction" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DenialText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsDenial" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Registered" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RegisteredDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RegisteredUserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SmsCheckResult" nillable="true" type="tns:SmsCheckResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JoinCheckSmsResult" nillable="true" type="tns:JoinCheckSmsResult" />
+  <xs:complexType name="SmsCheckResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CipherTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DI" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileCompany" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NationalInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestSeq" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResponseSeq" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsCheckResult" nillable="true" type="tns:SmsCheckResult" />
+  <xs:complexType name="JoinCheckForeignResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NameCheckReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="NameCheckSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Registered" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RegisteredDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RegisteredUserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Validated" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JoinCheckForeignResult" nillable="true" type="tns:JoinCheckForeignResult" />
+  <xs:complexType name="RegistUserRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOQv5BillHost" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BusinessCondition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BusinessType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Businessitem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompanyNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConnInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DupInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EcUserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstablishmentAnniversary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gugun" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Is969mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsMale" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendEmailAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSms" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSendSmsAd" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Issolar" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Isstockloan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Landcenter" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Listed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LottoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile3" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="NBoxRequest" nillable="true" type="q1:ArrayOfKeyValuePairOfstringstring" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Option1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Option2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordConfirmAnswer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasswordConfirmId" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="SFrom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SPRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SPageFrom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SSNo1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SSNo2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SSNo3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WowNetCafeUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WowTvFrontUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZipCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegistUserRequest" nillable="true" type="tns:RegistUserRequest" />
+  <xs:complexType name="RegistUserResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BonusCash" type="xs:int" />
+      <xs:element minOccurs="0" name="CafeGoldMemberRegist" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CouponBill1Regist" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CouponBill1ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="CouponBill1ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CouponBill2Regist" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CouponBill2ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="CouponBill2ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CouponBill3Regist" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CouponBill3ReturnCode" type="xs:int" />
+      <xs:element minOccurs="0" name="CouponBill3ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OKCashbagRegistMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OKCashbagRegistSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OKCashbagRegistYN" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReturnCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReturnMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegistUserResult" nillable="true" type="tns:RegistUserResult" />
+  <xs:complexType name="EmailAuthCompleteResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmailAuthCompleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EmailMatched" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ExceptionMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserMatched" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EmailAuthCompleteResult" nillable="true" type="tns:EmailAuthCompleteResult" />
+</xs:schema>

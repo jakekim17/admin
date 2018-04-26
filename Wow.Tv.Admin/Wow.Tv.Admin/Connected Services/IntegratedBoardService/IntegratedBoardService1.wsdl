@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="IntegratedBoardService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv.Board" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db90.DNRS" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8088/Admin/IntegratedBoardService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IIntegratedBoardService_IntegratedSearchList_InputMessage">
+    <wsdl:part name="parameters" element="tns:IntegratedSearchList" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_IntegratedSearchList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IntegratedSearchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardDetail" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:BoardSave" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BoardSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:BoardDelete" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BoardDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_FileSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:FileSave" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_FileSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FileSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardInfoAndDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardInfoAndDetail" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardInfoAndDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardInfoAndDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardInfo" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBoardInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBoardInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_ReadCountIncrease_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadCountIncrease" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_ReadCountIncrease_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadCountIncreaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetQnaStats_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQnaStats" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetQnaStats_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQnaStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetIRStats_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIRStats" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetIRStats_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIRStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetReportStats_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportStats" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetReportStats_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_DeleteFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFile" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_DeleteFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBroadBoard_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBroadBoard" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetBroadBoard_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBroadBoardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetProgramList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramList" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetProgramList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommentSave" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommentSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCommentList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCommentList" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCommentList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCommentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommentDelete" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommentDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommentUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_CommentUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommentUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_UpdateContentBlind_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContentBlind" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_UpdateContentBlind_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContentBlindResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_UpdateReplyBlind_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReplyBlind" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_UpdateReplyBlind_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReplyBlindResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCommentPaging_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCommentPaging" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCommentPaging_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCommentPagingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetFeedBackList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedBackList" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetFeedBackList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedBackListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetHelpPageToFeedBackSeq_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpPageToFeedBackSeq" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetHelpPageToFeedBackSeq_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpPageToFeedBackSeqResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetFeedBackProgamCodeToBoardSeq_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedBackProgamCodeToBoardSeq" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetFeedBackProgamCodeToBoardSeq_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedBackProgamCodeToBoardSeqResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardFeedBackSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:BoardFeedBackSave" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_BoardFeedBackSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BoardFeedBackSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCreateBoardProgramList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCreateBoardProgramList" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetCreateBoardProgramList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCreateBoardProgramListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_MyMainIntegratedSearchCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:MyMainIntegratedSearchCount" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_MyMainIntegratedSearchCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MyMainIntegratedSearchCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetMainNoticeContent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMainNoticeContent" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetMainNoticeContent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMainNoticeContentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetMemberInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemberInfo" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetMemberInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemberInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetHelpMainNotice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpMainNotice" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetHelpMainNotice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpMainNoticeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetAdminSiteBoardDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminSiteBoardDetail" />
+  </wsdl:message>
+  <wsdl:message name="IIntegratedBoardService_GetAdminSiteBoardDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminSiteBoardDetailResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IIntegratedBoardService">
+    <wsdl:operation name="IntegratedSearchList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/IntegratedSearchList" message="tns:IIntegratedBoardService_IntegratedSearchList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/IntegratedSearchListResponse" message="tns:IIntegratedBoardService_IntegratedSearchList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardDetail" message="tns:IIntegratedBoardService_GetBoardDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardDetailResponse" message="tns:IIntegratedBoardService_GetBoardDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BoardSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardSave" message="tns:IIntegratedBoardService_BoardSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardSaveResponse" message="tns:IIntegratedBoardService_BoardSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BoardDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardDelete" message="tns:IIntegratedBoardService_BoardDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardDeleteResponse" message="tns:IIntegratedBoardService_BoardDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FileSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/FileSave" message="tns:IIntegratedBoardService_FileSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/FileSaveResponse" message="tns:IIntegratedBoardService_FileSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardInfoAndDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardInfoAndDetail" message="tns:IIntegratedBoardService_GetBoardInfoAndDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardInfoAndDetailResponse" message="tns:IIntegratedBoardService_GetBoardInfoAndDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardInfo" message="tns:IIntegratedBoardService_GetBoardInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBoardInfoResponse" message="tns:IIntegratedBoardService_GetBoardInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadCountIncrease">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/ReadCountIncrease" message="tns:IIntegratedBoardService_ReadCountIncrease_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/ReadCountIncreaseResponse" message="tns:IIntegratedBoardService_ReadCountIncrease_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQnaStats">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetQnaStats" message="tns:IIntegratedBoardService_GetQnaStats_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetQnaStatsResponse" message="tns:IIntegratedBoardService_GetQnaStats_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIRStats">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetIRStats" message="tns:IIntegratedBoardService_GetIRStats_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetIRStatsResponse" message="tns:IIntegratedBoardService_GetIRStats_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportStats">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetReportStats" message="tns:IIntegratedBoardService_GetReportStats_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetReportStatsResponse" message="tns:IIntegratedBoardService_GetReportStats_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/DeleteFile" message="tns:IIntegratedBoardService_DeleteFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/DeleteFileResponse" message="tns:IIntegratedBoardService_DeleteFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBroadBoard">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBroadBoard" message="tns:IIntegratedBoardService_GetBroadBoard_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetBroadBoardResponse" message="tns:IIntegratedBoardService_GetBroadBoard_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetProgramList" message="tns:IIntegratedBoardService_GetProgramList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetProgramListResponse" message="tns:IIntegratedBoardService_GetProgramList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommentSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentSave" message="tns:IIntegratedBoardService_CommentSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentSaveResponse" message="tns:IIntegratedBoardService_CommentSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCommentList" message="tns:IIntegratedBoardService_GetCommentList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCommentListResponse" message="tns:IIntegratedBoardService_GetCommentList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommentDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentDelete" message="tns:IIntegratedBoardService_CommentDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentDeleteResponse" message="tns:IIntegratedBoardService_CommentDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommentUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentUpdate" message="tns:IIntegratedBoardService_CommentUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/CommentUpdateResponse" message="tns:IIntegratedBoardService_CommentUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContentBlind">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/UpdateContentBlind" message="tns:IIntegratedBoardService_UpdateContentBlind_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/UpdateContentBlindResponse" message="tns:IIntegratedBoardService_UpdateContentBlind_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReplyBlind">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/UpdateReplyBlind" message="tns:IIntegratedBoardService_UpdateReplyBlind_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/UpdateReplyBlindResponse" message="tns:IIntegratedBoardService_UpdateReplyBlind_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentPaging">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCommentPaging" message="tns:IIntegratedBoardService_GetCommentPaging_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCommentPagingResponse" message="tns:IIntegratedBoardService_GetCommentPaging_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedBackList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetFeedBackList" message="tns:IIntegratedBoardService_GetFeedBackList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetFeedBackListResponse" message="tns:IIntegratedBoardService_GetFeedBackList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpPageToFeedBackSeq">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetHelpPageToFeedBackSeq" message="tns:IIntegratedBoardService_GetHelpPageToFeedBackSeq_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetHelpPageToFeedBackSeqResponse" message="tns:IIntegratedBoardService_GetHelpPageToFeedBackSeq_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedBackProgamCodeToBoardSeq">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetFeedBackProgamCodeToBoardSeq" message="tns:IIntegratedBoardService_GetFeedBackProgamCodeToBoardSeq_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetFeedBackProgamCodeToBoardSeqResponse" message="tns:IIntegratedBoardService_GetFeedBackProgamCodeToBoardSeq_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BoardFeedBackSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardFeedBackSave" message="tns:IIntegratedBoardService_BoardFeedBackSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/BoardFeedBackSaveResponse" message="tns:IIntegratedBoardService_BoardFeedBackSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreateBoardProgramList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCreateBoardProgramList" message="tns:IIntegratedBoardService_GetCreateBoardProgramList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetCreateBoardProgramListResponse" message="tns:IIntegratedBoardService_GetCreateBoardProgramList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MyMainIntegratedSearchCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/MyMainIntegratedSearchCount" message="tns:IIntegratedBoardService_MyMainIntegratedSearchCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/MyMainIntegratedSearchCountResponse" message="tns:IIntegratedBoardService_MyMainIntegratedSearchCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMainNoticeContent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetMainNoticeContent" message="tns:IIntegratedBoardService_GetMainNoticeContent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetMainNoticeContentResponse" message="tns:IIntegratedBoardService_GetMainNoticeContent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetMemberInfo" message="tns:IIntegratedBoardService_GetMemberInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetMemberInfoResponse" message="tns:IIntegratedBoardService_GetMemberInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpMainNotice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetHelpMainNotice" message="tns:IIntegratedBoardService_GetHelpMainNotice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetHelpMainNoticeResponse" message="tns:IIntegratedBoardService_GetHelpMainNotice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminSiteBoardDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetAdminSiteBoardDetail" message="tns:IIntegratedBoardService_GetAdminSiteBoardDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntegratedBoardService/GetAdminSiteBoardDetailResponse" message="tns:IIntegratedBoardService_GetAdminSiteBoardDetail_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IIntegratedBoardService" type="tns:IIntegratedBoardService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IntegratedSearchList">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/IntegratedSearchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardDetail">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetBoardDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BoardSave">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/BoardSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BoardDelete">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/BoardDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileSave">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/FileSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardInfoAndDetail">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetBoardInfoAndDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBoardInfo">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetBoardInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadCountIncrease">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/ReadCountIncrease" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQnaStats">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetQnaStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIRStats">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetIRStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportStats">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetReportStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFile">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/DeleteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBroadBoard">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetBroadBoard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramList">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetProgramList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentSave">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/CommentSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentList">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetCommentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentDelete">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/CommentDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentUpdate">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/CommentUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContentBlind">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/UpdateContentBlind" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReplyBlind">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/UpdateReplyBlind" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentPaging">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetCommentPaging" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedBackList">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetFeedBackList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpPageToFeedBackSeq">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetHelpPageToFeedBackSeq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedBackProgamCodeToBoardSeq">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetFeedBackProgamCodeToBoardSeq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BoardFeedBackSave">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/BoardFeedBackSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreateBoardProgramList">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetCreateBoardProgramList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MyMainIntegratedSearchCount">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/MyMainIntegratedSearchCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMainNoticeContent">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetMainNoticeContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMemberInfo">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetMemberInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpMainNotice">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetHelpMainNotice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminSiteBoardDetail">
+      <soap:operation soapAction="http://tempuri.org/IIntegratedBoardService/GetAdminSiteBoardDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntegratedBoardService">
+    <wsdl:port name="BasicHttpBinding_IIntegratedBoardService" binding="tns:BasicHttpBinding_IIntegratedBoardService">
+      <soap:address location="http://localhost:8088/Admin/IntegratedBoardService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,182 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@model ListModel<T_NEWS_PRG>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsProgramCondition condition = ViewBag.Condition;
+    List<NTB_COMMON_CODE> broadTypeCodeList = ViewBag.BroadTypeCodeList;
+    List<NTB_COMMON_CODE> broadCategoryCodeList = ViewBag.BroadCategoryCodeList;
+}
+
+@section scripts{
+    
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+    </script>
+
+    <script src="@wowTvScript/BroadCast/NewsProgramManage/Index.js"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>분류</th>
+                            <td>
+                                <select class="form-control" name="BroadTypeCode">
+                                    <option value="">전체</option>
+                                    @foreach (var item in broadTypeCodeList)
+                                    {
+                                    <option value="@item.CODE_VALUE1" @(condition.BroadTypeCode == item.CODE_VALUE1  ? "selected" : "")>@item.CODE_NAME</option>
+                                    }
+                                </select>
+                            </td>
+                            <th>방송상태</th>
+                            <td>
+                                <select class="form-control" name="IngYn">
+                                    <option value="">전체</option>
+                                    <option value="Y" @(condition.IngYn == "Y" ? "selected" : "")>방영중</option>
+                                    <option value="N" @(condition.IngYn == "N" ? "selected" : "")>종영</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>게시여부</th>
+                            <td>
+                                <select class="form-control" name="PublishYn">
+                                    <option value="">전체</option>
+                                    <option value="Y" @(condition.PublishYn == "Y" ? "selected" : "")>Y</option>
+                                    <option value="N" @(condition.PublishYn == "N" ? "selected" : "")>N(작성중)</option>
+                                </select>
+                            </td>
+                            @*<th>카테고리</th>
+                            <td>
+                                <select class="form-control" name="CategoryCode">
+                                    <option value="0">전체</option>
+                                    @foreach (var item in broadCategoryCodeList)
+                                    {
+                                        <option value="@item.CODE_VALUE1" @(condition.CategoryCode == int.Parse(item.CODE_VALUE1)  ? "selected" : "")> @item.CODE_NAME</option>
+                                    }
+                                </select>
+                            </td>*@
+                            <th>과금여부</th>
+                            <td>
+                                <select class="form-control" name="PointYn">
+                                    <option value="">전체</option>
+                                    <option value="N" @(condition.PointYn == "N" ? "selected" : "")>무료</option>
+                                    <option value="Y" @(condition.PointYn == "Y" ? "selected" : "")>유료</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th rowspan="2">검색</th>
+                            <td colspan="3">
+                                <div class="form-group form-inline">
+                                    <select class="form-control" name="SearchType">
+                                        <option value="ProgramCd" @(condition.SearchType == "ProgramCd" ? "selected" : "")>ID</option>
+                                        <option value="ProgramName" @(condition.SearchType == "ProgramName" ? "selected" : "")>프로그램명</option>
+                                        @*<option value="PdName" @(condition.SearchType == "PdName" ? "selected" : "")>담당PD</option>*@
+                                    </select>
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" name="SearchText" value="@condition.SearchText">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+
+                    <input type="hidden" id="hidProgramCode" name="programCode" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table inform">
+                <div class="inner-right">
+                    <p>총 <strong class="text-color1">@Model.TotalDataCount.ToString("N0")</strong>개의 게시물이 등록되어있습니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS List -->
+            <div class="bbs-list1" id="divList">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>부모 프로그램명 (부모ID/부모요금)</th>
+                            <th></th>
+                            <th>ID</th>
+                            <th>분류</th>
+                            <th>프로그램명</th>
+                            <th>폴더명/파일명</th>
+                            <th>요금</th>
+                            <th>방송상태</th>
+                            <th>게시여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListData)
+                        {
+                        <tr>
+                            <td mergeId="mergeId_@(item.ImgSchedule.ParentProgramCode)">@item.ImgSchedule.ParentProgramName (@item.ImgSchedule.ParentProgramCode / @item.ImgSchedule.ParentProgramPoint)</td>
+                            <td><input type="checkbox" value="@item.PRG_CD"></td>
+                            <td>@item.PRG_CD</td>
+                            <td>@item.BroadTypeCodeName</td>
+                            <td><a href="#" onclick="return NewsProgramManageIndex.GoEdit('@item.PRG_CD');">@item.PRG_NM</a></td>
+                            <td>@item.ImgSchedule.folder_name / @item.ImgSchedule.file_front_name</td>
+                            <td>@item.ImgSchedule.point</td>
+                            <td>@(item.ProgramList.ING_YN == "Y" ? "방영중" : "종영")</td>
+                            <td>@(String.IsNullOrEmpty(item.PUBLISH_YN) == true || item.PUBLISH_YN == "N" ? "작성중" : "Y")</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- //BBS List -->
+            
+            <!-- Pagenate -->
+            <div class="table-responsive mt-5" id="divPaging"></div>
+            <!-- //Pagenate -->
+
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <div class="inner-left">
+                    @*<button class="btn btn-default" id="btnDelete">삭제</button>*@
+                </div>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>

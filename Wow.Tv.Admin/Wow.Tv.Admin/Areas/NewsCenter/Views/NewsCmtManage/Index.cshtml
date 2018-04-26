@@ -1,0 +1,175 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCmtManage/Index.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script>
+        var totalDataCount = @ViewBag.TotalDataCount;
+        var currentIndex = @ViewBag.Condition.CurrentIndex;
+        var pageSize = @ViewBag.Condition.PageSize;
+        var searchType = "@ViewBag.Condition.SearchType";
+        var menuSeq = @Request["menuSeq"];
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>분류</th>
+                            <td>
+                                <div class="form-inline">
+                                    <select class="form-control" name="NewsGubun">
+                                        <option value="all">전체</option>
+                                        @foreach (var item in Model.CodeList)
+                                        {
+                                            if (item.COMMON_CODE == ViewBag.Condition.NewsGubun)
+                                            {
+                                                <option value="@item.COMMON_CODE" selected>@item.CODE_NAME</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.COMMON_CODE">@item.CODE_NAME</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>검색</th>
+                            <td>
+                                <div class="form-group form-inline">
+                                    <select class="form-control" id="searchType" name="SearchType">
+                                        <option value="all">전체</option>
+                                        <option value="comment">내용</option>
+                                        <option value="regId">작성자</option>
+                                    </select>
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" id="searchText" name="SearchText" value="@ViewBag.Condition.SearchText">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="search">검색</button></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>댓글 사용여부</th>
+                            <td>
+                                <div class="inner-left">
+                                    <div class="box-notice form-inline">
+                                        <select class="form-control " name="ACTIVE_YN">
+                                            <option value="Y" @(ViewBag.activeYN != null && ViewBag.activeYN.Equals("Y") ? "selected" : "") >사용</option>
+                                            <option value="N" @(ViewBag.activeYN != null && ViewBag.activeYN.Equals("N") ? "selected" : "") >미사용</option>
+                                        </select>
+                                        <input type="hidden" name="SHOW_CODE" value="COMMENT" />
+                                        <button type="button" class="btn btn-success" id="btnSave">저장</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="pageSize" name="PageSize" value="@ViewBag.Condition.PageSize" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="0" />
+                    <input type="hidden" name="Sort" value="" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table inform">
+                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                {
+                    <div class="inner-left inform-btn">
+                        <button class="btn btn-success" id="delete">삭제</button>
+                    </div>
+                }
+                
+                <div class="inner-right inform-btn">
+                    <select class="form-control" name="pageCount">
+                        <option value="20">20개씩</option>
+                        <option value="30">30개씩</option>
+                        <option value="50">50개씩</option>
+                    </select>
+                </div>
+            </div>
+            <!-- //Table Top -->
+
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="total"></th>
+                            <th>번호</th>
+                            <th>내용</th>
+                            <th>작성자</th>
+                            <th>등록일</th>
+                            <th><button class="btn" id="openY">공개</button>/<button class="btn" id="openN">비공개</button></th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListData.Count > 0)
+                        {
+                            foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="cmtTotal" value="@item.COMMENT_SEQ"></td>
+                                    <td>@(Model.TotalDataCount - (Model.ListData.IndexOf(item) + ViewBag.Condition.CurrentIndex))</td>
+                                    <td class="text-left">
+                                        <a href="javascript:NewsCommon.linkwwwUrl('@item.ARTICLE_ID');">
+                                            <span class="text-color1"><strong>@item.Title</strong></span>
+                                        </a>
+                                        <div class="list-replyinbbs">
+                                            <ul>
+                                                <li>@item.COMMENT</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>@item.REG_ID</td>
+                                    <td>@item.REG_DATE</td>
+                                    @if (item.OPEN_YN == "Y")
+                                    {
+                                        <td><span class="icon-unlock"><button class="btn" name="OPEN_YN" id="@item.COMMENT_SEQ">공개</button></span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="icon-lock"><button class="btn" name="OPEN_YN" id="@item.COMMENT_SEQ">비공개</button></span></td>
+                                    }
+                                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                                {
+                                    <td><button class="btn btn-success" name="delete" id="@item.COMMENT_SEQ">삭제</button></td>
+                                }
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">등록된 데이터가 없습니다.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagenate -->
+            <div class="table-responsive mt-5">
+                <div id="divPaging"></div>
+            </div>
+            <!-- //Pagenate -->
+
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,320 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.editVOD
+@using Wow.Tv.Middle.Model.Db90.DNRS
+@using Wow.Tv.Middle.Model.Db90.DNRS.NewsProgram
+
+@model T_NEWS_PRG
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    NewsProgramCondition condition = ViewBag.Condition;
+    NTB_ATTACH_FILE mainFile = ViewBag.MainFile;
+    NTB_ATTACH_FILE subFile = ViewBag.SubFile;
+    NTB_ATTACH_FILE rectangleFile = ViewBag.RectangleFile;
+    NTB_ATTACH_FILE thumbnailFile = ViewBag.ThumbnailFile;
+    List<NTB_COMMON_CODE> broadTypeCodeList = ViewBag.BroadTypeCodeList;
+    List<NTB_COMMON_CODE> broadCategoryCodeList = ViewBag.BroadCategoryCodeList;
+    List<NTB_COMMON_CODE> broadSectionCodeList = ViewBag.BroadSectionCodeList;
+}
+
+@section scripts{
+    <script src="@wowTvScript/BroadCast/NewsProgramManage/Edit.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+    <div id="divPartnerSearch" class="modal fade" role="dialog"></div>
+    <div id="divAdminSearch" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<form id="frmSearch">
+    <input type="hidden" name="SearchType" value="@condition.SearchType" />
+    <input type="hidden" name="SearchText" value="@condition.SearchText">
+    <input type="hidden" name="BroadTypeCode" value="@condition.BroadTypeCode" />
+    <input type="hidden" name="IngYn" value="@condition.IngYn" />
+    <input type="hidden" name="PublishYn" value="@condition.PublishYn" />
+    <input type="hidden" name="CategoryCode" value="@condition.CategoryCode" />
+    <input type="hidden" name="PointYn" value="@condition.PointYn" />
+
+    <input type="hidden" name="currentIndex" value="@condition.CurrentIndex" />
+</form>
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+            <form id="frmSave">
+                <input type="hidden" id="programCode" name="PRG_CD" value="@Model.PRG_CD" />
+
+                <!-- Table Top -->
+                <div class="box-top-table">
+                    <div class="inner-left">
+                        <p class="text-color2">'*'표시는 필수 입력입니다.</p>
+                    </div>
+                </div>
+                <!-- //Table Top -->
+                <!-- BBS Write -->
+                <div class="bbs-write1">
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>ID</th>
+                            <td>@Model.PRG_CD</td>
+                            <th>방송구분</th>
+                            <td>
+                                <div class="form-inline">
+                                    <select class="form-control" name="BroadSectionCode">
+                                        <option value="">선택</option>
+                                        @foreach (var item in broadSectionCodeList)
+                                        {
+                                            <option value="@item.CODE_VALUE1" @(Model.BroadSectionCode == item.CODE_VALUE1 ? "selected" : "")>@item.CODE_NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>인기여부</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="FameYn" value="Y" @(String.IsNullOrEmpty(Model.FameYn) == true || Model.FameYn == "Y" ? "checked" : "")>Y</label>
+                                <label class="radio-inline"><input type="radio" name="FameYn" value="N" @(Model.FameYn == "N" ? "checked" : "")>N</label>
+                            </td>
+                            <th>인코딩</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="ENCODING" value="Auto" @(String.IsNullOrEmpty(Model.ENCODING) == true || Model.ENCODING == "Auto" ? "checked" : "")>자동</label>
+                                <label class="radio-inline"><input type="radio" name="ENCODING" value="Manual" @(Model.ENCODING == "Manual" ? "checked" : "")>수동</label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>분류</th>
+                            <td>
+                                <div class="form-inline">
+                                    <select class="form-control" name="BroadTypeCode">
+                                        <option value="">전체</option>
+                                        @foreach (var item in broadTypeCodeList)
+                                        {
+                                            <option value="@item.CODE_VALUE1" @(Model.BroadTypeCode == item.CODE_VALUE1 ? "selected" : "")>@item.CODE_NAME</option>
+                                        }
+                                    </select>
+                                    @Model.BroadTypeCodeName (@Model.BRO_START ~ @Model.BRO_END)
+                                </div>
+                            </td>
+
+                            <th>게시여부</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="Y" @(Model.PUBLISH_YN == "Y" ? "checked" : "")>Y</label>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="N" @(String.IsNullOrEmpty(Model.PUBLISH_YN) == true || Model.PUBLISH_YN == "N" ? "checked" : "")>N(작성중)</label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>방송상태</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="ProgramList.ING_YN" value="Y" @(Model.ProgramList.ING_YN == "Y" ? "checked" : "")>방송중</label>
+                                <label class="radio-inline"><input type="radio" name="ProgramList.ING_YN" value="N" @(String.IsNullOrEmpty(Model.ProgramList.ING_YN) == true || Model.ProgramList.ING_YN == "N" ? "checked" : "")>종영</label>
+                            </td>
+                            <th>기획방송</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="PLAN_BROAD" value="NONE" @(String.IsNullOrEmpty(Model.PLAN_BROAD) == true || Model.PLAN_BROAD == "NONE" ? "checked" : "")>없음</label>
+                                <label class="radio-inline"><input type="radio" name="PLAN_BROAD" value="FIRST" @(Model.PLAN_BROAD == "FIRST" ? "checked" : "")>첫방송</label>
+                                <label class="radio-inline"><input type="radio" name="PLAN_BROAD" value="OPEN" @(Model.PLAN_BROAD == "OPEN" ? "checked" : "")>개편</label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>과금설정</th>
+                            <td>
+                                <div class="form-inline">
+                                    <input type="text" class="form-control" style="width:100px;" id="txtPoint" name="ImgSchedule.point" value="@Model.ImgSchedule.point">원
+                                </div>
+                            </td>
+                            <th>1편 방송 무료</th>
+                            <td>
+                                <label><input type="checkbox" value="Y" name="FirstFreeYn" @(Model.FirstFreeYn == "Y" ? "checked" : "")> 부모&자식 1편 방송 무료 설정</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>부모 프로그램</th>
+                            <td>
+                                <input type="text" class="form-control" name="ImgSchedule.parentid" value="@Model.ImgSchedule.parentid">
+                            </td>
+                            <th></th>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>카테고리 선택</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <select class="form-control" id="cboCategoryCode1"></select>
+                                    <select class="form-control" id="cboCategoryCode2"></select>
+                                    <select class="form-control" id="cboCategoryCode3"></select>
+
+                                    <input type="hidden" id="hidCategoryCode" name="ProgramList.CATE_CODE" value="@Model.ProgramList.CATE_CODE" />
+                                    <input type="hidden" id="hidCategoryCode1" value="@Model.CategoryCode1" />
+                                    <input type="hidden" id="hidCategoryCode2" value="@Model.CategoryCode2" />
+                                    <input type="hidden" id="hidCategoryCode3" value="@Model.CategoryCode3" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>방송기간설정</th>
+                            <td colspan="3">
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="ImgSchedule.sdate" value="@Model.ImgSchedule.StartDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="ImgSchedule.edate" value="@Model.ImgSchedule.EndDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th><span class="nec">*</span>프로그램명</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" id="txtProgramName" name="PRG_NM" value="@Model.PRG_NM">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>와이드 大 이미지 (1600*534)</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="mainFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <p>@mainFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>와이드 小 이미지 (419*145)</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="subFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <p>@subFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>직사각형 이미지 (570*321)</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="rectangleFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <p>@rectangleFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>썸네일 이미지 (220*124)</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="thumbnailFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <p>@thumbnailFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>폴더이름</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" name="ImgSchedule.folder_name" value="@Model.ImgSchedule.folder_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>파일명 + 생성날짜 명명규칙</th>
+                            <td colspan="3">
+                                <input type="text" class="form-control" name="ImgSchedule.file_front_name" value="@Model.ImgSchedule.file_front_name">
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <th>내용</th>
+                            <td colspan="3" style="padding:0;height:400px">
+                                <textarea id="hidProgramCmsAuth_Intro" style="display:none;" name="ImgSchedule.prog_content">@Model.ImgSchedule.prog_content</textarea>
+                            </td>
+                        </tr>*@
+                        <tr>
+                            <th>연출1</th>
+                            <td>
+                                <input type="hidden" name="ImgSchedule.prog_content" value="@Model.ImgSchedule.prog_content">
+                                @Model.PD_NM
+                                <input type="hidden" class="form-control" name="PD_NM" value="@Model.PD_NM">
+                            </td>
+                            <th>연출2</th>
+                            <td>
+                                @Model.PD2_NM
+                                <input type="hidden" class="form-control" name="PD2_NM" value="@Model.PD2_NM">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>작가1</th>
+                            <td>
+                                @Model.TD_NM
+                                <input type="hidden" class="form-control" name="TD_NM" value="@Model.TD_NM">
+                            </td>
+                            <th>작가2</th>
+                            <td>
+                                @Model.TD2_NM
+                                <input type="hidden" class="form-control" name="TD2_NM" value="@Model.TD2_NM">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>기타</th>
+                            <td colspan="3">
+                                @Model.CP_NM
+                                <input type="hidden" class="form-control" name="CP_NM" value="@Model.CP_NM">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>파트너</th>
+                            <td colspan="3">
+                                <button class="btn btn-default" id="btnPartnerSearch">파트너</button>
+                                <ul class="list-type1" style="margin-top:10px;" id="ulPartnerList"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>관리자</th>
+                            <td colspan="3">
+                                <button class="btn btn-default" id="btnAdminSearch">관리자</button>
+                                <ul class="list-type1" style="margin-top:10px;" id="ulAdminList"></ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- //BBS Write -->
+                <!-- Bottom Buttons -->
+                <div class="box-button">
+                    @*<button class="btn btn-default" id="btnDelete">삭제</button>*@
+                    <button class="btn btn-success" id="btnSave">저장</button>
+                    <a href="#" class="btn btn-default" id="btnList">목록</a>
+                </div>
+                <!-- //Bottom Buttons -->
+            </form>
+        </div>
+
+    </div>
+</div>

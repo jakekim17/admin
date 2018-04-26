@@ -1,0 +1,95 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/MyBroadProgram/ProgramBanner/Index.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog">
+
+    </div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>등록일</th>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="StartDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" name="EndDate">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <th>게시여부</th>
+                            <td>
+                                <select class="form-control" name="PublishYn">
+                                    <option value="">선택</option>
+                                    <option value="Y">Y</option>
+                                    <option value="N">N</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>검색</th>
+                            <td colspan="3">
+                                <div class="input-group" style="width:600px">
+                                    <input class="form-control" type="text" name="BannerName">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table infrom">
+                <div class="inner-right inform-btn">
+                    <span class="text-notice1">등록된 배너는 사용자 화면에서 최대 5개까지 노출됩니다.</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-success" @*data-toggle="modal" data-target="#divEdit"*@ id="btnCreate">등록</button>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            
+            <div id="divList"></div>
+
+        </div>
+
+    </div>
+</div>

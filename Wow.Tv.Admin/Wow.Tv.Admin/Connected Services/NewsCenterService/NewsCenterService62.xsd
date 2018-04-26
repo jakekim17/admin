@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="NUP_NEWS_READ_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTICLEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ARTUPDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BYLINE_DEPT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_EMAIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_POSITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CARDNEWS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GUBUN_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMGLINK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IS_BYLINE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_PAGE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="STOCK_COUNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SUBTITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_EDITFOLDER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_IMAGE_B" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_NUM" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="WOWCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WRITER_DEPT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WRITER_ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_READ_SELECT_Result" nillable="true" type="tns:NUP_NEWS_READ_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_READ_RELATION_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_READ_RELATION_SELECT_Result" nillable="true" type="tns:NUP_NEWS_READ_RELATION_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_READ_RELATION_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_READ_RELATION_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_READ_RELATION_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AUTO_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CONDITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_NUM" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_READ_RELATION_SELECT_Result" nillable="true" type="tns:NUP_NEWS_READ_RELATION_SELECT_Result" />
+  <xs:complexType name="NTB_ARTICLE_LIKEIT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GOOD_COUNT" type="xs:int" />
+      <xs:element minOccurs="0" name="HATE_COUNT" type="xs:int" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WANT_COUNT" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_ARTICLE_LIKEIT" nillable="true" type="tns:NTB_ARTICLE_LIKEIT" />
+  <xs:complexType name="ArrayOfNUP_NEWS_PREV_NEXT_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_PREV_NEXT_SELECT_Result" nillable="true" type="tns:NUP_NEWS_PREV_NEXT_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_PREV_NEXT_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_PREV_NEXT_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_PREV_NEXT_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTICLEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NEWS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_PREV_NEXT_SELECT_Result" nillable="true" type="tns:NUP_NEWS_PREV_NEXT_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_THIS_MANY_SEE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_THIS_MANY_SEE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_THIS_MANY_SEE_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_THIS_MANY_SEE_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_THIS_MANY_SEE_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_THIS_MANY_SEE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_DIR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM" type="xs:int" />
+      <xs:element minOccurs="0" name="THUMBNAIL_FILENM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_THIS_MANY_SEE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_THIS_MANY_SEE_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_SECTION_MANY_SEE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_SECTION_MANY_SEE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_SECTION_MANY_SEE_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_SECTION_MANY_SEE_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_SECTION_MANY_SEE_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_SECTION_MANY_SEE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_DIR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="THUMBNAIL_FILENM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_NUM" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_SECTION_MANY_SEE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_SECTION_MANY_SEE_SELECT_Result" />
+  <xs:complexType name="ArrayOfArticleStock">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArticleStock" nillable="true" type="tns:ArticleStock" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArticleStock" nillable="true" type="tns:ArrayOfArticleStock" />
+  <xs:complexType name="ArticleStock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArticleDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ArticleID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArticleStock" nillable="true" type="tns:ArticleStock" />
+  <xs:complexType name="ArrayOfNUP_REPORTER_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_REPORTER_SELECT_Result" nillable="true" type="tns:NUP_REPORTER_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_REPORTER_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_REPORTER_SELECT_Result" />
+  <xs:complexType name="NUP_REPORTER_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ARTICLE_TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BLOG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BLOG_VIEW_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_NM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMAIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FACEBOOK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FACEBOOK_VIEW_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_URL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INTRODUCTION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PAGE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="POSITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TWITTER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TWITTER_VIEW_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_NM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WORD_YN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_REPORTER_SELECT_Result" nillable="true" type="tns:NUP_REPORTER_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_SECTION_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_SECTION_SELECT_Result" nillable="true" type="tns:NUP_NEWS_SECTION_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_SECTION_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_SECTION_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_SECTION_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTICLEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CONTENTS_CUT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_DIR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SECTION_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="THUMBNAIL_FILENM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_NUM" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="WOWCODE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_SECTION_SELECT_Result" nillable="true" type="tns:NUP_NEWS_SECTION_SELECT_Result" />
+  <xs:complexType name="tblNewsStandArticleManage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="artid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ordernum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="uptdate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblNewsStandArticleManage" nillable="true" type="tns:tblNewsStandArticleManage" />
+  <xs:complexType name="ArrayOfNUP_NEWSSTAND_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWSSTAND_SELECT_Result" nillable="true" type="tns:NUP_NEWSSTAND_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWSSTAND_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWSSTAND_SELECT_Result" />
+  <xs:complexType name="NUP_NEWSSTAND_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOLD_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CONTENTS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPTCD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIFF_TIME_HOUR" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="GUBUN_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GUBUN_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_DIR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_FILE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_LINK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_RRELATION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LASTT_TIME_HOUR" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LAST_TIME_MIN" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LIST_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RANK" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+      <xs:element minOccurs="0" name="THUMBNAIL_TYPE1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="THUMBNAIL_TYPE2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TMPTITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VOD_NUM" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWSSTAND_SELECT_Result" nillable="true" type="tns:NUP_NEWSSTAND_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_MAIN_MAGE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_MAIN_MAGE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_MAIN_MAGE_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_MAIN_MAGE_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_MAIN_MAGE_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_MAIN_MAGE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOLD_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPTCD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GUBUN_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LIST_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RANK" type="xs:int" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_MAIN_MAGE_SELECT_Result" nillable="true" type="tns:NUP_NEWS_MAIN_MAGE_SELECT_Result" />
+  <xs:complexType name="tblNewsStand">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="artid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rank" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="seq" type="xs:int" />
+      <xs:element minOccurs="0" name="tmpTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="udtAdminId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="udtAdminName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="udtDt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblNewsStand" nillable="true" type="tns:tblNewsStand" />
+  <xs:complexType name="ArrayOftblNewsStand">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblNewsStand" nillable="true" type="tns:tblNewsStand" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblNewsStand" nillable="true" type="tns:ArrayOftblNewsStand" />
+  <xs:complexType name="tblArticleList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArtDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ArtID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArtState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CLICKNUM" type="xs:int" />
+      <xs:element minOccurs="0" name="C_Table" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CardNews" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Contents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Contents_img" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditFolder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDX" type="xs:int" />
+      <xs:element minOccurs="0" name="IMGDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMGFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMGLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Keywords" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileClickNum" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileGoogleAnalytic" type="xs:int" />
+      <xs:element minOccurs="0" name="PcClickNum" type="xs:int" />
+      <xs:element minOccurs="0" name="PcGoogleAnalytic" type="xs:int" />
+      <xs:element minOccurs="0" name="PlanTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Thumbnail_type1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Thumbnail_type2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalClickNum" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalHtmlClickNum" type="xs:int" />
+      <xs:element minOccurs="0" name="Writer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="inputDate" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblArticleList" nillable="true" type="tns:tblArticleList" />
+  <xs:complexType name="tblRelationImage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="sImage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sParentID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblRelationImage" nillable="true" type="tns:tblRelationImage" />
+  <xs:complexType name="tblArticleCreation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArtID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeptCD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeptNM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeskID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeskNM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InsertDT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNM" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblArticleCreation" nillable="true" type="tns:tblArticleCreation" />
+  <xs:complexType name="ArrayOfNUP_NEWS_CARD_VOD_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_CARD_VOD_SELECT_Result" nillable="true" type="tns:NUP_NEWS_CARD_VOD_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_CARD_VOD_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_CARD_VOD_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_CARD_VOD_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPTCD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SECTION_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_CARD_VOD_SELECT_Result" nillable="true" type="tns:NUP_NEWS_CARD_VOD_SELECT_Result" />
+  <xs:complexType name="ArrayOfNUP_NEWS_LAND_ENTSPO_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_NEWS_LAND_ENTSPO_SELECT_Result" nillable="true" type="tns:NUP_NEWS_LAND_ENTSPO_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_NEWS_LAND_ENTSPO_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_NEWS_LAND_ENTSPO_SELECT_Result" />
+  <xs:complexType name="NUP_NEWS_LAND_ENTSPO_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTDATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ARTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOLD_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMPCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMP_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPTCD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ICON_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SECTION_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WOWCODE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_NEWS_LAND_ENTSPO_SELECT_Result" nillable="true" type="tns:NUP_NEWS_LAND_ENTSPO_SELECT_Result" />
+  <xs:complexType name="ArrayOfNTB_ARTICLE_RELATION_CONFIG">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NTB_ARTICLE_RELATION_CONFIG" nillable="true" type="tns:NTB_ARTICLE_RELATION_CONFIG" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNTB_ARTICLE_RELATION_CONFIG" nillable="true" type="tns:ArrayOfNTB_ARTICLE_RELATION_CONFIG" />
+  <xs:complexType name="NTB_ARTICLE_RELATION_CONFIG">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ARTICLE_TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AUTO_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="SHOW_CONDITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_ARTICLE_RELATION_CONFIG" nillable="true" type="tns:NTB_ARTICLE_RELATION_CONFIG" />
+  <xs:complexType name="NTB_ARTICLE_SHOW_CONFIG">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ACTIVE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AUTO_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEPT_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CONDITION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_ARTICLE_SHOW_CONFIG" nillable="true" type="tns:NTB_ARTICLE_SHOW_CONFIG" />
+  <xs:complexType name="ArrayOfNTB_ARTICLE_SHOW_NUM">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NTB_ARTICLE_SHOW_NUM" nillable="true" type="tns:NTB_ARTICLE_SHOW_NUM" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNTB_ARTICLE_SHOW_NUM" nillable="true" type="tns:ArrayOfNTB_ARTICLE_SHOW_NUM" />
+  <xs:complexType name="NTB_ARTICLE_SHOW_NUM">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOLD_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHOW_NUM" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_ARTICLE_SHOW_NUM" nillable="true" type="tns:NTB_ARTICLE_SHOW_NUM" />
+  <xs:complexType name="ArrayOftblPlanArticle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblPlanArticle" nillable="true" type="tns:tblPlanArticle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblPlanArticle" nillable="true" type="tns:ArrayOftblPlanArticle" />
+  <xs:complexType name="tblPlanArticle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CLASS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COLUMNLIST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEL_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EXTRACTION_TEXT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMG_BANN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMG_HOTISSUE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMG_LIST" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMG_MAIN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMG_NEWS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ORDERN" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ORDERN_HOT" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ORDERN_HOT_ARTICLE" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ORDERN_SERIES" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ORDERN_STORYBANK" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ORDERN_THEME" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="REG_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REMRK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REVISE_TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="TITLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UP_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VIEW_FLAG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VW_FROM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VW_TO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblPlanArticle" nillable="true" type="tns:tblPlanArticle" />
+  <xs:complexType name="ArrayOfNTB_ARTICLE_VIEWPAGE_MANAGE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NTB_ARTICLE_VIEWPAGE_MANAGE" nillable="true" type="tns:NTB_ARTICLE_VIEWPAGE_MANAGE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNTB_ARTICLE_VIEWPAGE_MANAGE" nillable="true" type="tns:ArrayOfNTB_ARTICLE_VIEWPAGE_MANAGE" />
+  <xs:complexType name="NTB_ARTICLE_VIEWPAGE_MANAGE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CHANNEL_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LIKE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MENU_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MENU_SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RECOM_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SNS_PR_YN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_ARTICLE_VIEWPAGE_MANAGE" nillable="true" type="tns:NTB_ARTICLE_VIEWPAGE_MANAGE" />
+  <xs:complexType name="ArrayOfNUP_REPORTER_MANAGE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_REPORTER_MANAGE_SELECT_Result" nillable="true" type="tns:NUP_REPORTER_MANAGE_SELECT_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_REPORTER_MANAGE_SELECT_Result" nillable="true" type="tns:ArrayOfNUP_REPORTER_MANAGE_SELECT_Result" />
+  <xs:complexType name="NUP_REPORTER_MANAGE_SELECT_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArticleCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BYLINE_DEPT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_GROUP_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_POSITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClickCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DEPT_NM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ING_PAGE_COUNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PAGE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_GUBUN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ROWCNT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ROWNUM" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="RecommendCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SEQ" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SubscriptionCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="USER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_NM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WORD_YN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_REPORTER_MANAGE_SELECT_Result" nillable="true" type="tns:NUP_REPORTER_MANAGE_SELECT_Result" />
+  <xs:complexType name="NTB_REPORTER_MANAGE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BYLINE_DEPT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_GROUP_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BYLINE_POSITION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PAGE_YN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_GUBUN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REPORTER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="USER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WORD_YN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NTB_REPORTER_MANAGE" nillable="true" type="tns:NTB_REPORTER_MANAGE" />
+  <xs:complexType name="ArrayOfArticleClass_Hanatour">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArticleClass_Hanatour" nillable="true" type="tns:ArticleClass_Hanatour" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArticleClass_Hanatour" nillable="true" type="tns:ArrayOfArticleClass_Hanatour" />
+  <xs:complexType name="ArticleClass_Hanatour">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArticleDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ArticleID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Category" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Contents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Link1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Link2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tags" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Writer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="thumbnail" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArticleClass_Hanatour" nillable="true" type="tns:ArticleClass_Hanatour" />
+</xs:schema>

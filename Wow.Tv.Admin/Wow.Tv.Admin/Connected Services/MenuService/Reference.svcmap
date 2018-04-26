@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="84ced655-e8af-4369-9a93-8321ed1e936a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/Menu/MenuService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MenuService1.disco" MetadataType="Disco" ID="12523738-cbbc-4921-8eef-7a61884bb7c2" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?disco" />
+    <MetadataFile FileName="MenuService6.xsd" MetadataType="Schema" ID="d9994f93-59b4-471d-82b5-e91c06b39376" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MenuService61.xsd" MetadataType="Schema" ID="2c93a416-f9a4-479e-a060-8bc4d2ffd780" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MenuService62.xsd" MetadataType="Schema" ID="19178f3d-0d33-402f-969b-f3c9a4ae4c70" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MenuService63.xsd" MetadataType="Schema" ID="29734a62-b430-4217-a0db-e5474b3ace2d" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd5" />
+    <MetadataFile FileName="MenuService64.xsd" MetadataType="Schema" ID="90c78fec-d5cb-480b-aa4c-1119825fc023" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd4" />
+    <MetadataFile FileName="MenuService65.xsd" MetadataType="Schema" ID="8fc23d59-f75e-42d6-8cd7-8c96ca945e83" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MenuService1.wsdl" MetadataType="Wsdl" ID="4db75124-cd9a-4ea5-aff2-a9c0bbd8e68d" SourceId="1" SourceUrl="http://localhost:8088/Menu/MenuService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,64 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model  NTB_HARD_CODING_AD
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsAdManage/HardCodingAdEdit.js"></script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="col-md-12">
+    <!-- Start body content -->
+    <div class="app-ui-section group mt-10">
+        <!-- 전체100% -->
+        <form id="frmAdd" name="frmAdd" method="post" onsubmit="return false;">
+        <table class="table_colRow">
+            <colgroup>
+                <col width="15%">
+                <col width="*">
+            </colgroup>
+            <tbody>
+                <tr class="noback">
+                    <th>광고명</th>
+                    <td colspan="3">
+                        <input type="hidden" class="form-control" name="seq" id="seq" value="@Model.SEQ">
+                        <input type="text" class="form-control" name="adTitle" id="adTitle" value="@Model.AD_TITLE" maxlength="100">                        
+                    </td>
+                <tr class="noback">
+                    <th>구분</th>
+                    <td colspan="3">
+                        <div class="input-group fl-l col-md-3 mr-10">
+                            <select class="form-control " name="adGubun" id="adGubun">
+                                <option value="">선택</option>
+                                <option value="PC" @(Model.AD_GUBUN != null && Model.AD_GUBUN.Equals("PC") ? "selected" : "")>PC</option>
+                                <option value="MOBILE" @(Model.AD_GUBUN != null && Model.AD_GUBUN.Equals("MOBILE") ? "selected" : "")>MOBILE</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="noback">
+                    <th>내용</th>
+                    <td colspan="3">
+                        <textarea class="form-control" rows="10" id="adContent" name="adContent" >@Model.AD_CONTENT</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+        <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+            @if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+            {
+                <button class="btn btn-success" id="btnSave">저장</button>
+            }
+            &nbsp; <button class="btn btn-default mr-5" id="btnList">목록</button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+

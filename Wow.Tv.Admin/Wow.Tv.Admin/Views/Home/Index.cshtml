@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+
+@section scripts{
+    <script src="@wowTvScript/Home/Index.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div id="divQna"></div>
+                    <div id="divReport"></div>
+                    <div id="divBroadBoard"></div>
+                    <div id="divLecture"></div>
+
+                </div>
+                <div class="col-md-6">
+                    <div id="divIrQnA"></div>
+                    <div id="divGoogleStatistics"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

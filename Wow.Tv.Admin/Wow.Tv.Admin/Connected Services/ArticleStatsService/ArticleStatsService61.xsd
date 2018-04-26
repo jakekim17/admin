@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db89.wowbill" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="PresentMember">
+    <xs:sequence>
+      <xs:element name="_x003C_JoinMember_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_QuitMember_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_TotalMember_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_WebToonMember_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PresentMember" nillable="true" type="tns:PresentMember" />
+</xs:schema>

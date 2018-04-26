@@ -1,0 +1,166 @@
+﻿
+@{
+    Layout = null;
+}
+<script>
+    var marketDt = "@Model.MARKET_DT";
+
+    if (marketDt != "") {
+        $('select[name="MARKET_STA_H"]').val('@Model.MARKET_STA_H').attr('seleted', true);
+        $('select[name="MARKET_STA_M"]').val('@Model.MARKET_STA_M').attr('seleted', true);
+        $('select[name="MARKET_END_H"]').val('@Model.MARKET_END_H').attr('seleted', true);
+        $('select[name="MARKET_END_M"]').val('@Model.MARKET_END_M').attr('seleted', true);
+        $('select[name="HOLIDAY_CD"]').val('@Model.HOLIDAY_CD').attr('seleted', true);
+        $('select[name="HOLY_YN"]').val('@Model.HOLY_YN').attr('seleted', true);
+    }
+
+</script>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">휴일 등록(수정) 팝업</h4>
+        </div>
+        <div class="modal-body">
+            <div class="bbs-view1">
+                <font class="f-red">*</font>표시는 필수 입력입니다.
+                <form id="frmSaveTime">
+                    <table class="table">
+                        <colgroup>
+                            <col width="25%">
+                            <col width="*">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th><font class="f-red">*</font>년 월 일</th>
+                                <td>
+                                    <div class="input-group date">
+                                        @{ 
+                                            var marketDt = "";
+                                            if(Model.MARKET_DT != null && Model.MARKET_DT.Length > 5)
+                                            {
+                                                marketDt = Model.MARKET_DT.Substring(0, 4) + "-" + Model.MARKET_DT.Substring(4, 2) + "-" + Model.MARKET_DT.Substring(6, 2);
+                                            }
+                                        }
+                                        <input type="text" class="form-control" name="MARKET_DT" value="@marketDt" id="txtDate">
+                                        <span id="datePicker" class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            @if (ViewBag.Gubun == "S")
+                            {
+                                <tr>
+                                    <th><font class="f-red">*</font>장시작시간</th>
+                                    <td class="form-inline">
+                                        <select class="form-control" name="MARKET_STA_H">
+                                            @for (int i = 0; i <= 23; i++)
+                                            {
+                                                if (i < 10)
+                                                {
+                                                    string val = "0" + i;
+                                                    <option value="@val">@val</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                        :
+                                        <select class="form-control" name="MARKET_STA_M">
+                                            @for (int i = 0; i <= 55; i = i + 5)
+                                            {
+                                                if (i < 10)
+                                                {
+                                                    string val = "0" + i;
+                                                    <option value="@val">@val</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><font class="f-red">*</font>장마감시간</th>
+                                    <td class="form-inline">
+                                        <select class="form-control" name="MARKET_END_H">
+                                            @for (int i = 0; i <= 23; i++)
+                                            {
+                                                if (i < 10)
+                                                {
+                                                    string val = "0" + i;
+                                                    <option value="@val">@val</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                        :
+                                        <select class="form-control" name="MARKET_END_M">
+                                            @for (int i = 0; i <= 55; i = i + 5)
+                                            {
+                                                if (i < 10)
+                                                {
+                                                    string val = "0" + i;
+                                                    <option value="@val">@val</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <th><font class="f-red">*</font>휴일구분</th>
+                                <td class="form-inline">
+                                    <select class="form-control" name="HOLIDAY_CD">
+                                        <option value="">선택</option>
+                                        <option value="01">법정공휴일</option>
+                                        <option value="02">대체공휴일</option>
+                                        <option value="03">임시공휴일</option>
+                                        <option value="04">기타</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>사용여부</th>
+                                <td class="form-inline">
+                                    <select class="form-control" name="HOLY_YN">
+                                        <option value="">선택</option>
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>설명</th>
+                                <td><input type="text" class="form-control" name="MARKET_HOLY_DESC" value="@Model.MARKET_HOLY_DESC"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="GUBUN" value="@ViewBag.Gubun" />
+                    <input type="hidden" name="MARKET_SEQ" value="@Model.MARKET_SEQ" />
+                </form>
+            </div>
+            <!-- Button Box -->
+            <div class="box-button">
+                <button class="btn btn-success" type="button" id="btnSaveTime">등록(수정)</button>
+                <button class="btn btn-default btnCloseModal" type="button" data-dismiss="modal">닫기</button>
+            </div>
+            <!-- //Button Box -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btnCloseModal" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>

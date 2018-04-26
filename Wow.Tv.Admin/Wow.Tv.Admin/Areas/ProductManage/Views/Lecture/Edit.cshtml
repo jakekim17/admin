@@ -1,0 +1,504 @@
+﻿@{ 
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{ 
+    <script src="@wowTvScript/ProductManage/Lecture/Edit.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+
+    <script>
+        var mainCTGR = "@Model.LectureData.MAIN_CTGR";
+        var typeFlag = "@Model.LectureData.TYPE_FLAG";
+        var viewSite = "@Model.LectureData.VIEW_SITE";
+        var method = "@Model.LectureData.METHOD";
+        var expense = @Model.LectureData.EXPENSE;
+        var ScheduleCnt = @ViewBag.ScheTotalCount;
+        var partnerList = @Html.Raw(Json.Encode(@ViewBag.PartnerList));
+        var existImg = "@Model.LectureData.WG_IMAGE_FILE";
+    </script>
+}
+
+@section modalDiv{
+    <div id="naverMap" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">강연회 장소</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="txtAddress"></p>
+                    <form class="form-horizontal rounded shadow no-overflow" action="#">
+                        <div class="sign-body">
+                            <div id="map" style="width:100%;height:500px;"></div>
+                        </div>
+                        <p>* 동일 기업이라도 타지역 채용의 경우, 회사 주소와 인근 지하철 정보가 상이할 수 있습니다.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<form id="frm">
+    <input type="hidden" name="ViewSite" value="@ViewBag.Condition.ViewSite" />
+    <input type="hidden" name="MainCtgr" value="@ViewBag.Condition.MainCtgr" />
+    <input type="hidden" name="TypeFlag" value="@ViewBag.Condition.TypeFlag" />
+    <input type="hidden" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="CurrentIndex" name="CurrentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+</form>
+
+<div class="body-content animated fadeIn">
+    <div class="col-md-12">
+        <form id="frmAdd">
+            <input type="hidden" name="LectureData.SEQ" value="@Model.LectureData.SEQ" />
+            <!-- Start body content -->
+            <div class="app-ui-section group mt-10">
+                <!-- 전체100% -->
+                <table class="table_colRow">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                    </colgroup>
+                    <tbody>
+                        <tr class="noback">
+                            <th><font class="f-red">*</font> 사이트구분</th>
+                            <td colspan="3">
+                                <input type="radio" name="LectureData.VIEW_SITE" value="T" class="h-33">한국경제TV
+                                <input type="radio" name="LectureData.VIEW_SITE" value="N" class="h-33 marL-30">와우넷
+                                <input type="radio" name="LectureData.VIEW_SITE" value="F" class="h-33 marL-30">와우파
+                                <input type="radio" name="LectureData.VIEW_SITE" value="S" class="h-33 marL-30">와우스타
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th><font class="f-red">*</font> 제목</th>
+                            <td colspan="3"><input type="text" name="LectureData.TITLE" class="form-control" value="@Model.LectureData.TITLE"></td>
+                        </tr>
+                        <tr class="noback">
+                            <th><font class="f-red">*</font> 대분류</th>
+                            <td>
+                                @if (Model.LectureData.MAIN_CTGR != null)
+                                {
+                                    if (Model.LectureData.MAIN_CTGR == "E")
+                                    {
+                                        <input type="radio" name="LectureData.MAIN_CTGR" value="S" class="h-33">@: 주식
+                                        <input type="radio" name="LectureData.MAIN_CTGR" value="E" class="h-33 marL-30" checked>@: 행사
+                                    }
+                                    else if(Model.LectureData.MAIN_CTGR == "S")
+                                    {
+                                        <input type="radio" name="LectureData.MAIN_CTGR" value="S" class="h-33" checked>@: 주식
+                                        <input type="radio" name="LectureData.MAIN_CTGR" value="E" class="h-33 marL-30">@: 행사
+                                    }
+
+                                }
+                                else
+                                {
+                                    <input type="radio" name="LectureData.MAIN_CTGR" value="S" class="h-33">@: 주식
+                                    <input type="radio" name="LectureData.MAIN_CTGR" value="E" class="h-33 marL-30">@: 행사
+                                }
+                            </td>
+                            <th><font class="f-red">*</font>구분</th>
+                            <td>
+                                <div class="input-group">
+                                    <select class="form-control" name="LectureData.TYPE_FLAG">
+                                        <option value="">구분</option>
+                                        <option value="L">강연회</option>
+                                        <option value="E">행사안내</option>
+                                        <option value="A">증권교육</option>
+                                        <option value="G">원고강연회</option>
+                                        <option value="O">해외투자</option>
+                                        <option value="P">부동산</option>
+                                        <option value="W">와우스타</option>
+                                        <option value="S">주식창</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>게시여부</th>
+                            <td>
+                                @if (Model.LectureData.VIEW_FLAG != null && Model.LectureData.VIEW_FLAG == "Y")
+                                {
+                                    <input type="radio" name="LectureData.VIEW_FLAG" value="Y" class="h-33" checked>@: Y
+                                    <input type="radio" name="LectureData.VIEW_FLAG" value="N" class="h-33 marL-30">@: N
+                                }
+                                else
+                                {
+                                    <input type="radio" name="LectureData.VIEW_FLAG" value="Y" class="h-33">@: Y
+                                    <input type="radio" name="LectureData.VIEW_FLAG" value="N" class="h-33 marL-30" checked>@: N
+                                }
+                            </td>
+                            <th>등록일</th>
+                            <td>@Model.LectureData.REG_DATE</td>
+                        </tr>
+                        <tr class="noback">
+                            <th>썸네일(와우넷)</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                        <span id="txtFileWownet" class="fileinput-filename">@Model.LectureData.WG_IMAGE_FILE</span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-success btn-file">
+                                        <span class="fileinput-new btnFilenew">파일선택</span>
+                                        <span class="fileinput-exists btnFileRe">다시선택</span>
+                                        <input type="file" id="fileWownet" name="fileWownet">
+                                    </span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <img src="" alt="" style="width:300px;height:auto">
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>썸네일</th>
+                            <td colspan="3">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                        <span id="txtFileThumnail" class="fileinput-filename">@Model.LectureData.THUMNAIL_FILE</span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-success btn-file">
+                                        <span class="fileinput-new btnFilenew">파일선택</span>
+                                        <span class="fileinput-exists btnFileRe">다시선택</span>
+                                        <input type="file" id="fileThumnail" name="fileThumnail">
+                                    </span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <img src="" alt="" style="width:300px;height:auto">
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>참가비</th>
+                            <td>
+                                <div class="form-inline">
+                                    <input type="radio" name="expenseRadio" value="F" class="h-33">무료
+                                    <input type="radio" name="expenseRadio" value="C" class="h-33 marL-30">유료
+                                    <input type="text" class="form-control" name="LectureData.EXPENSE" value="@Model.LectureData.EXPENSE">
+                                </div>
+                            </td>
+                            <th>온라인신청</th>
+                            <td>
+                                <input type="radio" name="LectureData.METHOD" value="A" class="h-33">회원+비회원
+                                <input type="radio" name="LectureData.METHOD" value="B" class="h-33 marL-30">회원
+                                <input type="radio" name="LectureData.METHOD" value="C" class="h-33 marL-30">미노출
+                            </td>
+                        </tr>
+                        <tr class="noback">
+                            <th>담당자</th>
+                            <td>
+                                <input type="text" class="form-control" name="LectureData.MANAGER" value="@Model.LectureData.MANAGER">
+                            </td>
+                            <th>안내전화</th>
+                            <td>
+                                <input type="text" class="form-control" name="LectureData.PHONE" value="@Model.LectureData.PHONE">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding:0;height:400px;">
+                                <textarea id="editor" name="LectureData.CONTENTS" style="display: none;">@Model.LectureData.CONTENTS</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-body row">
+                <div class="panel-heading bord-b-1">
+                    <h3 class="panel-title font-bold">일정정보</h3>
+                </div><!-- /.panel-heading -->
+            </div>
+            <!-- Start body content -->
+            <div class="app-ui-section group mt-10">
+                <!-- 전체100% -->
+                <table class="table_colRow">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr class="noback">
+                            <th>일정갯수</th>
+                            <td>
+                                <input type="text" class="form-control" value="@ViewBag.ScheTotalCount" id="txtSchduleCnt">
+                            </td>
+                            <th>주소동일여부</th>
+                            <td>
+                                <label><input type="checkbox" value="option1" id="checkPlace"> 일정1과 동일</label>
+                            </td>
+                            <th>강사동일여부</th>
+                            <td>
+                                <label><input type="checkbox" value="option1" id="checkLec"> 일정1과 동일</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="wrap">
+                <!-- 전체100% -->
+                <div class="box-top-table">
+                    <div class="inner-right">
+                        <button type="button" id="btnScheduleCfm" class="btn btn-success">일정생성</button>
+                        <button type="button" id="btnEquSchedule" class="btn btn-success">일정1과 동기화</button>
+                    </div>
+                </div>
+            </div>
+            @if (Model.ScheduleList.Count == 0)
+            {
+            <!-- Start body content -->
+                <div class="app-ui-section group mt-10">
+                    <!-- 전체100% -->
+                    <table class="table_colRow tableSch" id="tableSch_0">
+                        <colgroup>
+                            <col width="15%">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr class="noback">
+                                <th><font class="f-red">*</font> 일정1</th>
+                                <td>
+                                    <input type="hidden" name="ScheduleList[0].SEQ" />
+                                    <div class=" col-md-12">
+                                        <div class="input-group fl-l col-md-5 mr-10" style="width:210px">
+                                            <input type="text" class="form-control txtDate" name="ScheduleList[0].LECTURES_DATE" />
+                                            <span class="input-group-addon dtDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                        </div>
+                                        <div class="input-group form-inline fl-l col-md-4 mr-10" style="width:210px">
+                                            <input type="text" class="form-control" name="ScheduleList[0].LECTURES_TIME">
+                                        </div>
+                                        <div class="input-group form-inline fl-l col-md-2" style="margin-top:5px">
+                                            (예 : 2017-01-01 15:00)
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="noback">
+                                <th>강사</th>
+                                <td class="tdLec" id="tdLec_0">
+                                    <div class="col-md-12" style="margin-bottom:5px;">
+                                        <input type="hidden" name="ScheduleList[0].LecturerList[0].SEQ" class="lecSeq" />
+                                        <div class="input-group fl-l col-md-3 mr-10">
+                                            <select class="form-control selLectype" name="ScheduleList[0].LecturerList[0].LECTURER_TYPE">
+                                                <option value="G">일반강사</option>
+                                                <option value="P">파트너</option>
+                                                <option value="N">강사없음</option>
+                                            </select>
+                                        </div>
+                                        <div class="divLec">
+                                            <div class="input-group form-inline fl-l col-md-4 mr-10">
+                                                <input type="text" name="ScheduleList[0].LecturerList[0].LECTURER" class="form-control txtLec">
+                                            </div>
+                                        </div>
+                                        <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                                            <button type="button" class="btn btn-default mr-10 btnLectypeAdd">추가</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="noback">
+                                <th>주소</th>
+                                <td>
+                                    <div class="col-md-12">
+                                        <div class="input-group form-inline fl-l col-md-4 mr-10 divPlace">
+                                            <input type="text" class="form-control txtPlace" name="ScheduleList[0].PLACE">
+                                        </div>
+                                        <div class="input-group form-inline fl-l col-md-2">
+                                            <button type="button" class="btn btn-success btnModal">네이버지도 보기</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="noback">
+                                <th>기타</th>
+                                <td>
+                                    <textarea class="txtarea" name="ScheduleList[0].ETC" cols="30" rows="10"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                for (var i = 0; i < ViewBag.ScheTotalCount; i++)
+                {
+                    var txtArea = "";
+                    <!-- Start body content -->
+                    <div class="app-ui-section group mt-10">
+                        <!-- 전체100% -->
+                        <table class="table_colRow tableSch" id="tableSch_@i">
+                            <colgroup>
+                                <col width="15%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr class="noback">
+                                    <th><font class="f-red">*</font> 일정 @(i + 1)</th>
+                                    <td>
+                                        <input type="hidden" name="ScheduleList[@i].SEQ" value="@Model.ScheduleList[i].SEQ" class="schSeq" />
+                                        <div class=" col-md-12">
+                                            <div class="input-group fl-l col-md-5 mr-10" style="width:210px">
+                                                <input type="text" class="form-control txtDate" name="ScheduleList[@i].LECTURES_DATE" value="@Model.ScheduleList[i].LECTURES_DATE" />
+                                                <span class="input-group-addon dtDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                            </div>
+                                            <div class="input-group form-inline fl-l col-md-4 mr-10" style="width:210px">
+                                                <input type="text" class="form-control" name="ScheduleList[@i].LECTURES_TIME" value="@Model.ScheduleList[i].LECTURES_TIME" />
+                                            </div>
+                                            <div class="input-group form-inline fl-l col-md-2" style="margin-top:5px">
+                                                (예 : 2017-01-01 15:00)
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="noback">
+                                    <th>강사</th>
+                                    <td class="tdLec" id="tdLec_@i">
+                                        @if (Model.ScheduleList[i].LecturerList != null && Model.ScheduleList[i].LecturerList.Count > 0)
+                                        {
+                                            for (int j = 0; j < Model.ScheduleList[i].LecturerList.Count; j++)
+                                            {
+                                                <div class="col-md-12" style="margin-bottom:5px;">
+                                                    <input type="hidden" name="ScheduleList[@i].LecturerList[@j].SEQ" value="@Model.ScheduleList[i].LecturerList[j].SEQ" class="lecSeq" />
+                                                    <div class="input-group fl-l col-md-3 mr-10">
+                                                        <select class="form-control selLectype" name="ScheduleList[@i].LecturerList[@j].LECTURER_TYPE">
+                                                            @if (Model.ScheduleList[i].LecturerList[j].LECTURER_TYPE == "G")
+                                                            {
+                                                                <option value="G" selected>일반강사</option>
+                                                                <option value="P">파트너</option>
+                                                                <option value="N">강사없음</option>
+                                                            }
+                                                            else if (Model.ScheduleList[i].LecturerList[j].LECTURER_TYPE == "P")
+                                                            {
+                                                                <option value="G">일반강사</option>
+                                                                <option value="P" selected>파트너</option>
+                                                                <option value="N">강사없음</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="G">일반강사</option>
+                                                                <option value="P">파트너</option>
+                                                                <option value="N" selected>강사없음</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="divLec">
+                                                        @if (Model.ScheduleList[i].LecturerList[j].LECTURER_TYPE == "G" || Model.ScheduleList[i].LecturerList[j].LECTURER_TYPE == null)
+                                                        {
+                                                            <div class="input-group form-inline fl-l col-md-4 mr-10">
+                                                                <input type="text" name="ScheduleList[@i].LecturerList[@j].LECTURER" value="@Model.ScheduleList[i].LecturerList[j].LECTURER" class="form-control txtLec">
+                                                            </div>
+                                                        }
+                                                        else if (Model.ScheduleList[i].LecturerList[j].LECTURER_TYPE == "P")
+                                                        {
+                                                            <div class="input-group fl-l col-md-3">
+                                                                <select class="form-control selPartner" name="ScheduleList[@i].LecturerList[@j].PARTNER_NO">
+                                                                    <option value="">파트너 선택</option>
+                                                                    @foreach (var item in ViewBag.PartnerList)
+                                                                    {
+                                                                        if (item.Pay_no == Model.ScheduleList[i].LecturerList[j].PARTNER_NO)
+                                                                        {
+                                                                            <option value="@item.Pay_no" selected>@item.NickName</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@item.Pay_no">@item.NickName</option>
+                                                                        }
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    @if (j == Model.ScheduleList[i].LecturerList.Count - 1)
+                                                    {
+                                                        if (j == 0)
+                                                        {
+                                                            <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                                                                <button type="button" class="btn btn-success btnLectypeAdd">추가</button>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                                                                <button class="btn btn-default mr-10 btnLectypeDel">삭제</button>
+                                                                <button type="button" class="btn btn-success btnLectypeAdd">추가</button>
+                                                            </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (j != 0)
+                                                        {
+                                                            <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                                                                <button class="btn btn-default mr-10 btnLectypeDel">삭제</button>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-12" style="margin-bottom:5px;">
+                                                <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                                                    <button type="button" class="btn btn-success btnLectypeAdd">추가</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr class="noback">
+                                    <th>주소</th>
+                                    <td>
+                                        <div class="col-md-12">
+                                            <div class="input-group form-inline fl-l col-md-4 mr-10 divPlace">
+                                                <input type="text" class="form-control txtPlace" name="ScheduleList[@i].PLACE" value="@Model.ScheduleList[i].PLACE">
+                                            </div>
+                                            <div class="input-group form-inline fl-l col-md-2">
+                                                <button type="button" class="btn btn-success btnModal">네이버지도 보기</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="noback">
+                                    <th>기타</th>
+                                    <td>
+                                        @if(@Model.ScheduleList[i].ETC != null)
+                                        {
+                                            txtArea = @Model.ScheduleList[i].ETC.Replace("<br/>", "\r\n");
+                                        }
+                                        <textarea class="txtarea" name="ScheduleList[@i].ETC" cols="30" rows="10">@txtArea</textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </form>
+    </div>
+    <div class="form-footer">
+        <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+            {
+                <button type="button" class="btn btn-success" id="btnAdd">저장</button>
+            }
+            <button type="button" class="btn btn-default mr-5" id="btnGoIndex">목록</button>
+            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+            {
+                if (Model.LectureData.SEQ > 0)
+                {
+                    <button type="button" class="btn btn-default mr-5" id="btnDelete">삭제</button>
+                }
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- /.form-footer -->
+</div>

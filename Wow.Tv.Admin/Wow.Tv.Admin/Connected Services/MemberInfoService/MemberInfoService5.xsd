@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Biz.Member" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Biz.Member" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="MemberGradeModel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GoldPlus" />
+      <xs:enumeration value="Gold" />
+      <xs:enumeration value="Free" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MemberGradeModel" nillable="true" type="tns:MemberGradeModel" />
+  <xs:complexType name="TvReplayAuthorityInfoModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MemberGrade" type="tns:MemberGradeModel" />
+      <xs:element minOccurs="0" name="PointPaid" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PriceId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserInfoExist" type="xs:boolean" />
+      <xs:element minOccurs="0" name="WowCash" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TvReplayAuthorityInfoModel" nillable="true" type="tns:TvReplayAuthorityInfoModel" />
+  <xs:complexType name="TvReplayPaymentByPointModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LowBalance" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PaymentSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UserInfoExist" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TvReplayPaymentByPointModel" nillable="true" type="tns:TvReplayPaymentByPointModel" />
+</xs:schema>

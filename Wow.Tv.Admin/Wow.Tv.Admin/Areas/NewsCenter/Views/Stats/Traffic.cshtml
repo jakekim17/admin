@@ -1,0 +1,34 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@model Wow.Tv.Middle.Model.Common.ListModel<NUP_ARTICLE_SELECT_Result>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    string assetsUrl = AppState["AssetsUrl"].ToString();
+}
+
+@section scripts{
+    <link rel="stylesheet" href="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/css/bootstrap-datepicker3.min.css">
+    <script type="text/javascript" src="@assetsUrl/global/plugins/bower_components/bootstrap-datepicker-vitalets/js/bootstrap-datepicker.min.js"></script>
+    <script src="@assetsUrl/admin/js/design.js" charset="UTF-8"></script>
+    <script src="@wowTvScript/jquery.blockUI.js"></script>
+    <script src="@wowTvScript/NewsCenter/Stats/Traffic.js"></script>
+}
+
+<input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" /> 
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Contain Tab -->
+            <div class="contain-tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tabOpinion1" id="tabOpinion1"  aria-controls="tabOpinion1" role="tab" data-toggle="tab">프리랜서 트래픽</a></li>
+                    <li role="presentation"><a href="#tabOpinion2" id="tabOpinion2" aria-controls="tabOpinion2" role="tab" data-toggle="tab">기사 제공사 트래픽</a></li>
+                </ul>
+            </div>
+            <!-- //Contain Tab -->
+            <div id="divTabContent"></div>
+        </div>
+    </div>
+</div>

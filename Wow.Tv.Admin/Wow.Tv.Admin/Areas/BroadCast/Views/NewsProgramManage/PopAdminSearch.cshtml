@@ -1,0 +1,102 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    List<NTB_GROUP> groupList = ViewBag.GroupList;
+    List<NTB_COMMON_CODE> partList = ViewBag.PartCodeList;
+}
+
+@{
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/BroadCast/NewsProgramManage/PopAdminSearch.js?date=20170727163009"></script>
+
+
+<div class="modal-dialog profes-id">
+
+    <!-- Modal content-->
+    <div class="modal-content" style="width:700px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">전문가 정보</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+
+                <form id="divSearchAdmin_frmSearch">
+
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>그룹</th>
+                            <td>
+                                <div class="input-group">
+                                    <select class="form-control" name="GroupSeq">
+                                        <option value="">전체</option>
+                                        @foreach (var item in groupList)
+                                        {
+                                            <option value="@item.GROUP_SEQ">@item.GROUP_NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                            <th>부서</th>
+                            <td>
+                                <div class="input-group">
+                                    <select class="form-control" name="PartCode">
+                                        <option value="">전체</option>
+                                        @foreach (var item in partList)
+                                        {
+                                            <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>검색</th>
+                            <td colspan="3">
+                                <div class="input-group col-md-3 fl-l pad-r10">
+                                    <select class="form-control " name="SearchType">
+                                        <option value="All">전체</option>
+                                        <option value="Name">이름</option>
+                                        <option value="Id">아이디</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="SearchText">
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default" id="divSearchAdmin_btnSearch">검색</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <input type="hidden" id="divSearchAdmin_pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="divSearchAdmin_currentIndex" name="currentIndex" />
+                </form>
+            </div>
+            <!-- //Global Search -->
+
+            <div id="divSearchAdmin_divList"></div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+
+
+

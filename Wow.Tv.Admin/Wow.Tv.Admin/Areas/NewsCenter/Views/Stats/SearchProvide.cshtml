@@ -1,0 +1,56 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@model IList<NUP_ARTICLE_PROVIDE_SELECT_Result>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+<div class="bbs-list1">
+    <table class="table collapse-table">
+        <thead>
+        <tr>
+            <th>기사 제공사</th>
+            <th>최초 시작일</th>
+            <th>총 뉴스 생산량</th>
+            <th>기간별 조회수/뉴스 생산량</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (ViewBag.TotalDataCount == 0)
+        {
+
+            <tr>
+                <td colspan="4" style="height: 400px">등록된 데이터가 없습니다.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.WRITER</td>
+                    <td>@item.ARTDATE.Value.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (item.TOTAL_ARTICLE_COUNT != null)
+                        {
+                            @($"{item.TOTAL_ARTICLE_COUNT.Value:n0}")
+                        }
+                    </td>
+                    <td>
+                        @if (item.TERM_COUNT != null && item.NEWS_MAKE_COUNT != null)
+                        {
+                            @($"{item.TERM_COUNT.Value:n0} / {item.NEWS_MAKE_COUNT.Value:n0}")
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

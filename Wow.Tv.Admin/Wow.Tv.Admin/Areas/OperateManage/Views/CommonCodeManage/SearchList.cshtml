@@ -1,0 +1,41 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model List<NTB_COMMON_CODE>
+
+@{
+    Layout = null;
+
+    string upCode = ViewBag.UpCommonCode;
+    if(upCode == null)
+    {
+        upCode = "";
+    }
+}
+
+<div class="panel-heading bord-b-1">
+    <div class="pull-left">
+        <h3 class="panel-title font-bold" id="h3Title">XXX</h3>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.panel-heading -->
+
+<input type="hidden" id="hidUpCode" value="@upCode" />
+
+@foreach (var item in Model)
+{
+<div class="menu-list">
+    <input class="col-md-1 fl-l h-16" type="radio" name="code_@upCode" value="@item.COMMON_CODE">
+    <span><a href="#" class="devItem" onclick="return CommonCodeManageIndex.ItemClick(this, '@item.COMMON_CODE');">@item.CODE_NAME (@item.CODE_VALUE1 / @item.COMMON_CODE)</a></span>
+</div>
+}
+
+<div class="form-footer">
+    <div class="pull-right">
+        <button class="btn btn-default mr-5" onclick="return CommonCodeManageIndex.Delete(this);">삭제</button>
+        <button class="btn btn-success" type="button" onclick="return CommonCodeManageIndex.OpenEdit(this, '');">등록</button>
+        <button class="btn btn-success" type="button" onclick="return CommonCodeManageIndex.OpenModify(this);">수정</button>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->
+
+

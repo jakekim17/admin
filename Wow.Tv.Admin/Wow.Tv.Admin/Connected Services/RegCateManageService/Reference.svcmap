@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3624d3a9-31f5-473d-b280-4eae058ff17a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/RegCateManage/RegCateManageService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RegCateManageService1.wsdl" MetadataType="Wsdl" ID="1ef76ac8-3a82-40a7-ac43-d2b6a43b2030" SourceId="1" SourceUrl="http://localhost:8088/RegCateManage/RegCateManageService.svc?wsdl" />
+    <MetadataFile FileName="RegCateManageService3.xsd" MetadataType="Schema" ID="2c69230c-30df-4062-9537-69ec61efa325" SourceId="1" SourceUrl="http://localhost:8088/RegCateManage/RegCateManageService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RegCateManageService1.disco" MetadataType="Disco" ID="53e08041-9733-47ad-8cbe-df4ce7700355" SourceId="1" SourceUrl="http://localhost:8088/RegCateManage/RegCateManageService.svc?disco" />
+    <MetadataFile FileName="RegCateManageService31.xsd" MetadataType="Schema" ID="b5c4d74e-66ac-4a2a-82d7-07de5dfb3c6b" SourceId="1" SourceUrl="http://localhost:8088/RegCateManage/RegCateManageService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RegCateManageService32.xsd" MetadataType="Schema" ID="bb06f2cd-b567-427c-8ae5-e30303d6be06" SourceId="1" SourceUrl="http://localhost:8088/RegCateManage/RegCateManageService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

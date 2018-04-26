@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+@model IList<Wow.Tv.Middle.Model.Db49.Article.NUP_FREELANCER_ARTICLE_RANK_SELECT_Result>
+<script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+
+<table class="table" id="accordion">
+    <colgroup>
+        <col width="80" >
+        <col >
+        <col width="120" >
+        <col width="100" >
+    </colgroup>
+    <thead>
+    <tr>
+        <th>순위</th>
+        <th>제목</th>
+        <th>등록일</th>
+        <th>조회수</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (ViewBag.TotalDataCount == 0)
+    {
+        <tr>
+            <td colspan="4" style="height: 400px">등록된 데이터가 없습니다.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RANK_NUM</td>
+                <td class="text-left"><a onclick="javascript:NewsCommon.linkwwwUrl('@item.ArtID');"><span>@item.Title</span></a> </td>
+                <td>
+                    @if (item.ArtDate != null)
+                    {
+                        @item.ArtDate.Value.ToString("yyyy-MM-dd")
+                    }
+                </td>
+                <td>
+                    @if (item.CLICK_SUM != null)
+                    {
+                        @($"{item.CLICK_SUM.Value:n0}")
+                    }
+                </td>
+            </tr>
+        }
+    }
+
+    </tbody>
+</table>

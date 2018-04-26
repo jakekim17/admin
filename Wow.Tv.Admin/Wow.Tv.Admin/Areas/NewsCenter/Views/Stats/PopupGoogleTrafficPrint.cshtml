@@ -1,0 +1,400 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog preview-news">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">주간 트래픽보고</h4>
+        </div>
+        <div class="modal-body" id="divGooglePrint">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-inline">
+                        ※ 한국경제TV 주간 트래픽 순위 : <span id="spanRank"></span> 위
+                        <br/>
+                        ※ 뉴스 제보수 : <span id="spanReportCount"></span>개
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bbs-list1">
+                        <!-- 2017-10-10 HTML 변경 -->
+                        <table class="table collapse-table">
+                            <colgroup>
+                                <col width="*">
+                                <col width="30%">
+                                <col width="30%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>사이트명</th>
+                                    <th>PC 조회수</th>
+                                    <th>Mobile 조회수</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>한국경제TV</td>
+                                    <td id="tdGoogleApi_WowTv">00,000</td>
+                                    <td>00,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- // 2017-10-10 HTML 변경 -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Table Top -->
+                <div class="box-top-table">
+                    <div class="box-title inner-left">
+                        <h3>회원현황</h3>
+                    </div>
+                    <div class="inner-right">
+                        <p>웹툰 가입자수: 신규가입체크 기준일시 : 6/27일 14:30부터 ~ 현재까지(누적 데이터)</p>
+                    </div>
+                </div>
+                <!-- //Table Top -->
+
+                <div class="bbs-list1">
+                    <table id="tblMember" class="table collapse-table">
+                        <thead>
+                            <tr>
+                                <th>총 회원수</th>
+                                <th>가입자 수</th>
+                                <th>웹툰 가입자수</th>
+                                <th>탈퇴자 수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>00,000</td>
+                                <td>00,000</td>
+                                <td>00,000</td>
+                                <td>000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box-title">
+                        <h3>메뉴별 트래픽</h3>
+                    </div>
+                    <div class="bbs-list1">
+                        <table id="tblMenu" class="table collapse-table">
+                            <thead>
+                                <tr>
+                                    <th>메뉴명</th>
+                                    <th>페이지뷰</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td>합계</td>
+                                    <td>00,000</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td>TV</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>뉴스</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>금융</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>오피니언</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>부동산</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>연예·스포츠</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>포토·영상</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>통합지원센터</td>
+                                    <td>000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box-title inner-left">
+                        <h3>기사제공사별 트래픽</h3>
+                    </div>
+                    <div class="bbs-list1">
+                        <table id="tblArt" class="table collapse-table">
+                            <thead>
+                                <tr>
+                                    <th>기사 제공사</th>
+                                    <th>페이지뷰</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td>합계</td>
+                                    <td>00,000</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td>와우스타</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>블루뉴스</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>와우스포츠</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>스타일보</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>휴먼타임즈</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>와이미디어·맥심코리아</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>반려동물</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>크리에이티브뉴스</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>디지털머니</td>
+                                    <td>000</td>
+                                </tr>
+                                <tr>
+                                    <td>트랜드와치</td>
+                                    <td>000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="box-title inner-left">
+                    <h3>상위 Top10 기사(PC)</h3>
+                </div>
+                <div class="bbs-list1">
+                    <table id="tblTopPc" class="table collapse-table">
+                        <colgroup>
+                            <col width="80">
+                            <col>
+                            <col width="150">
+                            <col width="150">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>제목</th>
+                                <th>기자명</th>
+                                <th>조회수</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">합계</td>
+                                <td>000,000</td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td class="text-left"><a href="">기사제목...</a></td>
+                                <td>홍길동</td>
+                                <td>00,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="box-title inner-left">
+                <h3>상위 Top10 기사(MOBILE)</h3>
+            </div>
+            <div class="bbs-list1">
+                <table id="tblTopMobile" class="table collapse-table">
+                    <colgroup>
+                        <col width="80">
+                        <col>
+                        <col width="150">
+                        <col width="150">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>제목</th>
+                        <th>기자명</th>
+                        <th>조회수</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">합계</td>
+                        <td>000,000</td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="text-left"><a href="">기사제목...</a></td>
+                        <td>홍길동</td>
+                        <td>00,000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <div class="row">
+                <div class="box-title inner-left">
+                    <h3></h3>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnPrint" onclick="GoogleTraffic.PagePrint();">프린트</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>

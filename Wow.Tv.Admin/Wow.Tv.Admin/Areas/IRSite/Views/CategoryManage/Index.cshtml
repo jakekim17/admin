@@ -1,0 +1,147 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/CategoryManage/Index.js"></script>
+}
+
+<input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="body-content animated fadeIn">
+    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-body no-padding rounded-bottom">
+
+                    <div class="form-body row">
+                        <div class="panel-heading bord-b-1">
+                            <h3 class="panel-title font-bold">연도 추가</h3>
+                        </div><!-- /.panel-heading -->
+                    </div>
+
+                    <div class="app-ui-section group mt-10">
+                        <form id="frmAdd">
+                            <!-- 전체100% -->
+                            <table class="table_colRow">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="30%">
+                                    <col width="30%">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>년도</th>
+                                        <th>코드</th>
+                                        <th>순위</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="input-group col-xs-12">
+                                                <input class="form-control" type="text" name="CTGR_YR" id="CTGR_YR">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="input-group col-xs-12">
+                                                <input type="text" class="form-control" value="@Model.code" readonly/>
+                                            </div>           
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="input-group col-xs-12">
+                                                <input class="form-control" type="text" name="CTGR_RN" id="CTGR_RN">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-success" type="button" id="btnAdd">등록</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body no-padding rounded-bottom">
+
+                <div class="form-body row">
+                    <div class="panel-heading bord-b-1">
+                        <h3 class="panel-title font-bold">연도 리스트</h3>
+                    </div><!-- /.panel-heading -->
+                </div>
+                <div class="app-ui-section group mt-10">
+                    <!-- 전체100% -->
+                    <form id="frmEdit">
+                        <table class="table_colRow">
+                            <colgroup>
+                                <col width="30">
+                                <col>
+                                <col>
+                                <col>
+                                <col width="150">
+                                <col width="150">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>년도</th>
+                                    <th>코드</th>
+                                    <th>순위</th>
+                                    <th>노출여부</th>
+                                    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                                    {
+                                        <th>관리</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ListData.Count > 0)
+                                {
+                                    foreach (var item in Model.ListData)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@(Model.TotalDataCount - Model.ListData.IndexOf(item))</td>
+                                            <td class="CTGR_YR text-center">@item.CTGR_YR</td>
+                                            <td class="CTGR_SEQ text-center">@item.CTGR_SEQ</td>
+                                            <td class="CTGR_RN text-center">@item.CTGR_RN</td>
+                                            <td class="text-center">@item.CTGR_DISP_YN</td>
+                                            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                                            {
+                                                <td class="text-center">
+                                                    @if (item.CTGR_DISP_YN == "Y")
+                                                    {
+                                                        <button type="button" class="btnDispChange btn btn-success">숨김</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btnDispChange btn btn-success">노출</button>
+                                                    }
+                                                    <button type="button" class="btnEdit btn btn-default">수정</button>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">등록된 카테고리가 없습니다</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

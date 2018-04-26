@@ -1,0 +1,28 @@
+﻿
+
+@{
+    Layout = null;
+}
+@model Wow.Tv.Middle.Model.Db89.wowbill.PresentMember
+
+
+<div class="bbs-list1">
+    <table id="tblMember" class="table collapse-table">
+        <thead>
+        <tr>
+            <th>총 회원수</th>
+            <th>가입자 수</th>
+            <th>웹툰 가입자수</th>
+            <th>탈퇴자 수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@($"{Model.TotalMember:n0}")</td>
+            <td>@($"{Model.JoinMember:n0}")</td>
+            <td>@($"{Model.WebToonMember:n0}")</td>
+            <td>@($"{Model.QuitMember:n0}")</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

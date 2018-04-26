@@ -1,0 +1,64 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.Article
+
+@model  ListModel<NTB_HARD_CODING_AD>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/NewsAdManage/HardCodingAd.js"></script>
+}
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SEQ</th>
+                            <th>구분(PC/Mobile)</th>
+                            <th>광고명</th>
+                            <th>수정일자</th>
+                        </tr>
+                    </thead>
+                    <colgroup>
+                        <col width="100px">
+                        <col width="150px">
+                        <col>
+                        <col width="180px">                        
+                    </colgroup>
+                    <tbody>
+                    @if (Model.ListData.Count > 0)
+                    {
+                        foreach (var item in Model.ListData)
+                        {
+                        <tr>
+                            <td>@item.SEQ</td>
+                            <td>@item.AD_GUBUN</td>
+                            <td class="text-left"><a href="javascript:HardCodingAd.Edit('@item.SEQ')">@item.AD_TITLE</a></td>
+                            <td>@item.MOD_DATE</td>
+                        </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">조건에 맞는 데이터가 없습니다.</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <!--div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                    <button class="btn btn-success" id="btnReg">등록</button>
+                </div>
+                <div class="clearfix"></div-->
+            </div>
+        </div>
+    </div>
+</div>
+
+

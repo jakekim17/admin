@@ -1,0 +1,87 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/AdminGroupManage/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divCreate" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+
+<div class="col-md-12" id="divIndex">
+    <div class="panel-body no-padding rounded-bottom">
+        <div class="form-body">
+            <form id="frmAdminGroup">
+                <div class="form-group">
+
+
+                    <div class="table-responsive mb-20">
+                        <table class="table hinter">
+
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-1 al-c fbold" style="background: #E7E7E7; display: table-cell; vertical-align: middle">그룹명</td>
+                                    <td id="tdGroupList"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="form-footer">
+                                            <div class="pull-right">
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, false, true) == true)
+{
+                                                <button class="btn btn-default mr-5" id="btnDelete">삭제</button>
+}
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+{
+                                                <button class="btn btn-default mr-5" id="btnCopy">복사</button>
+                                                <button class="btn btn-success" type="button" id="btnGroupEdit">수정</button>
+                                                <button class="btn btn-success" type="button" id="btnGroupCreate">등록</button>
+}
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div><!-- /.form-footer -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
+
+
+                </div>
+
+
+                <div class="form-group" style="clear: both">
+                    <div class="row" style="margin: 0 auto">
+                        <div class="col-md-4 bod-1" id="divMenu_1">
+                        </div>
+                        <div class="col-md-4 bod-1" id="divMenu_2">
+                        </div>
+                        <div class="col-md-4 bod-1" id="divMenu_3">
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="form-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default mr-5" id="btnInit">초기화</button>
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+{ 
+                            <button class="btn btn-success" type="button" id="btnApply">적용</button>
+}
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.form-footer -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

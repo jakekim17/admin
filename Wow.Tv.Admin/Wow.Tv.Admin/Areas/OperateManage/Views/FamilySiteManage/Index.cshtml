@@ -1,0 +1,74 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/FamilySiteManage/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+        <div class="form-body">
+            <form id="frmSearch">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">검색</label>
+                    <div class="input-group col-md-3 fl-l pad-r10">
+                        <select class="form-control " name="SearchType">
+                            <option value="All">전체</option>
+                            <option value="SiteName">사이트명</option>
+                            <option value="Url">URL</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-md-3">
+                        <input class="form-control" type="text" name="SearchText">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                    </div>
+
+
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    
+    <form id="frmList">
+        <div class="app-ui-section group mt-10" id="divList"></div>
+    </form>
+
+
+    <div class="table-responsive mt-5">
+
+        <div class="form-footer">
+            <div class="pull-left" style="margin:20px 0 0 10px !important;">
+                <button class="btn btn-default mr-5" id="btnExcel">엑셀 다운로드</button>
+            </div>
+            <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, false, true) == true)
+{
+                <button class="btn btn-default mr-5" id="btnDelete">삭제</button>
+}
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+{
+                <button class="btn btn-success" id="btnCreate">등록</button>
+}
+            </div>
+            <div class="clearfix"></div>
+        </div><!-- /.form-footer -->
+
+
+    </div>
+</div>

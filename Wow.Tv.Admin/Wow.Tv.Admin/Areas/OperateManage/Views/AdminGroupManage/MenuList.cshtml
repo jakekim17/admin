@@ -1,0 +1,50 @@
+﻿@model List<Wow.Tv.Middle.Model.Db49.wowtv.Menu.MenuGroupItem>
+
+@{
+    Layout = null;
+
+    int depth = ViewBag.Depth;
+    int nextDepth = depth + 1;
+    int upMenuSeq = ViewBag.UpMenuSeq;
+}
+
+
+<div class="panel-heading bord-b-1">
+    <div class="pull-left">
+        <h3 class="panel-title font-bold">@depth-DEPTH</h3>
+    </div>
+    <div class="clearfix"></div>
+</div>
+@foreach (var item in Model)
+{
+<div class="menu-list devAdminGroupList">
+    <input class="col-md-1 fl-l h-16" type="radio" name="menu_@depth" value="@item.menu.MENU_SEQ">
+    <span><a href="#" class="devMenuItem" onclick="return AdminGroupIndex.MenuItemClick(this, @item.menu.MENU_SEQ, @nextDepth, 'divMenu_@nextDepth');">@item.menu.MENU_NAME</a></span>
+    <span class="check-rwd">
+        <input type="hidden" class="devAdminGroupList_MenuSeq" value="@item.menu.MENU_SEQ" />
+        <table>
+            <tr>
+                <td class="al-c"><input type="checkbox" class="devAdminGroupList_ReadYn" value="true" @(item.menuGroup.READ_YN == "Y" ? "checked" : "")></td>
+                <td class="al-c"><input type="checkbox" class="devAdminGroupList_WriteYn" value="true" @(item.menuGroup.WRITE_YN == "Y" ? "checked" : "")></td>
+                <td class="al-c"><input type="checkbox" class="devAdminGroupList_DeleteYn" value="true" @(item.menuGroup.DEL_YN == "Y" ? "checked" : "")></td>
+            </tr>
+            <tr>
+                <td class="al-c">읽기</td>
+                <td class="al-c">쓰기</td>
+                <td class="al-c">삭제</td>
+            </tr>
+        </table>
+    </span>
+
+</div>
+}
+
+
+<div class="form-footer">
+    <div class="pull-right">
+        <button class="btn btn-default mr-5" onclick="return AdminGroupIndex.AllCheck(this, 'divMenu_@depth');"><i class="fa fa-check-square-o" aria-hidden="true"></i> 모두체크</button>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->
+
+

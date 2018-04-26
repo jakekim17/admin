@@ -1,0 +1,126 @@
+﻿@model IList<Wow.Tv.Middle.Model.Db49.wowtv.TAB_NOTICE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/ServiceCenter/Notice/Index.js"></script>
+
+    <script>
+            var totalDataCount = "@ViewBag.TotalDataCount";
+    </script>
+}
+
+@{
+
+    var flagListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "Y", Value = "Y"},
+            new SelectListItem { Text = "N", Value = "N"}
+        }, "Value" , "Text");
+
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "내용", Value = "CONTENT"}
+        }, "Value" , "Text");
+
+    string selectViewFlag = string.IsNullOrWhiteSpace(ViewBag.Condition.ViewFlag) ? "ALL" : ViewBag.Condition.ViewFlag;
+    string selectTopFlag = string.IsNullOrWhiteSpace(ViewBag.Condition.TopFlag) ? "ALL" : ViewBag.Condition.TopFlag;
+    string selectSearchFlag = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchFlag) ? "ALL" : ViewBag.Condition.SearchFlag;
+
+    var viewList = new SelectList(flagListItem, "Value", "Text", selectViewFlag);
+    var topList = new SelectList(flagListItem, "Value", "Text", selectTopFlag);
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchFlag);
+}
+
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+
+        <form id="frmSearch">
+            <div class="form-body">
+                <div class="form-group  col-md-5">
+                    <label class="col-md-2 control-label">게시여부</label>
+                    <div class="input-group col-md-5 fl-l pad-r10">
+                        @Html.DropDownList("VIEW_FLAG", viewList, new{@class="form-control"} )
+                    </div>
+                </div>
+                <div class="form-group  col-md-5">
+                    <label class="col-md-2 control-label">상단공지</label>
+                    <div class="input-group col-md-5 fl-l pad-r10">
+                            @Html.DropDownList("TOP_FLAG", topList, new{@class="form-control"} )
+                    </div>
+                </div>
+
+                <div class="form-group  col-md-8" style="clear: both">
+                    <label class="col-md-1 control-label" style="margin-right: 14px;">검색</label>
+                    <div class="input-group col-md-3 fl-l pad-r10">
+                        @Html.DropDownList("SEARCHFLAG", searchList, new{@class="form-control"} )
+                    </div>
+                    <div class="input-group col-md-7">
+                        <input class="form-control" name ="SEARCHNAME" type="text" maxlength="100"  value="@ViewBag.Condition.SearchName">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id ="btnSearch">검색</button></span>
+                    </div>
+                    
+                    <input type="hidden" id="seq" name="seq" />
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Start body content -->
+    <div class="app-ui-section group mt-10">
+        <!-- 전체100% -->
+        
+        <label class="col-md-1 control-label">총 @ViewBag.TotalDataCount 개의 게시물의 등록되어 있습니다.</label>
+        <table class="table_colRow">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th>상단고지</th>
+                    <th>게시여부</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td class="al_c"><input type="checkbox" class="form-group"></td>*@
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.SEQ)</td>
+                        <td class="al_c"><a href="#" onclick="return NoticeIndex.GoDetail(@item.SEQ);">@Html.Raw(item.TITLE)</a></td>
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.USER_NAME)</td>
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.REG_DATE)</td>
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.READ_CNT)</td>
+                        <td class="al_c"></td>
+                        <td class="al_c">@Html.DisplayFor(modelItem => item.VIEW_FLAG)</td>
+                    </tr>
+                }
+        </table>
+    </div>
+
+    <div class="table-responsive mt-5">
+        <div id="divPaging"></div>
+    </div>
+</div>
+
+<div class="form-footer">
+    <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+        <button class="btn btn-default mr-5">삭제</button>
+    </div>
+    <div class="clearfix"></div>
+</div><!-- /.form-footer -->

@@ -1,0 +1,77 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+
+@model NTB_PROGRAM_INTRO
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/MyBroadProgram/ProgramIntro/Index.js"></script>
+    <script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+                <form id="frmSave">
+                    <input type="hidden" id="hidProgramIntroSeq" name="PROGRAM_INTRO_SEQ" value="@Model.PROGRAM_INTRO_SEQ" />
+                    <input type="hidden" name="PRG_CD" value="@Model.PRG_CD" />
+
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>프로그램 소개 제목</th>
+                            <td><input type="text" class="form-control" id="txtTitle" name="TITLE" value="@Model.TITLE"></td>
+                        </tr>
+                        <tr>
+                            <th>소개이미지</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="mainFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                @*<img src="@Model.AttachFile.REAL_WEB_PATH" alt="" style="width:300px;height:auto;">*@
+                                <p>@Model.AttachFile.REAL_WEB_PATH</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>간단설명</th>
+                            <td>
+                                <textarea id="hidRemark" style="width:100%;height:200px;display:none;" name="REMARK">@Model.REMARK</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Write -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <button class="btn btn-success" id="btnSave">저장</button>
+                <button class="btn btn-default" id="btnCancel">취소</button>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+

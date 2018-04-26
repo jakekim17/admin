@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.editVOD" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOftblStockClass">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblStockClass" nillable="true" type="tns:tblStockClass" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblStockClass" nillable="true" type="tns:ArrayOftblStockClass" />
+  <xs:complexType name="tblStockClass">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EditFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditFolder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tblVODList" nillable="true" type="tns:tblVODList" />
+      <xs:element minOccurs="0" name="vodNum" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblStockClass" nillable="true" type="tns:tblStockClass" />
+  <xs:complexType name="tblVODList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArticleID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BroadcastDT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DelFlag" type="xs:int" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsMain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProgramName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReadCnt" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Writer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="insDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblCategoryList" nillable="true" type="tns:ArrayOftblCategoryList" />
+      <xs:element minOccurs="0" name="tblStockClass" nillable="true" type="tns:ArrayOftblStockClass" />
+      <xs:element minOccurs="0" name="tblVODEdit" nillable="true" type="tns:tblVODEdit" />
+      <xs:element minOccurs="0" name="uptDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="vodListID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="vodNum" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblVODList" nillable="true" type="tns:tblVODList" />
+  <xs:complexType name="ArrayOftblCategoryList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblCategoryList" nillable="true" type="tns:tblCategoryList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblCategoryList" nillable="true" type="tns:ArrayOftblCategoryList" />
+  <xs:complexType name="tblCategoryList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Delflag" type="xs:int" />
+      <xs:element minOccurs="0" name="Descript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Writer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ctCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ctName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="insDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="tblVODList" nillable="true" type="tns:ArrayOftblVODList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblCategoryList" nillable="true" type="tns:tblCategoryList" />
+  <xs:complexType name="ArrayOftblVODList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblVODList" nillable="true" type="tns:tblVODList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblVODList" nillable="true" type="tns:ArrayOftblVODList" />
+  <xs:complexType name="tblVODEdit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Duration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditEndTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditFolder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditStartTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Image_B" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Image_S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProcCode" type="xs:int" />
+      <xs:element minOccurs="0" name="srcFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="srcFolder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tblVODList" nillable="true" type="tns:tblVODList" />
+      <xs:element minOccurs="0" name="vodNum" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblVODEdit" nillable="true" type="tns:tblVODEdit" />
+  <xs:complexType name="ArrayOfusp_GetCornerVODList_WEB_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_GetCornerVODList_WEB_Result" nillable="true" type="tns:usp_GetCornerVODList_WEB_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_GetCornerVODList_WEB_Result" nillable="true" type="tns:ArrayOfusp_GetCornerVODList_WEB_Result" />
+  <xs:complexType name="usp_GetCornerVODList_WEB_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datetime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="duration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="seq" type="xs:int" />
+      <xs:element minOccurs="0" name="thumbUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vodURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vodURL_I" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_GetCornerVODList_WEB_Result" nillable="true" type="tns:usp_GetCornerVODList_WEB_Result" />
+  <xs:complexType name="ArrayOfNUP_GetCornerVODList_WEB_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NUP_GetCornerVODList_WEB_Result" nillable="true" type="tns:NUP_GetCornerVODList_WEB_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNUP_GetCornerVODList_WEB_Result" nillable="true" type="tns:ArrayOfNUP_GetCornerVODList_WEB_Result" />
+  <xs:complexType name="NUP_GetCornerVODList_WEB_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datetime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="duration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="seq" type="xs:int" />
+      <xs:element minOccurs="0" name="thumbUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vodURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vodURL_I" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NUP_GetCornerVODList_WEB_Result" nillable="true" type="tns:NUP_GetCornerVODList_WEB_Result" />
+  <xs:complexType name="ArrayOftblSubConerList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblSubConerList" nillable="true" type="tns:tblSubConerList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblSubConerList" nillable="true" type="tns:ArrayOftblSubConerList" />
+  <xs:complexType name="tblSubConerList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Delflag" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EditView" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PGMID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PGMName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Writer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cnCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="insDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="scCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="scName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblSubConerList" nillable="true" type="tns:tblSubConerList" />
+</xs:schema>

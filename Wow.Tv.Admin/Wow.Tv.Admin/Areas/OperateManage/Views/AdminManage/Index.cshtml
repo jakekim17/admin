@@ -1,0 +1,107 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@{ 
+    List<NTB_GROUP> groupList = ViewBag.GroupList;
+    List<NTB_COMMON_CODE> partList = ViewBag.PartCodeList;
+}
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/AdminManage/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog"></div>
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<div class="col-md-12">
+    <div class="panel-body no-padding rounded-bottom">
+        <div class="form-body">
+            <form id="frmSearch">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">그룹</label>
+                    <div class="input-group col-md-3">
+                        <select class="form-control" name="GroupSeq">
+                            <option value="">전체</option>
+                            @foreach (var item in groupList)
+                            {
+                                <option value="@item.GROUP_SEQ">@item.GROUP_NAME</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label">부서</label>
+                    <div class="input-group col-md-3">
+                        <select class="form-control" name="PartCode">
+                            <option value="">전체</option>
+                            @foreach (var item in partList)
+                            {
+                                <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">검색</label>
+                    <div class="input-group col-md-3 fl-l pad-r10">
+                        <select class="form-control " name="SearchType">
+                            <option value="All">전체</option>
+                            <option value="Name">이름</option>
+                            <option value="Id">아이디</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-md-3">
+                        <input class="form-control" type="text" name="SearchText">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                    </div>
+                </div>
+
+
+                <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                <input type="hidden" id="currentIndex" name="currentIndex" />
+            </form>
+        </div>
+
+    </div>
+
+
+    <form id="frmList">
+        <!-- Start body content -->
+        <div class="app-ui-section group mt-10" id="divList">
+            <!-- 전체100% -->
+
+        </div>
+    </form>
+
+
+    <div class="table-responsive mt-5">
+        
+        <div class="form-footer">
+            <div class="pull-left" style="margin:20px 0 0 10px !important;">
+                <button class="btn btn-default mr-5" id="btnExcel">엑셀 다운로드</button>
+            </div>
+            <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, false, true) == true)
+{
+                <button class="btn btn-default mr-5" id="btnDelete">삭제</button>
+}
+@if (LoginHandler.IsAuth(int.Parse(Request["menuSeq"]), false, true, false) == true)
+{
+                <button class="btn btn-success" type="button" id="btnCreate" >등록</button>
+}
+            </div>
+            <div class="clearfix"></div>
+        </div><!-- /.form-footer -->
+
+
+    </div>
+</div>
+

@@ -1,0 +1,114 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_BOARD_CONTENT
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    bool isReply = Model.IsReply;
+
+}
+
+@section scripts{
+    <script>
+            var commonCode = "@Model.COMMON_CODE";
+            var isReply = "@isReply";
+    </script>
+    <script src="@wowTvScript/ProgramBoard/FeedBack/Edit.js"></script>
+}
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+<form id="frmSearch">
+    <input type="hidden" id="SearchType" name="SearchType" value="@ViewBag.Condition.SearchType" />
+    <input type="hidden" id="SearchText" name="SearchText" value="@ViewBag.Condition.SearchText" />
+    <input type="hidden" id="pageSize" name="pageSize" value="@ViewBag.Condition.PageSize" />
+    <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.Condition.CurrentIndex" />
+    <input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@ViewBag.Condition.CurrentMenuSeq" />
+    <input type="hidden" name="BOARD_CONTENT_SEQ" value="@Model.BOARD_CONTENT_SEQ" />
+</form>
+
+@using (Html.BeginForm("Save", "FeedBack", FormMethod.Post, new { id = "frmSave" }))
+{
+    @Html.Hidden("seq", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("BOARD_CONTENT_SEQ", Model.BOARD_CONTENT_SEQ)
+    @Html.Hidden("DEL_YN", Model.DEL_YN)
+    <div class="wrap">
+        
+        <div class="box-top-table">
+            <div class="inner-left">
+                <p class="text-notice1">'*'표시는 필수 입력입니다.</p>
+            </div>
+        </div>
+        <!-- BBS Write -->
+        <div class="bbs-write1">
+            <table class="table">
+                <colgroup>
+                    <col width="200px">
+                    <col>
+                </colgroup>
+                <tr>
+                    <th><span class="nec"></span>제목</th>
+                    <td>
+                        @Model.TITLE
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 0; height: 400px;">
+                        @Html.Raw(Model.CONTENT)
+                    </td>
+                </tr>
+                
+
+                @if (ViewBag.BoradInfo.ATTACH_FILE_YN.Equals("Y"))
+                {
+                    for (int i = 0; i < ViewBag.BoradInfo.FILE_COUNT; i++)
+                    {
+                        <tr>
+                                @if (Model.AttachFileList.Count > 0)
+                                {
+                                    <th>첨부파일</th>
+                                    <td>
+                                        @foreach (var file in Model.AttachFileList)
+                                        {
+                                            <a href="@file.REAL_WEB_PATH">@file.USER_UPLOAD_FILE_NAME</a>
+                                        }
+                                    </td>
+                                }
+                        </tr>
+                    }
+                }
+                <tr>
+                    <th>작성자</th>
+                    <td>@Model.USER_NAME</td>
+                </tr>
+                <tr>
+                    <th>작성일<br>(수정일)</th>
+                    <td>
+                        @Model.REG_DATE
+                        @if (Model.MOD_DATE != null)
+                        {
+                            <br>
+                            <span class="text-color1">(@Model.MOD_DATE)</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="nec">*</span>블라인드</th>
+                    <td>
+                        <label class="radio-inline"><input type="radio" name="BLIND_YN" value="Y" @(Model.BLIND_YN.Equals("Y") ? "checked='checked'" : "")>Y</label>
+                        <label class="radio-inline"><input type="radio" name="BLIND_YN" value="N" @(Model.BLIND_YN.Equals("N") ? "checked='checked'" : "")>N</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- //BBS Write -->
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            <button class="btn btn-success" id="btnSave">수정</button>
+            <button class="btn btn-default" id="btnList">목록</button>
+        </div>
+        <!-- //Bottom Buttons -->
+
+    </div>
+    <!-- //공지사항 등록/수정/상세 -->
+}
+<div id="divReplyList"></div>

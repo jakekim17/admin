@@ -1,0 +1,165 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.broadcast
+@using Wow.Tv.Middle.Model.Db49.broadcast.MyProgram
+
+@model ListModel<Wow.Tv.Admin.CastService.ProgramCastModel>
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+
+    CastCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+
+    <script>
+        var totalDataCount = "@Model.TotalDataCount";
+    </script>
+
+    <script src="@wowTvScript/MyBroadProgram/CastManage/Index.js"></script>
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<input type="hidden" name="ProgramCode" id="hidProgramCode" value="@Request["ProgramCode"]" />
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <!-- Global Search -->
+            <div class="contain-search-global">
+                <form id="frmSearch">
+                    <input type="hidden" id="pageSize" name="pageSize" value="20" />
+                    <input type="hidden" id="currentIndex" name="currentIndex" value="@condition.CurrentIndex" />
+
+                    <input type="hidden" id="hidProgramCastSeq" name="programCastSeq" />
+                    <input type="hidden" name="ProgramCode" value="@condition.ProgramCode" />
+                    
+                    <table>
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th>분류</th>
+                            <td>
+                                <select class="form-control" name="CastType">
+                                    <option value="">전체</option>
+                                    <option value="Make" @(condition.CastType == "Make" ? "selected" : "")>제작진</option>
+                                    <option value="Cast" @(condition.CastType == "Cast" ? "selected" : "")>출연진</option>
+                                </select>
+                            </td>
+                            <th>게시여부</th>
+                            <td>
+                                <select class="form-control" name="PublishYn">
+                                    <option value="">전체</option>
+                                    <option value="Y" @(condition.PublishYn == "Y" ? "selected" : "")>Y</option>
+                                    <option value="N" @(condition.PublishYn == "N" ? "selected" : "")>N</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>검색</th>
+                            <td colspan="3">
+                                <div class="form-group form-inline">
+                                    <select class="form-control" name="SearchType">
+                                        <option value="All">전체</option>
+                                        <option value="Name" @(condition.SearchType == "Name" ? "selected" : "")>이름</option>
+                                        <option value="Id" @(condition.SearchType == "Id" ? "selected" : "")>ID</option>
+                                    </select>
+                                    <div class="input-group" style="width:600px">
+                                        <input class="form-control" type="text" name="SearchText" value="@condition.SearchText">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table inform">
+                <div class="inner-right inform-btn">
+                    <button class="btn btn-success devCreate">등록</button>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-right">
+                    <p>총 @Model.TotalDataCount.ToString("N0")개의 게시물이 등록되어있습니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS List -->
+            <div class="bbs-list1" id="divList">
+                <form id="frmList">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="chAll"></th>
+                                <th>번호</th>
+                                <th>분류</th>
+                                <th>이름</th>
+                                <th>전문가ID</th>
+                                <th>작성자</th>
+                                <th>등록일</th>
+                                <th>게시여부</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListData)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="seqList" value="@item.ProgramCast.PROGRAM_CAST_SEQ"></td>
+                                    <td>@item.ProgramCast.PROGRAM_CAST_SEQ</td>
+                                    <td><a href="#" onclick="return CastManageIndex.GoEdit(@item.ProgramCast.PROGRAM_CAST_SEQ);">@item.ProgramCast.CastTypeName</a></td>
+                                    <td>@(item.ProWowList == null ? item.ProgramCast.CAST_NAME : item.ProWowList.FullName)</td>
+                                    <td>@(item.ProWowList == null ? "" : item.ProWowList.Wowtv_id)</td>
+                                    <td>@item.ProgramCast.REG_NAME</td>
+                                    <td>@item.ProgramCast.REG_DATE.ToDate()</td>
+                                    <td>@item.ProgramCast.PUBLISH_YN</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS List -->
+
+            <!-- Pagenate -->
+            <div class="table-responsive mt-5" id="divPaging"></div>
+            <!-- //Pagenate -->
+
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <div class="inner-left">
+                    <button class="btn btn-default" id="btnDelete">삭제</button>
+                </div>
+                <div class="inner-right">
+                    <button class="btn btn-success devCreate">등록</button>
+                </div>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+
+    </div>
+</div>
+
+
+

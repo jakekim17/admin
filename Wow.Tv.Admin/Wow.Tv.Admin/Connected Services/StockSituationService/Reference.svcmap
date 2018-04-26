@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="df896a11-139e-475e-b88c-0b8cd8689f1e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8088/IRCenter/StockSituationService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StockSituationService1.wsdl" MetadataType="Wsdl" ID="4aa4dda0-fd99-4ed1-9d4e-a88a0c617000" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?wsdl" />
+    <MetadataFile FileName="StockSituationService4.xsd" MetadataType="Schema" ID="6644103b-6cc3-4025-8adb-d044993aaabc" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?xsd=xsd3" />
+    <MetadataFile FileName="StockSituationService41.xsd" MetadataType="Schema" ID="107ef92b-65b8-4a07-b63b-7d2ff2d312d3" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?xsd=xsd1" />
+    <MetadataFile FileName="StockSituationService42.xsd" MetadataType="Schema" ID="b197d9d7-5ddb-4d96-95bc-b80803a4f25c" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StockSituationService1.disco" MetadataType="Disco" ID="a2963fdb-2868-4a8a-86ed-474d3720d7ab" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?disco" />
+    <MetadataFile FileName="StockSituationService43.xsd" MetadataType="Schema" ID="047bd657-d34f-4cd2-82eb-22dc0319e191" SourceId="1" SourceUrl="http://localhost:8088/IRCenter/StockSituationService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

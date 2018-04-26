@@ -1,0 +1,197 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/OperateManage/HolidayTimeMng/Index.js"></script>
+}
+
+@section modalDiv{
+    <div id="divTimeModal" class="modal fade add-files" role="dialog"></div>
+    <div id="divMasterModel" class="modal fade add-files" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">증시 거래 시간 기준 팝업</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="bbs-view1">
+                        <font class="f-red">*</font>표시는 필수 입력입니다.
+                        <form id="frmSaveMaster">
+                            <table class="table">
+                                <colgroup>
+                                    <col width="25%">
+                                    <col width="*">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th><font class="f-red">*</font>장시작시간</th>
+                                        <td class="form-inline">
+                                            <select class="form-control" name="TRAD_STA_H">
+                                                @for (int i = 0; i <= 23; i++)
+                                                {
+                                                    if (i < 10)
+                                                    {
+                                                        string val = "0" + i;
+                                                        <option value="@val">@val</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                }
+                                            </select>
+                                            :
+                                            <select class="form-control" name="TRAD_STA_M">
+                                                @for (int i = 0; i <= 55; i = i + 5)
+                                                {
+                                                    if (i < 10)
+                                                    {
+                                                        string val = "0" + i;
+                                                        <option value="@val">@val</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                }
+                                            </select>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><font class="f-red">*</font>장마감시간</th>
+                                        <td class="form-inline">
+                                            <select class="form-control" name="TRAD_END_H">
+                                                @for (int i = 0; i <= 23; i++)
+                                                {
+                                                    if (i < 10)
+                                                    {
+                                                        string val = "0" + i;
+                                                        <option value="@val">@val</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                }
+                                            </select>
+                                            :
+                                            <select class="form-control" name="TRAD_END_M">
+                                                @for (int i = 0; i <= 55; i = i + 5)
+                                                {
+                                                    if (i < 10)
+                                                    {
+                                                        string val = "0" + i;
+                                                        <option value="@val">@val</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <!-- Button Box -->
+                    <div class="box-button">
+                        <button class="btn btn-success" type="button" id="btnSaveMaster">등록(수정)</button>
+                        <button class="btn btn-default btnCloseModal" type="button" data-dismiss="modal">닫기</button>
+                    </div>
+                    <!-- //Button Box -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <div class="wrap">
+                <!-- Contain Tab -->
+                <div class="contain-tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li id="btnTv" role="presentation"><a href="#tabOpinion1" aria-controls="tabOpinion1" role="tab" data-toggle="tab">TV 방송 휴일 관리</a></li>
+                        <li id="btnStock" role="presentation"><a href="#tabOpinion2" aria-controls="tabOpinion2" role="tab" data-toggle="tab">증시 거래 휴일 시간관리</a></li>
+                    </ul>
+                </div>
+                <!-- //Contain Tab -->
+                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                {
+                    <div class="box-top-table inform" hidden>
+                        <div class="inner-right inform-btn">
+                            <button class="btn btn-success" data-toggle="modal" data-target="#divMasterModel">증시 거래 시간 등록</button>
+                        </div>
+                    </div>
+                }
+                <!-- Global Search -->
+                <div class="bbs-write1">
+                    <form id="frmSearch">
+                        <table class="table">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="*">
+                                <col width="15%">
+                                <col width="*">
+                            </colgroup>
+                            <tr>
+                                <th>조회년도</th>
+                                <td>
+                                    <div class="form-inline">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control searchVal" name="StartDate">
+                                            <span class="input-group-addon" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                        </div> ~
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control searchVal" name="EndDate">
+                                            <span class="input-group-addon" id="dtEndDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <th>휴일구분</th>
+                                <td class="form-inline">
+                                    <select class="form-control searchVal" name="Holiday">
+                                        <option value="">전체</option>
+                                        <option value="01">법정공휴일</option>
+                                        <option value="02">대체공휴일</option>
+                                        <option value="03">임시공휴일</option>
+                                        <option value="04">기타</option>
+                                    </select>
+                                    <div class="input-group col-md-6">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="pageSize" id="pageSize" value="10"/>
+                        <input type="hidden" name="CurrentIndex" id="CurrentIndex" />
+                        <input type="hidden" name="Gubun" value="@ViewBag.Gubun" />
+                        <input type="hidden" name="seq" id="seq"/>
+                        <input type="hidden" name="CurrentMenuSeq" id="CurrentMenuSeq" value="@Request["menuSeq"]" />
+                    </form>
+                </div>
+                <!-- //Global Search -->
+                <div id="divContent"></div>
+            </div>
+            @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+            {
+                <div class="pull-right" style="margin:0px 10px 10px 10px !important;">
+                    <button class="btn btn-success" type="button" id="btnEditTime" data-toggle="modal" data-target="#divTimeModal">추가</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

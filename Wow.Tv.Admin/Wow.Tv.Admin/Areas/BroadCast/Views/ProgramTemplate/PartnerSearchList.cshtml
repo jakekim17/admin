@@ -1,0 +1,29 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db90.DNRS
+
+@model List<NTB_PROGRAM_PARTNER>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+
+@*<script src="@wowTvScript/BroadCast/ProgramTemplate/ProgramTemplatePartnerList.js?date=20170727163009"></script>*@
+
+
+
+@foreach (var item in Model)
+{
+    <li>
+        @item.PARTNER_NAME<button class="btn btn-default btn-xs" onclick="return ProgramTemplateEdit.DeletePartner(this);">×</button>
+        <input type="hidden" name="payNo" value="@item.pay_no" />
+    </li>
+}
+

@@ -1,0 +1,47 @@
+﻿@model bool
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var isHtmlContent = "@Model";
+</script>
+
+<script src="@wowTvScript/OperateManage/MenuManage/SearchContent.js?date=20170727163009"></script>
+
+
+
+
+<div class="modal-dialog search-contents" style="width:800px;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">컨텐츠 검색</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- Contain Tab -->
+            <div class="contain-tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tabOpinion1" id="tabOpinion1" aria-controls="tabOpinion1" role="tab" data-toggle="tab">게시판</a></li>
+                    <li role="presentation"><a href="#tabOpinion2" id="tabOpinion2" aria-controls="tabOpinion2" role="tab" data-toggle="tab">HTML</a></li>
+                </ul>
+            </div>
+            <!-- //Contain Tab -->
+
+            <div id="divContent"></div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>

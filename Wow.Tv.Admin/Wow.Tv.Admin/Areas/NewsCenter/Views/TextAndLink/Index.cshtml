@@ -1,0 +1,133 @@
+﻿
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/TextAndLink/Index.js"></script>
+    <script>
+        var CurrentMenuSeq = @Request["MenuSeq"];
+        var KeyWordCnt = @Model.GroupCodeCount[ViewBag.CodeName];
+    </script>
+}
+
+<div class="body-content animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 clearfix">
+            <div class="wrap">
+                <div class="bbs-list1">
+                    <form id="frmAdd">  
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>CODE</th>
+                                    <th>키워드 설정</th>
+                                    <th>바로가기 링크</th>
+                                    <th>Article ID</th>
+                                    <th>등록</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" name="CODE" id="code">
+                                            <option value="">선택</option>
+                                            @if (Model.CodeList != null)
+                                            {
+                                                foreach (var item in Model.CodeList)
+                                                {
+                                                    if (item.CODE_VALUE1 != "KEYWORD" || Model.GroupCodeCount[item.CODE_NAME] < 4)
+                                                    {
+                                                        <option value="@item.CODE_VALUE1">@item.CODE_NAME</option>
+                                                    }
+                                                }
+                                            }                                  
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control" name="KEYWORD" id="keyword"></td>
+                                    <td><input type="text" class="form-control" name="LINK" id="link"></td>
+                                    <td><input type="text" class="form-control" name="ARTICLE_ID" id="articleId"></td>
+                                    <td><button class="btn btn-success" type="button" id="btnAdd">설정</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+
+                <!-- Table Top -->
+                <div class="box-top-table">
+                    <div class="inner-left">
+                        <p> 
+                            @{ int i = 1, count = Model.GroupCodeCount.Count; }
+                            @foreach (var entry in Model.GroupCodeCount)
+                            {
+                                @entry.Key <span class="text-color1">@entry.Value</span>@:개
+                                if(i != count)
+                                {
+                                    @: /
+                                    i++;
+                                }
+                            }
+                        </p>
+                        <p>추천 키워드 뉴스(뉴스 메인 및 뉴스스탠드)는 최대 4개까지 등록할 수 있습니다.</p>
+                    </div>
+                </div>
+                <!-- //Table Top -->
+                <!-- Table Top -->
+                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                {
+                <div class="box-top-table">
+                    <div class="inner-left">
+                        <button class="btn btn-success" id="btnDelete">삭제</button>
+                    </div>
+                </div>
+                }
+                <!-- //Table Top -->
+                <div class="bbs-list1">
+                    <form id="frmEdit">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="allcheck"></th>
+                                    <th>CODE</th>
+                                    <th>키워드 설정</th>
+                                    <th>바로가기 링크</th>
+                                    <th>Article ID</th>
+                                    <th>최근 수정일</th>
+                                    <th>수정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ListData.Count > 0)
+                                {
+                                    foreach (var item in Model.ListData)
+                                    {
+                                        <tr id="@item.SEQ">
+                                            <td><input type="checkbox" name="checkbox" value="@item.SEQ" @(item.CODE_VALUE1 == "KEYWORD" ? "disabled" : "")></td>
+                                            <td class="codeName">@item.CODE_NAME</td>
+                                            <td class="Keyword" id="@item.CODE_VALUE1"><input type="text" class="form-control" value="@item.KEYWORD" /></td>
+                                            <td class="Link"><input type="text" class="form-control" value="@item.LINK" @( item.CODE_VALUE1 == "KEYWORD" || item.CODE_VALUE1 == "RANKING" || item.CODE_VALUE1 == "MARKETandISSUE" ? "disabled" : "" ) /></td>
+                                            <td class="ArticleId"><input type="text" class="form-control" value="@item.ARTICLE_ID" @( item.CODE_VALUE1 == "KEYWORD" || item.CODE_VALUE1 == "RANKING" || item.CODE_VALUE1 == "MARKETandISSUE" ? "disabled" : "" ) /></td>
+                                            <td>@item.MOD_DATE</td>
+                                            <td><button class="btn btn-default btnEdit" type="button">수정</button></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7">등록된 데이터가 없습니다.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <input type="hidden" name="SEQ" id="editSeq"/>
+                        <input type="hidden" name="KEYWORD" id="editKeyword"/>
+                        <input type="hidden" name="LINK" id="editLink" />
+                        <input type="hidden" name="ARTICLE_ID" id="editArticleId" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

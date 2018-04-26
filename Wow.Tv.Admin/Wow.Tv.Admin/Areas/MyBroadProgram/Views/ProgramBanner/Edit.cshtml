@@ -1,0 +1,123 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_PROGRAM_BANNER
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+
+
+<script src="@wowTvScript/MyBroadProgram/ProgramBanner/Edit.js?date=20170727163009"></script>
+
+
+    <div class="modal-dialog add-banner">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">배너등록</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- Table Top -->
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-notice1">'*'표시는 필수 입력입니다.</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <!-- BBS Write -->
+            <div class="bbs-write1">
+
+                <form id="frmSave">
+                    <input type="hidden" id="hidProgramBannerSeq" name="PROGRAM_BANNER_SEQ" value="@Model.PROGRAM_BANNER_SEQ" />
+
+                    <table class="table">
+                        <colgroup>
+                            <col width="120px">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <th><span class="nec">*</span>배너명</th>
+                            <td><input type="text" class="form-control" id="txtBannerName" name="BANNER_NAME" value="@Model.BANNER_NAME"></td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>게시기간</th>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="txtStartDate" name="START_DATE" value="@Model.START_DATE.ToDate()">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div> ~
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="txtEndDate" name="END_DATE" value="@Model.END_DATE.ToDate()">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>게시여부</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="Y" @(Model.PUBLISH_YN == "Y" ? "checked" : "")>Y</label>
+                                <label class="radio-inline"><input type="radio" name="PUBLISH_YN" value="N" @(String.IsNullOrEmpty(Model.PUBLISH_YN) == true || Model.PUBLISH_YN == "N" ? "checked" : "")>N</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>배너 이미지</th>
+                            <td>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                    <span class="input-group-addon btn btn-success btn-file"><span class="fileinput-new">파일선택</span><span class="fileinput-exists">다시선택</span><input type="file" name="bannerFile"></span>
+                                    <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </div>
+                                <img src="@Model.AttachFile.REAL_WEB_PATH" alt="" style="width:200px;height:auto;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>링크방법</th>
+                            <td>
+                                <label class="radio-inline"><input type="radio" name="LINK_TYPE" value="_self" @(String.IsNullOrEmpty(Model.LINK_TYPE) == true || Model.LINK_TYPE == "_self" ? "checked" : "")> 내부링크</label>
+                                <label class="radio-inline"><input type="radio" name="LINK_TYPE" value="_blank" @(Model.LINK_TYPE == "_blank" ? "checked" : "")> 새창링크</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="nec">*</span>URL</th>
+                            <td>
+                                <input type="text" class="form-control" placeholder="http(s)://" id="txtUrl" name="URL" value="@Model.URL">
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <th>설명</th>
+                            <td>
+                                <textarea id="hidRemark" style="display:none;" name="REMARK">@Model.REMARK</textarea>
+                            </td>
+                        </tr>*@
+                    </table>
+                </form>
+            </div>
+            <!-- //BBS Write -->
+            <!-- Bottom Buttons -->
+            <div class="box-button">
+                <button class="btn btn-success" id="btnSave">저장</button>
+            </div>
+            <!-- //Bottom Buttons -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+
+

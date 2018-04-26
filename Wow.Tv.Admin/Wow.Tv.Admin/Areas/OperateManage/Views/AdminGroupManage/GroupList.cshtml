@@ -1,0 +1,14 @@
+﻿@model List<Wow.Tv.Middle.Model.Db49.wowtv.NTB_GROUP>
+
+@{
+    Layout = null;
+}
+
+
+@foreach (var item in Model)
+{
+    <span class="col-md-2 fl-l">
+        <input class="col-md-1 fl-l h-16" type="radio" name="GroupSeq" id="rdoGroupSeq_@item.GROUP_SEQ" value="@item.GROUP_SEQ">
+        <label for="rdoGroupSeq_@item.GROUP_SEQ">@item.GROUP_NAME</label>
+    </span>
+}

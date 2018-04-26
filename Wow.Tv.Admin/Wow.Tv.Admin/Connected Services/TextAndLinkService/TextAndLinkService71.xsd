@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.TextAndLink" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.TextAndLink" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/TextAndLinkService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" />
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/TextAndLinkService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8088/NewsCenter/TextAndLinkService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" />
+  <xs:complexType name="TxtNLinkModelOfJOIN_TXTNLINK_CODEHNYAxlfz">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="TxtNLinkModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.TextAndLink" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="JOIN_TXTNLINK_CODE" Namespace="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.Article.TextAndLink" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Common" base="q1:ListModelOfJOIN_TXTNLINK_CODEHNYAxlfz">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Wow.Tv.Middle.Model.Db49.wowtv" minOccurs="0" name="CodeList" nillable="true" type="q2:ArrayOfNTB_COMMON_CODE" />
+          <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GroupCodeCount" nillable="true" type="q3:ArrayOfKeyValueOfstringint" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TxtNLinkModelOfJOIN_TXTNLINK_CODEHNYAxlfz" nillable="true" type="tns:TxtNLinkModelOfJOIN_TXTNLINK_CODEHNYAxlfz" />
+  <xs:complexType name="ArrayOfJOIN_TXTNLINK_CODE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="JOIN_TXTNLINK_CODE" nillable="true" type="tns:JOIN_TXTNLINK_CODE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfJOIN_TXTNLINK_CODE" nillable="true" type="tns:ArrayOfJOIN_TXTNLINK_CODE" />
+  <xs:complexType name="JOIN_TXTNLINK_CODE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ARTICLE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CODE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CODE_VALUE1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COMMON_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KEYWORD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LINK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOD_DATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MOD_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REG_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="REG_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEQ" type="xs:int" />
+      <xs:element minOccurs="0" name="SORT_ORDER" type="xs:int" />
+      <xs:element minOccurs="0" name="UP_COMMON_CODE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JOIN_TXTNLINK_CODE" nillable="true" type="tns:JOIN_TXTNLINK_CODE" />
+</xs:schema>

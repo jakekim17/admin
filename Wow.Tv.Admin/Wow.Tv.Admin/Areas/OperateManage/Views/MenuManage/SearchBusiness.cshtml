@@ -1,0 +1,47 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model List<NTB_COMMON_CODE>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/OperateManage/MenuManage/SearchBusiness.js?date=20170727163009"></script>
+
+
+<div class="form-body">
+    <form id="divSearchBusiness_frmSearch">
+        <div class="form-group">
+            <label class="col-md-1 control-label">검색</label>
+            <div class="input-group col-md-3 fl-l pad-r10">
+                <select class="form-control " name="searchType">
+                    <option value="all">전체</option>
+                    <option value="title">컨텐츠명</option>
+                    <option value="contentId">컨텐츠 아이디</option>
+                    <option value="regId">작성자</option>
+                </select>
+            </div>
+            <div class="input-group col-md-7">
+                <input class="form-control" type="text" name="searchText">
+                <span class="input-group-btn"><button type="button" class="btn btn-default" id="divSearchBusiness_btnSearch">검색</button></span>
+            </div>
+        </div>
+
+
+
+        <input type="hidden" id="divSearchBusiness_pageSize" name="pageSize" value="20" />
+        <input type="hidden" id="divSearchBusiness_currentIndex" name="currentIndex" />
+    </form>
+</div>
+
+<div class="app-ui-section group mt-10" id="divSearchBusiness_divList">
+    <!-- 전체100% -->
+</div>
+

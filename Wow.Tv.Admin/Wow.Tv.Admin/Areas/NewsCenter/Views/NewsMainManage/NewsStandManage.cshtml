@@ -1,0 +1,84 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@model List<NUP_NEWSSTAND_SELECT_Result>
+
+@{ Layout = null; }
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+    <script src="@wowTvScript/NewsCenter/NewsMainManage/NewsStandManage.js"></script>
+
+    <div class="modal-dialog modify-title">
+        <span class="fl-r s-text pad-r10"></span>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">가제목 등록/수정</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-notice">
+                    <p class="notice-table-top">기사 노출순서 중 빈 값이 하나라도 있으면 네이버 뉴스스탠드가 갱신되지 않습니다.<br>가제목 적용 버튼 클릭 후 네이버 뉴스 스탠드 적용 버튼을 눌러주세요.</p>
+                </div>
+                <div class="box-top-table">
+                    <div class="inner-right">
+                        <p class="text-color1">마지막 가제목 적용 시각: @ViewBag.newsStandLastUpdateTime</p>
+                    </div>
+                </div>
+                <div class="bbs-list1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>노출순위</th>
+                                <th>제목/네이버 뉴스스탠드용 가제목</th>
+                                <th>COMPCOED</th>
+                                <th>ARTLD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.RANK</td>
+                                <td class="text-left">@item.TITLE</td>
+                                <td rowspan="2">@item.COMP_CODE <br/>@item.DEPT_NAME</td>
+                                <!--td rowspan="2"><a href="#" onclcik="alert(CommonMsg.PreparingMsg)" target="_blank">@item.ARTID</a></!--td-->
+                                <td rowspan="2"><a href="javascript:NewsCommon.linkwwwUrl('@item.ARTID');">@item.ARTID</a></td>
+                            </tr>
+                            <tr>
+                                <td>가제목</td>
+                                <td>
+                                    <input type="text" class="form-control" value="@item.TMPTITLE" name="tmpTitle" id="@item.ARTID" maxlength="80">
+                                    <input type="hidden" class="form-control" value="@item.TMPTITLE" name="originalTmpTitle" >
+                                </td>
+                            </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">등록된 내용이 없습니다.</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Button Box -->
+                <div class="box-button">
+                @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                {
+                    <button class="btn btn-success" id="btnSave" name="btnSave"> 가제목 적용 </button>
+                }
+                    <!--<button class="btn btn-default" type="button" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+                </div>
+                <!-- //Button Box -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Close</button>
+            </div>
+        </div>
+    </div>

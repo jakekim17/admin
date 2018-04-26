@@ -1,0 +1,75 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_GROUP
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/OperateManage/AdminGroupManage/Create.js?date=20170727163009"></script>
+
+
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">운영자 그룹 등록/수정</h4>
+        </div>
+        <div class="modal-body">
+
+            <!-- 비밀번호변경 -->
+            <form class="form-horizontal rounded shadow no-overflow" id="frmSave" >
+                <input type="hidden" value="@Model.GROUP_SEQ" name="GROUP_SEQ" />
+                <div class="sign-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">그룹명</label>
+                        <div class="col-sm-10">
+                            <input class="form-control rounded" type="text" id="txtGroupName" value="@Model.GROUP_NAME" name="GROUP_NAME">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">활성</label>
+                        <div class="col-sm-10">
+                            <div class="fl-l mar-r20">
+                                <input class=" fl-l h-16" type="radio" name="USE_YN" value="Y" checked>
+                                <span> Y</span>
+                            </div>
+                            <div class="fl-l mar-r20">
+                                <input class="fl-l h-16" type="radio" name="USE_YN" value="N" >
+                                <span> N</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-footer">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-64" style="float: right">
+
+                                @*<button type="button" class="btn btn-default no-margin rounded" id="btnDelete">삭제</button>*@
+                                <button type="button" class="btn btn-theme no-margin rounded" id="btnSave">등록(수정)</button>
+                            </div>
+                        </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.sign-footer -->
+            </form>
+            <!--/ 비밀번호변경 -->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Close</button>
+        </div>
+    </div>
+
+</div>
+

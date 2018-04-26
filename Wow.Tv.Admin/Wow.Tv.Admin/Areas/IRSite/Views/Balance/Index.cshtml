@@ -1,0 +1,116 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db51.contents
+
+
+@model BalanceModel<NTB_FINANCE_STATUS>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/IRSite/Balance/Index.js"></script>
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.Condition.CurrentIndex";
+        var menuSeq = @Request["menuSeq"];
+        var year = "@ViewBag.Condition.Year";
+    </script>
+}
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <form id="frmSearch">
+            <div class="form-body">
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-1 control-label">년도</label>
+                    <div class="input-group col-sm-3">
+                        <select class="form-control" id="year" name="YEAR">
+                            <option value="">전체</option>
+                            @foreach (var item in Model.YearList)
+                            {
+                                if (item.Year == ViewBag.year)
+                                {
+                                    <option value="@item.Year" selected>@item.Year</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Year">@item.Year</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="pageSize" name="pageSize" value="10" />
+            <input type="hidden" id="currentIndex" name="currentIndex" value="0" />
+            <input type="hidden" id="no" name="NO" />
+        </form>
+
+        <div class="app-ui-section group mt-10">
+            <span class="fl-r s-text pad-r10">총 <font class="cho">@ViewBag.TotalDataCount</font> 개의 게시물이 등록되어 있습니다.</span>
+            <table class="table_colRow">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="form-group" id="total"></th>
+                        <th>번호</th>
+                        <th>년도</th>
+                        <th>활성</th>
+                        <th>작성자</th>
+                        <th>작성일(수정일)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListData.Count > 0)
+                    {
+                        foreach (var item in Model.ListData)
+                        {
+                            <tr>
+                                <td><input type="checkbox" class="form-group" name="BalanceNo" value="@item.NO"></td>
+                                <td>@item.NO</td>
+                                <td><a href="javascript:BalanceIndex.GoEdit(@item.NO)">@item.YEAR</a></td>
+                                <td>@item.FLAG</td>
+                                <td>@item.REG_ID</td>
+                                <td>
+                                    @item.REG_DATE.ToString("yyyy-MM-dd")
+                                    @if (item.MOD_DATE != null)
+                                    {
+                                        <span style="color: cadetblue">(@item.MOD_DATE)</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">등록게시물이 없습니다.</td>
+                        </tr>
+                    <!-- //게시물이 없을 경우 -->
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive mt-5">
+            <div id="divPaging"></div>
+            <div class="form-footer clearfix">
+                <div class="pull-right" style="margin:20px 10px 0 10px !important;">
+                    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, true, false) == true)
+                    {
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#myModal-menu" id="insert">등록</button>
+                    }
+                    @if (LoginHandler.IsAuth(Int32.Parse(Request["menuSeq"]), false, false, true) == true)
+                    {
+                        <button class="btn btn-default mr-5" id="delete">삭제</button>
+                    }
+                </div>
+            </div>
+            <!-- /.form-footer -->
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model ListModel<NTB_PROGRAM_BANNER>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@{
+    Layout = null;
+}
+
+<script>
+    var totalDataCount = "@Model.TotalDataCount";
+</script>
+
+<script src="@wowTvScript/MyBroadProgram/ProgramBanner/SearchList.js?date=20170727163009"></script>
+
+
+<!-- Table Top -->
+<div class="box-top-table">
+    <div class="inner-right">
+        <p>총 @Model.TotalDataCount.ToString("N0")개의 게시물이 등록되어있습니다.</p>
+    </div>
+</div>
+<!-- //Table Top -->
+<!-- BBS List -->
+<div class="bbs-list1">
+    <form id="frmList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="chAll"></th>
+                    <th>번호</th>
+                    <th>이미지</th>
+                    <th>배너명</th>
+                    <th>게시기간</th>
+                    <th>게시여부</th>
+                    <th>편집</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListData)
+            {
+                    <tr>
+                        <td><input type="checkbox" name="seqList" value="@item.PROGRAM_BANNER_SEQ"></td>
+                        <td>@item.PROGRAM_BANNER_SEQ</td>
+                        <td><img src="@item.AttachFile.REAL_WEB_PATH" alt="" style="width:200px;height:auto;"></td>
+                        <td>@item.BANNER_NAME</td>
+                        <td>@item.START_DATE.ToDate() ~ @item.END_DATE.ToDate()</td>
+                        <td>
+                            @item.PUBLISH_YN
+                        </td>
+                        <td>
+                            <button class="btn btn-default" onclick="return ProgramBannerIndex.OpenEdit(@item.PROGRAM_BANNER_SEQ);">수정</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+<!-- //BBS List -->
+
+
+
+<div class="table-responsive mt-5" id="divPaging"></div>
+
+
+
+
+<!-- Bottom Buttons -->
+<div class="box-button">
+    <div class="inner-left">
+        <button class="btn btn-default" id="btnDelete">삭제</button>
+    </div>
+</div>
+<!-- //Bottom Buttons -->
+
+

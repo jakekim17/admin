@@ -1,0 +1,58 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+
+    <script src="@wowTvScript/OperateManage/MainManage/Index.js"></script>
+}
+
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+
+<!-- Start body content -->
+<div class="body-content animated fadeIn">
+    <!-- Contents -->
+
+    <div class="wrap">
+        <form id="frmSave">
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <div class="box-notice form-inline">
+                        <label>노출위치 설정</label>
+                        &nbsp;&nbsp;
+                        <select class="form-control " id="cboMainTypeCode" name="MAIN_TYPE_CODE">
+                            <option value="MainTop">메인 상단</option>
+                            <option value="MainAll">메인 전체</option>
+                            <option value="CustomerAndMyPage">고객센터/마이페이지</option>
+                            <option value="RealEstate">부동산</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="divEdit">
+            </div>
+        </form>
+    </div>
+    <!-- //Contents -->
+</div>
+<div class="body-content animated fadeIn">
+    <!-- Contents -->
+
+    <div class="wrap" id="divList" >
+
+    </div>
+
+    <!-- //Contents -->
+</div>
+
+

@@ -1,0 +1,250 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model IList<tblTradingStarTrade>
+
+
+@{
+
+    var tradeUserInfo = ViewBag.TradeUserInfo as tblTradingStarUser;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    int haveCnt = 0;
+    double haveRate = 0;
+    int totalHaveCnt = 0;
+    double totalHaveRate = 0;
+
+    var starmarkListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "0", Value = "0"},
+            new SelectListItem { Text = "0.5", Value = "0.5"},
+            new SelectListItem { Text = "1.5", Value = "1"},
+            new SelectListItem { Text = "2", Value = "2"},
+            new SelectListItem { Text = "2.5", Value = "2.5"},
+            new SelectListItem { Text = "3", Value = "3"},
+            new SelectListItem { Text = "3.5", Value = "3.5"},
+            new SelectListItem { Text = "4", Value = "4"},
+            new SelectListItem { Text = "4.5", Value = "4.5"},
+            new SelectListItem { Text = "5", Value = "5"}
+        }, "Value", "Text");
+
+
+}
+
+
+@{
+    Layout = null;
+}
+
+<script src="@wowTvScript/TradingStar/Trade/TradeList.js"></script>
+
+<form id="frmSearch">
+    <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--TODO : 아래 변경해야됨-->
+        <!-- tradeUserInfo?.name 파트너   ▶출연요일: @tradeUserInfo?.weekname   ▶투자성향: @tradeUserInfo?.stockchar-->
+        <th colspan="15">@($"{tradeUserInfo?.name} 파트너   ▶출연요일: {tradeUserInfo?.weekname}   ▶투자성향: {tradeUserInfo?.stockchar}")</th>
+        <th colspan="3">매매전략</th>
+    </tr>
+    <tr>
+        <th><input type="checkbox" id="allCheck"></th>
+        <th>번호</th>
+        <th>종목</th>
+        <th>게시일</th>
+        <th>매수일</th>
+        <th>매수가</th>
+        <th>매수상태</th>
+        <th>매도일</th>
+        <th>매도가</th>
+        <th>현재가</th>
+        <th>목표 수익률</th>
+        <th>현재 수익률</th>
+        <th>★마크</th>
+        <th>목표가</th>
+        <th>손절가</th>
+        <th>매수가전략</th>
+        <th>목표가전략</th>
+        <th>손절가전략</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Count == 0)
+    {
+
+        <tr>
+            <td colspan="18" style="height:400px">게시물이 없습니다.</td>
+        </tr>
+    }
+    else
+    {
+        double earningRateSum = 0;
+        int number = Model.Count;
+        foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>@number</td>
+                <td><a href="#" onclick="TradeIndex.OpenEdit('@item.seq')">@item.cname</a>
+                    <input type="hidden" value="@item.seq" />
+                </td>
+                <td>
+                    @if (item.broaddt != null)
+                    {
+                        @item.broaddt.Value.ToString("yyyy-MM-dd")
+                    }
+                </td>
+                <td>
+                    @if (item.buydt != null)
+                    {
+                        @item.buydt.Value.ToString("yyyy-MM-dd")
+                    }
+                </td>
+                <td>
+                    @if (item.buycost != null)
+                    {
+                        @($"{item.buycost.Value:n0}")
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.buystate)</td>
+                <td>
+                    @if (item.selldt != null && item.selldt.Value.Year > 1900)
+                    {
+                        @item.selldt.Value.ToString("yyyy-MM-dd")
+                    }
+                </td>
+                <td>
+                    @if (item.sellcost != null && item.sellcost > 0)
+                    {
+                        @($"{item.sellcost.Value:n0}")
+                    }
+                </td>
+                <td>
+                    @if (item.CurrentPrice != null) //현재가
+                    {
+                        @($"{item.CurrentPrice.Value:n0}")
+                    }
+                </td>
+                <td>
+                    @if (item.goalEarningRate != null)
+                    {
+                        @($"{item.goalEarningRate.Value:n0}%")
+                    }
+                </td>
+                <td>
+                    @if (item.selldt != null && item.selldt.Value.Year > 1900) //매도가 수익
+                    {
+
+                        @item.SellProfitPrice@:%
+                            
+                        earningRateSum = earningRateSum +  item.SellProfitPrice;
+                    }
+                    else
+                    {
+                        if (item.buystate == "정상" || item.buystate == "편입실패")
+                        {
+                            haveCnt = haveCnt + 1; //보유종목갯수
+                            haveRate = haveRate + item.HoldProfitPrice; //보유종목 평균수익률
+                        }
+
+                        @item.HoldProfitPrice@:%
+                            
+                        earningRateSum = earningRateSum + item.HoldProfitPrice ;
+                    }
+                </td>
+                <td>
+                    @Html.DropDownList("VIEW_YN", new SelectList(starmarkListItem, "Value", "Text", item.starMark), new { @class = "form-control" , onchange = $"TradeIndex.UpdateStarMark('{item.seq}', this.value)"})
+                </td>
+                <td>
+                    @if (item.targetCost != null)
+                    {
+                        @($"{item.targetCost.Value:n0}")
+                    }
+                </td>
+                <td>
+                    @if (item.losscutCost != null)
+                    {
+                        @($"{item.losscutCost.Value:n0}")
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(item.strategybuy))
+                    {
+                        @item.strategybuy
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(item.strategytarget))
+                    {
+                        @item.strategytarget
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(item.strategylosscut))
+                    {
+                        @item.strategylosscut
+                    }
+                </td>
+            </tr>
+
+            if (item.buystate == "정상" || item.buystate == "편입실패")
+            {
+                totalHaveCnt = totalHaveCnt + 1; //보유종목갯수
+                totalHaveRate = totalHaveRate + item.HoldProfitPrice + item.SellProfitPrice; //보유종목 평균수익률
+            }
+
+            number = number - 1;
+        }
+
+        <tr>
+            <td colspan="10">&nbsp;</td>
+            <td>수익률합</td>
+            <td>@earningRateSum%</td>
+        </tr>
+
+    }
+    </tbody>
+</table>
+    
+
+
+<table class="table">
+    <tr>
+        <td colspan="6"></td>
+    </tr>
+    <tr>
+        <td rowspan="2">합계</td>
+        <td>보유종목수</td>
+        <td>@haveCnt 종목</td>
+        <td width="200" >&nbsp;</td>
+        <td >보유종목 평균수익률</td>
+        @*'평균수익률 공식
+        '수익률 / 종목갯수*@
+        @if (haveCnt == 0)
+        {
+            <td>없음 </td>
+        }
+        else
+        {
+            <td>@Math.Round(haveRate / haveCnt,2)%</td>
+        }
+    </tr>
+    <tr>
+        <td >전체거래수</td>
+        <td >@totalHaveCnt 종목</td>
+        <td width="200">&nbsp;</td>
+        <td >전체거래 평균수익률</td>
+        @*'평균수익률 공식
+        '수익률 / 종목갯수*@
+        @if (totalHaveCnt == 0)
+        {
+            <td>없음 </td>
+        }
+        else
+        {
+            <td>@Math.Round(totalHaveRate / totalHaveCnt, 2)%</td>
+        }
+    </tr>
+</table>

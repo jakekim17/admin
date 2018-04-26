@@ -1,0 +1,167 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv;
+@using Wow.Tv.Middle.Model.Db49.wowtv.Kvina;
+
+@model ListModel<TAB_NOTICE>
+
+
+배포후에는 실제 Kvina에서 운용중인 실제DB이니 등록이나 수정금지
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    int idx = ViewBag.idx;
+}
+
+@section scripts{
+    <script src="@wowTvScript/Kvina/Kvina/Index.js"></script>
+    <script src="@wowTvScript/Kvina/FileCommon.js"></script>
+
+    <script>
+        var totalDataCount = "@ViewBag.TotalDataCount";
+        var currentIndex = "@ViewBag.currentIndex";
+        var viewYN = "@ViewBag.Condition.VIEW_YN";
+        var searchType = "@ViewBag.Condition.SearchType";
+    </script>
+}
+
+@{ 
+    
+    var searchListItem = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "전체", Value = "ALL"},
+            new SelectListItem { Text = "제목", Value = "TITLE"},
+            new SelectListItem { Text = "내용", Value = "CONTENT"}
+        }, "Value", "Text");
+
+    
+    string selectSearchType = string.IsNullOrWhiteSpace(ViewBag.Condition.SearchType) ? "ALL" : ViewBag.Condition.SearchType;
+    
+    var searchList = new SelectList(searchListItem, "Value", "Text", selectSearchType);
+
+}
+
+<script>
+    function goEdit(seq) {
+        //alert(seq);
+
+        location.href = "/Kvina/Kvina/KvinaNoticeViewLinq?menuSeq=@Request["menuSeq"]&seq=" + seq;
+    }
+
+    function goWrite() {
+
+
+        location.href = "/Kvina/Kvina/KvinaNoticeWriteLinq?menuSeq=@Request["menuSeq"]";
+    }
+</script>
+
+
+
+<!-- 공지사항 리스트 -->
+<div class="wrap">
+
+    <!-- Global Search -->
+    <div class="contain-search-global">
+
+
+        <form id="frmSearch">
+
+            <table>
+                <tr>
+                    <th>검색</th>
+                    <td colspan="3">
+                        <div class="form-group form-inline">
+                            @Html.DropDownList("SearchType", searchList, new { @class = "form-control" })
+                            <div class="input-group" style="width: 600px">
+                                <input class="form-control" type="text" placeholder="검색어를 입력하세요." autocomplete=off name="SearchText" id="txtSearch" maxlength="100" value="@ViewBag.Condition.SearchText">
+                                <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" id="seq" name="seq" />
+            <input type="hidden" id="pageSize" name="pageSize" value="10" />
+            <input type="hidden" id="currentIndex" name="currentIndex" value="@ViewBag.CurrentIndex" />
+            <input type="hidden" id="BOARD_SEQ" name="BOARD_SEQ" value="@ViewBag.BOARD_SEQ" />
+            <input type="hidden" id="CurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+
+            <input type="hidden" id="menuSeq" name="menuSeq" value="@Request["menuSeq"]" />
+            <input type="hidden" id="TotalDataCount" name="TotalDataCount" value="@ViewBag.TotalDataCount" />
+
+
+        </form>
+    </div>
+    <!-- //Global Search -->
+
+        <!-- Table Top -->
+        <div class="box-top-table">
+            <div class="inner-right">
+                <p>
+                    총 <span class="text-color1">@ViewBag.TotalDataCount</span>개의 게시물이 등록되어 있습니다.
+                </p>
+            </div>
+        </div>
+        <!-- //Table Top -->
+        <!-- BBS List -->
+        <div class="bbs-list1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>SEQ</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (ViewBag.TotalDataCount == 0)
+                    {
+
+                        <tr>
+                            <td colspan="5" style="height:400px">게시물이 없습니다.</td>
+                        </tr>}
+                    else
+                    {
+
+                        foreach (var item in Model.ListData)
+                        {
+                            <tr>
+                                <td>@(idx--)</td>
+                                <td>@item.SEQ</td>
+                                <td><a href="#" onclick="JavaScript: goEdit(@item.SEQ);">@item.TITLE</a></td>
+                                <td>@item.REG_DATE</td>
+                                <td>@item.READ_CNT</td>
+
+
+                            </tr>
+}
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- //BBS List -->
+        @if (ViewBag.TotalDataCount > 0)
+        {
+    <!-- Pagenate -->
+            <div class="box-paginate">
+                <div id="divPaging"></div>
+            </div>
+    <!-- //Pagenate -->
+        }
+
+        <!-- Bottom Buttons -->
+        <div class="box-button">
+            <div class="inner-right">
+                <button onclick="JavaScript: goWrite();">글쓰기</button>
+            </div>
+        </div>
+        <!-- //Bottom Buttons -->
+
+    </div>

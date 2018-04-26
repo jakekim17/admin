@@ -1,0 +1,135 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model NTB_MAIN_MANAGE
+
+@{
+    Layout = null;
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+
+<script src="@wowTvScript/OperateManage/MainManage/Edit.js"></script>
+
+
+
+<input type="hidden" id="hidMainManageSeq" name="MAIN_MANAGE_SEQ" value="@Model.MAIN_MANAGE_SEQ" />
+
+<!-- BBS Write -->
+<div class="bbs-write1">
+    <table class="table">
+        <colgroup>
+            <col width="180px">
+            <col>
+        </colgroup>
+        <tr>
+            <th><font class="f-red">* </font>타이틀</th>
+            <td><input type="text" class="form-control" name="TITLE" value="@Model.TITLE"></td>
+        </tr>
+        <tr>
+            <th>배너등록</th>
+            <td>
+                <div id="divTypeCode">
+                    <label class="radio-inline"><input type="radio" id="rdoTypeCodeText" name="TYPE_CODE" value="Text" @(String.IsNullOrEmpty(Model.TYPE_CODE) == true || Model.TYPE_CODE == "Text" ? "checked" : "")> 텍스트</label>
+                    <label class="radio-inline"><input type="radio" id="rdoTypeCodeImage" name="TYPE_CODE" value="Image" @(Model.TYPE_CODE == "Image" ? "checked" : "")> 이미지</label>
+                    <input type="text" class="form-control mt10" name="TEXT_INFO1" maxlength="5" value="@Model.TEXT_INFO1">
+                    <input type="text" class="form-control mt10" name="TEXT_INFO2" value="@Model.TEXT_INFO2">
+                </div>
+                <div class="form-group mt10">
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename">@Model.AttachFile.REAL_WEB_PATH</span>
+                        </div>
+                        <span class="input-group-addon btn btn-success btn-file">
+                            <span class="fileinput-new">파일선택</span>
+                            <span class="fileinput-exists">다시선택</span>
+                            <input type="file" name="file">
+                        </span>
+                        <a href="#" class="input-group-addon fileinput-exists" data-dismiss="fileinput">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </td>
+        </tr>
+        <tr>
+            <th><font class="f-red">* </font>링크주소</th>
+            <td><input type="text" class="form-control" name="LINK_URL" value="@Model.LINK_URL"></td>
+        </tr>
+        <tr>
+            <th><font class="f-red">* </font>링크구분</th>
+            <td>
+                <label class="radio-inline"><input type="radio" name="LINK_TYPE" value="_blank" @(String.IsNullOrEmpty(Model.LINK_TYPE) == true || Model.LINK_TYPE == "_blank" ? "checked" : "")> 새창</label>
+                <label class="radio-inline"><input type="radio" name="LINK_TYPE" value="_self" @(Model.LINK_TYPE == "_self" ? "checked" : "")> 본창</label>
+            </td>
+        </tr>
+        <tr>
+            <th>노출기간</th>
+            <td>
+                <div class=" col-md-13">
+                    <div class="input-group date fl-l col-md-5" style="width:150px">
+                        <input type="text" class="form-control" name="PUBLISH_START" value="@Model.PUBLISH_START.ToDate()">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                    </div>
+                    <select class="form-control fl-l" style="width:75px; margin-left:10px;" name="PublishStartHour" >
+                        @for (int i = 0; i < 24; i++)
+                        {
+                        <option value="@i" @((Model.PUBLISH_START != null && Model.PUBLISH_START.Value.Hour == i) ? "selected" : "")>@i.ToString("00")</option>
+                        }
+                    </select>
+                    <select class="form-control fl-l" style="width:75px; margin-left:10px;" name="PublishStartMinute">
+                        @for (int i = 0; i < 60; i++)
+                        {
+                            <option value="@i" @((Model.PUBLISH_START != null && Model.PUBLISH_START.Value.Minute == i) ? "selected" : "")>@i.ToString("00")</option>
+                        }
+                    </select>
+                    <span class="fl-l" style="padding:10px"> ~ </span>
+                    <div class="input-group date fl-l col-md-5" style="width:150px">
+                        <input type="text" class="form-control" name="PUBLISH_END" value="@Model.PUBLISH_END.ToDate()">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                    </div>
+                </div>
+                <select class="form-control fl-l" style="width:75px; margin-left:10px;" name="PublishEndHour">
+                    @for (int i = 0; i < 24; i++)
+                    {
+                        <option value="@i" @((Model.PUBLISH_END != null && Model.PUBLISH_END.Value.Hour == i) ? "selected" : "")>@i.ToString("00")</option>
+                    }
+                </select>
+                <select class="form-control fl-l" style="width:75px; margin-left:10px;" name="PublishEndMinute">
+                    @for (int i = 0; i < 60; i++)
+                    {
+                        <option value="@i" @((Model.PUBLISH_END != null && Model.PUBLISH_END.Value.Minute == i) ? "selected" : "")>@i.ToString("00")</option>
+                    }
+                </select>
+                <p class="fl-l" style=" margin-left:10px; padding-top:10px">* 미 입력시 제한 없음</p>
+            </td>
+        </tr>
+        <tr>
+            <th>노출상태</th>
+            <td>
+                <label class="radio-inline"><input type="radio" name="ACTIVE_YN" value="Y" @(String.IsNullOrEmpty(Model.ACTIVE_YN) == true || Model.ACTIVE_YN == "Y" ? "checked" : "")> Y</label>
+                <label class="radio-inline"><input type="radio" name="ACTIVE_YN" value="N" @(Model.ACTIVE_YN == "N" ? "checked" : "")> N</label>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- //BBS Write -->
+<div class="box-top-table">
+    <div class="inner-left">
+        <p id="pInfoText">최대 20개까지 등록가능합니다. <br /> 최소 2개의 배너가 등록되어 있어야 합니다.  </p>
+    </div>
+</div>
+<!-- Bottom Buttons -->
+<div class="box-button">
+    <button class="btn btn-success" id="btnSave">등록(수정)</button>
+    @if (Model.MAIN_MANAGE_SEQ > 0)
+    {
+    <button class="btn btn-default" id="btnDelete">삭제</button>
+    }
+</div>
+
+
+

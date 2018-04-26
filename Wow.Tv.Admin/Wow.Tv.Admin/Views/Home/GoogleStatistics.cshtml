@@ -1,0 +1,136 @@
+﻿@using Wow.Tv.Middle.Model.Common
+
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    Layout = null;
+}
+
+<script src="@wowTvScript/Home/GoogleStatistics.js"></script>
+
+<div class="box-title">
+    <h3>사이트 별 방문자 통계</h3>
+    <div class="box-link">
+        @*<a href="" class="btn btn-default">더보기</a>*@
+@*
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <br />
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <br />
+    <a href="#" onclick="signOut();">Sign out</a>
+    <br />
+    <a href="#" onclick="oauthSignIn();">oauthSignIn</a>
+*@
+    </div>
+</div>
+<!-- BBS List -->
+<div class="bbs-list1">
+    <table class="table">
+        <colgroup>
+            @*<col width="80px">*@
+            <col>
+            <col width="130px">
+        </colgroup>
+        <thead>
+            <tr>
+                @*<th>순위</th>*@
+                <th>사이트 명</th>
+                <th>방문자수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>한국경제TV</td>
+                <td id="tdGoogleApi_WowTv"></td>
+            </tr>
+            <tr>
+                <td>와우넷</td>
+                <td id="tdGoogleApi_WowNet"></td>
+            </tr>
+            <tr>
+                <td>와우파</td>
+                <td id="tdGoogleApi_WowFa"></td>
+            </tr>
+            <tr>
+                <td>장외주식 WOW스타</td>
+                <td id="tdGoogleApi_WowStart"></td>
+            </tr>
+            <tr>
+                <td>와우SL</td>
+                <td id="tdGoogleApi_WowSl"></td>
+            </tr>
+            @*<tr>
+                <td>와우스타(기사제공사)-PC</td>
+                <td id="tdGoogleApi_WowStartArticlePc"></td>
+            </tr>
+            <tr>
+                <td>와우스타(기사제공사)-MOBILE</td>
+                <td id="tdGoogleApi_WowStartArticleMobile"></td>
+            </tr>*@
+        </tbody>
+    </table>
+</div>
+<script>
+
+    function onSignIn(googleUser) {
+
+        //alert(googleUser);
+        //location.href = "/Home/Index";
+        /*
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+        */
+    };
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+
+    function oauthSignIn() {
+        // Google's OAuth 2.0 endpoint for requesting an access token
+        var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+        // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+        var form = document.createElement('form');
+        form.setAttribute('method', 'GET'); // Send as a GET request.
+        form.setAttribute('action', oauth2Endpoint);
+
+        // Parameters to pass to OAuth 2.0 endpoint.
+        var params = {
+            'client_id': '592087973259-ien66vgvi4m0h1u7h8k1tksqu8n6v2vk.apps.googleusercontent.com',
+            'redirect_uri': 'http://admin.wowtv.co.kr',
+            'response_type': 'token',
+            'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
+            'include_granted_scopes': 'true',
+            'state': 'pass-through value'
+        };
+
+        // Add form parameters as hidden input values.
+        for (var p in params) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', p);
+            input.setAttribute('value', params[p]);
+            form.appendChild(input);
+        }
+
+        // Add form to page and submit it to open the OAuth 2.0 endpoint.
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+

@@ -1,0 +1,91 @@
+﻿@using Wow
+@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Broad
+
+
+@model NTB_PROGRAM_GROUP
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    BroadGroupCondition condition = ViewBag.Condition;
+}
+
+@section scripts{
+    <script src="@wowTvScript/BroadCast/ProgramGroup/Edit.js"></script>
+    @*<script src="@wowTvScript/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>*@
+}
+
+@section modalDiv{
+}
+
+
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+
+
+<form id="frmSearch">
+    <input type="hidden" name="GroupName" value="@condition.GroupName">
+
+    <input type="hidden" name="currentIndex" value="@condition.CurrentIndex" />
+</form>
+
+
+
+<div class="row">
+    <div class="col-md-12 clearfix">
+
+        <div class="wrap">
+
+            <div class="box-top-table">
+                <div class="inner-left">
+                    <p class="text-notice1">*표시는 필수 입력입니다.</p>
+                </div>
+            </div>
+            <div class="bbs-write1">
+                <form id="frmSave">
+                    <input type="hidden" id="hidProgramGroupSeq" name="PROGRAM_GROUP_SEQ" value="@Model.PROGRAM_GROUP_SEQ" />
+
+                    <table class="table">
+                        <colgroup>
+                            <col width="200px">
+                            <col>
+                            <col width="200px">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th><span class="nec">*</span>대표프로그램코드</th>
+                                <td><input type="text" class="form-control" id="txtMasterProgramCode" name="MASTER_PRG_CD" maxlength="5" value="@Model.MASTER_PRG_CD"></td>
+                                <th><span class="nec">*</span>그룹명</th>
+                                <td><input type="text" class="form-control" id="txtGroupName" name="GROUP_NAME" value="@Model.GROUP_NAME"></td>
+                            </tr>
+                            <tr>
+                                <th>그룹 템플릿</th>
+                                <td colspan="3">
+                                    <label class="radio-inline"><input type="radio" name="TYPE_CODE" value="Union" @(String.IsNullOrEmpty(Model.TYPE_CODE) == true || Model.TYPE_CODE == "Union" ? "checked" : "")> 연합형</label>
+                                    <label class="radio-inline"><input type="radio" name="TYPE_CODE" value="Group" @(Model.TYPE_CODE == "Group" ? "checked" : "")> 그룹형</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="box-button" style="margin-bottom:30px;">
+                @if (Model.PROGRAM_GROUP_SEQ > 0)
+                {
+                <button class="btn btn-default" id="btnDelete">삭제</button>
+                }
+                <button class="btn btn-success" id="btnSave">저장</button>
+                <a class="btn btn-default" id="btnList">목록</a>
+            </div>
+
+            <div class="bbs-list1" id="divProgramTemplateList">
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,78 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.Menu;
+@using Wow.Tv.Admin.MenuService;
+
+
+@model ListModel<NTB_MENU>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    Layout = null;
+}
+
+
+<script src="@wowTvScript/MyBroadProgram/MenuManage/SearchList.js"></script>
+
+
+
+
+
+<div class="box-scroll">
+    <!-- BBS List -->
+    <div class="bbs-list1">
+        <table class="table" id="tblMenuList">
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>메뉴명</th>
+                    <th>순서</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListData)
+                {
+                <tr>
+                    <td>@(item.FIX_YN == "Y" ? "고정메뉴" : "추가메뉴")</td>
+                    <td class="text-left">
+                        <input type="hidden" class="devMenuSeq" value="@item.MENU_SEQ" />
+                        <a href="#" onclick="return MyProgramMenuManageSearchList.SelectItem(@item.MENU_SEQ);">@item.MENU_NAME</a>
+                    </td>
+                    <td>
+                        <span class="btn-arrow-up"><button class="btn btn-default" onclick="return MyProgramMenuManageSearchList.UpDown(@item.MENU_SEQ, true);">위로</button></span>
+                        <span class="btn-arrow-down"><button class="btn btn-success" onclick="return MyProgramMenuManageSearchList.UpDown(@item.MENU_SEQ, false);">아래로</button></span>
+                    </td>
+                </tr>
+
+                    MenuCondition menuCondition = new MenuCondition();
+                    menuCondition.UpMenuSeq = item.MENU_SEQ;
+                    menuCondition.Depth = 2;
+                    menuCondition.SearchProgramCode = item.PRG_CD;
+                    menuCondition.ChannelCode = item.CHANNEL_CODE;
+                    var menuList_2 = new MenuServiceClient().SearchList(menuCondition);
+
+                    foreach (var item2 in menuList_2.ListData)
+                    {
+                    <tr>
+                        <td>@(item2.FIX_YN == "Y" ? "고정메뉴" : "추가메뉴")</td>
+                        <td class="text-left">
+                            <input type="hidden" class="devMenuSeq" value="@item2.MENU_SEQ" />
+                            <a href="#" onclick="return MyProgramMenuManageSearchList.SelectItem(@item2.MENU_SEQ);">
+                                <img src="/Content/Images/re.gif" />@item2.MENU_NAME
+                            </a>
+                        </td>
+                        <td>
+                            <span class="btn-arrow-up"><button class="btn btn-default" onclick="return MyProgramMenuManageSearchList.UpDown(@item2.MENU_SEQ, true);">위로</button></span>
+                            <span class="btn-arrow-down"><button class="btn btn-success" onclick="return MyProgramMenuManageSearchList.UpDown(@item2.MENU_SEQ, false);">아래로</button></span>
+                        </td>
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- //BBS List -->
+
+</div>
+
+

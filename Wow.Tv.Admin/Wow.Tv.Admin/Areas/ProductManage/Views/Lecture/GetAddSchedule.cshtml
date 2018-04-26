@@ -1,0 +1,80 @@
+﻿
+@{
+    Layout = null;
+
+    var idx = ViewBag.StartNum;
+}
+
+@for (int i = 0; i < ViewBag.CntNum; i++)
+{
+    var schCnt = idx + 1;
+    <table class="table_colRow tableSch" id="tableSch_@idx">
+        <colgroup>
+            <col width="15%">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr class="noback">
+                <th><font class="f-red">*</font> 일정 @schCnt</th>
+                <td>
+                    <input type="hidden" name="ScheduleList[@idx].SEQ" />
+                    <div class=" col-md-12">
+                        <div class="input-group fl-l col-md-5 mr-10" style="width:210px">
+                            <input type="text" class="form-control txtDate" name="ScheduleList[@idx].LECTURES_DATE" />
+                            <span class="input-group-addon dtDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                        </div>
+                        <div class="input-group form-inline fl-l col-md-4 mr-10" style="width:210px">
+                            <input type="text" class="form-control" name="ScheduleList[@idx].LECTURES_TIME">
+                        </div>
+                        <div class="input-group form-inline fl-l col-md-2" style="margin-top:5px">
+                            (예 : 2017-01-01 15:00)
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="noback">
+                <th>강사</th>
+                <td class="tdLec" id="tdLec_@idx">
+                    <div class="col-md-12" style="margin-bottom:5px;">
+                        <input type="hidden" name="ScheduleList[@idx].LecturerList[0].SEQ" class="lecSeq"/>
+                        <div class="input-group fl-l col-md-3 mr-10">
+                            <select class="form-control selLectype" name="ScheduleList[@idx].LecturerList[0].LECTURER_TYPE">
+                                <option value="G">일반강사</option>
+                                <option value="P">파트너</option>
+                                <option value="N">강사없음</option>
+                            </select>
+                        </div>
+                        <div class="divLec">
+                            <div class="input-group form-inline fl-l col-md-4 mr-10">
+                                <input type="text" name="ScheduleList[@idx].LecturerList[0].LECTURER" class="form-control">
+                            </div>
+                        </div>
+                        <div class="input-group form-inline fl-l col-md-2 btnWrap">
+                            <button type="button" class="btn btn-default mr-10 btnLectypeAdd">추가</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="noback">
+                <th>주소</th>
+                <td>
+                    <div class="col-md-12">
+                        <div class="input-group form-inline fl-l col-md-4 mr-10 divPlace">
+                            <input type="text" class="form-control txtPlace" name="ScheduleList[@idx].PLACE">
+                        </div>
+                        <div class="input-group form-inline fl-l col-md-2">
+                            <button type="button" class="btn btn-success btnModal">네이버지도 보기</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="noback">
+                <th>기타</th>
+                <td>
+                    <textarea class="txtarea" name="ScheduleList[@idx].ETC" cols="30" rows="10"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    idx++;
+}

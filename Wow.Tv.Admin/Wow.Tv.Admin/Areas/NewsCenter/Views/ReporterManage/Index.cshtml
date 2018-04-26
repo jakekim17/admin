@@ -1,0 +1,109 @@
+﻿@using Wow.Tv.Middle.Model.Db49.Article
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/NewsCenter/NewsCommon.js"></script>
+    <script src="@wowTvScript/NewsCenter/ReporterManage/Index.js"></script>
+}
+<input type="hidden" name="currentMenuSeq" id="hidCurrentMenuSeq" value="@Request["menuSeq"]" />
+<div class="row">
+    <div class="col-md-12 clearfix">
+        <div class="wrap">
+            <!-- Global Search -->
+            <div class="contain-search-global">
+            <form id="frmSearch" name="frmSearch" method="post" onsubmit="return false;">
+                <table>
+                    <colgroup>
+                        <col width="120px">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th>조건</th>
+                        <td>
+                            <div class="form-inline">
+                                <select class="form-control" id="SearchGubun" name="SearchGubun">
+                                    <option value="">선택</option>
+                                    <option value="REPORTER_NAME">기자명</option>
+                                    <option value="DEPT_NAME">부서</option>
+                                    <option value="ARTICLE_COUNT">기사수</option>
+                                    <option value="RECOMMEND_COUNT">추천수</option>
+                                    <option value="SUBSCRIPTION_COUNT">구독수</option>
+                                    <option value="CLICK_COUNT">조회수</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">검색</th>
+                        <td>
+                            <div class="form-group form-inline">
+                                <button class="btn btn-default" id="OneWeekTerm">1주일</button>
+                                <button class="btn btn-default" id="TwoWeekTerm">2주일</button>
+                                <button class="btn btn-default" id="OneMonthTerm">1개월</button>
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="SearchStartDate" name="StartDate" maxlength="10">
+                                    <span class="input-group-addon" style="cursor:pointer" id="dtStartDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div> ~
+                                <div class="input-group date">
+                                    <input type="text" class="form-control" id="SearchEndDate" name="EndDate" maxlength="10">
+                                    <span class="input-group-addon" style="cursor:pointer" id="dtEndDate"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="input-group" style="width:600px">
+                                <input class="form-control" type="text" id="SearchText" name="SearchText" maxlength="100">
+                                <span class="input-group-btn"><button type="button" class="btn btn-default" id="btnSearch">검색</button></span>
+                                <input type="hidden" name="Page"                 id="Page"                  value="1" />
+                                <input type="hidden" name="PageSize"             id="PageSize"              value="30" />
+                                <input type="hidden" name="totalDataCount"       id="totalDataCount"        value="0" />
+                                <input type="hidden" name="currentIndex"         id="currentIndex"          value="1" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            </div>
+            <!-- //Global Search -->
+            <!-- Table Top -->
+            <div class="box-top-table inform">
+                <div class="inner-right">
+                    <p>총 <sapn id="totalCount">0</sapn>명 / 기자페이지 <sapn id="ingCount">0</sapn>명 사용중</p>
+                </div>
+            </div>
+            <!-- //Table Top -->
+            <div class="bbs-list1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>기자명</th>
+                            <th>부서</th>
+                            <th>기사수</th>
+                            <th>추천</th>
+                            <th>구독수</th>
+                            <th>조회수</th>
+                            <th>기사작성기(ID)</th>
+                            <th>회원(ID)</th>
+                            <th>소속</th>
+                            <th>기자에게 한마디 사용여부</th>
+                            <th>기자 노출여부</th>
+                            <th>바이라인 부서</th>
+                            <th>바이라인 이름</th>
+                            <th>바이라인 직책</th>
+                            <th>그룹(ID)</th>
+                            <th>저장</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyList"></tbody>
+                </table>
+            </div>
+            <!-- Pagenate -->
+            <div class="box-paginate" id="divPaging" ></div>
+            <!-- //Pagenate -->
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,51 @@
+﻿@using Wow.Tv.Middle.Model.Db49.wowtv
+
+@model IList<tblTradingStarCategory>
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+}
+
+@section scripts{
+    <script src="@wowTvScript/TradingStar/User/Index.js"></script>
+
+    @*<script>
+            var totalDataCount = "@ViewBag.TotalDataCount";
+            var currentIndex = "@ViewBag.currentIndex";
+            var viewYN = "@ViewBag.Condition.VIEW_YN";
+            var searchType = "@ViewBag.Condition.SearchType";
+        </script*@>
+}
+
+@section modalDiv{
+    <div id="divEdit" class="modal fade" role="dialog"></div>
+}
+
+
+@using (Html.BeginForm("Index", "Trade", FormMethod.Post, new { id = "frmMove" }))
+{
+    <input type="hidden" id="hidCurrentMenuSeq" name="CurrentMenuSeq" value="@(Request.QueryString["menuSeq"].Length == 0 ? ViewBag.Condition.CurrentMenuSeq : Request.QueryString["menuSeq"])" />
+    <input type="hidden" id="hidTradingCode" name="TradingCode" value="@ViewBag.Condition.TradingCode" />
+    <input type="hidden" id="hidRegseq" name="Regseq" value="" />
+}
+<div class="wrap">
+    <!-- BBS List -->
+    <div class="bbs-list1" id="divList">
+
+    </div>
+
+    <div class="box-button">
+        <div class="inner-right">
+            @if (LoginHandler.IsAuth(ViewBag.CurrentMenuSeq, false, true, false) == true)
+            {
+                <button class="btn btn-success" id="btnAdd">출연자 등록</button>
+            }
+            @if (LoginHandler.IsAuth(ViewBag.Condition.CurrentMenuSeq, false, false, true) == true)
+            {
+                    <button class="btn btn-default" id="btnDelete">삭제하기</button>
+            }
+        </div>
+    </div>
+
+</div>
+<!-- //공고 리스트 -->

@@ -1,0 +1,104 @@
+﻿@using Wow.Tv.Middle.Model.Common
+@using Wow.Tv.Middle.Model.Db49.wowtv
+@using Wow.Tv.Middle.Model.Db49.wowtv.BusinessManage
+
+@model NTB_MENU
+
+@{
+    string wowTvScript = AppState["WowTvScript"].ToString();
+    Layout = null;
+
+    List<NTB_MENU> menuList1 = ViewBag.MenuList1;
+    List<NTB_BOARD> boardList = ViewBag.BoardList;
+    ListModel<BOARD_CONT_MENU> boardContMenu = ViewBag.BoardContMenu;
+}
+
+<script src="@wowTvScript/MyBroadProgram/MenuManage/Edit.js"></script>
+
+<form id="frmSave">
+    <input type="hidden" id="hidMenuSeq" name="MENU_SEQ" value="@Model.MENU_SEQ" />
+    <input type="hidden" id="hidFixYn" name="FIX_YN" value="@Model.FIX_YN" />
+    <input type="hidden" id="CHANNEL_CODE" name="CHANNEL_CODE" value="@Model.CHANNEL_CODE" />
+    <input type="hidden" id="hidBoardTypeCode" name="BoardTypeCode" value="@Model.BoardTypeCode" />
+    <table class="table">
+        <colgroup>
+            <col width="200px">
+            <col>
+        </colgroup>
+        <tr>
+            <th><span class="nec">*</span>메뉴레벨</th>
+            <td>
+                <label class="radio-inline"><input type="radio" name="DEPTH" value="1" @(Model.DEPTH == 0 || Model.DEPTH == 1 ? "checked" : "")> 1 Depth</label>
+                <label class="radio-inline"><input type="radio" name="DEPTH" value="2" @(Model.DEPTH == 2 ? "checked" : "")> 2 Depth</label>
+            </td>
+        </tr>
+        <tr>
+            <th>상위메뉴</th>
+            <td>
+                <select class="form-control" id="cboUpMenu" name="UP_MENU_SEQ">
+                    <option value="">선택</option>
+                    @foreach (var item in menuList1)
+                    {
+                        <option value="@item.MENU_SEQ" @(Model.UP_MENU_SEQ == item.MENU_SEQ ? "selected" : "")>@item.MENU_NAME</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><span class="nec">*</span>메뉴명</th>
+            <td><input type="text" class="form-control" id="txtMenuName" name="MENU_NAME" value="@Model.MENU_NAME"></td>
+        </tr>
+        <tr>
+            <th><span class="nec">*</span>게시판 유형</th>
+            <td>
+                <label class="radio-inline"><input type="radio" name="CONTENT_TYPE_CODE" value="Corner" @(Model.CONTENT_TYPE_CODE == "Corner" ? "checked" : "")> 코너 게시판</label>
+                <label class="radio-inline"><input type="radio" name="CONTENT_TYPE_CODE" value="Board" @(String.IsNullOrEmpty(Model.CONTENT_TYPE_CODE) == true || Model.CONTENT_TYPE_CODE == "Board" ? "checked" : "")> 통합 게시판</label>
+                <label class="radio-inline"><input type="radio" name="CONTENT_TYPE_CODE" value="Trade" @(Model.CONTENT_TYPE_CODE == "Trade" ? "checked" : "")> 수익률 게시판</label>
+            </td>
+        </tr>
+        <tr>
+            <th>sccode(생성시 자동부여)</th>
+            <td>
+                <input type="text" class="form-control" readonly id="cboContentSeq3" name="CONTENT_SEQ" value="@(Model.CONTENT_TYPE_CODE == "Corner" ? Model.CONTENT_SEQ.ToString() : "")" >
+            </td>
+        </tr>
+        <tr>
+            <th>통합게시판</th>
+            <td>
+                <select class="form-control" id="cboContentSeq" name="CONTENT_SEQ">
+                    <option value="">선택</option>
+                    @foreach (var item in boardList.Where(a => a.BOARD_TYPE_CODE == "Notice" || a.BOARD_TYPE_CODE == "FeedBack"))
+                    {
+                        <option value="@item.BOARD_SEQ" @(Model.CONTENT_TYPE_CODE != "Corner" && Model.CONTENT_SEQ == item.BOARD_SEQ ? "selected" : "")>@item.BOARD_NAME</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>수익률게시판</th>
+            <td>
+                <select class="form-control" id="cboContentSeq2" name="CONTENT_SEQ">
+                    <option value="">선택</option>
+                    @foreach (var item in boardContMenu.ListData)
+                    {
+                        <option value="@item.BOARD_CONTENT_SEQ" @(Model.CONTENT_TYPE_CODE != "Corner" && Model.CONTENT_SEQ == item.BOARD_CONTENT_SEQ ? "selected" : "")>@item.TITLE</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>메뉴정보</th>
+            <td><textarea cols="30" rows="10" name="REMARK">@Model.REMARK</textarea></td>
+        </tr>
+        <tr>
+            <th><span class="nec">*</span>사용여부</th>
+            <td>
+                <label class="radio-inline"><input type="radio" name="ACTIVE_YN" value="Y" @(String.IsNullOrEmpty(Model.ACTIVE_YN) == true || Model.ACTIVE_YN == "Y" ? "checked" : "")> 사용</label>
+                <label class="radio-inline"><input type="radio" name="ACTIVE_YN" value="N" @(Model.ACTIVE_YN == "N" ? "checked" : "")> 사용안함</label>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
